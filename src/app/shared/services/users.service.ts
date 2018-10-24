@@ -11,22 +11,22 @@ export class UsersService {
   ) {}
 
   getAllUsers() {
-    return this.http.get('http://localhost:3000/users/');
+    return this.http.get('http://localhost:8080/users/');
   }
 
   getTenUsers(page: number) {
-    return this.http.get(`http://localhost:3000/users?_page=${page}`);
+    return this.http.get(`http://localhost:8080/users/page=${page}`);
   }
 
   addUser(user: UsersModel) {
-    return this.http.post('http://localhost:3000/users/', user);
+    return this.http.post('http://localhost:8080/users/', user);
   }
 
   editUser(id: number, user: UsersModel) {
-    return this.http.put(`http://localhost:3000/users/${id}`, user);
+    return this.http.put(`http://localhost:8080/users/${id}`, user);
   }
 
   deleteUser(id: number) {
-    return this.http.delete(`http://localhost:3000/users/${id}`);
+    return this.http.delete(`http://localhost:8080/users/${id}`);
   }
 }

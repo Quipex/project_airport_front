@@ -69,9 +69,7 @@ export class UsersComponent implements OnInit {
     this.users.splice(index, 1);
 
     this.usersService.deleteUser(this.currentUser.id)
-      .subscribe((responce: Response) => {
-        const data = responce.json();
-      });
+      .subscribe((responce: Response) => {});
 
   }
 
