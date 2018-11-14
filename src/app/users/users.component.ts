@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import {Response} from '@angular/http';
 import {UsersModel} from '../shared/models/users.model';
 import {UsersService} from '../shared/services/users.service';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-users',
@@ -23,7 +24,7 @@ export class UsersComponent implements OnInit {
   submitType = 'Save';
   selectedRow: number;
   paging = false;
-  countOfPages: number;
+  countOfPages: number = 0;
   numberOfPage = 0;
 
 
@@ -34,8 +35,7 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.usersService
       .getAllUsers()
-      .subscribe((responce: Response) => {
-        const data = responce.json();
+      .subscribe((data: UsersModel[]) => {
         this.users = data;
         if (data.length > 10) {
           this.paging = true;
@@ -48,8 +48,8 @@ export class UsersComponent implements OnInit {
 
   private getTenUsers(numberOfPage: number, direction: boolean) {
     this.usersService.getTenUsers(numberOfPage)
-      .subscribe((responce: Response) => {
-        this.users = responce.json();
+      .subscribe((data: UsersModel[]) => {
+        this.users = data;
       });
     if (direction) {
       if (this.numberOfPage !== this.countOfPages) {
@@ -69,7 +69,9 @@ export class UsersComponent implements OnInit {
     this.users.splice(index, 1);
 
     this.usersService.deleteUser(this.currentUser.id)
-      .subscribe((responce: Response) => {});
+      .subscribe(() => {
+
+      });
 
   }
 
@@ -110,26 +112,26 @@ export class UsersComponent implements OnInit {
       this.currentUser.firstName = formValue.firstName;
       this.currentUser.lastName = formValue.lastName;
       this.currentUser.email = formValue.email;
-      this.currentUser.country = formValue.country;
+      this.currentUser.password = formValue.password;
+      this.currentUser.phoneNumber = formValue.phoneNumber;
+      this.currentUser.role = formValue.role;
 
       this.showNew = false;
       this.form.reset();
 
       this.usersService.addUser(this.currentUser)
-        .subscribe((responce: Response) => {
-          const data = responce.json();
+        .subscribe((user: UsersModel) => {
+          console.log(this.numberOfPage+ ' ' +this.countOfPages);
           if (this.numberOfPage === this.countOfPages) {
-            this.users.push(data);
+            this.users.push(user);
           }
-      });
+        });
 
     } else {
 
       this.usersService.editUser(this.currentUser.id, this.currentUser)
-        .subscribe((responce: Response) => {
-          const data = responce.json();
-          console.log(data);
-          this.users[this.selectedRow] = data;
+        .subscribe((user: UsersModel) => {
+          this.users[this.selectedRow] = user;
         });
     }
     this.showNew = false;

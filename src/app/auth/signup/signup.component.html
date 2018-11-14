@@ -1,0 +1,116 @@
+<div class="signup-container">
+  <p class="text-xs-center">Sign Up</p>
+  <div
+    class="alert alert-{{message.type}}"
+    *ngIf="message.text"
+  >{{message.text}}</div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div
+      class="form-group"
+      [ngClass]="{'has-error': form.get('firstName').invalid && form.get('firstName').touched}"
+    >
+      <label for="firstName">First Name</label>
+      <input
+        type="text"
+        class="form-control underlined"
+        id="firstName"
+        placeholder="Enter your First Name"
+        formControlName="firstName"
+      >
+      <span
+        class="form-help-text"
+        *ngIf="form.get('firstName').invalid && form.get('firstName').touched"
+      >
+      <span *ngIf="form.get('firstName')['errors']['required']">First Name is required</span><br>
+    </span>
+    </div>
+    <div
+      class="form-group"
+      [ngClass]="{'has-error': form.get('lastName').invalid && form.get('lastName').touched}"
+    >
+      <label for="lastName">Last Name</label>
+      <input
+        type="text"
+        class="form-control underlined"
+        id="lastName"
+        placeholder="Enter your Last Name"
+        formControlName="lastName"
+      >
+      <span
+        class="form-help-text"
+        *ngIf="form.get('lastName').invalid && form.get('lastName').touched"
+      >
+      <span *ngIf="form.get('lastName')['errors']['required']">Last Name is required</span><br>
+    </span>
+    </div>
+    <div
+      class="form-group"
+      [ngClass]="{'has-error': form.get('email').invalid && form.get('email').touched}"
+    >
+      <label for="email">Email</label>
+      <input
+        type="text"
+        class="form-control underlined"
+        id="email"
+        placeholder="Enter your Email"
+        formControlName="email"
+      >
+      <span
+        class="form-help-text"
+        *ngIf="form.get('email').invalid && form.get('email').touched"
+      >
+      <span *ngIf="form.get('email')['errors']['required']">Email is required</span><br>
+        <span *ngIf="form.get('email')['errors']['email']">Enter correct Email</span>
+    </span>
+    </div>
+    <div
+      class="form-group"
+      [ngClass]="{'has-error': form.get('password').invalid && form.get('password').touched}"
+    >
+      <label for="password">Password</label>
+      <input
+        type="password"
+        class="form-control underlined"
+        id="password"
+        placeholder="Enter your Password"
+        formControlName="password"
+      >
+      <span
+        class="form-help-text"
+        *ngIf="form.get('password').invalid && form.get('password').touched"
+      >
+      <span *ngIf="form.get('password')['errors']['required']">Password is required</span>
+    </span>
+    </div>
+    <div
+      class="form-group"
+      [ngClass]="{'has-error': form.get('phone').invalid && form.get('phone').touched}"
+    >
+      <label for="phone">Phone number</label>
+      <input
+        type="phone"
+        class="form-control underlined"
+        id="phone"
+        placeholder="Enter your Phone number"
+        formControlName="phone"
+      >
+      <span
+        class="form-help-text"
+        *ngIf="form.get('phone').invalid && form.get('phone').touched"
+      >
+      <span *ngIf="form.get('phone')['errors']['required']">Phone number is required</span>
+        <span *ngIf="form.get('phone')['errors']['pattern']">Phone number is wrong</span>
+        <span *ngIf="form.get('phone')['errors']['minLength']">Phone number is too short</span>
+    </span>
+    </div>
+    <div class="form-group">
+      <button
+        type="submit"
+        class="btn btn-block btn-primary"
+        [disabled]="form.invalid"
+      >Sign Up</button>
+    </div>
+  </form>
+
+</div>
+

@@ -19,22 +19,36 @@
         <div class="form-group row">
           <label class="col-2 col-form-label">Last Name</label>
           <div class="col-10">
-            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.lastName" name="lastName">
-            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="lastName">
+            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.lastName" name="lastName" >
+            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="lastName" >
           </div>
         </div>
         <div class="form-group row">
           <label class="col-2 col-form-label">Email</label>
           <div class="col-10">
-            <input *ngIf="editMode" class="form-control" type="email" [(ngModel)]="currentUser.email" name="email">
-            <input *ngIf="!editMode" class="form-control" type="email" ngModel name="email">
+            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.email" name="email" >
+            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="email" >
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-2 col-form-label">Country</label>
+          <label class="col-2 col-form-label">Password</label>
           <div class="col-10">
-            <input *ngIf="editMode" class="form-control" type="country" [(ngModel)]="currentUser.country" name="country">
-            <input *ngIf="!editMode" class="form-control" type="country" ngModel name="country">
+            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.password" name="password">
+            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="password">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label">Phone number</label>
+          <div class="col-10">
+            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.phoneNumber" name="phoneNumber">
+            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="phoneNumber">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label">Role</label>
+          <div class="col-10">
+            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.role" name="role">
+            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="role">
           </div>
         </div>
         <button type="submit" class="btn btn-success">{{submitType}}</button>
@@ -50,7 +64,9 @@
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
-        <th>Country</th>
+        <th>Password</th>
+        <th>Phone number</th>
+        <th>Role</th>
         <th></th>
         <th></th>
       </tr>
@@ -63,7 +79,9 @@
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
         <td>{{ user.email }}</td>
-        <td>{{ user.country }}</td>
+        <td>{{ user.password }}</td>
+        <td>{{ user.phoneNumber }}</td>
+        <td>{{ user.role }}</td>
         <td>
           <button type="button" class="btn btn-info" (click)="onEdit(i)">Edit</button>
         </td>
