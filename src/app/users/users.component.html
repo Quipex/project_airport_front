@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div class="container table-container">
   <div class="reglist">
 
@@ -12,15 +13,15 @@
         <div class="form-group row">
           <label class="col-2 col-form-label">First Name</label>
           <div class="col-10">
-            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.firstName" name="firstName" >
-            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="firstName" >
+            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.firstname" name="firstname" >
+            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="firstname" >
           </div>
         </div>
         <div class="form-group row">
           <label class="col-2 col-form-label">Last Name</label>
           <div class="col-10">
-            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.lastName" name="lastName" >
-            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="lastName" >
+            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.lastname" name="lastname" >
+            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="lastname" >
           </div>
         </div>
         <div class="form-group row">
@@ -40,17 +41,17 @@
         <div class="form-group row">
           <label class="col-2 col-form-label">Phone number</label>
           <div class="col-10">
-            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.phoneNumber" name="phoneNumber">
-            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="phoneNumber">
+            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.phonenumber" name="phonenumber">
+            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="phonenumber">
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label">Role</label>
-          <div class="col-10">
-            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.role" name="role">
-            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="role">
-          </div>
-        </div>
+        <!--<div class="form-group row">-->
+          <!--<label class="col-2 col-form-label">Role</label>-->
+          <!--<div class="col-10">-->
+            <!--<input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.role" name="role">-->
+            <!--<input *ngIf="!editMode" class="form-control" type="text" ngModel name="role">-->
+          <!--</div>-->
+        <!--</div>-->
         <button type="submit" class="btn btn-success">{{submitType}}</button>
         <button class="btn btn-primary" (click)="onCancel(form)">Cancel</button>
       </form>
@@ -66,7 +67,7 @@
         <th>Email</th>
         <th>Password</th>
         <th>Phone number</th>
-        <th>Role</th>
+        <!--<th>Role</th>-->
         <th></th>
         <th></th>
       </tr>
@@ -76,12 +77,12 @@
 
       <tr *ngFor="let user of users; let i = index">
         <th scope="row">{{ user.id }}</th>
-        <td>{{ user.firstName }}</td>
-        <td>{{ user.lastName }}</td>
+        <td>{{ user.firstname }}</td>
+        <td>{{ user.lastname }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.password }}</td>
-        <td>{{ user.phoneNumber }}</td>
-        <td>{{ user.role }}</td>
+        <td>{{ user.phonenumber }}</td>
+        <!--<td>{{ user.role }}</td>-->
         <td>
           <button type="button" class="btn btn-info" (click)="onEdit(i)">Edit</button>
         </td>

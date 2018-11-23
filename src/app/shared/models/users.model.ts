@@ -1,11 +1,14 @@
+import {AuthorityModel} from './authority.model';
+
 export class UsersModel {
   constructor(
-    public firstName?: string,
-    public lastName?: string,
+    public firstname?: string,
+    public lastname?: string,
     public email?: string,
     public password?: string,
-    public phoneNumber?: string,
-    public role?: string,
+    public phonenumber?: string,
+    public authorities?: AuthorityModel[],
+    public enabled?: string,
     public id?: number
   ) {}
 

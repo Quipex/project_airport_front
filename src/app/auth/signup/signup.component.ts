@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Message} from '../../shared/models/message.module';
+import {Message} from '../../shared/models/message.model';
 import {Router} from '@angular/router';
 import {UsersService} from '../../shared/services/users.service';
 import {UsersModel} from '../../shared/models/users.model';
+import {AuthorityModel} from '../../shared/models/authority.model';
 
 @Component({
   selector: 'app-signup',
@@ -22,13 +23,20 @@ export class SignupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const user: UsersModel = JSON.parse(window.localStorage.getItem('currentUser'));
+    console.log(user);
+    if (user !== null && user.email === 'admin@admin.com') {
+      this.router.navigate(['/users']);
+    } else if (user !== null && user.email !== 'admin@admin.com') {
+      this.router.navigate(['/home']);
+    }
     this.message = new Message('danger', '');
     this.form = new FormGroup({
-      'firstName': new FormControl(null, [Validators.required]),
-      'lastName': new FormControl(null, [Validators.required]),
+      'firstname': new FormControl(null, [Validators.required]),
+      'lastname': new FormControl(null, [Validators.required]),
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null, [Validators.required]),
-      'phone': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$'),
+      'phonenumber': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$'),
         Validators.minLength(8)]),
     });
   }
@@ -41,16 +49,20 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('submit')
     const formData = this.form.value;
 
-    const newUser: UsersModel = new UsersModel(formData.firstName, formData.lastName,
-      formData.email, formData.password, formData.phone, 'user');
+    const authoritiesArray: AuthorityModel[] = [];
+    const authority: AuthorityModel = new AuthorityModel('ROLE_USER', 1);
+    authoritiesArray.push(authority);
+    const newUser: UsersModel = new UsersModel(formData.firstname, formData.lastname,
+      formData.email, formData.password, formData.phonenumber, authoritiesArray, 'true');
     console.log(newUser);
-    this.usersService.addUser(newUser)
+    this.usersService.registrateNewUser(newUser)
       .subscribe((user: UsersModel) => {
         console.log(user);
 
-          this.router.navigate(['/']);
+          this.router.navigate(['/login']);
 
       });
     // this.authenticationService.login(formData.login, formData.password)

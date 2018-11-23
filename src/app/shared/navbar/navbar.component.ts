@@ -19,12 +19,12 @@ export class NavbarComponent implements OnInit {
     private router: Router
   ) {
     this.authenticationService.configObservable.subscribe(value => {
-      this.user = JSON.parse(window.sessionStorage.getItem('currentUser'));
+      this.user = JSON.parse(window.localStorage.getItem('currentUser'));
     });
   }
 
   ngOnInit() {
-    this.user = JSON.parse(window.sessionStorage.getItem('currentUser'));
+    this.user = JSON.parse(window.localStorage.getItem('currentUser'));
   }
 
 

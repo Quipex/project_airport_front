@@ -1,55 +1,52 @@
 <div class="login-container">
-  <p class="text-xs-center">Login</p>
-  <div
-    class="alert alert-{{message.type}}"
-    *ngIf="message.text"
-  >{{message.text}}</div>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div
-      class="form-group"
-      [ngClass]="{'has-error': form.get('email').invalid && form.get('email').touched}"
-    >
-      <label for="email">Email</label>
-      <input
-        type="text"
-        class="form-control underlined"
-        id="email"
-        placeholder="Enter your Email"
-        formControlName="email"
+  <section class="login" id="login" [ngClass]="{'error_1': message === true}">
+    <header>
+      <h2>Airport</h2>
+      <h4>Login</h4>
+    </header>
+    <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div
+        class="form-group"
+        [ngClass]="{'has-error': form.get('email').invalid && form.get('email').touched}"
       >
-      <span
-        class="form-help-text"
-        *ngIf="form.get('email').invalid && form.get('email').touched"
-      >
+        <label for="email">Email</label>
+        <input
+          type="text"
+          class="form-control underlined"
+          id="email"
+          placeholder="Enter your Email"
+          formControlName="email"
+        >
+        <span
+          class="form-help-text"
+          *ngIf="form.get('email').invalid && form.get('email').touched"
+        >
       <span *ngIf="form.get('email')['errors']['required']">Email is required</span><br>
     </span>
-    </div>
-    <div
-      class="form-group"
-      [ngClass]="{'has-error': form.get('password').invalid && form.get('password').touched}"
-    >
-      <label for="password">Password</label>
-      <input
-        type="password"
-        class="form-control underlined"
-        id="password"
-        placeholder="Enter your Password"
-        formControlName="password"
+      </div>
+      <div
+        class="form-group"
+        [ngClass]="{'has-error': form.get('password').invalid && form.get('password').touched}"
       >
-      <span
-        class="form-help-text"
-        *ngIf="form.get('password').invalid && form.get('password').touched"
-      >
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control underlined"
+          id="password"
+          placeholder="Enter your Password"
+          formControlName="password"
+        >
+        <span
+          class="form-help-text"
+          *ngIf="form.get('password').invalid && form.get('password').touched"
+        >
       <span *ngIf="form.get('password')['errors']['required']">Password is required</span>
     </span>
-    </div>
-    <div class="form-group">
-      <button
-        type="submit"
-        class="btn btn-block btn-primary"
-        [disabled]="form.invalid"
-      >Login</button>
-    </div>
-  </form>
-
+      </div>
+      <div class="submit-container">
+        <button type="submit" class="login-button">Login</button>
+        <button type="submit" class="login-button" routerLink="/signup">Register</button>
+      </div>
+    </form>
+  </section>
 </div>

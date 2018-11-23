@@ -4,6 +4,8 @@ import {Response} from '@angular/http';
 import {UsersModel} from '../shared/models/users.model';
 import {UsersService} from '../shared/services/users.service';
 import {map} from 'rxjs/operators';
+import {Router} from '@angular/router';
+import {AuthorityModel} from '../shared/models/authority.model';
 
 @Component({
   selector: 'app-users',
@@ -30,9 +32,16 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private usersService: UsersService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    const user: UsersModel = JSON.parse(window.localStorage.getItem('currentUser'));
+    if (user !== null && user.email === 'admin@admin.com') {
+      this.router.navigate(['/users']);
+    } else if (user !== null && user.email !== 'admin@admin.com') {
+      this.router.navigate(['/home']);
+    }
     this.usersService
       .getAllUsers()
       .subscribe((data: UsersModel[]) => {
@@ -107,14 +116,18 @@ export class UsersComponent implements OnInit {
 
     if (this.submitType === 'Save') {
 
+      const authoritiesArray: AuthorityModel[] = [];
+      const authority: AuthorityModel = new AuthorityModel('ROLE_USER', 1);
+      authoritiesArray.push(authority);
       let formObject = JSON.stringify(this.form.value);
       let formValue = JSON.parse(formObject);
-      this.currentUser.firstName = formValue.firstName;
-      this.currentUser.lastName = formValue.lastName;
+      this.currentUser.firstname = formValue.firstname;
+      this.currentUser.lastname = formValue.lastname;
       this.currentUser.email = formValue.email;
       this.currentUser.password = formValue.password;
-      this.currentUser.phoneNumber = formValue.phoneNumber;
-      this.currentUser.role = formValue.role;
+      this.currentUser.phonenumber = formValue.phonenumber;
+      this.currentUser.authorities = authoritiesArray;
+      this.currentUser.enabled = 'true';
 
       this.showNew = false;
       this.form.reset();
@@ -129,6 +142,11 @@ export class UsersComponent implements OnInit {
 
     } else {
 
+      const authoritiesArray: AuthorityModel[] = [];
+      const authority: AuthorityModel = new AuthorityModel('ROLE_USER', 1);
+      authoritiesArray.push(authority);
+      this.currentUser.authorities = authoritiesArray;
+      this.currentUser.enabled = 'true';
       this.usersService.editUser(this.currentUser.id, this.currentUser)
         .subscribe((user: UsersModel) => {
           this.users[this.selectedRow] = user;
