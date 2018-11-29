@@ -7,7 +7,7 @@ export class UsersModel {
     public email?: string,
     public password?: string,
     public phonenumber?: string,
-    public authorities?: AuthorityModel[],
+    public authority?: AuthorityModel,
     public enabled?: string,
     public id?: number
   ) {}

@@ -7,12 +7,14 @@ import {UsersModel} from '../../shared/models/users.model';
 import {AuthenticationService} from '../../shared/services/authentication.service';
 import {NavbarComponent} from '../../shared/navbar/navbar.component';
 import {AuthResponceModel} from '../../shared/models/authResponce.model';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {TokenResponceModel} from '../../shared/models/tokenResponce.model';
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
   providers: [AuthenticationService, NavbarComponent]
 })
 export class LoginComponent implements OnInit {
@@ -49,37 +51,21 @@ export class LoginComponent implements OnInit {
     this.message = false;
     const formData = this.form.value;
 
-
-
-    //let data = new AuthResponceModel().fromJSON();
-
     this.authenticationService.login(formData.email, formData.password).subscribe(
-      (data: AuthResponceModel) => {
-        localStorage.setItem('currentUser', JSON.stringify({ email: formData.email, token: data.token }));
-        if (formData.email === 'admin@admin.com') {
+      (data: TokenResponceModel) => {
+        const helper = new JwtHelperService();
+        const decodedToken = helper.decodeToken(data.token);
+        const authResponce: AuthResponceModel = new AuthResponceModel(decodedToken.sub, decodedToken.user_role, data.token);
+        localStorage.setItem('currentUser', JSON.stringify(authResponce));
+        if (authResponce.authority === 'ROLE_ADMIN') {
           this.router.navigate(['/users']);
         } else {
           this.router.navigate(['/home']);
         }
       },
-
       error => {
         this.message = true;
       });
-
-      // .subscribe(result => {
-      //
-      //   if (result === true) {
-      //     // login successful
-      //     this.router.navigate(['/users']);
-      //   } else {
-      //     // login failed
-      //     console.log('lol');
-      //     this.showMessage('Username or password is incorrect');
-      //   }
-      // }, error => {
-      //   this.showMessage(error);
-      // });
   }
 
 }

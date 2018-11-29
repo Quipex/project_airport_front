@@ -9,7 +9,7 @@ import {AuthorityModel} from '../../shared/models/authority.model';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css'],
+  styleUrls: ['./signup.component.scss'],
   providers: [UsersService]
 })
 export class SignupComponent implements OnInit {
@@ -52,17 +52,15 @@ export class SignupComponent implements OnInit {
     console.log('submit')
     const formData = this.form.value;
 
-    const authoritiesArray: AuthorityModel[] = [];
-    const authority: AuthorityModel = new AuthorityModel('ROLE_USER', 1);
-    authoritiesArray.push(authority);
+    const authority: AuthorityModel = new AuthorityModel('ROLE_USER', 2);
     const newUser: UsersModel = new UsersModel(formData.firstname, formData.lastname,
-      formData.email, formData.password, formData.phonenumber, authoritiesArray, 'true');
+      formData.email, formData.password, formData.phonenumber, authority, 'true');
     console.log(newUser);
     this.usersService.registrateNewUser(newUser)
       .subscribe((user: UsersModel) => {
         console.log(user);
 
-          this.router.navigate(['/login']);
+        this.router.navigate(['/login']);
 
       });
     // this.authenticationService.login(formData.login, formData.password)

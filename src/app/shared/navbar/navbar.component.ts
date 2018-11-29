@@ -6,7 +6,7 @@ import {AuthenticationService} from '../services/authentication.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
+  styleUrls: ['./navbar.component.scss'],
   providers: [AuthenticationService]
 })
 export class NavbarComponent implements OnInit {
@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit {
   onLogout() {
     this.user = null;
     this.authenticationService.logout();
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 
 }

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {UsersModel} from '../models/users.model';
-import { map } from 'rxjs/operators';
-import { catchError } from 'rxjs/operators';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import {Observable, Subject} from 'rxjs';
 import {AuthResponceModel} from '../models/authResponce.model';
 

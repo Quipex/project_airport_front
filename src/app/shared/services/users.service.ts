@@ -28,6 +28,10 @@ export class UsersService {
     return this.http.get(`http://localhost:8080/users/page=${page}`, this.httpOptions);
   }
 
+  getTenUsersWithSearch(search: any, page: number) {
+    return this.http.post(`http://localhost:8080/users/search/page=${page}`, search, this.httpOptions);
+  }
+
   addUser(user: UsersModel) {
     return this.http.post('http://localhost:8080/users', user, this.httpOptions);
   }
