@@ -1,29 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
-import { UsersComponent } from './users/users.component';
-import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import {AppRoutingModule} from './app-routing.module';
-import { AuthComponent } from './auth/auth.component';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import { LoginComponent } from './auth/login/login.component';
-import { HttpClientModule } from '@angular/common/http';
 import { SignupComponent } from './auth/signup/signup.component';
+import { HomeComponent } from './home/home.component';
+import { UsersComponent } from './users/users.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AppRoutingModule} from './app-routing.module';
 import {UsersService} from './shared/services/users.service';
 import {AuthenticationService} from './shared/services/authentication.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UsersComponent,
-    HomeComponent,
-    NavbarComponent,
-    AuthComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    HomeComponent,
+    UsersComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -31,8 +29,9 @@ import {AuthenticationService} from './shared/services/authentication.service';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-
+    MDBBootstrapModule.forRoot(),
   ],
+  schemas: [ NO_ERRORS_SCHEMA ],
   providers: [UsersService, AuthenticationService],
   bootstrap: [AppComponent]
 })
