@@ -20,8 +20,8 @@ export class UsersService {
     private authenticationService: AuthenticationService
   ) {}
 
-  getAllUsers() {
-    return this.http.get('http://localhost:8080/users', this.httpOptions);
+  getCountOfUsers() {
+    return this.http.get('http://localhost:8080/users/count', this.httpOptions);
   }
 
   getTenUsers(page: number) {

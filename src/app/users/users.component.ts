@@ -5,6 +5,7 @@ import {UsersService} from '../shared/services/users.service';
 import {Router} from '@angular/router';
 import {AuthorityModel} from '../shared/models/authority.model';
 import {and} from '@angular/router/src/utils/collection';
+import {UserFilteringWrapperModel} from '../shared/models/userFilteringWrapper.model';
 
 @Component({
   selector: 'app-users',
@@ -43,18 +44,17 @@ export class UsersComponent implements OnInit {
     const user: UsersModel = JSON.parse(window.localStorage.getItem('currentUser'));
     if (user !== null && user.authority === 'ROLE_ADMIN') {
       this.router.navigate(['/users']);
-    } else if (user !== null && user.email !== 'admin@admin.com') {
+    } else if (user !== null && user.authority !== 'ROLE_ADMIN') {
       this.router.navigate(['/home']);
     }
     this.usersService
-      .getAllUsers()
-      .subscribe((data: UsersModel[]) => {
-        this.users = data;
-        if (data.length > 10) {
+      .getCountOfUsers()
+      .subscribe((data: number) => {
+        if (data > 10) {
           this.paging = true;
-          this.countOfPages = Math.ceil(data.length/10);
-          this.getTenUsers(1, true);
+          this.countOfPages = Math.ceil(data/10);
         }
+        this.getTenUsers(1, true);
       });
 
   }
@@ -73,7 +73,6 @@ export class UsersComponent implements OnInit {
         this.numberOfPage--;
       }
     }
-
   }
 
   onDelete(index: number) {
@@ -85,7 +84,6 @@ export class UsersComponent implements OnInit {
       .subscribe(() => {
 
       });
-
   }
 
   onEdit(index: number) {
@@ -215,9 +213,14 @@ export class UsersComponent implements OnInit {
       ];
     }
     this.usersService.getTenUsersWithSearch(searchArray, 1)
-      .subscribe((data: UsersModel[]) => {
-        this.users = data;
-        console.log(data);
+      .subscribe((data: UserFilteringWrapperModel) => {
+        this.users = data.users;
+        if (data.countOfPages > 1) {
+          this.paging = true;
+          this.countOfPages = data.countOfPages;
+        } else {
+          this.paging = false;
+        }
       });
 
   }
