@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {UsersModel} from '../shared/models/users.model';
 import {UsersService} from '../shared/services/users.service';
 import {Router} from '@angular/router';
@@ -17,7 +17,7 @@ import {UserFilteringWrapperModel} from '../shared/models/userFilteringWrapper.m
 })
 export class UsersComponent implements OnInit {
 
-  @ViewChild('form') form: NgForm;
+  form: FormGroup;
 
   users: UsersModel[] = [];
   currentUser: UsersModel;
@@ -37,7 +37,8 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private usersService: UsersService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +57,14 @@ export class UsersComponent implements OnInit {
         }
         this.getTenUsers(1, true);
       });
+
+    this.form = this.fb.group({
+      'firstname': [null, [Validators.required]],
+      'lastname': [null, [Validators.required]],
+      'email': [null, [Validators.required, Validators.email]],
+      'password': [null, [Validators.required]],
+      'phonenumber': [null, [Validators.required]]
+    });
 
   }
 
@@ -87,9 +96,7 @@ export class UsersComponent implements OnInit {
   }
 
   onEdit(index: number) {
-    console.log(index)
     this.selectedRow = index;
-    console.log(this.users[this.selectedRow].id)
 
     this.currentUser = Object.assign({}, this.users[this.selectedRow]);
 
@@ -98,6 +105,13 @@ export class UsersComponent implements OnInit {
     this.editMode = true;
 
     this.showNew = true;
+
+    this.form = this.fb.group({
+      'firstname': [null, [Validators.required]],
+      'lastname': [null, [Validators.required]],
+      'email': [null, [Validators.required, Validators.email]],
+      'phonenumber': [null, [Validators.required]]
+    });
 
 
   }
@@ -112,9 +126,18 @@ export class UsersComponent implements OnInit {
 
     this.editMode = false;
 
+    this.form = this.fb.group({
+      'firstname': [null, [Validators.required]],
+      'lastname': [null, [Validators.required]],
+      'email': [null, [Validators.required, Validators.email]],
+      'password': [null, [Validators.required]],
+      'phonenumber': [null, [Validators.required]]
+    });
+
   }
 
   onSave() {
+    console.log(this.form.value);
 
     if (this.submitType === 'Save') {
 

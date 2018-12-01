@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="text-left">
-          <button type="submit" class="btn btn-primary" (click)="onNew()">New</button>
+          <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show(); onNew()" mdbWavesEffect>New</button>
         </div>
       </div>
       <div class="col-md-6">
@@ -15,54 +15,62 @@
       </div>
     </div>
 
-    <div *ngIf="showNew">
-      <form (ngSubmit)="onSave(form)" #form="ngForm">
-        <div class="form-group row">
-          <label class="col-2 col-form-label">First Name</label>
-          <div class="col-10">
-            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.firstname" name="firstname" >
-            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="firstname" >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label">Last Name</label>
-          <div class="col-10">
-            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.lastname" name="lastname" >
-            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="lastname" >
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label">Email</label>
-          <div class="col-10">
-            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.email" name="email" >
-            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="email" >
-          </div>
-        </div>
-        <div class="form-group row">
-        <label class="col-2 col-form-label">Password</label>
-        <div class="col-10">
-        <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.password" name="password">
-        <input *ngIf="!editMode" class="form-control" type="text" ngModel name="password">
-        </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label">Phone number</label>
-          <div class="col-10">
-            <input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.phonenumber" name="phonenumber">
-            <input *ngIf="!editMode" class="form-control" type="text" ngModel name="phonenumber">
-          </div>
-        </div>
-        <!--<div class="form-group row">-->
-        <!--<label class="col-2 col-form-label">Role</label>-->
-        <!--<div class="col-10">-->
-        <!--<input *ngIf="editMode" class="form-control" type="text" [(ngModel)]="currentUser.role" name="role">-->
-        <!--<input *ngIf="!editMode" class="form-control" type="text" ngModel name="role">-->
-        <!--</div>-->
-        <!--</div>-->
-        <button type="submit" class="btn btn-success">{{submitType}}</button>
-        <button class="btn btn-primary" (click)="onCancel(form)">Cancel</button>
-      </form>
 
+    <!--<button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show()" mdbWavesEffect>Launch demo modal</button>-->
+
+    <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+              <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title w-100" id="myModalLabel">Add new user</h4>
+          </div>
+          <form (ngSubmit)="onSave(form)" [formGroup]="form">
+          <div class="modal-body mx-3">
+            <!--First Name-->
+            <div class="md-form mb-5">
+              <input *ngIf="editMode" data-error="Required field" data-success="" class="form-control" type="text" [(ngModel)]="currentUser.firstname" formControlName="firstname" id="editFirstname" mdbInputDirective>
+              <label *ngIf="editMode"  for="editFirstname">First Name</label>
+              <input *ngIf="!editMode" data-error="Required field" data-success="" class="form-control" type="text" ngModel formControlName="firstname" id="saveFirstname" mdbInputDirective>
+              <label *ngIf="!editMode" for="saveFirstname">First Name</label>
+            </div>
+            <!--Last Name-->
+            <div class="md-form mb-5">
+              <input *ngIf="editMode" data-error="Required field" data-success="" class="form-control" type="text" [(ngModel)]="currentUser.lastname" formControlName="lastname" id="editLastname" mdbInputDirective>
+              <label *ngIf="editMode" for="editLastname">Last Name</label>
+              <input *ngIf="!editMode" data-error="Required field" data-success="" class="form-control" type="text" ngModel formControlName="lastname" id="saveLastname" mdbInputDirective>
+              <label *ngIf="!editMode" for="saveLastname">Last Name</label>
+            </div>
+            <!--Email-->
+            <div class="md-form mb-5">
+              <input *ngIf="editMode" data-error="Required field" data-success="" class="form-control" type="email" [(ngModel)]="currentUser.email" formControlName="email" id="editEmail" mdbInputDirective>
+              <label *ngIf="editMode" for="editEmail">Your email</label>
+              <input *ngIf="!editMode" data-error="Required field" data-success="" class="form-control" type="email" ngModel formControlName="email" id="saveEmail" mdbInputDirective>
+              <label *ngIf="!editMode" for="saveEmail">Your email</label>
+            </div>
+            <!--Password>-->
+            <div class="md-form mb-5" *ngIf="!editMode">
+              <input type="password" ngModel data-error="Required field" data-success="" class="form-control validate" formControlName="password" id="password" mdbInputDirective>
+              <label for="password">Password</label>
+            </div>
+            <!--Phonenumber-->
+            <div class="md-form mb-5">
+              <input *ngIf="editMode" data-error="Required field" data-success="" class="form-control" type="text" [(ngModel)]="currentUser.phonenumber" formControlName="phonenumber" id="editPhonenumber" mdbInputDirective>
+              <label *ngIf="editMode" for="editPhonenumber">Phonenumber</label>
+              <input *ngIf="!editMode" data-error="Required field" data-success="" class="form-control" type="text" ngModel formControlName="phonenumber" id="savePhonenumber" mdbInputDirective>
+              <label *ngIf="!editMode" for="savePhonenumber">Phonenumber</label>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Cancel" (click)="onCancel(form); basicModal.hide()" mdbWavesEffect>Cancel</button>
+            <button type="submit" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect [disabled]="!form.valid" (click)="basicModal.hide()">{{submitType}}</button>
+          </div>
+        </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -101,7 +109,7 @@
           <td>{{ user.phonenumber }}</td>
           <!--<td>{{ user.role }}</td>-->
           <td>
-            <button type="button" class="btn btn-info" (click)="onEdit(i)">Edit</button>
+            <button type="button" class="btn btn-info" (click)="basicModal.show();onEdit(i)">Edit</button>
           </td>
           <td>
 
