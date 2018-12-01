@@ -33,7 +33,7 @@ export class UsersComponent implements OnInit {
     {title: 'Spec users', checked: false},
   ];
   searchValue: string;
-
+  deleteid = 0;
 
   constructor(
     private usersService: UsersService,

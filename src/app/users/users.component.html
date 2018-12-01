@@ -113,9 +113,28 @@
           </td>
           <td>
 
-            <button type="button" class="btn btn-danger" (click)="onDelete(i)">Delete</button>
+            <button type="button" class="btn btn-danger" (click)="removeConfirmModal.show(); deleteid = i;">Delete</button>
 
           </td>
+          <div mdbModal #removeConfirmModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="removeConfirmModal.hide()">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                  <h4 class="modal-title w-100" id="removeConfirmModal">Warning message</h4>
+                </div>
+                <div class="modal-body">
+                  <p>Are you sure you want to delete this item?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Cancel" (click)="removeConfirmModal.hide(); deleteid=0;" mdbWavesEffect>Cancel</button>
+                  <button type="button" mdbBtn color="danger" class="relative waves-light" (click)="onDelete(deleteid); deleteid=0;" mdbWavesEffect>Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </tr>
 
@@ -133,6 +152,8 @@
     </div>
     <br>
   </div>
+
+
   <div class="container">
     <nav aria-label="Page navigation example" *ngIf="paging">
       <ul class="pagination justify-content-end">
