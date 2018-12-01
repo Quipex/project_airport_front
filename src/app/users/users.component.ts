@@ -33,7 +33,8 @@ export class UsersComponent implements OnInit {
     {title: 'Spec users', checked: false},
   ];
   searchValue: string;
-  deleteid = 0;
+  deleteId = 0;
+  orderOfSort = true;
 
   constructor(
     private usersService: UsersService,
@@ -245,7 +246,14 @@ export class UsersComponent implements OnInit {
           this.paging = false;
         }
       });
+  }
 
+  sortBy(field: string, order: boolean) {
+    this.usersService.sortUsersBy(field, order)
+      .subscribe((data: UsersModel[]) => {
+        this.users = data;
+        this.orderOfSort = !this.orderOfSort;
+      });
   }
 
 }

@@ -47,4 +47,12 @@ export class UsersService {
   deleteUser(id: number) {
     return this.http.delete(`http://localhost:8080/users/${id}`, this.httpOptions);
   }
+
+  sortUsersBy(field: string, order: boolean) {
+    if (order) {
+      return this.http.get(`http://localhost:8080/users/sortAscBy=${field}`, this.httpOptions);
+    } else if (!order) {
+      return this.http.get(`http://localhost:8080/users/sortDescBy=${field}`, this.httpOptions);
+    }
+  }
 }
