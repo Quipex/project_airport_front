@@ -13,6 +13,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {UsersService} from './shared/services/users.service';
 import {AuthenticationService} from './shared/services/authentication.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -30,6 +33,8 @@ import {AuthenticationService} from './shared/services/authentication.service';
     ReactiveFormsModule,
     HttpClientModule,
     MDBBootstrapModule.forRoot(),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [UsersService, AuthenticationService],

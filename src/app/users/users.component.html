@@ -45,9 +45,9 @@
             </div>
             <!--Email-->
             <div class="md-form mb-5">
-              <input *ngIf="editMode" data-error="Required field" data-success="" class="form-control" type="email" [(ngModel)]="currentUser.email" formControlName="email" id="editEmail" mdbInputDirective>
+              <input *ngIf="editMode" data-error="Wrong email" data-success="" class="form-control" type="email" [(ngModel)]="currentUser.email" formControlName="email" id="editEmail" mdbInputDirective>
               <label *ngIf="editMode" for="editEmail">Your email</label>
-              <input *ngIf="!editMode" data-error="Required field" data-success="" class="form-control" type="email" ngModel formControlName="email" id="saveEmail" mdbInputDirective>
+              <input *ngIf="!editMode" data-error="Wrong email" data-success="" class="form-control" type="email" ngModel formControlName="email" id="saveEmail" mdbInputDirective>
               <label *ngIf="!editMode" for="saveEmail">Your email</label>
             </div>
             <!--Password>-->

@@ -1,11 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {UsersModel} from '../shared/models/users.model';
 import {UsersService} from '../shared/services/users.service';
 import {Router} from '@angular/router';
 import {AuthorityModel} from '../shared/models/authority.model';
-import {and} from '@angular/router/src/utils/collection';
 import {UserFilteringWrapperModel} from '../shared/models/userFilteringWrapper.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-users',
@@ -39,7 +39,8 @@ export class UsersComponent implements OnInit {
   constructor(
     private usersService: UsersService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -94,6 +95,8 @@ export class UsersComponent implements OnInit {
       .subscribe(() => {
 
       });
+    const message = 'The user has been deleted.';
+    this.showInfo(message);
   }
 
   onEdit(index: number) {
@@ -138,7 +141,6 @@ export class UsersComponent implements OnInit {
   }
 
   onSave() {
-    console.log(this.form.value);
 
     if (this.submitType === 'Save') {
 
@@ -158,11 +160,12 @@ export class UsersComponent implements OnInit {
 
       this.usersService.addUser(this.currentUser)
         .subscribe((user: UsersModel) => {
-          console.log(this.numberOfPage+ ' ' +this.countOfPages);
           if (this.numberOfPage === this.countOfPages) {
             this.users.push(user);
           }
         });
+      const message = 'New user has been added.';
+      this.showInfo(message);
 
     } else {
 
@@ -173,9 +176,10 @@ export class UsersComponent implements OnInit {
         .subscribe((user: UsersModel) => {
           this.users[this.selectedRow] = user;
         });
+      const message = 'The user has been edited.';
+      this.showInfo(message);
     }
     this.showNew = false;
-
   }
 
   onCancel() {
@@ -254,6 +258,10 @@ export class UsersComponent implements OnInit {
         this.users = data;
         this.orderOfSort = !this.orderOfSort;
       });
+  }
+
+  showInfo(message: string) {
+    this.toastr.info(message);
   }
 
 }
