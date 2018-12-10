@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {AuthorityModel} from '../shared/models/authority.model';
 import {UserFilteringWrapperModel} from '../shared/models/userFilteringWrapper.model';
 import {ToastrService} from 'ngx-toastr';
+import {ResponceErrorModel} from '../shared/models/responceError.model';
 
 @Component({
   selector: 'app-users',
@@ -35,6 +36,7 @@ export class UsersComponent implements OnInit {
   searchValue: string;
   deleteId = 0;
   orderOfSort = true;
+  responceError: ResponceErrorModel;
 
   constructor(
     private usersService: UsersService,
@@ -163,9 +165,13 @@ export class UsersComponent implements OnInit {
           if (this.numberOfPage === this.countOfPages) {
             this.users.push(user);
           }
-        });
-      const message = 'New user has been added.';
-      this.showInfo(message);
+            const message = 'New user has been added.';
+            this.showInfo(message);
+          },
+          err => {
+            this.responceError = err;
+            this.showError(this.responceError.error.message);
+          });
 
     } else {
 
@@ -175,9 +181,9 @@ export class UsersComponent implements OnInit {
       this.usersService.editUser(this.currentUser.id, this.currentUser)
         .subscribe((user: UsersModel) => {
           this.users[this.selectedRow] = user;
+          const message = 'The user has been edited.';
+          this.showInfo(message);
         });
-      const message = 'The user has been edited.';
-      this.showInfo(message);
     }
     this.showNew = false;
   }
@@ -262,6 +268,10 @@ export class UsersComponent implements OnInit {
 
   showInfo(message: string) {
     this.toastr.info(message);
+  }
+
+  showError(message: string) {
+    this.toastr.error(message);
   }
 
 }
