@@ -42,7 +42,9 @@ export class AirlinesComponent implements OnInit {
 
   ngOnInit() {
     const user: UsersModel = JSON.parse(window.localStorage.getItem('currentUser'));
-    if (user !== null || user.authority !== 'ROLE_ADMIN') {
+    if (user !== null && user.authority === 'ROLE_ADMIN') {
+      this.router.navigate(['/airlines']);
+    } else if (user !== null && user.authority !== 'ROLE_ADMIN') {
       this.router.navigate(['/home']);
     }
     this.airlinesService

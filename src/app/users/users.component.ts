@@ -3,7 +3,6 @@ import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/
 import {UsersModel} from '../shared/models/users.model';
 import {UsersService} from '../shared/services/users.service';
 import {Router} from '@angular/router';
-import {AuthorityModel} from '../shared/models/authority.model';
 import {UserFilteringWrapperModel} from '../shared/models/userFilteringWrapper.model';
 import {ToastrService} from 'ngx-toastr';
 import {ResponceErrorModel} from '../shared/models/responceError.model';
@@ -145,8 +144,6 @@ export class UsersComponent implements OnInit {
   onSave() {
 
     if (this.submitType === 'Save') {
-
-      const authority: AuthorityModel = new AuthorityModel('ROLE_USER', 2);
       let formObject = JSON.stringify(this.form.value);
       let formValue = JSON.parse(formObject);
       this.currentUser.firstname = formValue.firstname;
@@ -154,7 +151,7 @@ export class UsersComponent implements OnInit {
       this.currentUser.email = formValue.email;
       this.currentUser.password = formValue.password;
       this.currentUser.phonenumber = formValue.phonenumber;
-      this.currentUser.authority = authority;
+      this.currentUser.authority = 'ROLE_USER';
       this.currentUser.enabled = 'true';
 
       this.showNew = false;
@@ -175,8 +172,7 @@ export class UsersComponent implements OnInit {
 
     } else {
 
-      const authority: AuthorityModel = new AuthorityModel('ROLE_USER', 2);
-      this.currentUser.authority = authority;
+      this.currentUser.authority = 'ROLE_USER';
       this.currentUser.enabled = 'true';
       this.usersService.editUser(this.currentUser.id, this.currentUser)
         .subscribe((user: UsersModel) => {

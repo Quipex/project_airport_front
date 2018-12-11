@@ -4,7 +4,6 @@ import {Message} from '../../shared/models/message.model';
 import {Router} from '@angular/router';
 import {UsersService} from '../../shared/services/users.service';
 import {UsersModel} from '../../shared/models/users.model';
-import {AuthorityModel} from '../../shared/models/authority.model';
 
 @Component({
   selector: 'app-signup',
@@ -52,9 +51,8 @@ export class SignupComponent implements OnInit {
     console.log('submit')
     const formData = this.form.value;
 
-    const authority: AuthorityModel = new AuthorityModel('ROLE_USER', 2);
     const newUser: UsersModel = new UsersModel(formData.firstname, formData.lastname,
-      formData.email, formData.password, formData.phonenumber, authority, 'true');
+      formData.email, formData.password, formData.phonenumber, 'ROLE_USER', 'true');
     console.log(newUser);
     this.usersService.registrateNewUser(newUser)
       .subscribe((user: UsersModel) => {

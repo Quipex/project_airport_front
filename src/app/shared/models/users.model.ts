@@ -1,5 +1,3 @@
-import {AuthorityModel} from './authority.model';
-
 export class UsersModel {
   constructor(
     public firstname?: string,
@@ -7,7 +5,7 @@ export class UsersModel {
     public email?: string,
     public password?: string,
     public phonenumber?: string,
-    public authority?: AuthorityModel,
+    public authority?: string,
     public enabled?: string,
     public id?: number
   ) {}
