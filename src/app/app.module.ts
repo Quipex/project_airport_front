@@ -15,6 +15,7 @@ import {UsersService} from './shared/services/users.service';
 import {AuthenticationService} from './shared/services/authentication.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import { AirlinesComponent } from './airlines/airlines.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {ToastrModule} from 'ngx-toastr';
     SignupComponent,
     HomeComponent,
     UsersComponent,
-    NavbarComponent
+    NavbarComponent,
+    AirlinesComponent
   ],
   imports: [
     BrowserModule,
