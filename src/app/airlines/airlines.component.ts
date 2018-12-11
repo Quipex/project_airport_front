@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {ResponceErrorModel} from '../shared/models/responceError.model';
 import {UsersModel} from '../shared/models/users.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UsersService} from '../shared/services/users.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {AirlinesModel} from '../shared/models/airlines.model';
-import {AuthorityModel} from '../shared/models/authority.model';
+import {AirlinesService} from '../shared/services/airlines.service';
 
 @Component({
   selector: 'app-airlines',
@@ -23,7 +22,7 @@ export class AirlinesComponent implements OnInit {
   submitType = 'Save';
   selectedRow: number;
   paging = false;
-  countOfPages: number = 0;
+  countOfPages = 0;
   numberOfPage = 0;
   // filterItems = [
   //   {title: 'Sign-up users', checked: false},
@@ -51,7 +50,7 @@ export class AirlinesComponent implements OnInit {
       .subscribe((data: number) => {
         if (data > 10) {
           this.paging = true;
-          this.countOfPages = Math.ceil(data/10);
+          this.countOfPages = Math.ceil(data / 10);
         }
         this.getTenAirlines(1, true);
       });
@@ -119,8 +118,8 @@ export class AirlinesComponent implements OnInit {
 
   onSave() {
     if (this.submitType === 'Save') {
-      let formObject = JSON.stringify(this.form.value);
-      let formValue = JSON.parse(formObject);
+      const formObject = JSON.stringify(this.form.value);
+      const formValue = JSON.parse(formObject);
       this.currentAirline.name = formValue.name;
       this.currentAirline.descr = formValue.descr;
       this.currentAirline.email = formValue.email;
@@ -157,14 +156,14 @@ export class AirlinesComponent implements OnInit {
     this.showNew = false;
     this.form.reset();
   }
-
-  sortBy(field: string, order: boolean) {
-    this.airlinesService.sortAirlinesBy(field, order)
-      .subscribe((data: AirlinesModel[]) => {
-        this.airlines = data;
-        this.orderOfSort = !this.orderOfSort;
-      });
-  }
+  //
+  // sortBy(field: string, order: boolean) {
+  //   this.airlinesService.sortAirlinesBy(field, order)
+  //     .subscribe((data: AirlinesModel[]) => {
+  //       this.airlines = data;
+  //       this.orderOfSort = !this.orderOfSort;
+  //     });
+  // }
 
   showInfo(message: string) {
     this.toastr.info(message);

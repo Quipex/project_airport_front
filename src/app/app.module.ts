@@ -16,6 +16,7 @@ import {AuthenticationService} from './shared/services/authentication.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import { AirlinesComponent } from './airlines/airlines.component';
+import {AirlinesService} from './shared/services/airlines.service';
 
 
 @NgModule({
@@ -39,7 +40,7 @@ import { AirlinesComponent } from './airlines/airlines.component';
     ToastrModule.forRoot()
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [UsersService, AuthenticationService],
+  providers: [UsersService, AuthenticationService, AirlinesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
