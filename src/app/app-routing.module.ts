@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { UsersComponent } from './users/users.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {HomeComponent} from './home/home.component';
+import {UsersComponent} from './users/users.component';
 import {LoginComponent} from './auth/login/login.component';
 import {SignupComponent} from './auth/signup/signup.component';
 import {AirlinesComponent} from './airlines/airlines.component';
+import {CountriesComponent} from './countries/countries.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'airlines',
     component: AirlinesComponent
+  },
+  {
+    path: 'countries',
+    component: CountriesComponent
   },
   {
     path: 'login',
@@ -35,4 +40,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

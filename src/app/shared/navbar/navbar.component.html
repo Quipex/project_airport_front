@@ -15,6 +15,9 @@
       <li class="nav-item" *ngIf="user.authority === 'ROLE_ADMIN'" routerLinkActive="active">
         <a class="nav-item nav-link" routerLink="/airlines">Airlines</a>
       </li>
+      <li class="nav-item" *ngIf="user.authority === 'ROLE_ADMIN'" routerLinkActive="active">
+        <a class="nav-item nav-link" routerLink="/countries">Countries</a>
+      </li>
     </ul>
 
     <div style="width: 165px; display: inherit" *ngIf="user === null">
