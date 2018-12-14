@@ -8,7 +8,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {UsersService} from './shared/services/users.service';
@@ -17,6 +17,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import { AirlinesComponent } from './airlines/airlines.component';
 import {AirlinesService} from './shared/services/airlines.service';
+import {ErrorHandlerInterceptor} from './shared/error-handler/error-handler-interceptor';
 
 
 @NgModule({
@@ -37,10 +38,15 @@ import {AirlinesService} from './shared/services/airlines.service';
     HttpClientModule,
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [UsersService, AuthenticationService, AirlinesService],
+  providers: [UsersService, AuthenticationService, AirlinesService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandlerInterceptor,
+      multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
