@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorHandlerInterceptor } from './shared/error-handler/error-handler-interceptor';
 
 import { AppComponent } from './app.component';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
@@ -40,7 +42,13 @@ import {AirlinesService} from './shared/services/airlines.service';
     ToastrModule.forRoot()
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [UsersService, AuthenticationService, AirlinesService],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandlerInterceptor,
+      multi: true
+    },
+    UsersService, AuthenticationService, AirlinesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
