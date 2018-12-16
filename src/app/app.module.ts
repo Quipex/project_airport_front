@@ -15,8 +15,10 @@ import {UsersService} from './shared/services/users.service';
 import {AuthenticationService} from './shared/services/authentication.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
-import { AirlinesComponent } from './airlines/airlines.component';
+import {AirlinesComponent} from './airlines/airlines.component';
 import {AirlinesService} from './shared/services/airlines.service';
+import {CountriesComponent} from "./countries/countries.component";
+import {CountriesService} from "./shared/services/countries.service";
 import {ErrorHandlerInterceptor} from './shared/error-handler/error-handler-interceptor';
 
 
@@ -28,7 +30,8 @@ import {ErrorHandlerInterceptor} from './shared/error-handler/error-handler-inte
     HomeComponent,
     UsersComponent,
     NavbarComponent,
-    AirlinesComponent
+    AirlinesComponent,
+    CountriesComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,7 @@ import {ErrorHandlerInterceptor} from './shared/error-handler/error-handler-inte
     ToastrModule.forRoot(),
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [UsersService, AuthenticationService, AirlinesService,
+  providers: [UsersService, AuthenticationService, AirlinesService, CountriesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorHandlerInterceptor,
