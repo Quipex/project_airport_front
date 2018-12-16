@@ -1,0 +1,23 @@
+<div class="container table-container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th *ngFor="let map of columnMaps">{{ map.header }}</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let record of records; let i = index">
+        <td *ngFor="let map of columnMaps">
+          {{ record[map.primaryKey] }}</td>
+        <td>
+          <button type="button" class="btn btn-info" (click)="onEdit(i)">Edit</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger" (click)="onDelete(i)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
