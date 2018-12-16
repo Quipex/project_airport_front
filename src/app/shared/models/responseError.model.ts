@@ -1,6 +1,6 @@
 import {ErrorContentModel} from './errorContent.model';
 
-export class ResponceErrorModel {
+export class ResponseErrorModel {
   constructor(
     public name?: string,
     public message?: string,
