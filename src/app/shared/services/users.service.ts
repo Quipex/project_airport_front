@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-
-import {UsersModel} from '../models/users.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
+import {BaseService} from './baseService.service';
+import {BaseEntityModel} from '../models/baseEntity.model';
 
 @Injectable()
-export class UsersService {
+export class UsersService implements BaseService {
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -20,11 +20,11 @@ export class UsersService {
     private authenticationService: AuthenticationService
   ) {}
 
-  getCountOfUsers() {
+  getCountOfItems() {
     return this.http.get('http://localhost:8080/users/count', this.httpOptions);
   }
 
-  getTenUsers(page: number) {
+  getTenItems(page: number) {
     return this.http.get(`http://localhost:8080/users/page=${page}`, this.httpOptions);
   }
 
@@ -32,19 +32,19 @@ export class UsersService {
     return this.http.post(`http://localhost:8080/users/search/page=${page}`, search, this.httpOptions);
   }
 
-  addUser(user: UsersModel) {
-    return this.http.post('http://localhost:8080/users', user, this.httpOptions);
+  addItem(item: BaseEntityModel) {
+    return this.http.post('http://localhost:8080/users', item, this.httpOptions);
   }
 
-  registrateNewUser(user: UsersModel) {
-    return this.http.post('http://localhost:8080/registrate', user, this.httpOptions);
+  registrateNewUser(item: BaseEntityModel) {
+    return this.http.post('http://localhost:8080/registrate', item, this.httpOptions);
   }
 
-  editUser(id: number, user: UsersModel) {
-    return this.http.put(`http://localhost:8080/users/${id}`, user, this.httpOptions);
+  editItem(id: number, item: BaseEntityModel) {
+    return this.http.put(`http://localhost:8080/users/${id}`, item, this.httpOptions);
   }
 
-  deleteUser(id: number) {
+  deleteItem(id: number) {
     return this.http.delete(`http://localhost:8080/users/${id}`, this.httpOptions);
   }
 

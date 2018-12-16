@@ -2,9 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
 import {AirlinesModel} from '../models/airlines.model';
+import {BaseService} from './baseService.service';
+import {BaseEntityModel} from '../models/baseEntity.model';
 
 @Injectable()
-export class AirlinesService {
+export class AirlinesService implements BaseService {
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -18,23 +20,23 @@ export class AirlinesService {
     private authenticationService: AuthenticationService
   ) {}
 
-  getCountOfAirlines() {
+  getCountOfItems() {
     return this.http.get('http://localhost:8080/airlines/count', this.httpOptions);
   }
 
-  getTenAirlines(page: number) {
+  getTenItems(page: number) {
     return this.http.get(`http://localhost:8080/airlines/page=${page}`, this.httpOptions);
   }
 
-  addAirline(airline: AirlinesModel) {
-    return this.http.post('http://localhost:8080/airlines', airline, this.httpOptions);
+  addItem(item: BaseEntityModel) {
+    return this.http.post('http://localhost:8080/airlines', item, this.httpOptions);
   }
 
-  editAirline(id: number, airline: AirlinesModel) {
-    return this.http.put(`http://localhost:8080/airlines/${id}`, airline, this.httpOptions);
+  editItem(id: number, item: BaseEntityModel) {
+    return this.http.put(`http://localhost:8080/airlines`, item, this.httpOptions);
   }
 
-  deleteAirline(id: number) {
+  deleteItem(id: number) {
     return this.http.delete(`http://localhost:8080/airlines/${id}`, this.httpOptions);
   }
 
