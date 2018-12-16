@@ -1,11 +1,9 @@
-import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
-import {UsersModel} from '../shared/models/users.model';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UsersService} from '../shared/services/users.service';
-import {Router} from '@angular/router';
-import {UserFilteringWrapperModel} from '../shared/models/userFilteringWrapper.model';
-import {ToastrService} from 'ngx-toastr';
-import {ResponceErrorModel} from '../shared/models/responceError.model';
+import {BaseService} from '../shared/services/baseService.service';
+import {ColumnSetting} from '../shared/models/columnSetting.model';
+import {InputBaseModel} from '../shared/models/inputBase.model';
 
 @Component({
   selector: 'app-users',
@@ -13,54 +11,90 @@ import {ResponceErrorModel} from '../shared/models/responceError.model';
   styleUrls: [
     './users.component.scss'
   ],
-  providers: [UsersService]
+  providers: [{provide: BaseService, useClass: UsersService}]
 })
 export class UsersComponent implements OnInit {
 
   form: FormGroup;
 
-  users: UsersModel[] = [];
-  currentUser: UsersModel;
-  showNew: Boolean = false;
-  editMode: Boolean = false;
-  submitType = 'Save';
-  selectedRow: number;
-  paging = false;
-  countOfPages: number = 0;
-  numberOfPage = 0;
-  filterItems = [
-    {title: 'Sign-up users', checked: false},
-    {title: 'Spec users', checked: false},
+  settings: ColumnSetting[] =
+    [
+      {
+        primaryKey: 'id',
+        header: '#'
+      },
+      {
+        primaryKey: 'firstname',
+        header: 'First name'
+      },
+      {
+        primaryKey: 'lastname',
+        header: 'Last name'
+      },
+      {
+        primaryKey: 'email',
+        header: 'Email'
+      },
+      {
+        primaryKey: 'phonenumber',
+        header: 'Phone number'
+      }
+    ];
+
+  questions: InputBaseModel<any>[] = [
+
+
+    new InputBaseModel({
+      key: 'firstname',
+      label: 'First name',
+      required: true,
+      type: 'text',
+      order: 1,
+      edit: true
+    }),
+
+    new InputBaseModel({
+      key: 'lastname',
+      label: 'Last name',
+      required: true,
+      type: 'text',
+      order: 2,
+      edit: true
+    }),
+
+    new InputBaseModel({
+      key: 'email',
+      label: 'Email',
+      required: true,
+      type: 'email',
+      order: 3,
+      edit: true
+    }),
+
+    new InputBaseModel({
+      key: 'password',
+      label: 'Password',
+      required: true,
+      type: 'password',
+      order: 4,
+      edit: false
+    }),
+
+    new InputBaseModel({
+      key: 'phonenumber',
+      label: 'Phone number',
+      required: true,
+      type: 'text',
+      order: 5,
+      edit: true
+    })
   ];
-  searchValue: string;
-  deleteId = 0;
-  orderOfSort = true;
-  responceError: ResponceErrorModel;
 
   constructor(
-    private usersService: UsersService,
-    private router: Router,
-    private fb: FormBuilder,
-    private toastr: ToastrService
+    public fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    const user: UsersModel = JSON.parse(window.localStorage.getItem('currentUser'));
-    if (user !== null && user.authority === 'ROLE_ADMIN') {
-      this.router.navigate(['/users']);
-    } else if (user !== null && user.authority !== 'ROLE_ADMIN') {
-      this.router.navigate(['/home']);
-    }
-    this.usersService
-      .getCountOfUsers()
-      .subscribe((data: number) => {
-        if (data > 10) {
-          this.paging = true;
-          this.countOfPages = Math.ceil(data/10);
-        }
-        this.getTenUsers(1, true);
-      });
-
     this.form = this.fb.group({
       'firstname': [null, [Validators.required]],
       'lastname': [null, [Validators.required]],
@@ -68,206 +102,6 @@ export class UsersComponent implements OnInit {
       'password': [null, [Validators.required]],
       'phonenumber': [null, [Validators.required]]
     });
-
-  }
-
-  private getTenUsers(numberOfPage: number, direction: boolean) {
-    this.usersService.getTenUsers(numberOfPage)
-      .subscribe((data: UsersModel[]) => {
-        this.users = data;
-      });
-    if (direction) {
-      if (this.numberOfPage !== this.countOfPages) {
-        this.numberOfPage++;
-      }
-    }  else {
-      if (this.numberOfPage !== 1) {
-        this.numberOfPage--;
-      }
-    }
-  }
-
-  onDelete(index: number) {
-    this.currentUser = this.users[index];
-
-    this.users.splice(index, 1);
-
-    this.usersService.deleteUser(this.currentUser.id)
-      .subscribe(() => {
-
-      });
-    const message = 'The user has been deleted.';
-    this.showInfo(message);
-  }
-
-  onEdit(index: number) {
-    this.selectedRow = index;
-
-    this.currentUser = Object.assign({}, this.users[this.selectedRow]);
-
-    this.submitType = 'Update';
-
-    this.editMode = true;
-
-    this.showNew = true;
-
-    this.form = this.fb.group({
-      'firstname': [null, [Validators.required]],
-      'lastname': [null, [Validators.required]],
-      'email': [null, [Validators.required, Validators.email]],
-      'phonenumber': [null, [Validators.required]]
-    });
-
-
-  }
-
-  onNew() {
-
-    this.currentUser = new UsersModel();
-
-    this.submitType = 'Save';
-
-    this.showNew = !this.showNew;
-
-    this.editMode = false;
-
-    this.form = this.fb.group({
-      'firstname': [null, [Validators.required]],
-      'lastname': [null, [Validators.required]],
-      'email': [null, [Validators.required, Validators.email]],
-      'password': [null, [Validators.required]],
-      'phonenumber': [null, [Validators.required]]
-    });
-
-  }
-
-  onSave() {
-
-    if (this.submitType === 'Save') {
-      let formObject = JSON.stringify(this.form.value);
-      let formValue = JSON.parse(formObject);
-      this.currentUser.firstname = formValue.firstname;
-      this.currentUser.lastname = formValue.lastname;
-      this.currentUser.email = formValue.email;
-      this.currentUser.password = formValue.password;
-      this.currentUser.phonenumber = formValue.phonenumber;
-      this.currentUser.authority = 'ROLE_USER';
-      this.currentUser.enabled = 'true';
-
-      this.showNew = false;
-      this.form.reset();
-
-      this.usersService.addUser(this.currentUser)
-        .subscribe((user: UsersModel) => {
-          if (this.numberOfPage === this.countOfPages) {
-            this.users.push(user);
-          }
-            const message = 'New user has been added.';
-            this.showInfo(message);
-          },
-          err => {
-            this.responceError = err;
-            this.showError(this.responceError.error.message);
-          });
-
-    } else {
-
-      this.currentUser.authority = 'ROLE_USER';
-      this.currentUser.enabled = 'true';
-      this.usersService.editUser(this.currentUser.id, this.currentUser)
-        .subscribe((user: UsersModel) => {
-          this.users[this.selectedRow] = user;
-          const message = 'The user has been edited.';
-          this.showInfo(message);
-        });
-    }
-    this.showNew = false;
-  }
-
-  onCancel() {
-    this.showNew = false;
-    this.form.reset();
-  }
-
-  private deselectAll(arr: any[]) {
-    arr.forEach(val => {
-      if (val.checked) {
-        val.checked = false;
-      }
-    });
-  }
-
-  checkBoxClick(item: any) {
-
-    let selected = item.checked;
-
-    this.deselectAll(this.filterItems);
-
-    item.checked = !selected;
-    console.log(this.filterItems);
-  }
-
-  public onSearch() {
-    let searchArray;
-    if (this.filterItems[0].checked === true) {
-      searchArray = [
-        {
-          'authority':
-            {
-              'name': 'ROLE_USER'
-            }
-        },
-        {
-          'lastname': this.searchValue
-
-        }
-      ];
-    } else if (this.filterItems[1].checked === true) {
-      searchArray = [
-        {
-          'authority':
-            {
-              'name': 'ROLE_ADMIN'
-            }
-        },
-        {
-          'lastname': this.searchValue
-
-        }
-      ];
-    } else if (this.filterItems[0].checked === false && this.filterItems[1].checked === false) {
-      searchArray = [
-        {
-          'lastname': this.searchValue
-        }
-      ];
-    }
-    this.usersService.getTenUsersWithSearch(searchArray, 1)
-      .subscribe((data: UserFilteringWrapperModel) => {
-        this.users = data.users;
-        if (data.countOfPages > 1) {
-          this.paging = true;
-          this.countOfPages = data.countOfPages;
-        } else {
-          this.paging = false;
-        }
-      });
-  }
-
-  sortBy(field: string, order: boolean) {
-    this.usersService.sortUsersBy(field, order)
-      .subscribe((data: UsersModel[]) => {
-        this.users = data;
-        this.orderOfSort = !this.orderOfSort;
-      });
-  }
-
-  showInfo(message: string) {
-    this.toastr.info(message);
-  }
-
-  showError(message: string) {
-    this.toastr.error(message);
   }
 
 }
