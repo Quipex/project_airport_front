@@ -8,18 +8,19 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {UsersService} from './shared/services/users.service';
 import {AuthenticationService} from './shared/services/authentication.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
-import {AirlinesComponent} from './airlines/airlines.component';
+import { AirlinesComponent } from './airlines/airlines.component';
 import {AirlinesService} from './shared/services/airlines.service';
-import {CountriesComponent} from "./countries/countries.component";
-import {CountriesService} from "./shared/services/countries.service";
-import {ErrorHandlerInterceptor} from './shared/error-handler/error-handler-interceptor';
+import {CountriesComponent} from './countries/countries.component';
+import {AbstractCatalogComponent} from './shared/abstract-catalog/abstract-catalog.component';
+import {TableLayoutComponent} from './shared/table-layout/table-layout.component';
+import {CountriesService} from './shared/services/countries.service';
 
 
 @NgModule({
@@ -32,6 +33,8 @@ import {ErrorHandlerInterceptor} from './shared/error-handler/error-handler-inte
     NavbarComponent,
     AirlinesComponent,
     CountriesComponent,
+    AbstractCatalogComponent,
+    TableLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -41,15 +44,10 @@ import {ErrorHandlerInterceptor} from './shared/error-handler/error-handler-inte
     HttpClientModule,
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [UsersService, AuthenticationService, AirlinesService, CountriesService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorHandlerInterceptor,
-      multi: true
-  }],
+  providers: [UsersService, AuthenticationService, AirlinesService, CountriesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
