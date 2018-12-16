@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ResponceErrorModel} from '../shared/models/responceError.model';
+import {ResponseErrorModel} from '../shared/models/responseError.model';
 import {UsersModel} from '../shared/models/users.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
@@ -27,7 +27,7 @@ export class CountriesComponent implements OnInit {
   searchValue: string;
   deleteId = 0;
   orderOfSort = true;
-  responceError: ResponceErrorModel;
+  responseError: ResponseErrorModel;
 
   constructor(
     private countriesService: CountriesService,
@@ -123,8 +123,8 @@ export class CountriesComponent implements OnInit {
             this.showInfo(message);
           },
           err => {
-            this.responceError = err;
-            this.showError(this.responceError.error.message);
+            this.responseError = err;
+            this.showError(this.responseError.error.message);
           });
 
     } else {
