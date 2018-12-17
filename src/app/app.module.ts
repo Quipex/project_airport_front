@@ -21,6 +21,8 @@ import {CountriesComponent} from './countries/countries.component';
 import {AbstractCatalogComponent} from './shared/abstract-catalog/abstract-catalog.component';
 import {TableLayoutComponent} from './shared/table-layout/table-layout.component';
 import {CountriesService} from './shared/services/countries.service';
+import {DynamicFormComponent} from './shared/dynamic-form/dynamic-form.component';
+import {DynamicFormRenderComponent} from './shared/dynamic-form/dynamic-form-render.component';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import {CountriesService} from './shared/services/countries.service';
     AirlinesComponent,
     CountriesComponent,
     AbstractCatalogComponent,
-    TableLayoutComponent
+    TableLayoutComponent,
+    DynamicFormComponent,
+    DynamicFormRenderComponent
   ],
   imports: [
     BrowserModule,
