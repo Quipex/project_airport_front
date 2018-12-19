@@ -10,6 +10,7 @@ import {ColumnSetting} from '../models/columnSetting.model';
 import {ModalDirective} from 'angular-bootstrap-md';
 import {InputBaseModel} from '../models/inputBase.model';
 import {ResponseErrorModel} from '../models/responseError.model';
+import {FormControlService} from "../services/formControl.service";
 @Component({
   selector: 'app-project-center',
   templateUrl: './abstract-catalog.component.html',
@@ -18,7 +19,6 @@ import {ResponseErrorModel} from '../models/responseError.model';
 export class AbstractCatalogComponent implements OnInit {
 
   @Input() settings: ColumnSetting[];
-  @Input() childForm: FormGroup;
   @Input() questions: InputBaseModel<any>[];
   @ViewChild('newModal') newModal: ModalDirective;
   @ViewChild('removeConfirmModal') removeConfirmModal: ModalDirective;
@@ -35,13 +35,13 @@ export class AbstractCatalogComponent implements OnInit {
   numberOfPage = 0;
   deleteId: number;
   responseError: ResponseErrorModel;
+
   constructor(
     private  service: BaseService,
     private usersService: UsersService,
     private airlinesService: AirlinesService,
-    public router: Router,
-    protected fb: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private fcs: FormControlService
   ) {}
 
   ngOnInit() {
@@ -53,7 +53,7 @@ export class AbstractCatalogComponent implements OnInit {
         }
         this.getTenItems(1, true);
       });
-      this.form = this.childForm;
+    this.form = this.fcs.toFormGroup(this.questions);
   }
 
 
@@ -62,8 +62,6 @@ export class AbstractCatalogComponent implements OnInit {
     this.service.getTenItems(numberOfPage)
       .subscribe((data: BaseEntityModel[]) => {
         this.entities = data;
-        console.log(this.entities);
-        console.log(this.constructor.name);
       });
     if (direction) {
       if (this.numberOfPage !== this.countOfPages) {
@@ -77,8 +75,7 @@ export class AbstractCatalogComponent implements OnInit {
   }
 
   onEdit(index: number) {
-    this.selectedRow = index;
-    this.currentItem = Object.assign({}, this.entities[this.selectedRow]);
+    this.currentItem = this.entities[index];
     this.form.patchValue(this.currentItem);
     this.submitType = 'Update';
     this.editMode = true;
@@ -156,6 +153,5 @@ export class AbstractCatalogComponent implements OnInit {
   showError(message: string) {
     this.toastr.error(message);
   }
-
 
 }

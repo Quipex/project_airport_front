@@ -12,12 +12,10 @@ export class DynamicFormRenderComponent implements OnInit{
   @Input() form: FormGroup;
   @Input() currentItem: BaseEntityModel;
   @Input() editMode: boolean;
+  @Input() editedForm: FormGroup;
   get isValid() { return this.form.controls[this.question.key].valid; }
 
   ngOnInit(): void {
-
-
   }
-
 
 }

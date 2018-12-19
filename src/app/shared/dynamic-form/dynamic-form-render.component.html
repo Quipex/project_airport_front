@@ -2,7 +2,7 @@
   <div *ngIf="editMode">
     <label *ngIf="question.edit" [attr.for]="question.key">{{question.label}}</label>
     <input *ngIf="question.edit" [formControlName]="question.key"
-              [id]="question.key" [type]="question.type" mdbInputDirective class="form-control" data-error="{{question.label}} is required" data-success="" ngModel>
+              [id]="question.key" [type]="question.type" mdbInputDirective class="form-control" data-error="{{question.label}} is required" data-success="" >
   </div>
   <div *ngIf="!editMode">
     <label [attr.for]="question.key">{{question.label}}</label>

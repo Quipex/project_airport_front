@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
-import {AirlinesModel} from '../models/airlines.model';
 import {BaseService} from './baseService.service';
 import {BaseEntityModel} from '../models/baseEntity.model';
 

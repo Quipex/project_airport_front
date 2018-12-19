@@ -1,5 +1,5 @@
 import {FormControlService} from '../services/formControl.service';
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {InputBaseModel} from '../models/inputBase.model';
 import {BaseEntityModel} from '../models/baseEntity.model';
@@ -9,7 +9,7 @@ import {BaseEntityModel} from '../models/baseEntity.model';
   templateUrl: './dynamic-form.component.html',
   providers: [ FormControlService ]
 })
-export class DynamicFormComponent implements OnInit {
+export class DynamicFormComponent implements OnChanges {
 
   @Input() questions: InputBaseModel<any>[] = [];
   @Input() submitType: string;
@@ -22,9 +22,9 @@ export class DynamicFormComponent implements OnInit {
 
   constructor(private fcs: FormControlService) {  }
 
-  ngOnInit() {
+  ngOnChanges() {
     this.form = this.fcs.toFormGroup(this.questions);
-    if (this.editedForm) {
+    if (this.editMode) {
       this.form = this.editedForm;
     }
   }
@@ -52,6 +52,8 @@ export class DynamicFormComponent implements OnInit {
         newItem[x] = formData[x];
       }
       this.returnedItem.emit(newItem);
+      this.form.reset();
     }
   }
+
 }

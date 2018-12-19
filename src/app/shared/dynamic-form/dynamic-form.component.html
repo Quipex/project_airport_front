@@ -2,7 +2,7 @@
   <form [formGroup]="form">
     <div class="modal-body mx-3">
       <div *ngFor="let question of questions" class="md-form mb-5">
-        <app-form-input [question]="question" [form]="form" [currentItem]="currentItem" [editMode]="editMode"></app-form-input>
+        <app-form-input [question]="question" [form]="form" [currentItem]="currentItem" [editMode]="editMode" [editedForm]="editedForm"></app-form-input>
       </div>
     </div>
     <div class="modal-footer">
