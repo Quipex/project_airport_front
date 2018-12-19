@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpInterceptor, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { HttpRequest, HttpInterceptor, HttpHandler, HttpEvent, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -9,6 +9,11 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
 
   constructor(private toastr: ToastrService) { }
 
+  handleError(error: HttpErrorResponse) {
+    this.toastr.error('Unknown error  ', error.status.toString());
+    return throwError(error);
+  }
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     return next.handle(request).pipe(
@@ -17,11 +22,15 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
         // Client Side Error
         if (error.error instanceof ErrorEvent) {
           errMsg = `Error: ${error.error.message}`;
-          this.toastr.error('Client side error ️', error.status.toString());
+          this.toastr.error('Something went wrong. Check your internet connection  ', error.status.toString());
         } else {
           // Server Side Error
-          errMsg = `Error Code: ${error.status},  Message: ${error.message}`;
-          this.toastr.error('Server side error ️', error.status.toString());
+          if (error.status === 0) {
+            errMsg = `Error Code: ${error.status},  Message: ${error.message}`;
+            this.toastr.error('Unknown error  ', error.status.toString());
+          } else if (error.status === 401) {
+            this.toastr.error('Usfdffsdr  ', error.status.toString());
+          }
         }
         return throwError(errMsg);
       })
