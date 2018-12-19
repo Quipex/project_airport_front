@@ -95,13 +95,6 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      'firstname': [null, [Validators.required]],
-      'lastname': [null, [Validators.required]],
-      'email': [null, [Validators.required, Validators.email]],
-      'password': [null, [Validators.required]],
-      'phonenumber': [null, [Validators.required]]
-    });
   }
 
 }

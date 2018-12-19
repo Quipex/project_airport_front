@@ -6,6 +6,7 @@ import {LoginComponent} from './auth/login/login.component';
 import {SignupComponent} from './auth/signup/signup.component';
 import {AirlinesComponent} from './airlines/airlines.component';
 import {CountriesComponent} from './countries/countries.component';
+import {AirplanesComponent} from "./airplanes/airplanes.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'airlines',
     component: AirlinesComponent
+  },
+  {
+    path: 'airplanes',
+    component: AirplanesComponent
   },
   {
     path: 'countries',

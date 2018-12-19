@@ -24,6 +24,8 @@ import { CountriesService } from './shared/services/countries.service';
 import { DynamicFormComponent } from './shared/dynamic-form/dynamic-form.component';
 import { DynamicFormRenderComponent } from './shared/dynamic-form/dynamic-form-render.component';
 import { httpInterceptorProviders } from './http-interceptors';
+import { AirplanesComponent } from './airplanes/airplanes.component';
+import {FormControlService} from "./shared/services/formControl.service";
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import { httpInterceptorProviders } from './http-interceptors';
     AbstractCatalogComponent,
     TableLayoutComponent,
     DynamicFormComponent,
-    DynamicFormRenderComponent
+    DynamicFormRenderComponent,
+    AirplanesComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,7 @@ import { httpInterceptorProviders } from './http-interceptors';
     ToastrModule.forRoot()
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [UsersService, AuthenticationService, AirlinesService, CountriesService, httpInterceptorProviders, ],
+  providers: [UsersService, AuthenticationService, AirlinesService, CountriesService, httpInterceptorProviders, FormControlService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
