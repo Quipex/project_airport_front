@@ -2,9 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
 import {CountriesModel} from '../models/countries.model';
+import {BaseService} from "./baseService.service";
 
 @Injectable()
-export class CountriesService {
+export class CountriesService implements BaseService {
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -18,23 +19,23 @@ export class CountriesService {
     private authenticationService: AuthenticationService
   ) {}
 
-  getCountOfCountries() {
+  getCountOfItems() {
     return this.http.get('http://localhost:8080/countries/count', this.httpOptions);
   }
 
-  getTenCountries(page: number) {
+  getTenItems(page: number) {
     return this.http.get(`http://localhost:8080/countries/page=${page}`, this.httpOptions);
   }
 
-  addCountry(country: CountriesModel) {
+  addItem(country: CountriesModel) {
     return this.http.post('http://localhost:8080/countries', country, this.httpOptions);
   }
 
-  editCountry(id: number, country: CountriesModel) {
+  editItem(id: number, country: CountriesModel) {
     return this.http.put(`http://localhost:8080/countries/${id}`, country, this.httpOptions);
   }
 
-  deleteCountry(id: number) {
+  deleteItem(id: number) {
     return this.http.delete(`http://localhost:8080/countries/${id}`, this.httpOptions);
   }
 
