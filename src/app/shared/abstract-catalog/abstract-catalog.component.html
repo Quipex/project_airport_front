@@ -37,10 +37,10 @@
       [records]="entities"
       [settings]="settings"
       (deletedId)="showRemoveConfirmModal($event)"
-      (editedId)="onEdit($event)"
-    >
+      (editedId)="onEdit($event)" >
 
     </app-table-layout>
+
 <div mdbModal #removeConfirmModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
