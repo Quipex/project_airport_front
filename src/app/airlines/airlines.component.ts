@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ColumnSetting} from '../shared/models/columnSetting.model';
 import {InputBaseModel} from '../shared/models/inputBase.model';
@@ -34,7 +34,7 @@ export class AirlinesComponent implements OnInit {
         header: 'Email'
       },
       {
-        primaryKey: 'phonenumber',
+        primaryKey: 'phoneNumber',
         header: 'Phone number'
       }
     ];
@@ -70,7 +70,7 @@ export class AirlinesComponent implements OnInit {
     }),
 
     new InputBaseModel({
-      key: 'phonenumber',
+      key: 'phoneNumber',
       label: 'Phone number',
       required: true,
       type: 'text',
