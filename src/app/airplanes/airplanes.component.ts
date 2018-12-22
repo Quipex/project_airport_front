@@ -18,7 +18,7 @@ export class AirplanesComponent implements OnInit {
   settings: ColumnSetting[] =
     [
       {
-        primaryKey: 'id',
+        primaryKey: 'objectId',
         header: '#'
       },
       {

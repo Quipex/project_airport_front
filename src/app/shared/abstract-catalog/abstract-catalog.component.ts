@@ -101,7 +101,7 @@ export class AbstractCatalogComponent implements OnInit {
     this.selectedRow = index;
     this.entities.splice(index, 1);
 
-    this.service.deleteItem(this.currentItem.id)
+    this.service.deleteItem(this.currentItem.objectId)
       .subscribe(() => {
         const message = 'The item has been deleted.';
         this.showInfo(message);

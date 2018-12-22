@@ -20,7 +20,7 @@ export class UsersComponent implements OnInit {
   settings: ColumnSetting[] =
     [
       {
-        primaryKey: 'id',
+        primaryKey: 'objectId',
         header: '#'
       },
       {

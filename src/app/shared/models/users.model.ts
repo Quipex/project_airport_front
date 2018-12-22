@@ -11,7 +11,6 @@ export class UsersModel extends BaseEntityModel {
     public phonenumber?: string,
     public authority?: AuthorityModel,
     public enabled?: string,
-    public id?: number
   ) {
     super();
   }
