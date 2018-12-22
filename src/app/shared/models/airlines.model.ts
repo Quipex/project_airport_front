@@ -6,7 +6,6 @@ export class AirlinesModel extends BaseEntityModel{
     public descr?: string,
     public email?: string,
     public phoneNumber?: string,
-    public id?: number
   ) {
     super();
   }
