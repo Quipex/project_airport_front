@@ -36,15 +36,16 @@ export class DynamicFormComponent implements OnChanges {
 
   onSubmit() {
     if (this.editMode) {
+      let editedItem = JSON.parse(JSON.stringify(this.currentItem));
       const formData = this.form.value;
-      for (const x in this.currentItem) {
+      for (const x in editedItem) {
         for (const y in formData) {
           if (x === y) {
-            this.currentItem[x] = formData[y];
+            editedItem[x] = formData[y];
           }
         }
       }
-      this.returnedItem.emit(this.currentItem);
+      this.returnedItem.emit(editedItem);
     } else {
       const newItem: BaseEntityModel = new BaseEntityModel();
       const formData = this.form.value;
@@ -52,7 +53,6 @@ export class DynamicFormComponent implements OnChanges {
         newItem[x] = formData[x];
       }
       this.returnedItem.emit(newItem);
-      this.form.reset();
     }
   }
 

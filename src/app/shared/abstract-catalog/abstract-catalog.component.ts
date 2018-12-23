@@ -75,6 +75,7 @@ export class AbstractCatalogComponent implements OnInit {
   }
 
   onEdit(index: number) {
+    this.selectedRow = index;
     this.currentItem = this.entities[index];
     this.form.patchValue(this.currentItem);
     this.submitType = 'Update';
@@ -113,13 +114,15 @@ export class AbstractCatalogComponent implements OnInit {
 
   onSave(returnedItem: BaseEntityModel) {
     if (this.submitType === 'Save') {
-      this.newModal.hide();
+
       this.showNew = false;
       this.service.addItem(returnedItem)
         .subscribe((item: BaseEntityModel) => {
             if (this.numberOfPage === this.countOfPages) {
               this.entities.push(item);
             }
+            this.newModal.hide();
+            this.form.reset();
             const message = 'New item has been added.';
             this.showInfo(message);
           },
@@ -128,11 +131,14 @@ export class AbstractCatalogComponent implements OnInit {
             this.showError(this.responseError.error.message);
           });
     } else {
-      this.newModal.hide();
+
       this.service.editItem(returnedItem.objectId, returnedItem)
         .subscribe((editedItem: BaseEntityModel) => {
           this.entities[this.selectedRow] = editedItem;
           this.entities = JSON.parse(JSON.stringify(this.entities));
+
+          this.newModal.hide();
+
           const message = 'The item has been edited.';
           this.showInfo(message);
         }, err => {
