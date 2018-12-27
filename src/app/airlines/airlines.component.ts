@@ -23,19 +23,23 @@ export class AirlinesComponent implements OnInit {
       },
       {
         primaryKey: 'name',
-        header: 'Name'
+        header: 'Name',
+        sortAttr: 12
       },
       {
         primaryKey: 'descr',
-        header: 'Description'
+        header: 'Description',
+        sortAttr: 13
       },
       {
         primaryKey: 'email',
-        header: 'Email'
+        header: 'Email',
+        sortAttr: 14
       },
       {
         primaryKey: 'phoneNumber',
-        header: 'Phone number'
+        header: 'Phone number',
+        sortAttr: 15
       }
     ];
 

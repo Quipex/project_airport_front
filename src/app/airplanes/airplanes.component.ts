@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseService} from "../shared/services/baseService.service";
-import {AirlinesService} from "../shared/services/airlines.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {ColumnSetting} from "../shared/models/columnSetting.model";
 import {InputBaseModel} from "../shared/models/inputBase.model";
+import {AirplanesService} from "../shared/services/airplanes.service";
 
 @Component({
   selector: 'app-airplanes',
   templateUrl: './airplanes.component.html',
   styleUrls: ['./airplanes.component.scss'],
-  providers: [{provide: BaseService, useClass: AirlinesService}]
+  providers: [{provide: BaseService, useClass: AirplanesService}]
 })
 export class AirplanesComponent implements OnInit {
 
@@ -26,7 +26,7 @@ export class AirplanesComponent implements OnInit {
         header: 'Model'
       },
       {
-        primaryKey: 'airlineId',
+        primaryKey: 'airline_id',
         header: 'Airline'
       }
     ];
@@ -43,7 +43,7 @@ export class AirplanesComponent implements OnInit {
     }),
 
     new InputBaseModel({
-      key: 'airlineId',
+      key: 'airline_id',
       label: 'Airline',
       required: true,
       type: 'text',
@@ -57,10 +57,6 @@ export class AirplanesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      'model': [null, [Validators.required]],
-      'airlineId': [null, [Validators.required]]
-    });
   }
 
 }
