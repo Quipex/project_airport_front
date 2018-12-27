@@ -3,6 +3,7 @@ import {BaseService} from "./baseService.service";
 import {BaseEntityModel} from "../models/baseEntity.model";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthenticationService} from "./authentication.service";
+import {FilterAndSortWrapperModel} from "../models/filterAndSortWrapper.model";
 
 @Injectable()
 export class AirplanesService implements BaseService {
@@ -39,5 +40,10 @@ export class AirplanesService implements BaseService {
   getTenItems(page: number) {
     return this.http.get(`http://localhost:8080/airplanes/page=${page}`, this.httpOptions);
   }
+
+  search(page: number, wrapper: FilterAndSortWrapperModel) {
+  }
+
+
 
 }

@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
 import {BaseService} from './baseService.service';
 import {BaseEntityModel} from '../models/baseEntity.model';
+import {FilterAndSortWrapperModel} from "../models/filterAndSortWrapper.model";
 
 @Injectable()
 export class AirlinesService implements BaseService {
@@ -23,6 +24,10 @@ export class AirlinesService implements BaseService {
     return this.http.get('http://localhost:8080/airlines/count', this.httpOptions);
   }
 
+  getCountOfItemsByFilter(searchString: string) {
+    return this.http.get(`http://localhost:8080/airlines/count/search=${searchString}`, this.httpOptions);
+  }
+
   getTenItems(page: number) {
     return this.http.get(`http://localhost:8080/airlines/page=${page}`, this.httpOptions);
   }
@@ -38,5 +43,11 @@ export class AirlinesService implements BaseService {
   deleteItem(id: number) {
     return this.http.delete(`http://localhost:8080/airlines/${id}`, this.httpOptions);
   }
+
+  search(page: number, wrapper: FilterAndSortWrapperModel) {
+    return this.http.post(`http://localhost:8080/airlines/search/page=${page}`, wrapper, this.httpOptions);
+  }
+
+
 
 }

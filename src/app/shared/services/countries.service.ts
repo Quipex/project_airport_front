@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
 import {CountriesModel} from '../models/countries.model';
 import {BaseService} from "./baseService.service";
+import {FilterAndSortWrapperModel} from "../models/filterAndSortWrapper.model";
 
 @Injectable()
 export class CountriesService implements BaseService {
@@ -37,6 +38,9 @@ export class CountriesService implements BaseService {
 
   deleteItem(id: number) {
     return this.http.delete(`http://localhost:8080/countries/${id}`, this.httpOptions);
+  }
+
+  search(page: number, wrapper: FilterAndSortWrapperModel) {
   }
 
 }

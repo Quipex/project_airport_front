@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
 import {BaseService} from './baseService.service';
 import {BaseEntityModel} from '../models/baseEntity.model';
+import {FilterAndSortWrapperModel} from "../models/filterAndSortWrapper.model";
 
 @Injectable()
 export class UsersService implements BaseService {
@@ -55,4 +56,9 @@ export class UsersService implements BaseService {
       return this.http.get(`http://localhost:8080/users/sortDescBy=${field}`, this.httpOptions);
     }
   }
+
+  search(page: number, wrapper: FilterAndSortWrapperModel) {
+  }
+
+
 }
