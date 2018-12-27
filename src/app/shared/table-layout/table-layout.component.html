@@ -2,7 +2,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th *ngFor="let map of columnMaps">{{ map.header }}</th>
+        <th *ngFor="let map of columnMaps">{{ map.header }} <mdb-icon *ngIf="map.sortAttr!==undefined" (click)="sortBy(map.sortAttr)" icon="sort"></mdb-icon></th>
         <th></th>
         <th></th>
       </tr>

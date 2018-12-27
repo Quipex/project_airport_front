@@ -9,7 +9,7 @@
       </div>
       <div class="col-md-6">
         <div class="form-group input-form">
-          <input type="text" class="form-control" id="search-input" placeholder="Search" [(ngModel)]="searchValue">
+          <input type="text" class="form-control" id="search-input" placeholder="Search" [(ngModel)]="searchString">
           <button type="submit" class="btn btn-primary btn-search" (click)="onSearch()">Search</button>
         </div>
       </div>
@@ -37,7 +37,9 @@
       [records]="entities"
       [settings]="settings"
       (deletedId)="showRemoveConfirmModal($event)"
-      (editedId)="onEdit($event)" >
+      (editedId)="onEdit($event)"
+      (columnAttr) = sortBy($event)
+    >
     </app-table-layout>
 
 <div mdbModal #removeConfirmModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">

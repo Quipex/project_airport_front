@@ -13,6 +13,7 @@ export class TableLayoutComponent implements OnChanges {
   @Input() settings: ColumnSetting[];
   @Output() deletedId = new EventEmitter<number>();
   @Output() editedId = new EventEmitter<number>();
+  @Output() columnAttr = new EventEmitter<number>();
   columnMaps: ColumnSetting[];
 
   constructor() { }
@@ -27,6 +28,10 @@ export class TableLayoutComponent implements OnChanges {
 
   onDelete(id: number) {
     this.deletedId.emit(id);
+  }
+
+  sortBy(columnAttr: number) {
+    this.columnAttr.emit(columnAttr);
   }
 
 }

@@ -53,6 +53,7 @@ export class DynamicFormComponent implements OnChanges {
         newItem[x] = formData[x];
       }
       this.returnedItem.emit(newItem);
+      this.form.reset();
     }
   }
 
