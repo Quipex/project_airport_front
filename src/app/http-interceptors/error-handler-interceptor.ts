@@ -3,11 +3,15 @@ import { HttpRequest, HttpInterceptor, HttpHandler, HttpEvent, HttpErrorResponse
 import { Observable, throwError } from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import {Router} from "@angular/router";
 
 @Injectable()
 export class ErrorHandlerInterceptor implements HttpInterceptor {
 
-  constructor(private toastr: ToastrService) { }
+  constructor(
+    private toastr: ToastrService,
+    private router: Router
+  ) { }
 
   showWarningToastr(error: HttpErrorResponse) {
     this.toastr.warning(error.error.message, error.status.toString());
@@ -41,6 +45,10 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
               errMsg = `Error Code: ${error.status},  Message: ${error.message}`;
               this.toastr.error('Unknown error');
             } else if ((error.status / 100) >= 4 && (error.status / 100) < 5) {
+              if (error.error.message === 'Unauthorized') {
+                window.localStorage.removeItem('currentUser');
+                this.router.navigateByUrl('login');
+              }
               errMsg = `Error: ${error.message}`;
               this.showWarningToastr(error);
             } else if ((error.status / 100) >= 5) {
