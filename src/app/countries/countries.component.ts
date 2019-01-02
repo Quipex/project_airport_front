@@ -4,6 +4,8 @@ import {ColumnSetting} from "../shared/models/columnSetting.model";
 import {InputBaseModel} from "../shared/models/inputBase.model";
 import {BaseService} from '../shared/services/baseService.service';
 import {CountriesService} from '../shared/services/countries.service';
+import {Router} from "@angular/router";
+import {UsersModel} from "../shared/models/users.model";
 
 @Component({
   selector: 'app-countries',
@@ -38,106 +40,16 @@ export class CountriesComponent implements OnInit {
   ];
 
   constructor(
-    public fb: FormBuilder
+    private  router: Router
   ) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      'name': [null, [Validators.required]]
-    });
+    const currentUser: UsersModel = JSON.parse(window.localStorage.getItem('currentUser'));
+    if (currentUser === null || currentUser.authority === null) {
+      this.router.navigateByUrl('login');
+    } else if (currentUser.authority !== 'ROLE_ADMIN') {
+      this.router.navigateByUrl('home');
+    }
   }
-
-  // private getTenCountries(numberOfPage: number, direction: boolean) {
-  //   this.countriesService.getTenCountries(numberOfPage)
-  //     .subscribe((data: UsersModel[]) => {
-  //       this.countries = data;
-  //     });
-  //   if (direction) {
-  //     if (this.numberOfPage !== this.countOfPages) {
-  //       this.numberOfPage++;
-  //     }
-  //   }  else {
-  //     if (this.numberOfPage !== 1) {
-  //       this.numberOfPage--;
-  //     }
-  //   }
-  // }
-  //
-  // onDelete(index: number) {
-  //   this.currentCountry = this.countries[index];
-  //   this.countries.splice(index, 1);
-  //   this.countriesService.deleteCountry(this.currentCountry.id)
-  //     .subscribe(() => {
-  //       const message = 'Country has been deleted.';
-  //       this.showInfo(message);
-  //     });
-  // }
-  //
-  // onEdit(index: number) {
-  //   this.selectedRow = index;
-  //   this.currentCountry = Object.assign({}, this.countries[this.selectedRow]);
-  //   this.submitType = 'Update';
-  //   this.editMode = true;
-  //   this.showNew = true;
-  //   this.form = this.fb.group({
-  //     'name': [null, [Validators.required]]
-  //   });
-  // }
-  //
-  // onNew() {
-  //   this.currentCountry = new CountriesModel();
-  //   this.submitType = 'Save';
-  //   this.showNew = !this.showNew;
-  //   this.editMode = false;
-  //   this.form = this.fb.group({
-  //     'name': [null, [Validators.required]]
-  //   });
-  // }
-  //
-  // onSave() {
-  //   if (this.submitType === 'Save') {
-  //     const formObject = JSON.stringify(this.form.value);
-  //     const formValue = JSON.parse(formObject);
-  //     this.currentCountry.name = formValue.name;
-  //
-  //     this.showNew = false;
-  //     this.form.reset();
-  //
-  //     this.countriesService.addCountry(this.currentCountry)
-  //       .subscribe((country: CountriesModel) => {
-  //           if (this.numberOfPage === this.countOfPages) {
-  //             this.countries.push(country);
-  //           }
-  //           const message = 'New country has been added.';
-  //           this.showInfo(message);
-  //         },
-  //         err => {
-  //           this.responseError = err;
-  //           this.showError(this.responseError.error.message);
-  //         });
-  //
-  //   } else {
-  //     this.countriesService.editCountry(this.currentCountry.id, this.currentCountry)
-  //       .subscribe((country: CountriesModel) => {
-  //         this.countries[this.selectedRow] = country;
-  //         const message = 'Country has been edited.';
-  //         this.showInfo(message);
-  //       });
-  //   }
-  //   this.showNew = false;
-  // }
-  //
-  // onCancel() {
-  //   this.showNew = false;
-  //   this.form.reset();
-  // }
-  //
-  // showInfo(message: string) {
-  //   this.toastr.info(message);
-  // }
-  //
-  // showError(message: string) {
-  //   this.toastr.error(message);
-  // }
 
 }

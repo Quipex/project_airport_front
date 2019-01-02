@@ -4,6 +4,8 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {ColumnSetting} from "../shared/models/columnSetting.model";
 import {InputBaseModel} from "../shared/models/inputBase.model";
 import {AirplanesService} from "../shared/services/airplanes.service";
+import {Router} from "@angular/router";
+import {UsersModel} from "../shared/models/users.model";
 
 @Component({
   selector: 'app-airplanes',
@@ -11,7 +13,7 @@ import {AirplanesService} from "../shared/services/airplanes.service";
   styleUrls: ['./airplanes.component.scss'],
   providers: [{provide: BaseService, useClass: AirplanesService}]
 })
-export class AirplanesComponent implements OnInit {
+export class AirplanesComponent {
 
   form: FormGroup;
 
@@ -26,7 +28,7 @@ export class AirplanesComponent implements OnInit {
         header: 'Model'
       },
       {
-        primaryKey: 'airline_id',
+        primaryKey: 'airlineId',
         header: 'Airline'
       }
     ];
@@ -43,7 +45,7 @@ export class AirplanesComponent implements OnInit {
     }),
 
     new InputBaseModel({
-      key: 'airline_id',
+      key: 'airlineId',
       label: 'Airline',
       required: true,
       type: 'text',
@@ -53,10 +55,16 @@ export class AirplanesComponent implements OnInit {
   ];
 
   constructor(
-    public fb: FormBuilder
-  ) { }
+    private  router: Router
+  ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    const currentUser: UsersModel = JSON.parse(window.localStorage.getItem('currentUser'));
+    if (currentUser === null || currentUser.authority === null) {
+      this.router.navigateByUrl('login');
+    } else if (currentUser.authority !== 'ROLE_ADMIN') {
+      this.router.navigateByUrl('home');
+    }
   }
 
 }

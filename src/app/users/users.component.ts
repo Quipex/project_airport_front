@@ -4,6 +4,8 @@ import {UsersService} from '../shared/services/users.service';
 import {BaseService} from '../shared/services/baseService.service';
 import {ColumnSetting} from '../shared/models/columnSetting.model';
 import {InputBaseModel} from '../shared/models/inputBase.model';
+import {UsersModel} from "../shared/models/users.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-users',
@@ -91,10 +93,16 @@ export class UsersComponent implements OnInit {
   ];
 
   constructor(
-    public fb: FormBuilder
+    private  router: Router
   ) {}
 
   ngOnInit(): void {
+    const currentUser: UsersModel = JSON.parse(window.localStorage.getItem('currentUser'));
+    if (currentUser === null || currentUser.authority === null) {
+      this.router.navigateByUrl('login');
+    } else if (currentUser.authority !== 'ROLE_ADMIN') {
+      this.router.navigateByUrl('home');
+    }
   }
 
 }

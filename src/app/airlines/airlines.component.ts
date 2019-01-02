@@ -4,6 +4,8 @@ import {ColumnSetting} from '../shared/models/columnSetting.model';
 import {InputBaseModel} from '../shared/models/inputBase.model';
 import {BaseService} from '../shared/services/baseService.service';
 import {AirlinesService} from '../shared/services/airlines.service';
+import {Router} from "@angular/router";
+import {UsersModel} from "../shared/models/users.model";
 
 @Component({
   selector: 'app-airlines',
@@ -84,16 +86,16 @@ export class AirlinesComponent implements OnInit {
   ];
 
   constructor(
-    public fb: FormBuilder
+    private  router: Router
   ) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      'name': [null, [Validators.required]],
-      'descr': [null, [Validators.required]],
-      'email': [null, [Validators.required, Validators.email]],
-      'phonenumber': [null, [Validators.required]]
-    });
+    const currentUser: UsersModel = JSON.parse(window.localStorage.getItem('currentUser'));
+    if (currentUser === null || currentUser.authority === null) {
+      this.router.navigateByUrl('login');
+    } else if (currentUser.authority !== 'ROLE_ADMIN') {
+      this.router.navigateByUrl('home');
+    }
   }
 
 }
