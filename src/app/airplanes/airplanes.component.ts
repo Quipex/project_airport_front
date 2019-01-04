@@ -25,11 +25,13 @@ export class AirplanesComponent {
       },
       {
         primaryKey: 'model',
-        header: 'Model'
+        header: 'Model',
+        sortAttr: 16
       },
       {
         primaryKey: 'airlineId',
-        header: 'Airline'
+        header: 'Airline',
+        sortAttr: 17
       }
     ];
 

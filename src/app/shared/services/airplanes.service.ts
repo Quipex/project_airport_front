@@ -42,6 +42,7 @@ export class AirplanesService implements BaseService {
   }
 
   search(page: number, wrapper: FilterAndSortWrapperModel) {
+    return this.http.post(`http://localhost:8080/airplanes/search/page=${page}`, wrapper, this.httpOptions);
   }
 
 
