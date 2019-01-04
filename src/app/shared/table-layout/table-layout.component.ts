@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {ColumnSetting} from '../models/columnSetting.model';
 
 @Component({
@@ -6,7 +6,7 @@ import {ColumnSetting} from '../models/columnSetting.model';
   templateUrl: './table-layout.component.html',
   styleUrls: ['./table-layout.component.scss']
 })
-export class TableLayoutComponent implements OnChanges {
+export class TableLayoutComponent implements OnChanges, OnInit {
 
   @Input() records: any[];
   @Input() caption: string;
@@ -15,12 +15,25 @@ export class TableLayoutComponent implements OnChanges {
   @Output() editedId = new EventEmitter<number>();
   @Output() columnAttr = new EventEmitter<number>();
   columnMaps: ColumnSetting[];
+  sortedDirections = Array();
 
   constructor() { }
 
   ngOnChanges() {
     this.columnMaps = this.settings;
+
   }
+
+  ngOnInit(): void {
+    for (let i = 0; i < this.settings.length; i++) {
+      if (this.settings[i].sortAttr !==undefined) {
+        this.sortedDirections[i] = 0;
+      }
+    }
+    console.log(this.sortedDirections);
+  }
+
+
 
   onEdit(id: number) {
     this.editedId.emit(id);
@@ -30,8 +43,19 @@ export class TableLayoutComponent implements OnChanges {
     this.deletedId.emit(id);
   }
 
-  sortBy(columnAttr: number) {
+  sortBy(columnAttr: number, index: number) {
+
     this.columnAttr.emit(columnAttr);
+    if (this.sortedDirections[index] === 0) {
+      this.sortedDirections[index] = 1;
+      console.log('index', index)
+    } else {
+      if (this.sortedDirections[index] === 1) {
+        this.sortedDirections[index] = -1;
+      } else if (this.sortedDirections[index] === -1) {
+        this.sortedDirections[index] = 1;
+      }
+    }
   }
 
 }
