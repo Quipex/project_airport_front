@@ -4,7 +4,8 @@ import {InputBaseModel} from '../models/inputBase.model';
 
 @Component({
   selector: 'app-form-input',
-  templateUrl: './dynamic-form-render.component.html'
+  templateUrl: './dynamic-form-render.component.html',
+  styleUrls: ['./dynamic-form-render.component.scss']
 })
 export class DynamicFormRenderComponent implements OnInit{
   @Input() question: InputBaseModel<any>;
