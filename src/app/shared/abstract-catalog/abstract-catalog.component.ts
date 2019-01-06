@@ -215,7 +215,6 @@ export class AbstractCatalogComponent implements OnInit {
 
     this.service.search(this.numberOfPage, wrapper)
       .subscribe((data: ResponseFilteringWrapperModel) => {
-        console.log(data.entities)
         this.entities = data.entities;
       });
   }

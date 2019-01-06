@@ -61,18 +61,19 @@
     </div>
   </div>
 </div>
-
 <div class="container">
   <nav aria-label="Page navigation example" *ngIf="paging">
     <ul class="pagination justify-content-end">
       <li class="page-item" [ngClass]="{'disabled': numberOfPage===1}">
-        <a class="page-link" (click)="getTenItems(numberOfPage-1, false)" tabindex="-1">Previous</a>
+        <a class="page-link" *ngIf="!filteringMode" (click)="getTenItems(numberOfPage-1, false)" tabindex="-1">Previous</a>
+        <a class="page-link" *ngIf="filteringMode" (click)="getTenItemsByFilter(numberOfPage-1, false)" tabindex="-1">Previous</a>
       </li>
       <li class="page-item"><a class="page-link" href="#">1</a></li>
       <li class="page-item"><a class="page-link" href="#">{{numberOfPage}}</a></li>
       <li class="page-item"><a class="page-link" href="#">{{countOfPages}}</a></li>
       <li class="page-item" [ngClass]="{'disabled': numberOfPage===countOfPages}">
-        <a class="page-link" (click)="getTenItems(numberOfPage+1, true)">Next</a>
+        <a class="page-link" *ngIf="!filteringMode" (click)="getTenItems(numberOfPage+1, true)">Next</a>
+        <a class="page-link" *ngIf="filteringMode" (click)="getTenItemsByFilter(numberOfPage+1, true)">Next</a>
       </li>
     </ul>
   </nav>
