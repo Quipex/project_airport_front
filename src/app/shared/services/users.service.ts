@@ -4,7 +4,9 @@ import {AuthenticationService} from './authentication.service';
 import {BaseService} from './baseService.service';
 import {BaseEntityModel} from '../models/baseEntity.model';
 import {FilterAndSortWrapperModel} from "../models/filterAndSortWrapper.model";
-import {ResponseFilteringWrapperModel} from "../models/responseFilteringWrapper.model";
+import {environment} from "../../../environments/environment";
+
+const API_URL = environment.apiUrl;
 
 @Injectable()
 export class UsersService implements BaseService {
@@ -20,41 +22,42 @@ export class UsersService implements BaseService {
   constructor(
     private http: HttpClient,
     private authenticationService: AuthenticationService
-  ) {}
+  ) {
+  }
 
   getCountOfItems() {
-    return this.http.get('http://localhost:8080/users/count', this.httpOptions);
+    return this.http.get(API_URL + `/users/count`, this.httpOptions);
   }
 
   getTenItems(page: number) {
-    return this.http.get(`http://localhost:8080/users/page=${page}`, this.httpOptions);
+    return this.http.get(API_URL + `/users/page=${page}`, this.httpOptions);
   }
 
   getTenUsersWithSearch(search: any, page: number) {
-    return this.http.get(`http://localhost:8080/users/search=${search}/page=${page}`, this.httpOptions);
+    return this.http.get(API_URL + `/users/search=${search}/page=${page}`, this.httpOptions);
   }
 
   addItem(item: BaseEntityModel) {
-    return this.http.post('http://localhost:8080/users', item, this.httpOptions);
+    return this.http.post(API_URL + `/users`, item, this.httpOptions);
   }
 
   registrateNewUser(item: BaseEntityModel) {
-    return this.http.post('http://localhost:8080/registrate', item, this.httpOptions);
+    return this.http.post(API_URL + `/registrate`, item, this.httpOptions);
   }
 
   editItem(id: number, item: BaseEntityModel) {
-    return this.http.put(`http://localhost:8080/users/${id}`, item, this.httpOptions);
+    return this.http.put(API_URL + `/users/${id}`, item, this.httpOptions);
   }
 
   deleteItem(id: number) {
-    return this.http.delete(`http://localhost:8080/users/${id}`, this.httpOptions);
+    return this.http.delete(API_URL + `/users/${id}`, this.httpOptions);
   }
 
   sortUsersBy(field: string, order: boolean) {
     if (order) {
-      return this.http.get(`http://localhost:8080/users/sortAscBy=${field}`, this.httpOptions);
+      return this.http.get(API_URL + `/users/sortAscBy=${field}`, this.httpOptions);
     } else if (!order) {
-      return this.http.get(`http://localhost:8080/users/sortDescBy=${field}`, this.httpOptions);
+      return this.http.get(API_URL + `/users/sortDescBy=${field}`, this.httpOptions);
     }
   }
 

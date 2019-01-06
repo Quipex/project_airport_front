@@ -4,6 +4,9 @@ import {AuthenticationService} from './authentication.service';
 import {BaseService} from './baseService.service';
 import {BaseEntityModel} from '../models/baseEntity.model';
 import {FilterAndSortWrapperModel} from "../models/filterAndSortWrapper.model";
+import {environment} from "../../../environments/environment";
+
+const API_URL = environment.apiUrl;
 
 @Injectable()
 export class AirlinesService implements BaseService {
@@ -21,31 +24,31 @@ export class AirlinesService implements BaseService {
   ) {}
 
   getCountOfItems() {
-    return this.http.get('http://localhost:8080/airlines/count', this.httpOptions);
+    return this.http.get(API_URL + `/airlines/count`, this.httpOptions);
   }
 
   getCountOfItemsByFilter(searchString: string) {
-    return this.http.get(`http://localhost:8080/airlines/count/search=${searchString}`, this.httpOptions);
+    return this.http.get(API_URL + `/airlines/count/search=${searchString}`, this.httpOptions);
   }
 
   getTenItems(page: number) {
-    return this.http.get(`http://localhost:8080/airlines/page=${page}`, this.httpOptions);
+    return this.http.get(API_URL + `/airlines/page=${page}`, this.httpOptions);
   }
 
   addItem(item: BaseEntityModel) {
-    return this.http.post('http://localhost:8080/airlines', item, this.httpOptions);
+    return this.http.post(API_URL + `/airlines`, item, this.httpOptions);
   }
 
   editItem(id: number, item: BaseEntityModel) {
-    return this.http.put(`http://localhost:8080/airlines`, item, this.httpOptions);
+    return this.http.put(API_URL + `/airlines`, item, this.httpOptions);
   }
 
   deleteItem(id: number) {
-    return this.http.delete(`http://localhost:8080/airlines/${id}`, this.httpOptions);
+    return this.http.delete(API_URL + `/airlines/${id}`, this.httpOptions);
   }
 
   search(page: number, wrapper: FilterAndSortWrapperModel) {
-    return this.http.post(`http://localhost:8080/airlines/search/page=${page}`, wrapper, this.httpOptions);
+    return this.http.post(API_URL + `/airlines/search/page=${page}`, wrapper, this.httpOptions);
   }
 
 }
