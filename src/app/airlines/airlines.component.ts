@@ -79,7 +79,7 @@ export class AirlinesComponent implements OnInit {
       key: 'phoneNumber',
       label: 'Phone number',
       required: true,
-      type: 'text',
+      type: 'tel',
       order: 5,
       edit: true
     })
