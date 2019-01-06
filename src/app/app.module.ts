@@ -26,7 +26,6 @@ import { DynamicFormRenderComponent } from './shared/dynamic-form/dynamic-form-r
 import { httpInterceptorProviders } from './http-interceptors';
 import { AirplanesComponent } from './airplanes/airplanes.component';
 import {FormControlService} from "./shared/services/formControl.service";
-import { PassengersComponent } from './users/passengers/passengers.component';
 import {
   MatButtonModule,
   MatCheckboxModule,
@@ -35,7 +34,6 @@ import {
 } from "@angular/material";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {BsDropdownModule} from "ngx-bootstrap";
-import {NgxIntlTelInputModule} from "ngx-intl-tel-input";
 import {IntlTelInputModule} from "angular-intl-tel-input";
 
 
@@ -53,8 +51,7 @@ import {IntlTelInputModule} from "angular-intl-tel-input";
     TableLayoutComponent,
     DynamicFormComponent,
     DynamicFormRenderComponent,
-    AirplanesComponent,
-    PassengersComponent
+    AirplanesComponent
   ],
   imports: [
     BrowserModule,
