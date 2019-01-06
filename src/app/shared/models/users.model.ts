@@ -8,7 +8,7 @@ export class UsersModel extends BaseEntityModel {
     public lastname?: string,
     public email?: string,
     public password?: string,
-    public phonenumber?: string,
+    public phoneNumber?: string,
     public authority?: AuthorityModel,
     public enabled?: string,
   ) {
