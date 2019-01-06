@@ -4,6 +4,7 @@ import {AuthenticationService} from './authentication.service';
 import {BaseService} from './baseService.service';
 import {BaseEntityModel} from '../models/baseEntity.model';
 import {FilterAndSortWrapperModel} from "../models/filterAndSortWrapper.model";
+import {ResponseFilteringWrapperModel} from "../models/responseFilteringWrapper.model";
 
 @Injectable()
 export class UsersService implements BaseService {
@@ -30,7 +31,7 @@ export class UsersService implements BaseService {
   }
 
   getTenUsersWithSearch(search: any, page: number) {
-    return this.http.post(`http://localhost:8080/users/search/page=${page}`, search, this.httpOptions);
+    return this.http.get(`http://localhost:8080/users/search=${search}/page=${page}`, this.httpOptions);
   }
 
   addItem(item: BaseEntityModel) {
@@ -58,6 +59,7 @@ export class UsersService implements BaseService {
   }
 
   search(page: number, wrapper: FilterAndSortWrapperModel) {
+    return this.getTenUsersWithSearch(wrapper.searchString, page);
   }
 
 

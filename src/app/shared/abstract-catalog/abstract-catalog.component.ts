@@ -12,7 +12,7 @@ import {ResponseErrorModel} from '../models/responseError.model';
 import {FormControlService} from "../services/formControl.service";
 import {FilterAndSortWrapperModel} from "../models/filterAndSortWrapper.model";
 import {SortEntityModel} from "../models/sortEntity.model";
-import {el} from "@angular/platform-browser/testing/src/browser_util";
+import {ResponseFilteringWrapperModel} from "../models/responseFilteringWrapper.model";
 
 @Component({
   selector: 'app-project-center',
@@ -39,6 +39,7 @@ export class AbstractCatalogComponent implements OnInit {
   deleteId: number;
   responseError: ResponseErrorModel;
   searchString = '';
+  filteringMode = false;
   sortList: SortEntityModel[] = [];
   columnAttr: number;
   sortDirection = true;
@@ -181,30 +182,42 @@ export class AbstractCatalogComponent implements OnInit {
   sortBy(columnAttr: number) {
     let columnAttrList = [];
     let sortAttr = 'ATTR';
+    let deleted = false;
     for (let i = 0; i < this.sortList.length; i++) {
       if (this.sortList[i].type === sortAttr+columnAttr) {
-        this.sortList[i].order = !this.sortList[i].order;
-      }
-      columnAttrList.push(this.sortList[i].type);
-    }
-    if (!columnAttrList.includes(sortAttr+columnAttr)) {
-      this.sortList.push(new SortEntityModel(columnAttr, true));
-    }
-
-    if (this.sortList.length === 0) {
-      this.sortList.push(new SortEntityModel(columnAttr, true));
-    }
-
-    const wrapper = new FilterAndSortWrapperModel(this.searchString, this.sortList);
-    this.service.search(1, wrapper)
-      .subscribe((data: BaseEntityModel[]) => {
-        if (data.length < 10) {
-          this.paging = false;
+        //this.sortList[i].order = !this.sortList[i].order;
+        if (this.sortList[i].order) {
+          this.sortList[i].order = false;
+        } else if (!this.sortList[i].order) {
+          this.sortList.splice(i, 1);
+          deleted = true;
         }
-        this.entities = data;
+      }
+      if (!deleted) {
+        columnAttrList.push(this.sortList[i].type);
+      }
+    }
+    if (!deleted) {
+      if (!columnAttrList.includes(sortAttr + columnAttr)) {
+        this.sortList.push(new SortEntityModel(columnAttr, true));
+      }
+    }
+
+    // if (this.sortList.length === 0) {
+    //   this.sortList.push(new SortEntityModel(columnAttr, true));
+    // }
+    let wrapper;
+    if (this.sortList.length === 0) {
+      wrapper = new FilterAndSortWrapperModel(this.searchString);
+    } else {
+      wrapper = new FilterAndSortWrapperModel(this.searchString, this.sortList);
+    }
+
+    this.service.search(this.numberOfPage, wrapper)
+      .subscribe((data: ResponseFilteringWrapperModel) => {
+        console.log(data.entities)
+        this.entities = data.entities;
       });
-
-
   }
 
   onSearch() {
@@ -215,32 +228,27 @@ export class AbstractCatalogComponent implements OnInit {
       let wrapper = new FilterAndSortWrapperModel(this.searchString, this.sortList);
 
       this.service.search(1, wrapper)
-        .subscribe((data: BaseEntityModel[]) => {
-          console.log(data.length)
-          if (data.length < 10) {
+        .subscribe((data: ResponseFilteringWrapperModel) => {
+          if (data.countOfPages < 2) {
             this.paging = false;
+          } else {
+            this.filteringMode = true;
+            this.paging = true;
+            this.numberOfPage = 1;
+            this.countOfPages = data.countOfPages;
           }
-          this.entities = data;
+          this.entities = data.entities;
         });
     }
   }
 
-  private getCountOfItemsByFilter() {
-    this.service.getCountOfItems()
-      .subscribe((data: number) => {
-        if (data > 10) {
-          this.paging = true;
-          this.countOfPages = Math.ceil(data / 10);
-        }
-        this.getTenItems(1, true);
-      });
-  }
-
 
   private getTenItemsByFilter(numberOfPage: number, direction: boolean) {
-    this.service.getTenItems(numberOfPage)
-      .subscribe((data: BaseEntityModel[]) => {
-        this.entities = data;
+    let wrapper = new FilterAndSortWrapperModel(this.searchString, this.sortList);
+
+    this.service.search(numberOfPage, wrapper)
+      .subscribe((data: ResponseFilteringWrapperModel) => {
+        this.entities = data.entities;
       });
     if (direction) {
       if (this.numberOfPage !== this.countOfPages) {
