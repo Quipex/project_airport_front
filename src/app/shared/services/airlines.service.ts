@@ -48,6 +48,4 @@ export class AirlinesService implements BaseService {
     return this.http.post(`http://localhost:8080/airlines/search/page=${page}`, wrapper, this.httpOptions);
   }
 
-
-
 }

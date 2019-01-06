@@ -24,16 +24,20 @@ export class CountriesService implements BaseService {
     return this.http.get('http://localhost:8080/countries/count', this.httpOptions);
   }
 
+  getCountOfItemsByFilter(searchString: string) {
+    return this.http.get(`http://localhost:8080/countries/count/search=${searchString}`, this.httpOptions);
+  }
+
   getTenItems(page: number) {
     return this.http.get(`http://localhost:8080/countries/page=${page}`, this.httpOptions);
   }
 
-  addItem(country: CountriesModel) {
-    return this.http.post('http://localhost:8080/countries', country, this.httpOptions);
+  addItem(item: CountriesModel) {
+    return this.http.post('http://localhost:8080/countries', item, this.httpOptions);
   }
 
-  editItem(id: number, country: CountriesModel) {
-    return this.http.put(`http://localhost:8080/countries/${id}`, country, this.httpOptions);
+  editItem(id: number, item: CountriesModel) {
+    return this.http.put(`http://localhost:8080/countries/`, item, this.httpOptions);
   }
 
   deleteItem(id: number) {
@@ -41,6 +45,7 @@ export class CountriesService implements BaseService {
   }
 
   search(page: number, wrapper: FilterAndSortWrapperModel) {
+    return this.http.post(`http://localhost:8080/countries/search/page=${page}`, wrapper, this.httpOptions);
   }
 
 }
