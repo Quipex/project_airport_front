@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpRequest, HttpInterceptor, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
+import {ToastrService} from 'ngx-toastr';
 import {Router} from "@angular/router";
 
 @Injectable()
@@ -11,7 +11,8 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   constructor(
     private toastr: ToastrService,
     private router: Router
-  ) { }
+  ) {
+  }
 
   showWarningToastr(error: HttpErrorResponse) {
     this.toastr.warning(error.error.message, error.status.toString());
@@ -29,7 +30,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       // retry will repeat request if catch error response
       retry(1),
-      catchError( (error: HttpErrorResponse) => {
+      catchError((error: HttpErrorResponse) => {
         let errMsg = '';
         // Client Side Error
         if (error.error instanceof ErrorEvent) {

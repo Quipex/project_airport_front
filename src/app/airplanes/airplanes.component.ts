@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {BaseService} from "../shared/services/baseService.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormGroup} from "@angular/forms";
 import {ColumnSetting} from "../shared/models/columnSetting.model";
 import {InputBaseModel} from "../shared/models/inputBase.model";
 import {AirplanesService} from "../shared/services/airplanes.service";
@@ -58,7 +58,8 @@ export class AirplanesComponent {
 
   constructor(
     private  router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     const currentUser: UsersModel = JSON.parse(window.localStorage.getItem('currentUser'));

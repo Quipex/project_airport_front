@@ -21,7 +21,8 @@ export class AirplanesService implements BaseService {
   constructor(
     private http: HttpClient,
     private authenticationService: AuthenticationService
-  ) {}
+  ) {
+  }
 
 
   addItem(baseEntity: BaseEntityModel) {
@@ -47,7 +48,6 @@ export class AirplanesService implements BaseService {
   search(page: number, wrapper: FilterAndSortWrapperModel) {
     return this.http.post(API_URL + `/airplanes/search/page=${page}`, wrapper, this.httpOptions);
   }
-
 
 
 }

@@ -6,5 +6,6 @@ export class ResponseErrorModel {
     public message?: string,
     public status?: number,
     public error?: ErrorContentModel
-  ) {}
+  ) {
+  }
 }

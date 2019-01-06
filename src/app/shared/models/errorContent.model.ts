@@ -4,5 +4,6 @@ export class ErrorContentModel {
     public message?: string,
     public status?: string,
     public timestamp?: string,
-  ) {}
+  ) {
+  }
 }

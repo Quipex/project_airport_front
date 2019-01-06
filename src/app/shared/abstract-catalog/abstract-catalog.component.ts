@@ -58,34 +58,6 @@ export class AbstractCatalogComponent implements OnInit {
     this.form = this.fcs.toFormGroup(this.questions);
   }
 
-  private getCountOfItems() {
-    this.service.getCountOfItems()
-      .subscribe((data: number) => {
-        if (data > 10) {
-          this.paging = true;
-          this.countOfPages = Math.ceil(data / 10);
-        }
-        this.getTenItems(1, true);
-      });
-  }
-
-
-  private getTenItems(numberOfPage: number, direction: boolean) {
-    this.service.getTenItems(numberOfPage)
-      .subscribe((data: BaseEntityModel[]) => {
-        this.entities = data;
-      });
-    if (direction) {
-      if (this.numberOfPage !== this.countOfPages) {
-        this.numberOfPage++;
-      }
-    } else {
-      if (this.numberOfPage !== 1) {
-        this.numberOfPage--;
-      }
-    }
-  }
-
   onEdit(index: number) {
     this.selectedRow = index;
     this.currentItem = this.entities[index];
@@ -107,7 +79,6 @@ export class AbstractCatalogComponent implements OnInit {
     this.deleteId = i;
     this.removeConfirmModal.show();
   }
-
 
   onDelete(index: number) {
     this.currentItem = this.entities[index];
@@ -184,7 +155,7 @@ export class AbstractCatalogComponent implements OnInit {
     let sortAttr = 'ATTR';
     let deleted = false;
     for (let i = 0; i < this.sortList.length; i++) {
-      if (this.sortList[i].type === sortAttr+columnAttr) {
+      if (this.sortList[i].type === sortAttr + columnAttr) {
         //this.sortList[i].order = !this.sortList[i].order;
         if (this.sortList[i].order) {
           this.sortList[i].order = false;
@@ -241,6 +212,32 @@ export class AbstractCatalogComponent implements OnInit {
     }
   }
 
+  private getCountOfItems() {
+    this.service.getCountOfItems()
+      .subscribe((data: number) => {
+        if (data > 10) {
+          this.paging = true;
+          this.countOfPages = Math.ceil(data / 10);
+        }
+        this.getTenItems(1, true);
+      });
+  }
+
+  private getTenItems(numberOfPage: number, direction: boolean) {
+    this.service.getTenItems(numberOfPage)
+      .subscribe((data: BaseEntityModel[]) => {
+        this.entities = data;
+      });
+    if (direction) {
+      if (this.numberOfPage !== this.countOfPages) {
+        this.numberOfPage++;
+      }
+    } else {
+      if (this.numberOfPage !== 1) {
+        this.numberOfPage--;
+      }
+    }
+  }
 
   private getTenItemsByFilter(numberOfPage: number, direction: boolean) {
     let wrapper = new FilterAndSortWrapperModel(this.searchString, this.sortList);

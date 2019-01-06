@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UsersModel} from '../models/users.model';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../services/authentication.service';
@@ -26,7 +26,6 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(window.localStorage.getItem('currentUser'));
   }
-
 
 
   onLogout() {

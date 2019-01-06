@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Message} from '../../shared/models/message.model';
 import {Router} from '@angular/router';
@@ -19,7 +19,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private usersService: UsersService,
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     const user: UsersModel = JSON.parse(window.localStorage.getItem('currentUser'));
@@ -38,13 +39,6 @@ export class SignupComponent implements OnInit {
       'phonenumber': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$'),
         Validators.minLength(8)]),
     });
-  }
-
-  private showMessage(text: string, type: string = 'danger') {
-    this.message = new Message(type, text);
-    window.setTimeout(() => {
-      this.message.text = '';
-    }, 5000);
   }
 
   onSubmit() {
@@ -77,6 +71,13 @@ export class SignupComponent implements OnInit {
     //       this.showMessage('Такого пользователя не существует');
     //     }
     //   });
+  }
+
+  private showMessage(text: string, type: string = 'danger') {
+    this.message = new Message(type, text);
+    window.setTimeout(() => {
+      this.message.text = '';
+    }, 5000);
   }
 
 }

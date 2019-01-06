@@ -21,7 +21,8 @@ export class AirlinesService implements BaseService {
   constructor(
     private http: HttpClient,
     private authenticationService: AuthenticationService
-  ) {}
+  ) {
+  }
 
   getCountOfItems() {
     return this.http.get(API_URL + `/airlines/count`, this.httpOptions);

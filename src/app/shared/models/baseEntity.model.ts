@@ -5,6 +5,7 @@ export class BaseEntityModel {
     public parentId?: number,
     public objectName?: string,
     public objectDescription?: string,
-  ) {}
+  ) {
+  }
 
 }

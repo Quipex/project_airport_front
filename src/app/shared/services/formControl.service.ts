@@ -4,9 +4,10 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Injectable()
 export class FormControlService {
-  constructor() { }
+  constructor() {
+  }
 
-  toFormGroup(items: InputBaseModel<any>[] ) {
+  toFormGroup(items: InputBaseModel<any>[]) {
     let group: any = {};
 
     items.forEach(item => {

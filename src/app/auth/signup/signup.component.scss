@@ -15,24 +15,56 @@ body {
 
 /* Animation Keyframes */
 @keyframes scale_header {
-  0%   {max-height: 0px; margin-bottom: 0px; opacity: 0;}
-  100% {max-height: 117px; margin-bottom: 25px; opacity: 1;}
+  0% {
+    max-height: 0px;
+    margin-bottom: 0px;
+    opacity: 0;
+  }
+  100% {
+    max-height: 117px;
+    margin-bottom: 25px;
+    opacity: 1;
+  }
 }
 
 @keyframes input_opacity {
-  0%   {transform: translateY(-10px); opacity: 0}
-  100% {transform: translateY(0px); opacity: 1}
+  0% {
+    transform: translateY(-10px);
+    opacity: 0
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1
+  }
 }
 
 @keyframes text_opacity {
-  0% {color: transparent;}
+  0% {
+    color: transparent;
+  }
 }
 
 @keyframes error_before {
-  0%   {height: 5px; background: rgba(0, 0, 0, 0.156); color: transparent;}
-  10%  {height: 117px; background: #FFFFFF; color: #C62828}
-  90%  {height: 117px; background: #FFFFFF; color: #C62828}
-  100% {height: 5px; background: rgba(0, 0, 0, 0.156); color: transparent;}
+  0% {
+    height: 5px;
+    background: rgba(0, 0, 0, 0.156);
+    color: transparent;
+  }
+  10% {
+    height: 117px;
+    background: #FFFFFF;
+    color: #C62828
+  }
+  90% {
+    height: 117px;
+    background: #FFFFFF;
+    color: #C62828
+  }
+  100% {
+    height: 5px;
+    background: rgba(0, 0, 0, 0.156);
+    color: transparent;
+  }
 }
 
 .signup-container {

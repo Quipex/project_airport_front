@@ -1,11 +1,14 @@
 <div>
   <div class="modal-body mx-3">
     <div *ngFor="let question of questions" class="md-form mb-5">
-      <app-form-input [question]="question" [form]="form" [editMode]="editMode"></app-form-input>
+      <app-form-input [editMode]="editMode" [form]="form" [question]="question"></app-form-input>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Cancel" (click)="onCancel(form);" mdbWavesEffect>Cancel</button>
-    <button type="submit" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect [disabled]="!form.valid" (click)="onSubmit();">{{submitType}}</button>
+    <button (click)="onCancel(form);" aria-label="Cancel" class="waves-light" color="secondary" mdbBtn mdbWavesEffect
+            type="button">Cancel
+    </button>
+    <button (click)="onSubmit();" [disabled]="!form.valid" class="relative waves-light" color="primary" mdbBtn mdbWavesEffect
+            type="submit">{{submitType}}</button>
   </div>
 </div>

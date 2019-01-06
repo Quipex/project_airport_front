@@ -3,7 +3,8 @@ export class AuthResponceModel {
     public email?: string,
     public authority?: string,
     public token?: string,
-  ) {}
+  ) {
+  }
 
   fromJSON(json) {
     for (var propName in json)

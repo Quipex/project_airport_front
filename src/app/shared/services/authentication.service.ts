@@ -9,6 +9,7 @@ const API_URL = environment.apiUrl;
 @Injectable()
 export class AuthenticationService {
 
+  public configObservable = new Subject<UsersModel>();
   private authUrl = API_URL + '/auth';
   private httpOptions = {
     headers: new HttpHeaders({
@@ -17,8 +18,6 @@ export class AuthenticationService {
   };
   private data;
   private error;
-
-  public configObservable = new Subject<UsersModel>();
 
   constructor(private http: HttpClient) {
   }

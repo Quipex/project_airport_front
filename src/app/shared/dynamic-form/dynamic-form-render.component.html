@@ -2,39 +2,49 @@
   <div *ngIf="editMode">
     <div *ngIf="question.type !== 'tel'">
       <label *ngIf="question.edit" [attr.for]="question.key">{{question.label}}</label>
-      <input *ngIf="question.edit" [formControlName]="question.key" mdbValidate
-                [id]="question.key" [type]="question.type" mdbInputDirective class="form-control">
+      <input *ngIf="question.edit" [formControlName]="question.key" [id]="question.key"
+             [type]="question.type" class="form-control" mdbInputDirective mdbValidate>
     </div>
     <div *ngIf="question.type === 'tel'" class="tel-input">
-      <intl-tel-input [preferredCountries]="['ua', 'gb', 'de', 'be']" mdbInputDirective mdbValidate [enablePlaceholder]="true"
-                      [formControlName]="question.key"></intl-tel-input>
+      <intl-tel-input [enablePlaceholder]="true" [formControlName]="question.key" [preferredCountries]="['ua', 'gb', 'de', 'be']"
+                      mdbInputDirective
+                      mdbValidate></intl-tel-input>
     </div>
-    <mdb-error *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
+    <mdb-error
+      *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
       <span *ngIf="form.controls[question.key].errors.required">{{question.label}} is required</span>
       <span *ngIf="form.controls[question.key].errors.validateEmail"> This email address is not valid.</span>
       <span *ngIf="form.controls[question.key].errors.validatePhone"> Phone number is required. </span>
       <span *ngIf="form.controls[question.key].errors.validatePhoneNumber"> This phone number is not valid.</span>
     </mdb-error>
-    <mdb-success *ngIf="form.controls[question.key].valid && (form.controls[question.key].dirty || form.controls[question.key].touched)">Input valid</mdb-success>
+    <mdb-success
+      *ngIf="form.controls[question.key].valid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
+      Input valid
+    </mdb-success>
   </div>
 
   <div *ngIf="!editMode">
     <div *ngIf="question.type !== 'tel'">
       <label [attr.for]="question.key">{{question.label}}</label>
-      <input [formControlName]="question.key" mdbValidate
-           [id]="question.key" [type]="question.type" mdbInputDirective class="form-control">
+      <input [formControlName]="question.key" [id]="question.key"
+             [type]="question.type" class="form-control" mdbInputDirective mdbValidate>
     </div>
     <div *ngIf="question.type === 'tel'" class="tel-input">
-      <intl-tel-input [preferredCountries]="['ua', 'gb', 'de', 'be']" mdbInputDirective mdbValidate [enablePlaceholder]="true"
-                      [formControlName]="question.key"></intl-tel-input>
+      <intl-tel-input [enablePlaceholder]="true" [formControlName]="question.key" [preferredCountries]="['ua', 'gb', 'de', 'be']"
+                      mdbInputDirective
+                      mdbValidate></intl-tel-input>
     </div>
-    <mdb-error *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
+    <mdb-error
+      *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
       <span *ngIf="form.controls[question.key].errors.required">{{question.label}} is required. </span>
       <span *ngIf="form.controls[question.key].errors.validateEmail"> This email address is not valid.</span>
       <span *ngIf="form.controls[question.key].errors.validatePhone"> Phone number is required. </span>
       <span *ngIf="form.controls[question.key].errors.validatePhoneNumber"> This phone number is not valid.</span>
     </mdb-error>
-    <mdb-success *ngIf="form.controls[question.key].valid && (form.controls[question.key].dirty || form.controls[question.key].touched)">Input valid</mdb-success>
+    <mdb-success
+      *ngIf="form.controls[question.key].valid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
+      Input valid
+    </mdb-success>
   </div>
 </div>
 

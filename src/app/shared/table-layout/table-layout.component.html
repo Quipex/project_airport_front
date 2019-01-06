@@ -1,29 +1,29 @@
 <div class="container table-container">
   <table class="table table-striped">
     <thead>
-      <tr>
-        <th *ngFor="let map of columnMaps; let i = index">{{ map.header }}
-          <span *ngIf="map.sortAttr!==undefined" (click)="sortBy(map.sortAttr, i)">
+    <tr>
+      <th *ngFor="let map of columnMaps; let i = index">{{ map.header }}
+        <span (click)="sortBy(map.sortAttr, i)" *ngIf="map.sortAttr!==undefined">
             <mdb-icon *ngIf="sortedDirections[i] === 0" icon="sort"></mdb-icon>
             <mdb-icon *ngIf="sortedDirections[i] === 1" icon="sort-up"></mdb-icon>
             <mdb-icon *ngIf="sortedDirections[i] === -1" icon="sort-down"></mdb-icon>
           </span>
-        </th>
-        <th></th>
-        <th></th>
-      </tr>
+      </th>
+      <th></th>
+      <th></th>
+    </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let record of records; let i = index">
-        <td *ngFor="let map of columnMaps">
-          {{ record[map.primaryKey] }}</td>
-        <td>
-          <button type="button" class="btn btn-info" (click)="onEdit(i)">Edit</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-danger" (click)="onDelete(i)">Delete</button>
-        </td>
-      </tr>
+    <tr *ngFor="let record of records; let i = index">
+      <td *ngFor="let map of columnMaps">
+        {{ record[map.primaryKey] }}</td>
+      <td>
+        <button (click)="onEdit(i)" class="btn btn-info" type="button">Edit</button>
+      </td>
+      <td>
+        <button (click)="onDelete(i)" class="btn btn-danger" type="button">Delete</button>
+      </td>
+    </tr>
     </tbody>
   </table>
 </div>

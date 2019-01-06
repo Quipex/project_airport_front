@@ -7,7 +7,7 @@ export class SortEntityModel {
     type: number,
     order: boolean
   ) {
-    this.type = 'ATTR'+type;
+    this.type = 'ATTR' + type;
     this.order = order;
   }
 }

@@ -1,5 +1,5 @@
 import {FormControlService} from '../services/formControl.service';
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {InputBaseModel} from '../models/inputBase.model';
 import {BaseEntityModel} from '../models/baseEntity.model';
@@ -7,7 +7,7 @@ import {BaseEntityModel} from '../models/baseEntity.model';
 @Component({
   selector: 'app-dynamic-form',
   templateUrl: './dynamic-form.component.html',
-  providers: [ FormControlService ]
+  providers: [FormControlService]
 })
 export class DynamicFormComponent implements OnChanges {
 
@@ -20,7 +20,8 @@ export class DynamicFormComponent implements OnChanges {
   @Output() returnedItem = new EventEmitter<BaseEntityModel>();
   form: FormGroup;
 
-  constructor(private fcs: FormControlService) {  }
+  constructor(private fcs: FormControlService) {
+  }
 
   ngOnChanges() {
     this.form = this.fcs.toFormGroup(this.questions);

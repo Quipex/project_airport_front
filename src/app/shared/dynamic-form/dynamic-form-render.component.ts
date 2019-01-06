@@ -7,11 +7,14 @@ import {InputBaseModel} from '../models/inputBase.model';
   templateUrl: './dynamic-form-render.component.html',
   styleUrls: ['./dynamic-form-render.component.scss']
 })
-export class DynamicFormRenderComponent implements OnInit{
+export class DynamicFormRenderComponent implements OnInit {
   @Input() question: InputBaseModel<any>;
   @Input() form: FormGroup;
   @Input() editMode: boolean;
-  get isValid() { return this.form.controls[this.question.key].valid; }
+
+  get isValid() {
+    return this.form.controls[this.question.key].valid;
+  }
 
   ngOnInit(): void {
   }

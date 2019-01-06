@@ -1,6 +1,6 @@
 import {BaseEntityModel} from './baseEntity.model';
 
-export class AirlinesModel extends BaseEntityModel{
+export class AirlinesModel extends BaseEntityModel {
   constructor(
     public name?: string,
     public descr?: string,

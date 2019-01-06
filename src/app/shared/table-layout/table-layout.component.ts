@@ -17,7 +17,8 @@ export class TableLayoutComponent implements OnChanges, OnInit {
   columnMaps: ColumnSetting[];
   sortedDirections = Array();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnChanges() {
     this.columnMaps = this.settings;
@@ -25,7 +26,7 @@ export class TableLayoutComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     for (let i = 0; i < this.settings.length; i++) {
-      if (this.settings[i].sortAttr !==undefined) {
+      if (this.settings[i].sortAttr !== undefined) {
         this.sortedDirections[i] = 0;
       }
     }

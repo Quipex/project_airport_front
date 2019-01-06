@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {UsersService} from '../shared/services/users.service';
 import {BaseService} from '../shared/services/baseService.service';
 import {ColumnSetting} from '../shared/models/columnSetting.model';
@@ -94,7 +94,8 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private  router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     const currentUser: UsersModel = JSON.parse(window.localStorage.getItem('currentUser'));

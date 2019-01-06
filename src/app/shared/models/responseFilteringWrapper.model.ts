@@ -4,6 +4,7 @@ export class ResponseFilteringWrapperModel {
   constructor(
     public entities?: BaseEntityModel[],
     public countOfPages?: number
-  ) {}
+  ) {
+  }
 
 }
