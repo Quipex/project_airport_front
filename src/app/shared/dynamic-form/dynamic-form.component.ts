@@ -41,7 +41,11 @@ export class DynamicFormComponent implements OnChanges {
       for (const x in editedItem) {
         for (const y in formData) {
           if (x === y) {
-            editedItem[x] = formData[y];
+            if (y === 'phoneNumber') {
+              editedItem[x] = formData['phoneNumber'].internationalNumber;
+            } else {
+              editedItem[x] = formData[y];
+            }
           }
         }
       }
@@ -50,7 +54,11 @@ export class DynamicFormComponent implements OnChanges {
       const newItem: BaseEntityModel = new BaseEntityModel();
       const formData = this.form.value;
       for (const x in formData) {
-        newItem[x] = formData[x];
+        if (x === 'phoneNumber') {
+          newItem[x] = formData['phoneNumber'].internationalNumber;
+        } else {
+          newItem[x] = formData[x];
+        }
       }
       this.returnedItem.emit(newItem);
       this.form.reset();
