@@ -21,7 +21,6 @@ export class TableLayoutComponent implements OnChanges, OnInit {
 
   ngOnChanges() {
     this.columnMaps = this.settings;
-
   }
 
   ngOnInit(): void {
@@ -30,10 +29,7 @@ export class TableLayoutComponent implements OnChanges, OnInit {
         this.sortedDirections[i] = 0;
       }
     }
-    console.log(this.sortedDirections);
   }
-
-
 
   onEdit(id: number) {
     this.editedId.emit(id);
@@ -48,12 +44,11 @@ export class TableLayoutComponent implements OnChanges, OnInit {
     this.columnAttr.emit(columnAttr);
     if (this.sortedDirections[index] === 0) {
       this.sortedDirections[index] = 1;
-      console.log('index', index)
     } else {
       if (this.sortedDirections[index] === 1) {
         this.sortedDirections[index] = -1;
       } else if (this.sortedDirections[index] === -1) {
-        this.sortedDirections[index] = 1;
+        this.sortedDirections[index] = 0;
       }
     }
   }
