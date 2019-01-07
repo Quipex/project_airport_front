@@ -5,7 +5,8 @@ import {ColumnSetting} from "../shared/models/columnSetting.model";
 import {InputBaseModel} from "../shared/models/inputBase.model";
 import {AirplanesService} from "../shared/services/airplanes.service";
 import {Router} from "@angular/router";
-import {UsersModel} from "../shared/models/users.model";
+import {AuthorityModel} from "../shared/models/entity/users/authority.model";
+import {AuthResponseModel} from "../shared/models/authResponse.model";
 
 @Component({
   selector: 'app-airplanes',
@@ -62,10 +63,10 @@ export class AirplanesComponent {
   }
 
   ngOnInit(): void {
-    const currentUser: UsersModel = JSON.parse(window.localStorage.getItem('currentUser'));
-    if (currentUser === null || currentUser.authority === null) {
+    const authModel: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
+    if (authModel === null || authModel.authority === null) {
       this.router.navigateByUrl('login');
-    } else if (currentUser.authority !== 'ROLE_ADMIN') {
+    } else if (authModel.authority !== AuthorityModel.ROLE_ADMIN.toString()) {
       this.router.navigateByUrl('home');
     }
   }
