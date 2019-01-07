@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {UsersModel} from '../../shared/models/users.model';
 
 import {AuthenticationService} from '../../shared/services/authentication.service';
 import {NavbarComponent} from '../../shared/navbar/navbar.component';
-import {AuthResponceModel} from '../../shared/models/authResponce.model';
+import {AuthResponseModel} from '../../shared/models/authResponse.model';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {TokenResponceModel} from '../../shared/models/tokenResponce.model';
+import {AuthorityModel} from "../../shared/models/entity/users/authority.model";
 
 
 @Component({
@@ -29,10 +29,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    const user: UsersModel = JSON.parse(window.localStorage.getItem('currentUser'));
-    if (user !== null && user.email === 'admin@admin.com') {
+    const authModel: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
+    if (authModel !== null && authModel.authority === AuthorityModel.ROLE_ADMIN.toString()) {
       this.router.navigate(['/users']);
-    } else if (user !== null && user.email !== 'admin@admin.com') {
+    } else if (authModel !== null && authModel.authority !== AuthorityModel.ROLE_ADMIN.toString()) {
       this.router.navigate(['/home']);
     }
 
@@ -50,9 +50,9 @@ export class LoginComponent implements OnInit {
       (data: TokenResponceModel) => {
         const helper = new JwtHelperService();
         const decodedToken = helper.decodeToken(data.token);
-        const authResponce: AuthResponceModel = new AuthResponceModel(decodedToken.sub, decodedToken.user_role, data.token);
-        localStorage.setItem('currentUser', JSON.stringify(authResponce));
-        if (authResponce.authority === 'ROLE_ADMIN') {
+        const authResponse: AuthResponseModel = new AuthResponseModel(decodedToken.sub, decodedToken.user_role, data.token);
+        localStorage.setItem('currentUser', JSON.stringify(authResponse));
+        if (authResponse.authority === AuthorityModel.ROLE_ADMIN.toString()) {
           this.router.navigate(['/users']);
         } else {
           this.router.navigate(['/home']);

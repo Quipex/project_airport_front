@@ -10,29 +10,29 @@
         <a class="nav-item nav-link" routerLink="/home">Home</a>
       </li>
       <li class="nav-item"
-          *ngIf="user.authority === 'ROLE_USER' || user.authority === 'ROLE_CASHIER'
-                  || user === null"
+          *ngIf="authModel.authority === role.ROLE_USER.toString() || authModel.authority === role.ROLE_CASHIER.toString()
+                  || authModel === null"
           routerLinkActive="active">
         <a class="nav-item nav-link" routerLink="/personal-area">Purchase a ticket</a>
       </li>
-      <li class="nav-item" *ngIf="user.authority === 'ROLE_ADMIN'" routerLinkActive="active">
+      <li class="nav-item" *ngIf="authModel.authority === role.ROLE_ADMIN.toString()" routerLinkActive="active">
         <a class="nav-item nav-link" routerLink="/users">Users</a>
       </li>
 
-      <li class="nav-item" *ngIf="user.authority === 'ROLE_ANALYST'" routerLinkActive="active">
+      <li class="nav-item" *ngIf="authModel.authority === role.ROLE_ANALYST.toString()" routerLinkActive="active">
         <a class="nav-item nav-link" routerLink="/analytics">Analytics</a>
       </li>
 
-      <li class="nav-item" *ngIf="user.authority === 'ROLE_CONTROLLER'" routerLinkActive="active">
+      <li class="nav-item" *ngIf="authModel.authority === role.ROLE_CONTROLLER.toString()" routerLinkActive="active">
         <a class="nav-item nav-link" routerLink="/flight-control">Flight control</a>
       </li>
 
-      <li class="nav-item" *ngIf="user.authority === 'ROLE_CONTROLLER'" routerLinkActive="active">
+      <li class="nav-item" *ngIf="authModel.authority === role.ROLE_CONTROLLER.toString()" routerLinkActive="active">
         <a class="nav-item nav-link" routerLink="/flight-edit">Flight edit</a>
       </li>
 
       <li class="nav-item dropdown" dropdown
-          *ngIf="user.authority === 'ROLE_ADMIN'" routerLinkActive="active">
+          *ngIf="authModel.authority === role.ROLE_ADMIN.toString()" routerLinkActive="active">
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
           Airplanes<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
@@ -43,7 +43,7 @@
       </li>
 
       <li class="nav-item dropdown" dropdown
-          *ngIf="user.authority === 'ROLE_ADMIN'" routerLinkActive="active">
+          *ngIf="authModel.authority === role.ROLE_ADMIN.toString()" routerLinkActive="active">
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
           Locations<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
@@ -54,21 +54,21 @@
       </li>
     </ul>
 
-    <div style="width: 165px; display: inherit" *ngIf="user === null">
+    <div style="width: 165px; display: inherit" *ngIf="authModel === null">
       <a class="nav-item nav-link" routerLink="login">Log in</a>
       <a class="nav-item nav-link" routerLink="signup">Sign up</a>
     </div>
-    <div *ngIf="user !== null" class="dropdown" mdbDropdown>
+    <div *ngIf="authModel !== null" class="dropdown" mdbDropdown>
       <a class="nav-link dropdown-toggle" mdbDropdownToggle role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="name">
-                                    {{ user.email }}
+                                    {{ authModel.login }}
                                 </span>
       </a>
       <div class="dropdown-menu dropdown-menu-right">
-        <a *ngIf="user.authority === 'ROLE_ADMIN' || user.authority === 'ROLE_CASHIER'
-                  || user.authority === 'ROLE_CONTROLLER' || user.authority === 'ROLE_ANALYST'"
+        <a *ngIf="authModel.authority === role.ROLE_ADMIN.toString() || authModel.authority === role.ROLE_CASHIER.toString()
+                  || authModel.authority === role.ROLE_CONTROLLER.toString() || authModel.authority === role.ROLE_ANALYST.toString()"
           class="dropdown-item" routerLink="/profile">Profile</a>
-        <div *ngIf="user.authority === 'ROLE_USER'">
+        <div *ngIf="authModel.authority === role.ROLE_USER.toString()">
           <a class="dropdown-item"  routerLink="/flights">Flights</a>
           <a class="dropdown-item"  routerLink="/payment">Payment methods</a>
           <a class="dropdown-item"  routerLink="/passengers">Passengers</a>

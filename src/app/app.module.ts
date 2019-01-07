@@ -73,7 +73,7 @@ import {IntlTelInputModule} from "angular-intl-tel-input";
     IntlTelInputModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  providers: [UsersService, AuthenticationService, AirlinesService, CountriesService, httpInterceptorProviders, FormControlService],
+  providers: [UsersService, AirlinesService, CountriesService, httpInterceptorProviders, FormControlService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

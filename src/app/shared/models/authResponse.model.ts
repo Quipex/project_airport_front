@@ -1,6 +1,6 @@
-export class AuthResponceModel {
+export class AuthResponseModel {
   constructor(
-    public email?: string,
+    public login?: string,
     public authority?: string,
     public token?: string,
   ) {

@@ -4,8 +4,9 @@ import {UsersService} from '../shared/services/users.service';
 import {BaseService} from '../shared/services/baseService.service';
 import {ColumnSetting} from '../shared/models/columnSetting.model';
 import {InputBaseModel} from '../shared/models/inputBase.model';
-import {UsersModel} from "../shared/models/users.model";
 import {Router} from "@angular/router";
+import {AuthorityModel} from "../shared/models/entity/users/authority.model";
+import {AuthResponseModel} from "../shared/models/authResponse.model";
 
 @Component({
   selector: 'app-users',
@@ -26,20 +27,24 @@ export class UsersComponent implements OnInit {
         header: '#'
       },
       {
-        primaryKey: 'firstname',
-        header: 'First name'
-      },
-      {
-        primaryKey: 'lastname',
-        header: 'Last name'
+        primaryKey: 'login',
+        header: 'Login'
       },
       {
         primaryKey: 'email',
         header: 'Email'
       },
       {
-        primaryKey: 'phoneNumber',
+        primaryKey: 'phone',
         header: 'Phone number'
+      },
+      {
+        primaryKey: 'nickname',
+        header: 'Nickname'
+      },
+      {
+        primaryKey: 'authority',
+        header: 'User role'
       }
     ];
 
@@ -47,8 +52,8 @@ export class UsersComponent implements OnInit {
 
 
     new InputBaseModel({
-      key: 'firstname',
-      label: 'First name',
+      key: 'login',
+      label: 'Login',
       required: true,
       type: 'text',
       order: 1,
@@ -56,12 +61,12 @@ export class UsersComponent implements OnInit {
     }),
 
     new InputBaseModel({
-      key: 'lastname',
-      label: 'Last name',
+      key: 'password',
+      label: 'Password',
       required: true,
-      type: 'text',
+      type: 'password',
       order: 2,
-      edit: true
+      edit: false
     }),
 
     new InputBaseModel({
@@ -74,20 +79,29 @@ export class UsersComponent implements OnInit {
     }),
 
     new InputBaseModel({
-      key: 'password',
-      label: 'Password',
+      key: 'phone',
+      label: 'Phone number',
       required: true,
-      type: 'password',
+      type: 'text',
       order: 4,
+      edit: true
+    }),
+
+    new InputBaseModel({
+      key: 'nickname',
+      label: 'Nickname',
+      required: true,
+      type: 'text',
+      order: 5,
       edit: false
     }),
 
     new InputBaseModel({
-      key: 'phoneNumber',
-      label: 'Phone number',
+      key: 'authority',
+      label: 'User role',
       required: true,
-      type: 'tel',
-      order: 5,
+      type: 'text',
+      order: 6,
       edit: true
     })
   ];
@@ -98,10 +112,10 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const currentUser: UsersModel = JSON.parse(window.localStorage.getItem('currentUser'));
+    const currentUser: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
     if (currentUser === null || currentUser.authority === null) {
       this.router.navigateByUrl('login');
-    } else if (currentUser.authority !== 'ROLE_ADMIN') {
+    } else if (currentUser.authority !== AuthorityModel.ROLE_ADMIN.toString()) {
       this.router.navigateByUrl('home');
     }
   }
