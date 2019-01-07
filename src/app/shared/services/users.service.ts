@@ -41,8 +41,8 @@ export class UsersService implements BaseService {
     return this.http.post(API_URL + `/users`, item, this.httpOptions);
   }
 
-  registrateNewUser(item: BaseEntityModel) {
-    return this.http.post(API_URL + `/registrate`, item, this.httpOptions);
+  registerNewUser(item: BaseEntityModel) {
+    return this.http.post(API_URL + `/register`, item, this.httpOptions);
   }
 
   editItem(id: number, item: BaseEntityModel) {
@@ -51,14 +51,6 @@ export class UsersService implements BaseService {
 
   deleteItem(id: number) {
     return this.http.delete(API_URL + `/users/${id}`, this.httpOptions);
-  }
-
-  sortUsersBy(field: string, order: boolean) {
-    if (order) {
-      return this.http.get(API_URL + `/users/sortAscBy=${field}`, this.httpOptions);
-    } else if (!order) {
-      return this.http.get(API_URL + `/users/sortDescBy=${field}`, this.httpOptions);
-    }
   }
 
   search(page: number, wrapper: FilterAndSortWrapperModel) {
