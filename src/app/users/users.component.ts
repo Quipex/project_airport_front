@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {UsersService} from '../shared/services/users.service';
-import {BaseService} from '../shared/services/baseService.service';
+import {UsersService} from '../services/users.service';
+import {BaseService} from '../services/baseService.service';
 import {ColumnSetting} from '../shared/models/columnSetting.model';
 import {InputBaseModel} from '../shared/models/inputBase.model';
 import {Router} from "@angular/router";

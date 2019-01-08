@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
 import {BaseService} from './baseService.service';
-import {BaseEntityModel} from '../models/baseEntity.model';
-import {FilterAndSortWrapperModel} from "../models/filterAndSortWrapper.model";
-import {environment} from "../../../environments/environment";
+import {BaseEntityModel} from '../shared/models/baseEntity.model';
+import {FilterAndSortWrapperModel} from "../shared/models/filterAndSortWrapper.model";
+import {environment} from "../../environments/environment";
 
 const API_URL = environment.apiUrl;
 
@@ -33,16 +33,8 @@ export class UsersService implements BaseService {
     return this.http.get(API_URL + `/users/page=${page}`, this.httpOptions);
   }
 
-  getTenUsersWithSearch(search: any, page: number) {
-    return this.http.get(API_URL + `/users/search=${search}/page=${page}`, this.httpOptions);
-  }
-
   addItem(item: BaseEntityModel) {
     return this.http.post(API_URL + `/users`, item, this.httpOptions);
-  }
-
-  registerNewUser(item: BaseEntityModel) {
-    return this.http.post(API_URL + `/register`, item, this.httpOptions);
   }
 
   editItem(id: number, item: BaseEntityModel) {
@@ -54,7 +46,11 @@ export class UsersService implements BaseService {
   }
 
   search(page: number, wrapper: FilterAndSortWrapperModel) {
-    return this.getTenUsersWithSearch(wrapper.searchString, page);
+    return this.http.post(API_URL + `/users/search/page=${page}`, wrapper, this.httpOptions);
+  }
+
+  registerNewUser(item: BaseEntityModel) {
+    return this.http.post(API_URL + `/register`, item, this.httpOptions);
   }
 
 

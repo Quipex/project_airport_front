@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
-import {CountriesModel} from '../models/entity/flight/countries.model';
+import {CountriesModel} from '../shared/models/entity/flight/countries.model';
 import {BaseService} from "./baseService.service";
-import {FilterAndSortWrapperModel} from "../models/filterAndSortWrapper.model";
-import {environment} from "../../../environments/environment";
+import {FilterAndSortWrapperModel} from "../shared/models/filterAndSortWrapper.model";
+import {environment} from "../../environments/environment";
 
 const API_URL = environment.apiUrl;
 

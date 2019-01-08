@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
 import {BaseService} from './baseService.service';
-import {BaseEntityModel} from '../models/baseEntity.model';
-import {FilterAndSortWrapperModel} from "../models/filterAndSortWrapper.model";
-import {environment} from "../../../environments/environment";
+import {BaseEntityModel} from '../shared/models/baseEntity.model';
+import {FilterAndSortWrapperModel} from "../shared/models/filterAndSortWrapper.model";
+import {environment} from "../../environments/environment";
 
 const API_URL = environment.apiUrl;
 
@@ -28,10 +28,6 @@ export class AirlinesService implements BaseService {
     return this.http.get(API_URL + `/airlines/count`, this.httpOptions);
   }
 
-  getCountOfItemsByFilter(searchString: string) {
-    return this.http.get(API_URL + `/airlines/count/search=${searchString}`, this.httpOptions);
-  }
-
   getTenItems(page: number) {
     return this.http.get(API_URL + `/airlines/page=${page}`, this.httpOptions);
   }
@@ -41,7 +37,7 @@ export class AirlinesService implements BaseService {
   }
 
   editItem(id: number, item: BaseEntityModel) {
-    return this.http.put(API_URL + `/airlines`, item, this.httpOptions);
+    return this.http.put(API_URL + `/airlines/${id}`, item, this.httpOptions);
   }
 
   deleteItem(id: number) {

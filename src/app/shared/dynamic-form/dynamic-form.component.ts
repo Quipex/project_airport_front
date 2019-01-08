@@ -1,4 +1,4 @@
-import {FormControlService} from '../services/formControl.service';
+import {FormControlService} from '../../services/formControl.service';
 import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {InputBaseModel} from '../models/inputBase.model';

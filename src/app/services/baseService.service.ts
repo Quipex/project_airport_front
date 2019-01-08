@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {BaseEntityModel} from '../models/baseEntity.model';
-import {FilterAndSortWrapperModel} from "../models/filterAndSortWrapper.model";
+import {BaseEntityModel} from '../shared/models/baseEntity.model';
+import {FilterAndSortWrapperModel} from "../shared/models/filterAndSortWrapper.model";
 
 @Injectable()
 export abstract class BaseService {

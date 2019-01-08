@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {UsersModel} from '../models/entity/users/users.model';
+import {UsersModel} from '../shared/models/entity/users/users.model';
 import {Subject} from 'rxjs';
-import {environment} from "../../../environments/environment";
+import {environment} from "../../environments/environment";
 
 const API_URL = environment.apiUrl;
 
