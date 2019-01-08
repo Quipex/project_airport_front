@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
-import {AuthenticationService} from '../../shared/services/authentication.service';
+import {AuthenticationService} from '../../services/authentication.service';
 import {NavbarComponent} from '../../shared/navbar/navbar.component';
 import {AuthResponseModel} from '../../shared/models/authResponse.model';
 import {JwtHelperService} from '@auth0/angular-jwt';
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.form = new FormGroup({
-      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'login': new FormControl(null, [Validators.required]),
       'password': new FormControl(null, [Validators.required])
     });
   }
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     this.message = false;
     const formData = this.form.value;
 
-    this.authenticationService.login(formData.email, formData.password).subscribe(
+    this.authenticationService.login(formData.login, formData.password).subscribe(
       (data: TokenResponceModel) => {
         const helper = new JwtHelperService();
         const decodedToken = helper.decodeToken(data.token);
