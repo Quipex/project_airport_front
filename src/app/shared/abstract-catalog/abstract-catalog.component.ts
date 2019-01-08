@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {BaseService} from '../services/baseService.service';
-import {UsersService} from '../services/users.service';
-import {AirlinesService} from '../services/airlines.service';
+import {BaseService} from '../../services/baseService.service';
+import {UsersService} from '../../services/users.service';
+import {AirlinesService} from '../../services/airlines.service';
 import {ToastrService} from 'ngx-toastr';
 import {FormGroup} from '@angular/forms';
 import {BaseEntityModel} from '../models/baseEntity.model';
@@ -9,7 +9,7 @@ import {ColumnSetting} from '../models/columnSetting.model';
 import {ModalDirective} from 'angular-bootstrap-md';
 import {InputBaseModel} from '../models/inputBase.model';
 import {ResponseErrorModel} from '../models/responseError.model';
-import {FormControlService} from "../services/formControl.service";
+import {FormControlService} from "../../services/formControl.service";
 import {FilterAndSortWrapperModel} from "../models/filterAndSortWrapper.model";
 import {SortEntityModel} from "../models/sortEntity.model";
 import {ResponseFilteringWrapperModel} from "../models/responseFilteringWrapper.model";
@@ -257,4 +257,9 @@ export class AbstractCatalogComponent implements OnInit {
     }
   }
 
+  onEnter($event: KeyboardEvent) {
+    if ($event.key == "Enter") {
+      this.onSearch();
+    }
+  }
 }

@@ -11,7 +11,8 @@
       </div>
       <div class="col-md-6">
         <div class="form-group input-form">
-          <input type="text" class="form-control" id="search-input" placeholder="Search" [(ngModel)]="searchString">
+          <input type="text" class="form-control" id="search-input" placeholder="Search"
+                 [(ngModel)]="searchString" (keypress)="onEnter($event)">
           <button type="submit" class="btn btn-primary btn-search" (click)="onSearch()">Search</button>
         </div>
       </div>
