@@ -82,7 +82,7 @@ export class UsersComponent implements OnInit {
       key: 'phone',
       label: 'Phone number',
       required: true,
-      type: 'text',
+      type: 'tel',
       order: 4,
       edit: true
     }),
