@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Message} from '../../shared/models/message.model';
 import {Router} from '@angular/router';
-import {UsersService} from '../../shared/services/users.service';
+import {UsersService} from '../../services/users.service';
 import {UsersModel} from '../../shared/models/entity/users/users.model';
 import {AuthorityModel} from "../../shared/models/entity/users/authority.model";
 import {AuthResponseModel} from "../../shared/models/authResponse.model";
@@ -34,12 +34,12 @@ export class SignupComponent implements OnInit {
     }
     this.message = new Message('danger', '');
     this.form = new FormGroup({
-      'firstname': new FormControl(null, [Validators.required]),
-      'lastname': new FormControl(null, [Validators.required]),
-      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'login': new FormControl(null, [Validators.required]),
       'password': new FormControl(null, [Validators.required]),
-      'phonenumber': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$'),
+      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'phone': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$'),
         Validators.minLength(8)]),
+      'nickname': new FormControl(null, [Validators.required]),
     });
   }
 
@@ -47,8 +47,8 @@ export class SignupComponent implements OnInit {
     // console.log('submit');
     const formData = this.form.value;
 
-    const newUser: UsersModel = new UsersModel(formData.firstname, formData.lastname,
-      formData.email, formData.password, formData.phonenumber, AuthorityModel.ROLE_USER);
+    const newUser: UsersModel = new UsersModel(formData.login, formData.password,
+      formData.email, formData.phone, formData.nickname, AuthorityModel.ROLE_USER);
     console.log(newUser);
     this.usersService.registerNewUser(newUser)
       .subscribe((user: UsersModel) => {
