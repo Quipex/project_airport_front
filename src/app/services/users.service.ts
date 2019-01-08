@@ -38,7 +38,7 @@ export class UsersService implements BaseService {
   }
 
   editItem(id: number, item: BaseEntityModel) {
-    return this.http.put(API_URL + `/users/${id}`, item, this.httpOptions);
+    return this.http.put(API_URL + `/users/`, item, this.httpOptions);
   }
 
   deleteItem(id: number) {

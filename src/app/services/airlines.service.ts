@@ -37,7 +37,7 @@ export class AirlinesService implements BaseService {
   }
 
   editItem(id: number, item: BaseEntityModel) {
-    return this.http.put(API_URL + `/airlines/${id}`, item, this.httpOptions);
+    return this.http.put(API_URL + `/airlines/`, item, this.httpOptions);
   }
 
   deleteItem(id: number) {
