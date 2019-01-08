@@ -48,7 +48,7 @@ export class SignupComponent implements OnInit {
     const formData = this.form.value;
 
     const newUser: UsersModel = new UsersModel(formData.login, formData.password,
-      formData.email, formData.phone, formData.nickname, AuthorityModel.ROLE_USER);
+      formData.email, formData.phoneNumber, formData.nickname, AuthorityModel.ROLE_USER);
     console.log(newUser);
     this.usersService.registerNewUser(newUser)
       .subscribe((user: UsersModel) => {

@@ -7,11 +7,10 @@ export class UsersModel extends BaseEntityModel {
     public login: string,
     public password: string,
     public email: string,
-    public phone?: string,
+    public phoneNumber?: string,
     public nickname?: string,
     public authority?: AuthorityModel
   ) {
     super();
   }
-
 }

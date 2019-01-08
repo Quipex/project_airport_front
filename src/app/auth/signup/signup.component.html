@@ -55,7 +55,7 @@
         </span>
       </div>
       <div
-        [ngClass]="{'has-error': form.get('phone').invalid && form.get('phone').touched}"
+        [ngClass]="{'has-error': form.get('phoneNumber').invalid && form.get('phoneNumber').touched}"
         class="form-group">
         <label for="password">Phone number</label>
         <input
@@ -65,11 +65,11 @@
           placeholder="+1999999999"
           type="text">
         <span
-          *ngIf="form.get('phone').invalid && form.get('phone').touched"
+          *ngIf="form.get('phoneNumber').invalid && form.get('phoneNumber').touched"
           class="form-help-text">
-          <span *ngIf="form.get('phone')['errors']['required']">*required</span>
-          <span *ngIf="form.get('phone')['errors']['pattern']">Phone number is wrong</span>
-          <span *ngIf="form.get('phone')['errors']['minLength']">Phone number is too short</span>
+          <span *ngIf="form.get('phoneNumber')['errors']['required']">*required</span>
+          <span *ngIf="form.get('phoneNumber')['errors']['pattern']">Phone number is wrong</span>
+          <span *ngIf="form.get('phoneNumber')['errors']['minLength']">Phone number is too short</span>
         </span>
       </div>
       <div

@@ -35,7 +35,7 @@ export class UsersComponent implements OnInit {
         header: 'Email'
       },
       {
-        primaryKey: 'phone',
+        primaryKey: 'phoneNumber',
         header: 'Phone number'
       },
       {
@@ -79,7 +79,7 @@ export class UsersComponent implements OnInit {
     }),
 
     new InputBaseModel({
-      key: 'phone',
+      key: 'phoneNumber',
       label: 'Phone number',
       required: true,
       type: 'tel',
