@@ -1,0 +1,113 @@
+<app-navbar></app-navbar>
+{{passengers | json}}
+<div class="container">
+  <div class="row header-row">
+    <div class="col-md-6">
+      <h4>Passengers</h4>
+    </div>
+    <div class="col-md-6">
+      <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="newModal.show(); onNew()" mdbWavesEffect>New</button>
+    </div>
+  </div>
+  <div *ngFor="let passenger of passengers">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{passenger.firstName}} {{passenger.lastName}}
+        </mat-panel-title>
+        <!--<mat-panel-description>-->
+          <!--This is a summary of the content-->
+        <!--</mat-panel-description>-->
+      </mat-expansion-panel-header>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="First name" value="{{passenger.firstName}}">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Last name" value="{{passenger.lastName}}">
+          </mat-form-field>
+        </div>
+      </div>
+      <hr>
+      <!--<div class="row">-->
+        <!--<div class="col-md-6">-->
+          <!--<mat-form-field class="example-full-width">-->
+            <!--<input matInput placeholder="SN of passport" value="{{item.passport.sn}}">-->
+          <!--</mat-form-field>-->
+        <!--</div>-->
+        <!--<div class="col-md-6">-->
+          <!--<mat-form-field class="example-full-width">-->
+            <!--<input matInput placeholder="Country" value="{{item.passport.country}}">-->
+          <!--</mat-form-field>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<mat-form-field>-->
+        <!--<input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="item.passport.dateOfBirth">-->
+        <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+        <!--<mat-datepicker #picker></mat-datepicker>-->
+      <!--</mat-form-field>-->
+
+    </mat-expansion-panel>
+    <hr>
+  </div>
+</div>
+
+<div mdbModal #newModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="newModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="newModalLabel">Add new passenger</h4>
+      </div>
+      <div>
+        <div class="modal-body mx-3">
+
+          <div class="md-form mb-5">
+            <label for="firstName">First Name</label>
+            <input ngModel
+                   id="firstName" type="text" mdbInputDirective class="form-control" >
+          </div>
+          <div class="md-form mb-5">
+            <label for="lastName">Last Name</label>
+            <input ngModel
+                   id="lastName" type="text" mdbInputDirective class="form-control" >
+          </div>
+          <!--<div class="md-form mb-5">-->
+            <!--<label [attr.for]="lastName">Last Name</label>-->
+            <!--<input [formControlName]="lastName"-->
+                   <!--[id]="question.key" [type]="question.type" mdbInputDirective class="form-control" data-error="{{question.label}} is required" data-success="" >-->
+          <!--</div>-->
+
+          <hr>
+          <div class="md-form mb-5">
+            <label for="counry">Country</label>
+            <input ngModel
+                   id="counry" type="text" mdbInputDirective class="form-control" >
+          </div>
+          <div class="md-form mb-5">
+            <label for="SN">Country</label>
+            <input ngModel
+                   id="SN" type="text" mdbInputDirective class="form-control" >
+          </div>
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Birth date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Cancel" (click)="onCancel();" mdbWavesEffect>Cancel</button>
+          <button type="submit" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect  (click)="onSubmit();">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

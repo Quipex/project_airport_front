@@ -36,6 +36,7 @@ import {
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {BsDropdownModule} from "ngx-bootstrap";
 import {IntlTelInputModule} from "angular-intl-tel-input";
+import {PassengersComponent} from "./users/passengers/passengers.component";
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import {IntlTelInputModule} from "angular-intl-tel-input";
     TableLayoutComponent,
     DynamicFormComponent,
     DynamicFormRenderComponent,
-    AirplanesComponent
+    AirplanesComponent,
+    PassengersComponent
   ],
   imports: [
     BrowserModule,
