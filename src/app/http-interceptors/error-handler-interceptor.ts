@@ -3,7 +3,7 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Injectable()
 export class ErrorHandlerInterceptor implements HttpInterceptor {
@@ -19,7 +19,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   }
 
   showErrorToastr(error: HttpErrorResponse) {
-    this.toastr.error(error.error.message, error.status.toString());
+    this.toastr.error('Sorry, something went wrong. Please try again later.', error.status.toString());
   }
 
   showErrorToastrWithCustomMessage(message: string) {
