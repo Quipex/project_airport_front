@@ -6,7 +6,8 @@ import {LoginComponent} from './auth/login/login.component';
 import {SignupComponent} from './auth/signup/signup.component';
 import {AirlinesComponent} from './airlines/airlines.component';
 import {CountriesComponent} from './countries/countries.component';
-import {AirplanesComponent} from "./airplanes/airplanes.component";
+import {AirplanesComponent} from './airplanes/airplanes.component';
+import {ExtraTypeComponent} from './extra-type/extra-type.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'airplanes',
     component: AirplanesComponent
+  },
+  {
+    path: 'extra-type',
+    component: ExtraTypeComponent
   },
   {
     path: 'countries',

@@ -21,6 +21,7 @@ import {CountriesComponent} from './countries/countries.component';
 import {AbstractCatalogComponent} from './shared/abstract-catalog/abstract-catalog.component';
 import {TableLayoutComponent} from './shared/table-layout/table-layout.component';
 import {CountriesService} from './services/countries.service';
+import {ExtraTypeComponent} from './extra-type/extra-type.component';
 import {DynamicFormComponent} from './shared/dynamic-form/dynamic-form.component';
 import {DynamicFormRenderComponent} from './shared/dynamic-form/dynamic-form-render.component';
 import {httpInterceptorProviders} from './http-interceptors';
@@ -52,7 +53,8 @@ import {IntlTelInputModule} from "angular-intl-tel-input";
     TableLayoutComponent,
     DynamicFormComponent,
     DynamicFormRenderComponent,
-    AirplanesComponent
+    AirplanesComponent,
+    ExtraTypeComponent
   ],
   imports: [
     BrowserModule,
