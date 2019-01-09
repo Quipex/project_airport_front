@@ -21,7 +21,6 @@ import {CountriesComponent} from './countries/countries.component';
 import {AbstractCatalogComponent} from './shared/abstract-catalog/abstract-catalog.component';
 import {TableLayoutComponent} from './shared/table-layout/table-layout.component';
 import {CountriesService} from './services/countries.service';
-import {ExtraTypeComponent} from './extra-type/extra-type.component';
 import {DynamicFormComponent} from './shared/dynamic-form/dynamic-form.component';
 import {DynamicFormRenderComponent} from './shared/dynamic-form/dynamic-form-render.component';
 import {httpInterceptorProviders} from './http-interceptors';
@@ -37,6 +36,8 @@ import {
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {BsDropdownModule} from "ngx-bootstrap";
 import {IntlTelInputModule} from "angular-intl-tel-input";
+import {PassengersComponent} from "./users/passengers/passengers.component";
+import {ExtraTypeComponent} from './extra-type/extra-type.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import {IntlTelInputModule} from "angular-intl-tel-input";
     DynamicFormComponent,
     DynamicFormRenderComponent,
     AirplanesComponent,
+    PassengersComponent,
     ExtraTypeComponent
   ],
   imports: [
