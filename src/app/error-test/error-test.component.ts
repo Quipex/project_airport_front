@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ErrorTestModel} from "./error-test.model";
 import {ErrorTestService} from "../services/error-test.service";
+import {AuthResponseModel} from "../shared/models/authResponse.model";
+import {AuthorityModel} from "../shared/models/entity/users/authority.model";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-error-test',
@@ -9,22 +12,31 @@ import {ErrorTestService} from "../services/error-test.service";
 })
 export class ErrorTestComponent implements OnInit {
 
-  errors: ErrorTestModel[];
+  errors = [];
 
   constructor(
-    private service: ErrorTestService
+    private service: ErrorTestService,
+    private  router: Router
   ) {
   }
 
   ngOnInit() {
-    this.service.getAll().subscribe(
-      (data: ErrorTestModel[]) => {
-        this.errors = data
-      }
-    );
+    const currentUser: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
+    if (currentUser.authority !== AuthorityModel.ROLE_ADMIN.toString()) {
+      this.router.navigateByUrl('home');
+    } else {
+      this.service.getAll().subscribe(
+        (data: object) => {
+          for (let dataKey in data) {
+            this.errors.push(new ErrorTestModel(+dataKey, data[dataKey]));
+          }
+        }
+      );
+    }
   }
 
   onClick(err: ErrorTestModel) {
-    this.service.invokeItem(err.id);
+    this.service.invokeItem(err.id).subscribe();
+    console.log(err);
   }
 }

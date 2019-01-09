@@ -9,6 +9,7 @@ import {CountriesComponent} from './countries/countries.component';
 import {AirplanesComponent} from './airplanes/airplanes.component';
 import {ExtraTypeComponent} from './extra-type/extra-type.component';
 import {PassengersComponent} from './users/passengers/passengers.component';
+import {ErrorTestComponent} from "./error-test/error-test.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'passengers',
     component: PassengersComponent
+  },
+  {
+    path: 'error-test',
+    component: ErrorTestComponent
   }
 ];
 

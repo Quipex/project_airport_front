@@ -22,6 +22,7 @@ export class ErrorTestService {
   }
 
   invokeItem(id: number) {
+    console.log('invoked ' + id);
     return this.http.get(API_URL + `/error/${id}`, this.httpOptions);
   }
 
