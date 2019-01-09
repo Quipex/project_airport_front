@@ -38,6 +38,11 @@ import {BsDropdownModule} from "ngx-bootstrap";
 import {IntlTelInputModule} from "angular-intl-tel-input";
 import {PassengersComponent} from "./users/passengers/passengers.component";
 import {ExtraTypeComponent} from './extra-type/extra-type.component';
+import {ErrorTestComponent} from './error-test/error-test.component';
+import {ErrorTestService} from "./services/error-test.service";
+import {PassengersService} from "./services/passengers.service";
+import {ExtraTypeService} from "./services/extra-type.service";
+import {PassportsService} from "./services/passports.service";
 
 
 @NgModule({
@@ -56,7 +61,8 @@ import {ExtraTypeComponent} from './extra-type/extra-type.component';
     DynamicFormRenderComponent,
     AirplanesComponent,
     PassengersComponent,
-    ExtraTypeComponent
+    ExtraTypeComponent,
+    ErrorTestComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +83,16 @@ import {ExtraTypeComponent} from './extra-type/extra-type.component';
     IntlTelInputModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  providers: [UsersService, AirlinesService, CountriesService, httpInterceptorProviders, FormControlService, AuthenticationService],
+  providers: [UsersService,
+    AirlinesService,
+    CountriesService,
+    httpInterceptorProviders,
+    FormControlService,
+    AuthenticationService,
+    PassengersService,
+    ExtraTypeService,
+    PassportsService,
+    ErrorTestService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
