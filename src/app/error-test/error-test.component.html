@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
 <ul class="error-test">
-  <li *ngfor="let err of errors"
-      (click)="onClick(err)"><span>{{err.id}}</span> {{err.name}}</li>
+  <li *ngFor="let err of errors" (click)="onClick(err)">
+   <span>{{err.id}}</span>{{err.name}}</li>
 </ul>
