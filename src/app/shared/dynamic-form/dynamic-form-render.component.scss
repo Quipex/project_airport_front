@@ -10,6 +10,6 @@ mdb-success {
   width: 100%;
 }
 
-intl-tel-input #phone {
-  width: 158%;
+::ng-deep intl-tel-input input {
+  width: 380px !important;
 }
