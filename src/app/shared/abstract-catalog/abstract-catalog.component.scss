@@ -1,3 +1,7 @@
+.modal-dialog {
+  height: 100%;
+}
+
 .table-container {
   margin-top: 50px;
 }
@@ -23,3 +27,9 @@ ul {
 li {
   list-style-type: none;
 }
+
+app-dynamic-form {
+  height: 100%;
+
+}
+

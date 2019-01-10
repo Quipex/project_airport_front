@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="text-left">
-          <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="newModal.show(); onNew()"
+          <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="onNew()"
                   mdbWavesEffect>New
           </button>
         </div>
@@ -20,21 +20,23 @@
   </div>
 </div>
 
-<div mdbModal #newModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
-     aria-hidden="true">
+<div mdbModal id="mdbModal" #newModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+     aria-hidden="true" (opened)="onOpen(modalContent)">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content" #modalContent id="modal-content" [style.height.%]="height">
       <div class="modal-header">
         <button type="button" class="close pull-right" aria-label="Close" (click)="newModal.hide()">
           <span aria-hidden="true">×</span>
         </button>
         <h4 class="modal-title w-100" id="newModalLabel">Add new user</h4>
       </div>
-      <app-dynamic-form *ngIf="editMode" [editMode]="editMode" [questions]="questions" [submitType]="submitType"
-                        [currentItem]="currentItem" (isCancel)="onCancel($event)" [editedForm]="form"
-                        (returnedItem)="onSave($event)"></app-dynamic-form>
-      <app-dynamic-form *ngIf="!editMode" [questions]="questions" [submitType]="submitType"
-                        (isCancel)="onCancel($event)" (returnedItem)="onSave($event)"></app-dynamic-form>
+      <div [style.overflow-y]="overflow">
+        <app-dynamic-form  *ngIf="editMode" [editMode]="editMode" [questions]="questions" [submitType]="submitType"
+                          [currentItem]="currentItem" (isCancel)="onCancel($event)" [editedForm]="form"
+                          (returnedItem)="onSave($event)"></app-dynamic-form>
+        <app-dynamic-form *ngIf="!editMode" [questions]="questions" [submitType]="submitType"
+                          (isCancel)="onCancel($event)" (returnedItem)="onSave($event)"></app-dynamic-form>
+      </div>
     </div>
   </div>
 </div>

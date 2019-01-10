@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {BaseService} from '../../services/baseService.service';
 import {UsersService} from '../../services/users.service';
 import {AirlinesService} from '../../services/airlines.service';
@@ -19,11 +19,12 @@ import {ResponseFilteringWrapperModel} from "../models/responseFilteringWrapper.
   templateUrl: './abstract-catalog.component.html',
   styleUrls: ['./abstract-catalog.component.scss']
 })
-export class AbstractCatalogComponent implements OnInit {
+export class AbstractCatalogComponent implements OnInit  {
 
   @Input() settings: ColumnSetting[];
   @Input() questions: InputBaseModel<any>[];
   @ViewChild('newModal') newModal: ModalDirective;
+  @ViewChild('modalContent', {read: ElementRef}) private modalContent: ElementRef;
   @ViewChild('removeConfirmModal') removeConfirmModal: ModalDirective;
   entities: BaseEntityModel[];
   title = 'Project Center';
@@ -43,6 +44,8 @@ export class AbstractCatalogComponent implements OnInit {
   sortList: SortEntityModel[] = [];
   columnAttr: number;
   sortDirection = true;
+  overflow = 'auto';
+  height: number;
 
   constructor(
     private  service: BaseService,
@@ -69,10 +72,20 @@ export class AbstractCatalogComponent implements OnInit {
   }
 
   onNew() {
+    this.newModal.show();
     this.currentItem = new BaseEntityModel();
     this.submitType = 'Save';
     this.showNew = !this.showNew;
     this.editMode = false;
+  }
+
+  onOpen() {
+    let htmlHeight = document.getElementsByTagName('html')[0].clientHeight;
+    let modalHeight = this.modalContent.nativeElement.offsetHeight;
+    if ((100*modalHeight)/htmlHeight > 50) {
+      this.height = 50;
+      this.overflow = 'scroll';
+    }
   }
 
   showRemoveConfirmModal(i: number) {
@@ -226,6 +239,7 @@ export class AbstractCatalogComponent implements OnInit {
   private getTenItems(numberOfPage: number, direction: boolean) {
     this.service.getTenItems(numberOfPage)
       .subscribe((data: BaseEntityModel[]) => {
+        console.log(data);
         this.entities = data;
       });
     if (direction) {
