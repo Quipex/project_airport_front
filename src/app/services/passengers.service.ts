@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthenticationService} from "./authentication.service";
-import {PassengerPassportModel} from "../users/passengers/passengers.component";
+import {PassengerPassportModel} from "../shared/models/entity/users/passengers/passengerPasport.model";
 import {FilterAndSortWrapperModel} from "../shared/models/filterAndSortWrapper.model";
 
 @Injectable()

@@ -41,7 +41,6 @@ export class TableLayoutComponent implements OnChanges, OnInit {
   }
 
   sortBy(columnAttr: number, index: number) {
-
     this.columnAttr.emit(columnAttr);
     if (this.sortedDirections[index] === 0) {
       this.sortedDirections[index] = 1;

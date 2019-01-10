@@ -25,7 +25,8 @@ export class CountriesComponent implements OnInit {
       },
       {
         primaryKey: 'name',
-        header: 'Name'
+        header: 'Name',
+        sortAttr: 1
       }
     ];
 
