@@ -3,6 +3,8 @@ import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {InputBaseModel} from '../models/inputBase.model';
 import {BaseEntityModel} from '../models/baseEntity.model';
+import {PassengerPassportCommonModel} from "../models/entity/users/passengers/passengerPassportCommon.model";
+import {PassengerPassportModel} from "../models/entity/users/passengers/passengerPasport.model";
 
 @Component({
   selector: 'app-dynamic-form',
@@ -37,20 +39,27 @@ export class DynamicFormComponent implements OnChanges {
 
   onSubmit() {
     if (this.editMode) {
-      let editedItem = JSON.parse(JSON.stringify(this.currentItem));
-      const formData = this.form.value;
-      for (const x in editedItem) {
-        for (const y in formData) {
-          if (x === y) {
-            if (y === 'phoneNumber') {
-              editedItem[x] = formData['phoneNumber'].internationalNumber;
-            } else {
-              editedItem[x] = formData[y];
+      if (this.currentItem instanceof PassengerPassportModel) {
+        let editedItem = new PassengerPassportCommonModel();
+        const formData = this.form.value;
+        editedItem = formData;
+        this.returnedItem.emit(editedItem);
+      } else {
+        let editedItem = JSON.parse(JSON.stringify(this.currentItem));
+        const formData = this.form.value;
+        for (const x in editedItem) {
+          for (const y in formData) {
+            if (x === y) {
+              if (y === 'phoneNumber') {
+                editedItem[x] = formData['phoneNumber'].internationalNumber;
+              } else {
+                editedItem[x] = formData[y];
+              }
             }
           }
         }
+        this.returnedItem.emit(editedItem);
       }
-      this.returnedItem.emit(editedItem);
     } else {
       const newItem: BaseEntityModel = new BaseEntityModel();
       const formData = this.form.value;
