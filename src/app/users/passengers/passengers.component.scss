@@ -1,6 +1,6 @@
 .header-row {
   margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
 }
 .header-row button {
   float: right;
@@ -8,4 +8,23 @@
 
 .header-row h4 {
   margin-top: 8px;
+}
+
+.set-row {
+  margin-bottom: 10px;
+}
+
+#search-input {
+  width: 200px;
+  float: right;
+  margin-top: 5px;
+}
+
+::ng-deep .cdk-overlay-container {
+  position: fixed !important;
+  z-index: 100000 !important; /* set value you need */
+}
+
+::ng-deep .mat-form-field{
+  display: block !important;
 }

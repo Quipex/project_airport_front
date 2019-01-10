@@ -1,54 +1,65 @@
 <app-navbar></app-navbar>
-{{passengers | json}}
 <div class="container">
   <div class="row header-row">
+    <h4>Passengers</h4>
+  </div>
+  <div class="row set-row">
     <div class="col-md-6">
-      <h4>Passengers</h4>
+      <div class="text-left">
+        <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="newModal.show(); onNew()" mdbWavesEffect>New</button>
+      </div>
     </div>
     <div class="col-md-6">
-      <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="newModal.show(); onNew()" mdbWavesEffect>New</button>
+      <div class="form-group input-form">
+        <input type="text" class="form-control" id="search-input" placeholder="Search"
+               [(ngModel)]="searchString" (keypress)="onEnter($event)">
+      </div>
     </div>
   </div>
-  <div *ngFor="let passenger of passengers">
+  <div *ngFor="let item of items; let i = index">
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{passenger.firstName}} {{passenger.lastName}}
+          {{item.passenger.firstName}} {{item.passenger.lastName}}
         </mat-panel-title>
-        <!--<mat-panel-description>-->
-          <!--This is a summary of the content-->
-        <!--</mat-panel-description>-->
       </mat-expansion-panel-header>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="First name" [readonly]="true" value="{{item.passenger.firstName}}">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Last name" [readonly]="true" value="{{item.passenger.lastName}}">
+            </mat-form-field>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="SN of passport" [readonly]="true" value="{{item.passport.serialNumber}}">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Country"  [readonly]="true" value="{{item.passport.country}}">
+            </mat-form-field>
+          </div>
+        </div>
       <div class="row">
         <div class="col-md-6">
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="First name" value="{{passenger.firstName}}">
+            <input matInput placeholder="Date of birth"  [readonly]="true" value="{{item.passport.birthDate}}">
           </mat-form-field>
         </div>
-        <div class="col-md-6">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Last name" value="{{passenger.lastName}}">
-          </mat-form-field>
-        </div>
+        <div class="col-md-6"></div>
       </div>
-      <hr>
-      <!--<div class="row">-->
-        <!--<div class="col-md-6">-->
-          <!--<mat-form-field class="example-full-width">-->
-            <!--<input matInput placeholder="SN of passport" value="{{item.passport.sn}}">-->
-          <!--</mat-form-field>-->
-        <!--</div>-->
-        <!--<div class="col-md-6">-->
-          <!--<mat-form-field class="example-full-width">-->
-            <!--<input matInput placeholder="Country" value="{{item.passport.country}}">-->
-          <!--</mat-form-field>-->
-        <!--</div>-->
-      <!--</div>-->
-      <!--<mat-form-field>-->
-        <!--<input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="item.passport.dateOfBirth">-->
-        <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-        <!--<mat-datepicker #picker></mat-datepicker>-->
-      <!--</mat-form-field>-->
+        <div class="row">
+          <button type="submit" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect  (click)="onEdit(i);">Edit</button>
+          <button type="button" mdbBtn color="danger" class="waves-light" aria-label="Cancel" (click)="showRemoveConfirmModal(i);" mdbWavesEffect>Delete</button>
+        </div>
 
     </mat-expansion-panel>
     <hr>
@@ -65,47 +76,36 @@
         <h4 class="modal-title w-100" id="newModalLabel">Add new passenger</h4>
       </div>
       <div>
-        <div class="modal-body mx-3">
+        <app-dynamic-form *ngIf="editMode" [editMode]="editMode" [questions]="questions" [submitType]="submitType"
+                          [currentItem]="currentItem" (isCancel)="onCancel($event)" [editedForm]="editForm"
+                          (returnedItem)="onSave($event)"></app-dynamic-form>
+        <app-dynamic-form *ngIf="!editMode" [questions]="questions" [submitType]="submitType"
+                          (isCancel)="onCancel($event)" (returnedItem)="onSave($event)"></app-dynamic-form>
+      </div>
+    </div>
+  </div>
+</div>
 
-          <div class="md-form mb-5">
-            <label for="firstName">First Name</label>
-            <input ngModel
-                   id="firstName" type="text" mdbInputDirective class="form-control" >
-          </div>
-          <div class="md-form mb-5">
-            <label for="lastName">Last Name</label>
-            <input ngModel
-                   id="lastName" type="text" mdbInputDirective class="form-control" >
-          </div>
-          <!--<div class="md-form mb-5">-->
-            <!--<label [attr.for]="lastName">Last Name</label>-->
-            <!--<input [formControlName]="lastName"-->
-                   <!--[id]="question.key" [type]="question.type" mdbInputDirective class="form-control" data-error="{{question.label}} is required" data-success="" >-->
-          <!--</div>-->
-
-          <hr>
-          <div class="md-form mb-5">
-            <label for="counry">Country</label>
-            <input ngModel
-                   id="counry" type="text" mdbInputDirective class="form-control" >
-          </div>
-          <div class="md-form mb-5">
-            <label for="SN">Country</label>
-            <input ngModel
-                   id="SN" type="text" mdbInputDirective class="form-control" >
-          </div>
-          <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Birth date">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Cancel" (click)="onCancel();" mdbWavesEffect>Cancel</button>
-          <button type="submit" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect  (click)="onSubmit();">Submit</button>
-        </div>
+<div mdbModal #removeConfirmModal="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="removeConfirmModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="removeConfirmModal">Warning message</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this item?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Cancel"
+                (click)="removeConfirmModal.hide(); deleteId=0;" mdbWavesEffect>Cancel
+        </button>
+        <button type="button" mdbBtn color="danger" class="relative waves-light"
+                (click)="onDelete(deleteId); deleteId=0; removeConfirmModal.hide();" mdbWavesEffect>Delete
+        </button>
       </div>
     </div>
   </div>
