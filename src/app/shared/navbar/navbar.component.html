@@ -69,11 +69,8 @@
         </span>
       </a>
 
-      <div class="dropdown-menu" id="dropdownRight">
-        <div *ngIf="authModel.authority === role.ROLE_ADMIN.toString()
-                  || authModel.authority === role.ROLE_CASHIER.toString()
-                  || authModel.authority === role.ROLE_CONTROLLER.toString()
-                  || authModel.authority === role.ROLE_ANALYST.toString()">
+      <div class="dropdown-menu dropdown-right">
+        <div *ngIf="authModel.authority !== role.ROLE_USER.toString()">
           <a class="dropdown-item" routerLink="/profile">Profile</a>
         </div>
         <div *ngIf="authModel.authority === role.ROLE_USER.toString()">

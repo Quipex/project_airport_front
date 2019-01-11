@@ -88,7 +88,7 @@ export class AbstractCatalogComponent implements OnInit  {
 
   onNew() {
     if (this.questions.length > 5) {
-      this.height = 50;
+      this.height = 79;
       this.overflow = 'scroll';
     }
     this.newModal.show();
