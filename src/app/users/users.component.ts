@@ -28,23 +28,28 @@ export class UsersComponent implements OnInit {
       },
       {
         primaryKey: 'login',
-        header: 'Login'
+        header: 'Login',
+        sortAttr: 44
       },
       {
         primaryKey: 'email',
-        header: 'Email'
+        header: 'Email',
+        sortAttr: 46
       },
       {
         primaryKey: 'phoneNumber',
-        header: 'Phone number'
+        header: 'Phone number',
+        sortAttr: 47
       },
       {
         primaryKey: 'nickname',
-        header: 'Nickname'
+        header: 'Nickname',
+        sortAttr: 48
       },
       {
         primaryKey: 'authority',
-        header: 'User role'
+        header: 'User role',
+        sortAttr: 49
       }
     ];
 
