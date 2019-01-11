@@ -100,9 +100,10 @@ export class UsersComponent implements OnInit {
       key: 'authority',
       label: 'User role',
       required: true,
-      type: 'text',
+      type: 'select',
       order: 6,
-      edit: true
+      edit: true,
+      value: AuthorityModel
     })
   ];
 

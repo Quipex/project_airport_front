@@ -31,7 +31,8 @@ import {
   MatCheckboxModule,
   MatExpansionModule,
   MatInputModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatSelectModule
 } from "@angular/material";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {BsDropdownModule} from "ngx-bootstrap";
@@ -81,6 +82,7 @@ import {PassportsService} from "./services/passports.service";
     MatNativeDateModule,
     BsDropdownModule.forRoot(),
     IntlTelInputModule,
+    MatSelectModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [UsersService,
