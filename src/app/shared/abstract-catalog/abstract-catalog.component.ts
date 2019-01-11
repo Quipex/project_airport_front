@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {BaseService} from '../../services/baseService.service';
 import {UsersService} from '../../services/users.service';
 import {AirlinesService} from '../../services/airlines.service';
@@ -19,11 +19,12 @@ import {ResponseFilteringWrapperModel} from "../models/responseFilteringWrapper.
   templateUrl: './abstract-catalog.component.html',
   styleUrls: ['./abstract-catalog.component.scss']
 })
-export class AbstractCatalogComponent implements OnInit {
+export class AbstractCatalogComponent implements OnInit  {
 
   @Input() settings: ColumnSetting[];
   @Input() questions: InputBaseModel<any>[];
   @ViewChild('newModal') newModal: ModalDirective;
+  @ViewChild('modalContent', {read: ElementRef}) private modalContent: ElementRef;
   @ViewChild('removeConfirmModal') removeConfirmModal: ModalDirective;
   entities: BaseEntityModel[];
   title = 'Project Center';
@@ -43,6 +44,8 @@ export class AbstractCatalogComponent implements OnInit {
   sortList: SortEntityModel[] = [];
   columnAttr: number;
   sortDirection = true;
+  overflow = 'auto';
+  height: number;
 
   constructor(
     private  service: BaseService,
@@ -59,6 +62,21 @@ export class AbstractCatalogComponent implements OnInit {
   }
 
   onEdit(index: number) {
+    if (this.questions.length > 5) {
+      let countOfEditInputs = 0;
+      for (let question of this.questions) {
+        if (question.edit) {
+          countOfEditInputs++;
+        }
+      }
+      if (countOfEditInputs > 5) {
+        this.height = 50;
+        this.overflow = 'scroll';
+      } else {
+        this.height = null;
+        this.overflow = 'auto';
+      }
+    }
     this.selectedRow = index;
     this.currentItem = this.entities[index];
     this.form.patchValue(this.currentItem);
@@ -69,6 +87,11 @@ export class AbstractCatalogComponent implements OnInit {
   }
 
   onNew() {
+    if (this.questions.length > 5) {
+      this.height = 50;
+      this.overflow = 'scroll';
+    }
+    this.newModal.show();
     this.currentItem = new BaseEntityModel();
     this.submitType = 'Save';
     this.showNew = !this.showNew;
@@ -226,6 +249,7 @@ export class AbstractCatalogComponent implements OnInit {
   private getTenItems(numberOfPage: number, direction: boolean) {
     this.service.getTenItems(numberOfPage)
       .subscribe((data: BaseEntityModel[]) => {
+        console.log(data);
         this.entities = data;
       });
     if (direction) {

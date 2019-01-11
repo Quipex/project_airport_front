@@ -1,6 +1,6 @@
 <div [formGroup]="form">
   <div *ngIf="editMode">
-    <div *ngIf="question.type !== 'tel' && question.type !== 'date'">
+    <div *ngIf="question.type !== 'tel' && question.type !== 'date' && question.type !== 'select'">
       <label *ngIf="question.edit" [attr.for]="question.key">{{question.label}}</label>
       <input *ngIf="question.edit" [formControlName]="question.key" [id]="question.key"
              [type]="question.type" class="form-control" mdbInputDirective mdbValidate>
@@ -17,6 +17,15 @@
                       mdbInputDirective
                       mdbValidate></intl-tel-input>
     </div>
+    <div *ngIf="question.type === 'select'">
+      <mat-form-field>
+        <mat-select placeholder="{{question.label}}" [formControlName]="question.key">
+          <mat-option *ngFor="let role of selectKeys" [value]="role">
+            {{question.value[role]}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
     <mdb-error
       *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
       <span *ngIf="form.controls[question.key].errors.required">{{question.label}} is required</span>
@@ -31,7 +40,7 @@
   </div>
 
   <div *ngIf="!editMode">
-    <div *ngIf="question.type !== 'tel' && question.type !== 'date'">
+    <div *ngIf="question.type !== 'tel' && question.type !== 'date' && question.type !== 'select'">
       <label [attr.for]="question.key">{{question.label}}</label>
       <input [formControlName]="question.key" [id]="question.key"
              [type]="question.type" class="form-control" mdbInputDirective mdbValidate>
@@ -44,9 +53,18 @@
       </mat-form-field>
     </div>
     <div *ngIf="question.type === 'tel'" class="tel-input">
-      <intl-tel-input [enablePlaceholder]="true" [formControlName]="question.key" [preferredCountries]="['ua', 'gb', 'de', 'be']"
-                      mdbInputDirective
-                      mdbValidate></intl-tel-input>
+    <intl-tel-input [enablePlaceholder]="true" [formControlName]="question.key" [preferredCountries]="['ua', 'gb', 'de', 'be']"
+                    mdbInputDirective
+                    mdbValidate></intl-tel-input>
+  </div>
+    <div *ngIf="question.type === 'select'">
+      <mat-form-field>
+        <mat-select placeholder="{{question.label}}" [formControlName]="question.key">
+          <mat-option *ngFor="let role of selectKeys" [value]="role">
+            {{question.value[role]}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
     <mdb-error
       *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">

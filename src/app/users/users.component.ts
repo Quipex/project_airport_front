@@ -28,23 +28,28 @@ export class UsersComponent implements OnInit {
       },
       {
         primaryKey: 'login',
-        header: 'Login'
+        header: 'Login',
+        sortAttr: 44
       },
       {
         primaryKey: 'email',
-        header: 'Email'
+        header: 'Email',
+        sortAttr: 46
       },
       {
         primaryKey: 'phoneNumber',
-        header: 'Phone number'
+        header: 'Phone number',
+        sortAttr: 47
       },
       {
         primaryKey: 'nickname',
-        header: 'Nickname'
+        header: 'Nickname',
+        sortAttr: 48
       },
       {
         primaryKey: 'authority',
-        header: 'User role'
+        header: 'User role',
+        sortAttr: 49
       }
     ];
 
@@ -100,9 +105,10 @@ export class UsersComponent implements OnInit {
       key: 'authority',
       label: 'User role',
       required: true,
-      type: 'text',
+      type: 'select',
       order: 6,
-      edit: true
+      edit: true,
+      value: AuthorityModel
     })
   ];
 
