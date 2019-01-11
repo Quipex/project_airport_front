@@ -62,6 +62,21 @@ export class AbstractCatalogComponent implements OnInit  {
   }
 
   onEdit(index: number) {
+    if (this.questions.length > 5) {
+      let countOfEditInputs = 0;
+      for (let question of this.questions) {
+        if (question.edit) {
+          countOfEditInputs++;
+        }
+      }
+      if (countOfEditInputs > 5) {
+        this.height = 50;
+        this.overflow = 'scroll';
+      } else {
+        this.height = null;
+        this.overflow = 'auto';
+      }
+    }
     this.selectedRow = index;
     this.currentItem = this.entities[index];
     this.form.patchValue(this.currentItem);
@@ -72,20 +87,15 @@ export class AbstractCatalogComponent implements OnInit  {
   }
 
   onNew() {
+    if (this.questions.length > 5) {
+      this.height = 50;
+      this.overflow = 'scroll';
+    }
     this.newModal.show();
     this.currentItem = new BaseEntityModel();
     this.submitType = 'Save';
     this.showNew = !this.showNew;
     this.editMode = false;
-  }
-
-  onOpen() {
-    let htmlHeight = document.getElementsByTagName('html')[0].clientHeight;
-    let modalHeight = this.modalContent.nativeElement.offsetHeight;
-    if ((100*modalHeight)/htmlHeight > 50) {
-      this.height = 50;
-      this.overflow = 'scroll';
-    }
   }
 
   showRemoveConfirmModal(i: number) {
