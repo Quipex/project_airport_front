@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormGroup} from '@angular/forms';
 import {ColumnSetting} from '../shared/models/columnSetting.model';
@@ -29,7 +29,7 @@ export class ExtraTypeComponent implements OnInit {
         header: 'Name'
       },
       {
-        primaryKey: 'descr',
+        primaryKey: 'description',
         header: 'Description'
       },
       {
@@ -50,7 +50,7 @@ export class ExtraTypeComponent implements OnInit {
     }),
 
     new InputBaseModel({
-      key: 'descr',
+      key: 'description',
       label: 'Description',
       required: true,
       type: 'text',
