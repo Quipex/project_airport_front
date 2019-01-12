@@ -98,7 +98,7 @@ export class UsersComponent implements OnInit {
       required: true,
       type: 'text',
       order: 5,
-      edit: false
+      edit: true
     }),
 
     new InputBaseModel({
