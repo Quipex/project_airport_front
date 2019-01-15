@@ -1,0 +1,58 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="row header-row">
+    <h4>My flights</h4>
+  </div>
+  <div *ngFor="let item of items; let i = index">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{item.flight.departureDatetime | date }} {{ item.departureAirport.name }}
+          <i style="margin-top: 3px;" class="fa fa-long-arrow-right" aria-hidden="true"></i>
+          {{ item.arrivalAirport.name }} {{item.flight.arrivalDatetime | date}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <h5>Travel route</h5>
+      <div class="row">
+        <div class="col-md-4">
+          Airplane model:
+          {{item.airplane.model}} <br>
+          Airline:
+          {{item.airline.name}}
+        </div>
+        <div class="col-md-4">
+          Departure time: {{item.flight.departureDatetime | date:'HH:mm'}} <br>
+          {{item.departureAirport.city}}
+        </div>
+        <div class="col-md-4">
+          Arrival time: {{item.flight.arrivalDatetime | date:'HH:mm'}} <br>
+          {{item.arrivalAirport.city}}
+        </div>
+      </div>
+      <hr>
+      <h5>Passengers</h5>
+      <div *ngFor="let passenger of item.passengers">
+        <div class="row">
+          <div class="col-md-3">
+            Full name: <br>
+            {{passenger.firstName}} {{passenger.lastName}}
+          </div>
+          <div class="col-md-3">
+            Birth date: <br>
+            {{passenger.passport.birthDate | date}}
+          </div>
+          <div class="col-md-3">
+            Сitizenship: <br>
+            {{passenger.passport.country}}
+          </div>
+          <div class="col-md-3">
+            Serial number: <br>
+            {{passenger.passport.serialNumber}}
+          </div>
+        </div>
+        <hr>
+      </div>
+    </mat-expansion-panel>
+    <hr>
+  </div>
+</div>
