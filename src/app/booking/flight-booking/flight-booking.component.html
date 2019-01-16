@@ -1,0 +1,92 @@
+<app-navbar></app-navbar>
+<div class="flight-booking">
+  <div class="flight-booking-container">
+    <div class="flight-type main-search-left">
+      <mat-radio-group name="flight-type-list" [(ngModel)]="defaultFlightType">
+        <mat-radio-button *ngFor="let flightType of flightTypes" [value]="flightType.name" name="flight-type-list">{{flightType.name}}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="search-form">
+      <div class="main-search-left">
+        <div class="search-items-fields">
+          <div class="search-item-from">
+            <mat-form-field appearance="outline" class="mat-form-input-field">
+              <mat-label>Departure</mat-label>
+              <input matInput placeholder="From">
+            </mat-form-field>
+          </div>
+          <div class="search-item-to">
+            <mat-form-field appearance="outline" class="mat-form-input-field">
+              <mat-label>Destination</mat-label>
+              <input matInput placeholder="To">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="<datepicker-wrapper">
+          <div class="datepicker-to">
+            <mat-form-field appearance="outline" class="datepicker">
+              <mat-label>Departure date</mat-label>
+              <input matInput (click)="date_picker.open()" [min]="minDate" [matDatepicker]="date_picker" [formControl]="date">
+              <mat-datepicker-toggle matSuffix [for]="date_picker"></mat-datepicker-toggle>
+              <mat-datepicker #date_picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="datepicker-back">
+            <mat-form-field *ngIf="defaultFlightType == 'Round trip' " appearance="outline" class="datepicker">
+              <mat-label>Return date</mat-label>
+              <input matInput (click)="date_picker_back.open()" [min]="minDate" [matDatepicker]="date_picker_back" placeholder="Choose a return date">
+              <mat-datepicker-toggle matSuffix [for]="date_picker_back"></mat-datepicker-toggle>
+              <mat-datepicker #date_picker_back></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="passenger-num">
+      <div class="main-search-left">
+        <div class="adults-item">
+          <mat-form-field appearance="outline" class="mat-form-input-field">
+            <mat-label>Adults</mat-label>
+            <mat-select [(value)]="adultNum">
+              <mat-option value="option1">1</mat-option>
+              <mat-option value="option2">2</mat-option>
+              <mat-option value="option3">3</mat-option>
+              <mat-option value="option4">4</mat-option>
+              <mat-option value="option5">5</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="children-item">
+          <mat-form-field appearance="outline" class="mat-form-input-field">
+            <mat-label>Children</mat-label>
+            <mat-select [(value)]="childrenNum">
+              <mat-option value="option0">0</mat-option>
+              <mat-option value="option1">1</mat-option>
+              <mat-option value="option2">2</mat-option>
+              <mat-option value="option3">3</mat-option>
+              <mat-option value="option4">4</mat-option>
+              <mat-option value="option5">5</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="ticket-class">
+          <mat-form-field appearance="outline" class="mat-form-input-field">
+            <mat-label>Class</mat-label>
+            <mat-select [(value)]="ticketClass">
+              <mat-option value="option1">Economy</mat-option>
+              <mat-option value="option2">Business</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="search-button">
+      <div class="main-search-left">
+        <div class="search-btn-item">
+          <button mat-flat-button color="primary" class="btn btn-primary btn-flight">Search flights</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

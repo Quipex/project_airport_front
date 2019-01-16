@@ -35,6 +35,7 @@ import {
   MatSelectModule
 } from "@angular/material";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatRadioModule} from '@angular/material/radio';
 import {BsDropdownModule} from "ngx-bootstrap";
 import {IntlTelInputModule} from "angular-intl-tel-input";
 import {PassengersComponent} from "./users/passengers/passengers.component";
@@ -44,6 +45,7 @@ import {ErrorTestService} from "./services/error-test.service";
 import {PassengersService} from "./services/passengers.service";
 import {ExtraTypeService} from "./services/extra-type.service";
 import {PassportsService} from "./services/passports.service";
+import {FlightBookingComponent} from './booking/flight-booking/flight-booking.component';
 
 
 @NgModule({
@@ -63,6 +65,8 @@ import {PassportsService} from "./services/passports.service";
     AirplanesComponent,
     PassengersComponent,
     ExtraTypeComponent,
+    ErrorTestComponent,
+    FlightBookingComponent,
     ErrorTestComponent
   ],
   imports: [
@@ -80,9 +84,10 @@ import {PassportsService} from "./services/passports.service";
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatRadioModule,
     BsDropdownModule.forRoot(),
     IntlTelInputModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [UsersService,

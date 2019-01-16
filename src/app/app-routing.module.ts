@@ -10,6 +10,7 @@ import {AirplanesComponent} from './airplanes/airplanes.component';
 import {ExtraTypeComponent} from './extra-type/extra-type.component';
 import {PassengersComponent} from './users/passengers/passengers.component';
 import {ErrorTestComponent} from "./error-test/error-test.component";
+import {FlightBookingComponent} from './booking/flight-booking/flight-booking.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -52,6 +53,10 @@ const routes: Routes = [
   {
     path: 'error-test',
     component: ErrorTestComponent
+  },
+  {
+    path: 'flight-booking',
+    component: FlightBookingComponent
   }
 ];
 
