@@ -11,6 +11,7 @@ import {ExtraTypeComponent} from './extra-type/extra-type.component';
 import {PassengersComponent} from './users/passengers/passengers.component';
 import {ErrorTestComponent} from "./error-test/error-test.component";
 import {FlightsComponent} from "./users/flights/flights.component";
+import {NotFoundComponent} from "./not-found-component/not-found-component.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -57,7 +58,9 @@ const routes: Routes = [
   {
     path: 'error-test',
     component: ErrorTestComponent
-  }
+  },
+  {path: '404', component: NotFoundComponent},
+  {path: '**', redirectTo: '/404'},
 ];
 
 

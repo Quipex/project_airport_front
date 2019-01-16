@@ -45,6 +45,7 @@ import {PassengersService} from "./services/passengers.service";
 import {ExtraTypeService} from "./services/extra-type.service";
 import {PassportsService} from "./services/passports.service";
 import { FlightsComponent } from './users/flights/flights.component';
+import { NotFoundComponent } from './not-found-component/not-found-component.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { FlightsComponent } from './users/flights/flights.component';
     PassengersComponent,
     ExtraTypeComponent,
     ErrorTestComponent,
-    FlightsComponent
+    FlightsComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
