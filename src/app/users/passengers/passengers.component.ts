@@ -5,17 +5,16 @@ import {AuthResponseModel} from "../../shared/models/authResponse.model";
 import {AuthorityModel} from "../../shared/models/entity/users/authority.model";
 import {Router} from "@angular/router";
 import {PassportsService} from "../../services/passports.service";
-import {PassengersModel} from "../../shared/models/entity/users/passengers.model";
-import {PassportModel} from "../../shared/models/entity/users/passport.model";
 import {FormControlService} from "../../services/formControl.service";
 import {InputBaseModel} from "../../shared/models/inputBase.model";
 import {DatePipe} from "@angular/common";
 import {ModalDirective} from "angular-bootstrap-md";
-import {BaseEntityModel} from "../../shared/models/baseEntity.model";
 import {FilterAndSortWrapperModel} from "../../shared/models/filterAndSortWrapper.model";
 import {ResponseFilteringWrapperModel} from "../../shared/models/responseFilteringWrapper.model";
 import {ToastrService} from "ngx-toastr";
 import {PassengerPassportModel} from "../../shared/models/entity/users/passengers/passengerPasport.model";
+import {PassengersModel} from "../../shared/models/entity/users/passengers/passengers.model";
+import {PassportModel} from "../../shared/models/entity/users/passengers/passport.model";
 
 @Component({
   selector: 'app-passengers',
@@ -144,7 +143,7 @@ export class PassengersComponent implements OnInit {
         for (const y in returnedItem) {
           if (x === y) {
             if (x === 'birthDate') {
-              this.currentItem.passport[x] = this.datePipe.transform(returnedItem[y], 'yyyy-MM-dd\'T\'HH:mm:ss').toString();
+              this.currentItem.passport[x] = new Date(this.datePipe.transform(returnedItem[y], 'yyyy-MM-dd\'T\'HH:mm:ss'));
             } else {
               this.currentItem.passport[x] = returnedItem[y];
             }

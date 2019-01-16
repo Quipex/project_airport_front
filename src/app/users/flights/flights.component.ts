@@ -5,8 +5,8 @@ import {Router} from "@angular/router";
 import {FlightsService} from "../../services/flights.service";
 import {FlightDTOModel} from "../../shared/models/flightDTO.model";
 import {TicketsModel} from "../../shared/models/entity/flight/tickets.model";
-import {PassengersModel} from "../../shared/models/entity/users/passengers.model";
 import {FlightsModel} from "../../shared/models/entity/flight/flights.model";
+import {PassengersModel} from "../../shared/models/entity/users/passengers/passengers.model";
 
 @Component({
   selector: 'app-flights',
