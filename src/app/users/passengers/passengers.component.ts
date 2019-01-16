@@ -79,7 +79,7 @@ export class PassengersComponent implements OnInit {
 
     new InputBaseModel({
       key: 'serialNumber',
-      label: 'Serial number',
+      label: 'Passport SN',
       required: true,
       type: 'text',
       edit: true
@@ -143,7 +143,7 @@ export class PassengersComponent implements OnInit {
         for (const y in returnedItem) {
           if (x === y) {
             if (x === 'birthDate') {
-              this.currentItem.passport[x] = new Date(this.datePipe.transform(returnedItem[y], 'yyyy-MM-dd\'T\'HH:mm:ss'));
+              this.currentItem.passport[x] = this.datePipe.transform(returnedItem[y], 'yyyy-MM-dd\'T\'HH:mm:ss');
             } else {
               this.currentItem.passport[x] = returnedItem[y];
             }
@@ -170,10 +170,15 @@ export class PassengersComponent implements OnInit {
       for (const x in this.newPassport) {
         for (const y in returnedItem) {
           if (x === y) {
-            this.newPassport[x] = returnedItem[y];
+            if (x === 'birthDate') {
+              this.newPassport[x] = this.datePipe.transform(returnedItem[y], 'yyyy-MM-dd\'T\'HH:mm:ss');
+            } else {
+              this.newPassport[x] = returnedItem[y];
+            }
           }
         }
       }
+      console.log(this.newPassport);
       let wrapper = new PassengerPassportModel(this.newPassenger, this.newPassport);
       this.passengersService.savePassengerAndPassport(this.userLogin, wrapper)
         .subscribe((data: PassengerPassportModel) => {
