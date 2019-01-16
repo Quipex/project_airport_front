@@ -23,7 +23,7 @@
               *ngIf="form.get('login').invalid && form.get('login').touched"
               class="form-help-text"
             >
-              <span *ngIf="form.get('login')['errors']['required']">*required</span><br>
+              <span style="color: #CC0000;" *ngIf="form.get('login')['errors']['required']">Login is required</span><br>
             </span>
           </div>
           <div
@@ -42,7 +42,7 @@
               *ngIf="form.get('password').invalid && form.get('password').touched"
               class="form-help-text"
             >
-              <span *ngIf="form.get('password')['errors']['required']">*required</span>
+              <span style="color: #CC0000;" *ngIf="form.get('password')['errors']['required']">Password is required</span>
             </span>
           </div>
           <div class="submit-container">
