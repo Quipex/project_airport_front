@@ -16,6 +16,9 @@
       </div>
     </div>
   </div>
+  <div *ngIf="items.length === 0">
+    <h3>There are no items.</h3>
+  </div>
   <div *ngFor="let item of items; let i = index">
     <mat-expansion-panel>
       <mat-expansion-panel-header>
