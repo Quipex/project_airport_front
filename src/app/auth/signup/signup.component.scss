@@ -72,7 +72,7 @@ body {
   flex-direction: column;
   align-items: center;
   position: relative;
-  width: 500px;
+  width: 450px;
   height: auto;
   padding: 5px;
   box-sizing: border-box;
@@ -241,3 +241,29 @@ body {
   background: #FDAB43;
 }
 
+.intro-2 {
+  background: url("http://mdbootstrap.com/img/Photos/Others/img%20(42).jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.view {
+  height: 100vh !important;
+}
+
+.top-nav-collapse {
+  background-color: #3f51b5 !important;
+}
+
+.navbar:not(.top-nav-collapse) {
+  background: transparent !important;
+}
+
+@media (max-width: 768px) {
+  .navbar:not(.top-nav-collapse) {
+    background: #3f51b5 !important;
+  }
+}
+
+.rgba-gradient .full-bg-img {
+  background: linear-gradient(45deg, rgba(83, 125, 210, 0.4), rgba(178, 30, 123, 0.4) 100%);
+}
