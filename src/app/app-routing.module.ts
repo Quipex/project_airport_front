@@ -10,6 +10,8 @@ import {AirplanesComponent} from './airplanes/airplanes.component';
 import {ExtraTypeComponent} from './extra-type/extra-type.component';
 import {PassengersComponent} from './users/passengers/passengers.component';
 import {ErrorTestComponent} from "./error-test/error-test.component";
+import {FlightsComponent} from "./users/flights/flights.component";
+import {NotFoundComponent} from "./not-found-component/not-found-component.component";
 import {FlightBookingComponent} from './booking/flight-booking/flight-booking.component';
 
 const routes: Routes = [
@@ -51,13 +53,19 @@ const routes: Routes = [
     component: PassengersComponent
   },
   {
+    path: 'flights',
+    component: FlightsComponent
+  },
+  {
     path: 'error-test',
     component: ErrorTestComponent
   },
+  {path: '404', component: NotFoundComponent},
+  {path: '**', redirectTo: '/404'},
   {
     path: 'flight-booking',
     component: FlightBookingComponent
-  }
+  },
 ];
 
 

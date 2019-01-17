@@ -83,9 +83,9 @@
            tabindex="-1">Previous</a>
         <a class="page-link" *ngIf="filteringMode" (click)="getTenItemsByFilter(numberOfPage-1, false)" tabindex="-1">Previous</a>
       </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">{{numberOfPage}}</a></li>
-      <li class="page-item"><a class="page-link" href="#">{{countOfPages}}</a></li>
+      <li class="page-item"><a class="page-link">1</a></li>
+      <li class="page-item"><a class="page-link">{{numberOfPage}}</a></li>
+      <li class="page-item"><a class="page-link">{{countOfPages}}</a></li>
       <li class="page-item" [ngClass]="{'disabled': numberOfPage===countOfPages}">
         <a class="page-link" *ngIf="!filteringMode" (click)="getTenItems(numberOfPage+1, true)">Next</a>
         <a class="page-link" *ngIf="filteringMode" (click)="getTenItemsByFilter(numberOfPage+1, true)">Next</a>

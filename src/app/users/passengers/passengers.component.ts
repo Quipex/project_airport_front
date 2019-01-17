@@ -5,17 +5,16 @@ import {AuthResponseModel} from "../../shared/models/authResponse.model";
 import {AuthorityModel} from "../../shared/models/entity/users/authority.model";
 import {Router} from "@angular/router";
 import {PassportsService} from "../../services/passports.service";
-import {PassengersModel} from "../../shared/models/entity/users/passengers/passengers.model";
-import {PassportModel} from "../../shared/models/entity/users/passengers/passport.model";
 import {FormControlService} from "../../services/formControl.service";
 import {InputBaseModel} from "../../shared/models/inputBase.model";
 import {DatePipe} from "@angular/common";
 import {ModalDirective} from "angular-bootstrap-md";
-import {BaseEntityModel} from "../../shared/models/baseEntity.model";
 import {FilterAndSortWrapperModel} from "../../shared/models/filterAndSortWrapper.model";
 import {ResponseFilteringWrapperModel} from "../../shared/models/responseFilteringWrapper.model";
 import {ToastrService} from "ngx-toastr";
 import {PassengerPassportModel} from "../../shared/models/entity/users/passengers/passengerPasport.model";
+import {PassengersModel} from "../../shared/models/entity/users/passengers/passengers.model";
+import {PassportModel} from "../../shared/models/entity/users/passengers/passport.model";
 
 @Component({
   selector: 'app-passengers',
@@ -44,7 +43,8 @@ export class PassengersComponent implements OnInit {
     private passengersService: PassengersService,
     private passportsService: PassportsService,
     private fcs: FormControlService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private datePipe: DatePipe
   ) {
   }
 
@@ -79,7 +79,7 @@ export class PassengersComponent implements OnInit {
 
     new InputBaseModel({
       key: 'serialNumber',
-      label: 'Serial number',
+      label: 'Passport SN',
       required: true,
       type: 'text',
       edit: true
@@ -142,12 +142,17 @@ export class PassengersComponent implements OnInit {
       for (const x in this.currentItem.passport) {
         for (const y in returnedItem) {
           if (x === y) {
-            this.currentItem.passport[x] = returnedItem[y];
+            if (x === 'birthDate') {
+              this.currentItem.passport[x] = this.datePipe.transform(returnedItem[y], 'yyyy-MM-dd\'T\'HH:mm:ss');
+            } else {
+              this.currentItem.passport[x] = returnedItem[y];
+            }
           }
         }
       }
       this.passengersService.savePassengerAndPassport(this.userLogin, this.currentItem)
         .subscribe((data: PassengerPassportModel) => {
+          this.currentItem.passport.birthDate = data.passport.birthDate;
           this.newModal.hide();
           const message = 'The item has been edited.';
           this.showInfo(message);
@@ -165,10 +170,15 @@ export class PassengersComponent implements OnInit {
       for (const x in this.newPassport) {
         for (const y in returnedItem) {
           if (x === y) {
-            this.newPassport[x] = returnedItem[y];
+            if (x === 'birthDate') {
+              this.newPassport[x] = this.datePipe.transform(returnedItem[y], 'yyyy-MM-dd\'T\'HH:mm:ss');
+            } else {
+              this.newPassport[x] = returnedItem[y];
+            }
           }
         }
       }
+      console.log(this.newPassport);
       let wrapper = new PassengerPassportModel(this.newPassenger, this.newPassport);
       this.passengersService.savePassengerAndPassport(this.userLogin, wrapper)
         .subscribe((data: PassengerPassportModel) => {

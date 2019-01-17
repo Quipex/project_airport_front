@@ -1,99 +1,20 @@
-<div class="signup-container">
+<section class="view intro-2">
+  <div class="full-bg-img mask rgba-gradient">
+    <div class="signup-container">
   <section class="login" id="login-form">
     <header>
       <h2>Airport</h2>
       <h4>Registration</h4>
     </header>
-    <form (ngSubmit)="onSubmit()" [formGroup]="form">
-      <div
-        [ngClass]="{'has-error': form.get('login').invalid && form.get('login').touched}"
-        class="form-group">
-        <label for="login">Login</label>
-        <input
-          class="form-control underlined"
-          formControlName="login"
-          id="login"
-          placeholder="login"
-          type="text">
-        <span
-          *ngIf="form.get('login').invalid && form.get('login').touched"
-          class="form-help-text">
-          <span *ngIf="form.get('login')['errors']['required']">*required</span><br>
-        </span>
-      </div>
-      <div
-        [ngClass]="{'has-error': form.get('password').invalid && form.get('password').touched}"
-        class="form-group">
-        <label for="password">Password</label>
-        <input
-          class="form-control underlined"
-          formControlName="password"
-          id="password"
-          placeholder="••••••••••"
-          type="password">
-        <span
-          *ngIf="form.get('password').invalid && form.get('password').touched"
-          class="form-help-text">
-          <span *ngIf="form.get('password')['errors']['required']">*required</span><br>
-        </span>
-      </div>
-      <div
-        [ngClass]="{'has-error': form.get('email').invalid && form.get('email').touched}"
-        class="form-group">
-        <label for="email">Email</label>
-        <input
-          class="form-control underlined"
-          formControlName="email"
-          id="email"
-          placeholder="mail@mail.com"
-          type="text">
-        <span
-          *ngIf="form.get('email').invalid && form.get('email').touched"
-          class="form-help-text">
-          <span *ngIf="form.get('email')['errors']['required']">*required</span><br>
-          <span *ngIf="form.get('email')['errors']['email']">Enter correct Email</span>
-        </span>
-      </div>
-      <div
-        [ngClass]="{'has-error': form.get('phoneNumber').invalid && form.get('phoneNumber').touched}"
-        class="form-group">
-        <label for="password">Phone number</label>
-        <input
-          class="form-control underlined"
-          formControlName="phone"
-          id="phone"
-          placeholder="+1999999999"
-          type="text">
-        <span
-          *ngIf="form.get('phoneNumber').invalid && form.get('phoneNumber').touched"
-          class="form-help-text">
-          <span *ngIf="form.get('phoneNumber')['errors']['required']">*required</span>
-          <span *ngIf="form.get('phoneNumber')['errors']['pattern']">Phone number is wrong</span>
-          <span *ngIf="form.get('phoneNumber')['errors']['minLength']">Phone number is too short</span>
-        </span>
-      </div>
-      <div
-        [ngClass]="{'has-error': form.get('nickname').invalid && form.get('nickname').touched}"
-        class="form-group">
-        <label for="nickname">Nickname</label>
-        <input
-          class="form-control underlined"
-          formControlName="nickname"
-          id="nickname"
-          placeholder="nickname"
-          type="text">
-        <span
-          *ngIf="form.get('nickname').invalid && form.get('nickname').touched"
-          class="form-help-text">
-          <span *ngIf="form.get('nickname')['errors']['required']">*required</span>
-        </span>
-      </div>
-      <div class="form-group">
-        <button [disabled]="form.invalid" class="login-button" type="submit">Sign Up</button>
-        <button class="login-button" routerLink="/login">Cancel</button>
-      </div>
-    </form>
+    <div *ngFor="let question of questions" class="md-form mb-5">
+      <app-form-input [form]="form" [question]="question"></app-form-input>
+    </div>
+    <div class="form-group">
+      <button [disabled]="form.invalid" class="login-button" type="submit" (click)="onSubmit()">Sign Up</button>
+      <button class="login-button" routerLink="/login">Cancel</button>
+    </div>
   </section>
 </div>
-
+  </div>
+</section>
 

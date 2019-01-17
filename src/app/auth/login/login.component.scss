@@ -50,12 +50,12 @@ body {
     color: transparent;
   }
   10% {
-    height: 117px;
+    height: 145px;
     background: #FFFFFF;
     color: #C62828
   }
   90% {
-    height: 117px;
+    height: 145px;
     background: #FFFFFF;
     color: #C62828
   }
@@ -145,7 +145,7 @@ body {
 
 .login.error_1 > header:before,
 .login.error_2 > header:before {
-  animation: error_before 3s cubic-bezier(.55, 0, .1, 1);
+  animation: error_before 8s cubic-bezier(.55, 0, .1, 1);
 }
 
 .login.error_1 > header:before {

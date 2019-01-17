@@ -16,6 +16,9 @@
       </div>
     </div>
   </div>
+  <div *ngIf="items.length === 0">
+    <h3>There are no items.</h3>
+  </div>
   <div *ngFor="let item of items; let i = index">
     <mat-expansion-panel>
       <mat-expansion-panel-header>
@@ -51,7 +54,7 @@
       <div class="row">
         <div class="col-md-6">
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Date of birth"  [readonly]="true" value="{{item.passport.birthDate}}">
+            <input matInput [matDatepicker]="picker" placeholder="Date of birth"  [readonly]="true" value="{{item.passport.birthDate}}">
           </mat-form-field>
         </div>
         <div class="col-md-6"></div>
@@ -60,7 +63,6 @@
           <button type="submit" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect  (click)="onEdit(i);">Edit</button>
           <button type="button" mdbBtn color="danger" class="waves-light" aria-label="Cancel" (click)="showRemoveConfirmModal(i);" mdbWavesEffect>Delete</button>
         </div>
-
     </mat-expansion-panel>
     <hr>
   </div>
