@@ -17,15 +17,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {AirlinesComponent} from './airlines/airlines.component';
 import {AirlinesService} from './services/airlines.service';
-import {CountriesComponent} from './countries/countries.component';
 import {AbstractCatalogComponent} from './shared/abstract-catalog/abstract-catalog.component';
 import {TableLayoutComponent} from './shared/table-layout/table-layout.component';
+import {CountriesComponent} from './countries/countries.component';
 import {CountriesService} from './services/countries.service';
 import {DynamicFormComponent} from './shared/dynamic-form/dynamic-form.component';
 import {DynamicFormRenderComponent} from './shared/dynamic-form/dynamic-form-render.component';
 import {httpInterceptorProviders} from './http-interceptors';
 import {AirplanesComponent} from './airplanes/airplanes.component';
-import {FormControlService} from "./services/formControl.service";
+import {FormControlService} from './services/formControl.service';
 import {
   MatButtonModule,
   MatCheckboxModule,
@@ -33,19 +33,21 @@ import {
   MatInputModule,
   MatNativeDateModule,
   MatSelectModule
-} from "@angular/material";
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {BsDropdownModule} from "ngx-bootstrap";
-import {IntlTelInputModule} from "angular-intl-tel-input";
-import {PassengersComponent} from "./users/passengers/passengers.component";
+} from '@angular/material';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {BsDropdownModule} from 'ngx-bootstrap';
+import {IntlTelInputModule} from 'angular-intl-tel-input';
+import {PassengersComponent} from './users/passengers/passengers.component';
+import {PassengersService} from './services/passengers.service';
+import {PassportsService} from './services/passports.service';
 import {ExtraTypeComponent} from './extra-type/extra-type.component';
+import {ExtraTypeService} from './services/extra-type.service';
 import {ErrorTestComponent} from './error-test/error-test.component';
-import {ErrorTestService} from "./services/error-test.service";
-import {PassengersService} from "./services/passengers.service";
-import {ExtraTypeService} from "./services/extra-type.service";
-import {PassportsService} from "./services/passports.service";
-import { FlightsComponent } from './users/flights/flights.component';
-import { NotFoundComponent } from './not-found-component/not-found-component.component';
+import {ErrorTestService} from './services/error-test.service';
+import {FlightsComponent} from './flights/flights.component';
+import {UserFlightsComponent} from './users/flights/user-flights.component';
+import {FlightsService} from './services/flights.service';
+import {NotFoundComponent} from './not-found-component/not-found-component.component';
 
 
 @NgModule({
@@ -66,6 +68,7 @@ import { NotFoundComponent } from './not-found-component/not-found-component.com
     PassengersComponent,
     ExtraTypeComponent,
     ErrorTestComponent,
+    UserFlightsComponent,
     FlightsComponent,
     NotFoundComponent
   ],
@@ -98,7 +101,8 @@ import { NotFoundComponent } from './not-found-component/not-found-component.com
     PassengersService,
     ExtraTypeService,
     PassportsService,
-    ErrorTestService],
+    ErrorTestService,
+    FlightsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

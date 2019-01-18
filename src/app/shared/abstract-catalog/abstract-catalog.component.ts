@@ -23,6 +23,7 @@ export class AbstractCatalogComponent implements OnInit  {
 
   @Input() settings: ColumnSetting[];
   @Input() questions: InputBaseModel<any>[];
+  @Input() header: string;
   @ViewChild('newModal') newModal: ModalDirective;
   @ViewChild('modalContent', {read: ElementRef}) private modalContent: ElementRef;
   @ViewChild('removeConfirmModal') removeConfirmModal: ModalDirective;
