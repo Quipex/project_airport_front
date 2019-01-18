@@ -145,8 +145,8 @@ export class FlightsComponent implements OnInit {
     const currentUser: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
     if (currentUser === null || currentUser.authority === null) {
       this.router.navigateByUrl('login');
-    } else if (currentUser.authority !== AuthorityModel.ROLE_ADMIN.toString()
-      || currentUser.authority !== AuthorityModel.ROLE_CONTROLLER.toString()) {
+    } else if (currentUser.authority !== AuthorityModel.ROLE_CONTROLLER.toString() //){
+      && currentUser.authority !== AuthorityModel.ROLE_ADMIN.toString()) {
       this.router.navigateByUrl('home');
     }
 

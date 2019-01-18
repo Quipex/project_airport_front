@@ -45,7 +45,7 @@ import {ExtraTypeService} from './services/extra-type.service';
 import {ErrorTestComponent} from './error-test/error-test.component';
 import {ErrorTestService} from './services/error-test.service';
 import {FlightsComponent} from './flights/flights.component';
-import {UserFlightsComponent} from './users/flights/user-flights.component';
+import {UserFlightsComponent} from './users/user-flights/user-flights.component';
 import {FlightsService} from './services/flights.service';
 import {NotFoundComponent} from './not-found-component/not-found-component.component';
 
