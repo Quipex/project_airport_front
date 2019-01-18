@@ -24,7 +24,6 @@ import {PassportModel} from "../../shared/models/entity/users/passengers/passpor
 })
 export class PassengersComponent implements OnInit {
 
-
   passports = [];
 
   form: FormGroup;

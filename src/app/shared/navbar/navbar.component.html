@@ -29,12 +29,12 @@
       </li>
 
       <li class="nav-item" *ngIf="authModel.authority === role.ROLE_CONTROLLER.toString()" routerLinkActive="active">
-        <a class="nav-item nav-link" routerLink="/flight-edit">Flight edit</a>
+        <a class="nav-item nav-link" routerLink="/flights">Flights</a>
       </li>
 
       <li class="nav-item dropdown" dropdown
           *ngIf="authModel.authority === role.ROLE_ADMIN.toString()" routerLinkActive="active">
-        <a mdbDropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+        <a mdbDropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light">
           Airplanes<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown-primary" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/airplanes">Airplanes</a>
@@ -45,7 +45,7 @@
 
       <li class="nav-item dropdown" dropdown
           *ngIf="authModel.authority === role.ROLE_ADMIN.toString()" routerLinkActive="active">
-        <a mdbDropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+        <a mdbDropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light">
           Locations<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown-primary" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/countries">Countries</a>
