@@ -13,6 +13,7 @@ import {ErrorTestComponent} from './error-test/error-test.component';
 import {UserFlightsComponent} from './users/user-flights/user-flights.component';
 import {FlightsComponent} from './flights/flights.component';
 import {NotFoundComponent} from './not-found-component/not-found-component.component';
+import {TicketsComponent} from "./tickets/tickets.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -51,6 +52,10 @@ const routes: Routes = [
   {
     path: 'passengers',
     component: PassengersComponent
+  },
+  {
+    path: 'tickets',
+    component: TicketsComponent
   },
   {
     path: 'error-test',

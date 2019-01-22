@@ -5,6 +5,8 @@ import {InputBaseModel} from '../models/inputBase.model';
 import {BaseEntityModel} from '../models/baseEntity.model';
 import {PassengerPassportCommonModel} from "../models/entity/users/passengers/passengerPassportCommon.model";
 import {PassengerPassportModel} from "../models/entity/users/passengers/passengerPasport.model";
+import {TicketDTOModel} from "../models/ticketDTO.model";
+import {TicketPassengerCommonModel} from "../models/ticketPassengerCommon.model";
 
 @Component({
   selector: 'app-dynamic-form',
@@ -41,6 +43,11 @@ export class DynamicFormComponent implements OnChanges {
     if (this.editMode) {
       if (this.currentItem instanceof PassengerPassportModel) {
         let editedItem = new PassengerPassportCommonModel();
+        const formData = this.form.value;
+        editedItem = formData;
+        this.returnedItem.emit(editedItem);
+      } else if (this.currentItem instanceof TicketDTOModel) {
+        let editedItem = new TicketPassengerCommonModel();
         const formData = this.form.value;
         editedItem = formData;
         this.returnedItem.emit(editedItem);

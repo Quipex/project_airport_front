@@ -28,6 +28,7 @@ import {AirplanesComponent} from './airplanes/airplanes.component';
 import {FormControlService} from './services/formControl.service';
 import {
   MatButtonModule,
+  MatButtonToggleModule,
   MatCheckboxModule,
   MatExpansionModule,
   MatInputModule,
@@ -48,6 +49,8 @@ import {FlightsComponent} from './flights/flights.component';
 import {UserFlightsComponent} from './users/user-flights/user-flights.component';
 import {FlightsService} from './services/flights.service';
 import {NotFoundComponent} from './not-found-component/not-found-component.component';
+import { TicketsComponent } from './tickets/tickets.component';
+import {TicketsService} from "./services/tickets.service";
 
 
 @NgModule({
@@ -70,7 +73,8 @@ import {NotFoundComponent} from './not-found-component/not-found-component.compo
     ErrorTestComponent,
     UserFlightsComponent,
     FlightsComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    TicketsComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +91,7 @@ import {NotFoundComponent} from './not-found-component/not-found-component.compo
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatButtonToggleModule,
     BsDropdownModule.forRoot(),
     IntlTelInputModule,
     MatSelectModule
@@ -102,7 +107,8 @@ import {NotFoundComponent} from './not-found-component/not-found-component.compo
     ExtraTypeService,
     PassportsService,
     ErrorTestService,
-    FlightsService],
+    FlightsService,
+    TicketsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

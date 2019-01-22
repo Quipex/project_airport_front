@@ -79,6 +79,9 @@
           <a class="dropdown-item" routerLink="/payment">Payment methods</a>
           <a class="dropdown-item" routerLink="/passengers">Passengers</a>
         </div>
+        <div *ngIf="authModel.authority === role.ROLE_CASHIER.toString()">
+          <a class="dropdown-item" routerLink="/tickets">Tickets</a>
+        </div>
         <a class="dropdown-item" (click)="onLogout()"><i class="fa fa-power-off icon"></i> Log out</a>
       </div>
     </div>

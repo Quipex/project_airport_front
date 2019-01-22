@@ -11,6 +11,9 @@ import {ToastrService} from "ngx-toastr";
 import {DatePipe} from "@angular/common";
 import {PassengersService} from "../services/passengers.service";
 import {TicketStatusModel} from "../shared/models/entity/flight/ticketStatus.model";
+import {AuthResponseModel} from "../shared/models/authResponse.model";
+import {AuthorityModel} from "../shared/models/entity/users/authority.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-tickets',
@@ -37,7 +40,8 @@ export class TicketsComponent implements OnInit {
     private ticketsService: TicketsService,
     private fcs: FormControlService,
     private datePipe: DatePipe,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) { }
 
   currentItem: TicketDTOModel;
@@ -95,6 +99,12 @@ export class TicketsComponent implements OnInit {
   ];
 
   ngOnInit() {
+    const currentUser: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
+    if (currentUser === null || currentUser.authority === null) {
+      this.router.navigateByUrl('login');
+    } else if (currentUser.authority !== AuthorityModel.ROLE_CASHIER.toString()) {
+      this.router.navigateByUrl('home');
+    }
     if (this.items.length === 0) {
       this.message = 'There are no items.';
     }
