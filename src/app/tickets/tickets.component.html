@@ -1,0 +1,169 @@
+<app-navbar></app-navbar>
+<div class="container header-row">
+  <h1>Search tickets: </h1>
+  <div class="row">
+    <input type="text" class="form-control" id="search-input" placeholder="Search"
+           [(ngModel)]="searchString" (keypress)="onEnter($event)">
+  </div>
+  <div class="row">
+    <button type="button" mdbBtn color="primary" mdbWavesEffect id="filter-span" (click)="filterForm()">Filters
+        <mdb-icon *ngIf="!display" icon="angle-down"></mdb-icon>
+        <mdb-icon *ngIf="display" icon="angle-up"></mdb-icon>
+    </button>
+  </div>
+  <div [ngClass]="display ? 'visible' : 'invisible'">
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" vertical="true" [(ngModel)]="searchFilter">
+      <mat-button-toggle value="passenger">By passenger name</mat-button-toggle>
+      <mat-button-toggle value="flight">By flight number</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <div class="content-block">
+    <div *ngIf="message !== ''">
+      <h4>
+        {{message}}
+      </h4>
+    </div>
+    <div *ngFor="let item of items; let i = index">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{item.passenger.firstName}} {{item.passenger.lastName}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{item.ticket.ticketStatus}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <h5>Flight info:</h5>
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Flight number" [readonly]="true" value="{{item.flight.flightNumber}}">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Airline" [readonly]="true" value="{{item.airline.name}}">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Airplane" [readonly]="true" value="{{item.airplane.model}}">
+            </mat-form-field>
+          </div>
+        </div>
+        <hr>
+        <h5>Ticket info:</h5>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Departure airport" [readonly]="true" value="{{item.departureAirport.name}}">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Arrival airport" [readonly]="true" value="{{item.arrivalAirport.name}}">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Expected departure date"  [readonly]="true" value="{{item.flight.expectedDepartureDatetime | date:'medium'}}">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Expected arrival date"  [readonly]="true" value="{{item.flight.expectedArrivalDatetime | date:'medium'}}">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Actual departure date"  [readonly]="true" value="{{item.flight.actualDepartureDatetime | date:'medium'}}">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Actual arrival date"  [readonly]="true" value="{{item.flight.actualArrivalDatetime | date:'medium'}}">
+            </mat-form-field>
+          </div>
+        </div>
+        <hr>
+        <h5>Passenger info:</h5>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Passenger's first name"  [readonly]="true" value="{{item.passenger.firstName}}">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Passenger's last name"  [readonly]="true" value="{{item.passenger.lastName}}">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="SN of passport" [readonly]="true" value="{{item.passport.serialNumber}}">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Country"  [readonly]="true" value="{{item.passport.country}}">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput [matDatepicker]="picker" placeholder="Date of birth"  [readonly]="true" value="{{item.passport.birthDate}}">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6"></div>
+        </div>
+        <div class="row">
+          <button type="submit" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect  (click)="onEdit(i);">Edit</button>
+        </div>
+      </mat-expansion-panel>
+      <hr>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #newModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="newModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="newModalLabel">Add new passenger</h4>
+      </div>
+      <div>
+        <app-dynamic-form *ngIf="editMode" [editMode]="editMode" [questions]="questions" [submitType]="submitType"
+                          [currentItem]="currentItem" (isCancel)="onCancel($event)" [editedForm]="editForm"
+                          (returnedItem)="onSave($event)"></app-dynamic-form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <nav aria-label="Page navigation example" *ngIf="paging">
+    <ul class="pagination justify-content-end">
+      <li class="page-item" [ngClass]="{'disabled': numberOfPage===1}">
+        <a class="page-link" (click)="onSearch(numberOfPage-1, false)"
+           tabindex="-1">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link">1</a></li>
+      <li class="page-item"><a class="page-link">{{numberOfPage}}</a></li>
+      <li class="page-item"><a class="page-link">{{countOfPages}}</a></li>
+      <li class="page-item" [ngClass]="{'disabled': numberOfPage===countOfPages}">
+        <a class="page-link" (click)="onSearch(numberOfPage+1, true)">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>
