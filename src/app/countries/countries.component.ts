@@ -5,8 +5,6 @@ import {InputBaseModel} from "../shared/models/inputBase.model";
 import {BaseService} from '../services/baseService.service';
 import {CountriesService} from '../services/countries.service';
 import {Router} from "@angular/router";
-import {AuthorityModel} from "../shared/models/entity/users/authority.model";
-import {AuthResponseModel} from "../shared/models/authResponse.model";
 
 @Component({
   selector: 'app-countries',
@@ -47,12 +45,6 @@ export class CountriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const currentUser: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
-    if (currentUser === null || currentUser.authority === null) {
-      this.router.navigateByUrl('login');
-    } else if (currentUser.authority !== AuthorityModel.ROLE_ADMIN.toString()) {
-      this.router.navigateByUrl('home');
-    }
   }
 
 }

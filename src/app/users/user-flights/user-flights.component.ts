@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthResponseModel} from '../../shared/models/authResponse.model';
-import {AuthorityModel} from '../../shared/models/entity/users/authority.model';
 import {Router} from '@angular/router';
 import {FlightsService} from '../../services/flights.service';
 import {FlightDTOModel} from '../../shared/models/flightDTO.model';
@@ -30,12 +29,6 @@ export class UserFlightsComponent implements OnInit {
 
   ngOnInit() {
     const currentUser: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
-    if (currentUser === null || currentUser.authority === null) {
-      this.router.navigateByUrl('login');
-    } else if (currentUser.authority !== AuthorityModel.ROLE_USER.toString()) {
-      this.router.navigateByUrl('home');
-    }
-
     this.userLogin = currentUser.login;
     this.getFlights();
   }

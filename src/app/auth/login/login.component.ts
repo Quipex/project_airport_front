@@ -30,9 +30,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     const authModel: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
-    if (authModel !== null && authModel.authority === AuthorityModel.ROLE_ADMIN.toString()) {
-      this.router.navigate(['/users']);
-    } else if (authModel !== null && authModel.authority !== AuthorityModel.ROLE_ADMIN.toString()) {
+    if (authModel !== null) {
       this.router.navigate(['/home']);
     }
 
@@ -50,13 +48,9 @@ export class LoginComponent implements OnInit {
       (data: TokenResponceModel) => {
         const helper = new JwtHelperService();
         const decodedToken = helper.decodeToken(data.token);
-        const authResponse: AuthResponseModel = new AuthResponseModel(decodedToken.sub, decodedToken.user_role, data.token);
+        const authResponse: AuthResponseModel = new AuthResponseModel(decodedToken.sub, data.token);
         localStorage.setItem('currentUser', JSON.stringify(authResponse));
-        if (authResponse.authority === AuthorityModel.ROLE_ADMIN.toString()) {
-          this.router.navigate(['/users']);
-        } else {
-          this.router.navigate(['/home']);
-        }
+        this.router.navigate(['/home']);
       },
       error => {
         this.message = true;

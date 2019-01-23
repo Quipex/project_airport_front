@@ -72,10 +72,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     const user: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
-    console.log(user);
-    if (user !== null && user.authority === AuthorityModel.ROLE_ADMIN.toString()) {
-      this.router.navigate(['/users']);
-    } else if (user !== null && user.authority !== AuthorityModel.ROLE_ADMIN.toString()) {
+    if (user !== null) {
       this.router.navigate(['/home']);
     }
     this.form = this.fcs.toFormGroup(this.questions);

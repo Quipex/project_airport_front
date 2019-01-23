@@ -3,6 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UsersModel} from '../shared/models/entity/users/users.model';
 import {Subject} from 'rxjs';
 import {environment} from "../../environments/environment";
+import {Router} from "@angular/router";
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 const API_URL = environment.apiUrl;
 
@@ -19,7 +21,9 @@ export class AuthenticationService {
   private data;
   private error;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient
+  ) {
   }
 
   login(login: string, password: string) {
@@ -48,7 +52,6 @@ export class AuthenticationService {
     var token = currentUser && currentUser.token;
     return token ? token : "";
   }
-
 
   logout() {
     // remove user from local storage to log user out
