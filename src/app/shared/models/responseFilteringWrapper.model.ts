@@ -1,4 +1,4 @@
-import {BaseEntityModel} from "./baseEntity.model";
+import {BaseEntityModel} from './baseEntity.model';
 
 export class ResponseFilteringWrapperModel {
   constructor(

@@ -1,9 +1,10 @@
-import {BaseEntityModel} from "../../baseEntity.model";
+import {BaseEntityModel} from '../../baseEntity.model';
+import {AirlinesModel} from '../airline/airlines.model';
 
-export class AirplanesModel extends BaseEntityModel{
+export class AirplanesModel extends BaseEntityModel {
   constructor(
     public model?: string,
-    public airlineId?: number
+    public airline?: AirlinesModel
   ) {
     super();
   }

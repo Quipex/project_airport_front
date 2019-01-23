@@ -1,9 +1,10 @@
-import {BaseEntityModel} from "../../baseEntity.model";
+import {BaseEntityModel} from '../../baseEntity.model';
+import {CountriesModel} from './countries.model';
 
 export class AirportModel extends BaseEntityModel {
   constructor(
     public name?: string,
-    public countryId?: number,
+    public country?: CountriesModel,
     public address?: string,
     public city?: string
   ) {

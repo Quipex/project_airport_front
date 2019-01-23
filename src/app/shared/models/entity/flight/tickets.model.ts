@@ -1,5 +1,5 @@
-import {BaseEntityModel} from "../../baseEntity.model";
-import {TicketStatusModel} from "./ticketStatus.model";
+import {BaseEntityModel} from '../../baseEntity.model';
+import {TicketStatusModel} from './ticketStatus.model';
 
 export class TicketsModel extends BaseEntityModel {
   constructor(

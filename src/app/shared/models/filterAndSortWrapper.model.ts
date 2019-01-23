@@ -1,4 +1,4 @@
-import {SortEntityModel} from "./sortEntity.model";
+import {SortEntityModel} from './sortEntity.model';
 
 export class FilterAndSortWrapperModel {
   constructor(

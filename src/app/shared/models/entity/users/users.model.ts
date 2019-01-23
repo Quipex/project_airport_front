@@ -1,5 +1,5 @@
 import {BaseEntityModel} from '../../baseEntity.model';
-import {AuthorityModel} from "./authority.model";
+import {AuthorityModel} from './authority.model';
 
 export class UsersModel extends BaseEntityModel {
 

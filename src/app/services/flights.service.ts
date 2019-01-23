@@ -24,7 +24,7 @@ export class FlightsService implements BaseService {
   ) {}
 
   getFlightsByUserLogin(userLogin: string, page: number) {
-    return this.http.get(`http://localhost:8080/user-flights/userLogin=${userLogin}/page=${page}`, this.httpOptions);
+    return this.http.get(API_URL + `/user-flights/userLogin=${userLogin}/page=${page}`, this.httpOptions);
   }
 
 
