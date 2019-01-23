@@ -51,6 +51,8 @@ import {FlightsService} from './services/flights.service';
 import {NotFoundComponent} from './not-found-component/not-found-component.component';
 import { TicketsComponent } from './tickets/tickets.component';
 import {TicketsService} from "./services/tickets.service";
+import {RoleGuardService} from "./services/roleGuard.service";
+import {AuthGuardService} from "./services/authGuard.service";
 
 
 @NgModule({
@@ -108,7 +110,9 @@ import {TicketsService} from "./services/tickets.service";
     PassportsService,
     ErrorTestService,
     FlightsService,
-    TicketsService],
+    TicketsService,
+    RoleGuardService,
+    AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

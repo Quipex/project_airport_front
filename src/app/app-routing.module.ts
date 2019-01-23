@@ -14,28 +14,50 @@ import {UserFlightsComponent} from './users/user-flights/user-flights.component'
 import {FlightsComponent} from './flights/flights.component';
 import {NotFoundComponent} from './not-found-component/not-found-component.component';
 import {TicketsComponent} from "./tickets/tickets.component";
+import {RoleGuardService} from "./services/roleGuard.service";
+import {AuthGuardService} from "./services/authGuard.service";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {
     path: 'users',
-    component: UsersComponent
+    component: UsersComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      roles: ['ROLE_ADMIN']
+    }
   },
   {
     path: 'airlines',
-    component: AirlinesComponent
+    component: AirlinesComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      roles: ['ROLE_ADMIN']
+    }
   },
   {
     path: 'airplanes',
-    component: AirplanesComponent
+    component: AirplanesComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      roles: ['ROLE_ADMIN']
+    }
   },
   {
     path: 'extra-type',
-    component: ExtraTypeComponent
+    component: ExtraTypeComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      roles: ['ROLE_ADMIN']
+    }
   },
   {
     path: 'countries',
-    component: CountriesComponent
+    component: CountriesComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      roles: ['ROLE_ADMIN']
+    }
   },
   {
     path: 'login',
@@ -47,27 +69,48 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'passengers',
-    component: PassengersComponent
+    component: PassengersComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      roles: ['ROLE_USER']
+    }
   },
   {
     path: 'tickets',
-    component: TicketsComponent
+    component: TicketsComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      roles: ['ROLE_CASHIER']
+    }
   },
   {
     path: 'error-test',
-    component: ErrorTestComponent
+    component: ErrorTestComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      roles: ['ROLE_ADMIN']
+    }
   },
   {
     path: 'user-flights',
-    component: UserFlightsComponent
+    component: UserFlightsComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      roles: ['ROLE_USER']
+    }
   },
   {
     path: 'flights',
-    component: FlightsComponent
+    component: FlightsComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      roles: ['ROLE_ADMIN', 'ROLE_CONTROLLER']
+    }
   },
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404'},

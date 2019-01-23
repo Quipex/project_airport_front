@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {AuthResponseModel} from "../models/authResponse.model";
 import {AuthorityModel} from "../models/entity/users/authority.model";
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +14,7 @@ import {AuthorityModel} from "../models/entity/users/authority.model";
 export class NavbarComponent implements OnInit {
   authModel: AuthResponseModel;
   role = AuthorityModel;
+  currentRole = '';
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -25,6 +27,10 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.authModel = JSON.parse(window.localStorage.getItem('currentUser'));
+    var token = this.authModel.token;
+    const helper = new JwtHelperService();
+    const decodedToken = helper.decodeToken(token);
+    this.currentRole = decodedToken.user_role;
   }
 
 
