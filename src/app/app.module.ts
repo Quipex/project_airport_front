@@ -25,7 +25,7 @@ import {DynamicFormComponent} from './shared/dynamic-form/dynamic-form.component
 import {DynamicFormRenderComponent} from './shared/dynamic-form/dynamic-form-render.component';
 import {httpInterceptorProviders} from './http-interceptors';
 import {AirplanesComponent} from './airplanes/airplanes.component';
-import {FormControlService} from './services/formControl.service';
+import {FormControlService} from "./services/formControl.service";
 import {
   MatButtonModule,
   MatButtonToggleModule,
@@ -36,6 +36,7 @@ import {
   MatSelectModule
 } from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatRadioModule} from '@angular/material/radio';
 import {BsDropdownModule} from 'ngx-bootstrap';
 import {IntlTelInputModule} from 'angular-intl-tel-input';
 import {PassengersComponent} from './users/passengers/passengers.component';
@@ -65,7 +66,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {UserFlightsComponent} from './users/user-flights/user-flights.component';
 import {FlightsService} from './services/flights.service';
 import {SeatTypeSectionComponent} from './airplanes/seats/seats-grid/seat-type-section/seat-type-section.component';
-import { ProfileComponent } from './profile/profile.component';
+import {ProfileComponent} from './profile/profile.component';
+import {FlightBookingComponent} from './booking/flight-booking/flight-booking.component';
 
 
 @NgModule({
@@ -100,7 +102,8 @@ import { ProfileComponent } from './profile/profile.component';
     SeatTypeColorpickerComponent,
     UserFlightsComponent,
     SeatTypeSectionComponent,
-    ProfileComponent
+    ProfileComponent,
+    FlightBookingComponent
   ],
   imports: [
     BrowserModule,
@@ -118,6 +121,7 @@ import { ProfileComponent } from './profile/profile.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonToggleModule,
+    MatRadioModule,
     BsDropdownModule.forRoot(),
     IntlTelInputModule,
     MatSelectModule,
