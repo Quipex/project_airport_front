@@ -9,4 +9,8 @@ export class SeatTypeModel extends BaseEntityModel {
     super();
   }
 
+
+  toString(): string {
+    return 'name: ' + this.name + ';modifier: ' + this.modifier + ';description: ' + this.description;
+  }
 }

@@ -15,7 +15,10 @@ export class SeatModel extends BaseEntityModel {
 
 
   toString(): string {
-    return 'c:' + this.col + '.' +
-      'r:' + this.row;
+    return 'col:' + this.col +
+      ';row:' + this.row +
+      ';airplane:{' + this.airplane + '}' +
+      ';seattype:{' + this.seatType + '}' +
+      ';modifier:' + this.modifier;
   }
 }
