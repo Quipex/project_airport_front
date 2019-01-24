@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
 import {FormGroup} from '@angular/forms';
 import {ColumnSetting} from '../shared/models/columnSetting.model';
 import {InputBaseModel} from '../shared/models/inputBase.model';
-import {AuthResponseModel} from '../shared/models/authResponse.model';
-import {AuthorityModel} from '../shared/models/entity/users/authority.model';
 import {BaseService} from '../services/baseService.service';
 import {ExtraTypeService} from '../services/extra-type.service';
 
@@ -69,16 +66,9 @@ export class ExtraTypeComponent implements OnInit {
   ];
 
   constructor(
-    private  router: Router
   ) { }
 
   ngOnInit() {
-    const currentUser: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
-    if (currentUser === null || currentUser.authority === null) {
-      this.router.navigateByUrl('login');
-    } else if (currentUser.authority !== AuthorityModel.ROLE_ADMIN.toString()) {
-      this.router.navigateByUrl('home');
-    }
   }
 
 }

@@ -9,11 +9,15 @@ import {CountriesComponent} from './countries/countries.component';
 import {AirplanesComponent} from './airplanes/airplanes.component';
 import {ExtraTypeComponent} from './extra-type/extra-type.component';
 import {PassengersComponent} from './users/passengers/passengers.component';
-import {ErrorTestComponent} from "./error-test/error-test.component";
-import {FlightsComponent} from "./users/flights/flights.component";
-import {NotFoundComponent} from "./not-found-component/not-found-component.component";
+import {ErrorTestComponent} from './error-test/error-test.component';
+import {UserFlightsComponent} from './users/user-flights/user-flights.component';
+import {FlightsComponent} from './flights/flights.component';
+import {NotFoundComponent} from './not-found-component/not-found-component.component';
+import {TicketsComponent} from "./tickets/tickets.component";
+import {RoleGuardService} from "./services/roleGuard.service";
+import {AuthGuardService} from "./services/authGuard.service";
+import {ProfileComponent} from "./profile/profile.component";
 import {FlightBookingComponent} from './booking/flight-booking/flight-booking.component';
-
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {

@@ -1,0 +1,8 @@
+<button mat-flat-button
+        class="seat"
+        color="primary"
+        [style.background-color]="colorCode"
+        (click)="toggleSelection()"
+        [ngClass]="{selected: isSelected}">
+  r:{{seat.row}};c:{{seat.col}}
+</button>

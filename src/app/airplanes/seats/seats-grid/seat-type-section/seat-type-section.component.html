@@ -1,0 +1,9 @@
+<div *ngFor="let item of [].constructor(section.rows); let row = index"
+      class="flexible">
+  <div *ngFor="let item of [].constructor(section.cols); let col = index">
+    <app-seat *ngIf="getSeat(row, col)"
+              [colorCode]="section.colorCode"
+              [seat]="getSeat(row, col)"
+              [(selectedSeats)]="selectedSeats"></app-seat>
+  </div>
+</div>

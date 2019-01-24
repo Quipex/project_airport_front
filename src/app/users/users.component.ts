@@ -4,9 +4,7 @@ import {UsersService} from '../services/users.service';
 import {BaseService} from '../services/baseService.service';
 import {ColumnSetting} from '../shared/models/columnSetting.model';
 import {InputBaseModel} from '../shared/models/inputBase.model';
-import {Router} from "@angular/router";
 import {AuthorityModel} from "../shared/models/entity/users/authority.model";
-import {AuthResponseModel} from "../shared/models/authResponse.model";
 
 @Component({
   selector: 'app-users',
@@ -113,17 +111,10 @@ export class UsersComponent implements OnInit {
   ];
 
   constructor(
-    private  router: Router
   ) {
   }
 
   ngOnInit(): void {
-    const currentUser: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
-    if (currentUser === null || currentUser.authority === null) {
-      this.router.navigateByUrl('login');
-    } else if (currentUser.authority !== AuthorityModel.ROLE_ADMIN.toString()) {
-      this.router.navigateByUrl('home');
-    }
   }
 
 }

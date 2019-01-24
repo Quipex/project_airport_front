@@ -1,0 +1,71 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <h1>Profile</h1>
+  <h3>Contact info</h3>
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Login" [readonly]="true" value="{{currentItem.login}}">
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Nickname" [readonly]="true" value="{{currentItem.nickname}}">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Email" [readonly]="true" value="{{currentItem.email}}">
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Phone number" [readonly]="true" value="{{currentItem.phoneNumber}}">
+      </mat-form-field>
+    </div>
+  </div>
+  <button (click)="editContactInfo()" class="relative waves-light" color="primary" mdbBtn mdbWavesEffect
+          type="submit">Edit</button>
+  <hr>
+  <h3>Security</h3>
+  <button (click)="changePassword()" class="relative waves-light" color="primary" mdbBtn mdbWavesEffect
+          type="submit">Change password</button>
+</div>
+
+<div mdbModal #editModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="editModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="editModalLabel">Edit contact info</h4>
+      </div>
+      <div>
+        <app-dynamic-form [editMode]="editMode" [questions]="editQuestions" [submitType]="'Edit'"
+                          [currentItem]="currentItem" (isCancel)="onCancel($event)" [editedForm]="editForm"
+                          (returnedItem)="onSave($event)"></app-dynamic-form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #changePwdModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="changePwdModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="changePwdModalLabel">Change password</h4>
+      </div>
+      <div>
+        <app-dynamic-form [editMode]="editMode" [questions]="passwordQuestions" [submitType]="'Change'"
+                          [currentItem]="passwordObj" (isCancel)="onCancel($event)" [editedForm]="passwordForm"
+                          (returnedItem)="onSave($event)"></app-dynamic-form>
+      </div>
+  </div>
+</div>
+</div>

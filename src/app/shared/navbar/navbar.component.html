@@ -11,30 +11,31 @@
         <a class="nav-item nav-link" routerLink="/home">Home</a>
       </li>
       <li class="nav-item"
-          *ngIf="authModel.authority === role.ROLE_USER.toString() || authModel.authority === role.ROLE_CASHIER.toString()
+          *ngIf="currentRole === role.ROLE_USER.toString() || currentRole === role.ROLE_CASHIER.toString()
                   || authModel === null"
           routerLinkActive="active">
         <a class="nav-item nav-link" routerLink="/personal-area">Purchase a ticket</a>
       </li>
-      <li class="nav-item" *ngIf="authModel.authority === role.ROLE_ADMIN.toString()" routerLinkActive="active">
+      <li class="nav-item" *ngIf="currentRole === role.ROLE_ADMIN.toString()" routerLinkActive="active">
         <a class="nav-item nav-link" routerLink="/users">Users</a>
       </li>
 
-      <li class="nav-item" *ngIf="authModel.authority === role.ROLE_ANALYST.toString()" routerLinkActive="active">
+      <li class="nav-item" *ngIf="currentRole === role.ROLE_ANALYST.toString()" routerLinkActive="active">
         <a class="nav-item nav-link" routerLink="/analytics">Analytics</a>
       </li>
 
-      <li class="nav-item" *ngIf="authModel.authority === role.ROLE_CONTROLLER.toString()" routerLinkActive="active">
+      <li class="nav-item" *ngIf="currentRole === role.ROLE_CONTROLLER.toString()" routerLinkActive="active">
         <a class="nav-item nav-link" routerLink="/flight-control">Flight control</a>
       </li>
 
-      <li class="nav-item" *ngIf="authModel.authority === role.ROLE_CONTROLLER.toString()" routerLinkActive="active">
-        <a class="nav-item nav-link" routerLink="/flight-edit">Flight edit</a>
+      <li class="nav-item" *ngIf="currentRole === role.ROLE_CONTROLLER.toString()
+                              || currentRole === role.ROLE_ADMIN.toString()" routerLinkActive="active">
+        <a class="nav-item nav-link" routerLink="/flights">Flights</a>
       </li>
 
       <li class="nav-item dropdown" dropdown
-          *ngIf="authModel.authority === role.ROLE_ADMIN.toString()" routerLinkActive="active">
-        <a mdbDropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          *ngIf="currentRole === role.ROLE_ADMIN.toString()" routerLinkActive="active">
+        <a mdbDropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light">
           Airplanes<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown-primary" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/airplanes">Airplanes</a>
@@ -44,8 +45,8 @@
       </li>
 
       <li class="nav-item dropdown" dropdown
-          *ngIf="authModel.authority === role.ROLE_ADMIN.toString()" routerLinkActive="active">
-        <a mdbDropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          *ngIf="currentRole === role.ROLE_ADMIN.toString()" routerLinkActive="active">
+        <a mdbDropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light">
           Locations<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown-primary" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/countries">Countries</a>
@@ -70,13 +71,16 @@
       </a>
 
       <div class="dropdown-menu dropdown-right">
-        <div *ngIf="authModel.authority !== role.ROLE_USER.toString()">
+        <div *ngIf="currentRole !== role.ROLE_USER.toString()">
           <a class="dropdown-item" routerLink="/profile">Profile</a>
         </div>
-        <div *ngIf="authModel.authority === role.ROLE_USER.toString()">
-          <a class="dropdown-item" routerLink="/flights">Flights</a>
+        <div *ngIf="currentRole === role.ROLE_USER.toString()">
+          <a class="dropdown-item" routerLink="/user-flights">Flights</a>
           <a class="dropdown-item" routerLink="/payment">Payment methods</a>
           <a class="dropdown-item" routerLink="/passengers">Passengers</a>
+        </div>
+        <div *ngIf="currentRole === role.ROLE_CASHIER.toString()">
+          <a class="dropdown-item" routerLink="/tickets">Tickets</a>
         </div>
         <a class="dropdown-item" (click)="onLogout()"><i class="fa fa-power-off icon"></i> Log out</a>
       </div>

@@ -1,0 +1,26 @@
+<div *ngFor="let sType of seatTypes; let i = index"
+     class="seat-type-container">
+
+  <div class="input-line">
+  <app-seat-type-colorpicker
+    [seatType]="sType"></app-seat-type-colorpicker>
+
+    <mat-form-field class="short-input">
+      <input matInput placeholder="Price modifier" [defaultValue]="sType.modifier">
+    </mat-form-field>
+
+    <mat-form-field class="short-input">
+      <input matInput placeholder="Col">
+    </mat-form-field>
+
+    <mat-form-field class="short-input">
+      <input matInput placeholder="Row">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field class="long-input">
+    <textarea matInput placeholder="Description" [defaultValue]="sType.description"></textarea>
+  </mat-form-field>
+
+  <mat-divider *ngIf="i + 1 < seatTypes.length"></mat-divider>
+</div>

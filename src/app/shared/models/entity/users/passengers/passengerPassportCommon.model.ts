@@ -1,6 +1,6 @@
-import {BaseEntityModel} from "../../../baseEntity.model";
+import {BaseEntityModel} from '../../../baseEntity.model';
 
-export class PassengerPassportCommonModel extends BaseEntityModel{
+export class PassengerPassportCommonModel extends BaseEntityModel {
   constructor(
     public firstName?: string,
     public lastName?: string,

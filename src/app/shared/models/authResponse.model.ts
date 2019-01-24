@@ -1,7 +1,6 @@
 export class AuthResponseModel {
   constructor(
     public login?: string,
-    public authority?: string,
     public token?: string,
   ) {
   }

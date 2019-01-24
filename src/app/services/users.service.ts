@@ -5,6 +5,7 @@ import {BaseService} from './baseService.service';
 import {BaseEntityModel} from '../shared/models/baseEntity.model';
 import {FilterAndSortWrapperModel} from "../shared/models/filterAndSortWrapper.model";
 import {environment} from "../../environments/environment";
+import {ChangePasswordModel} from "../shared/models/changePassword.model";
 
 const API_URL = environment.apiUrl;
 
@@ -53,5 +54,12 @@ export class UsersService implements BaseService {
     return this.http.post(API_URL + `/register`, item, this.httpOptions);
   }
 
+  getUserByLogin(login: string) {
+    return this.http.get(API_URL + `/users/login=${login}`, this.httpOptions);
+  }
+
+  changePassword(login: string, passwordModel: ChangePasswordModel) {
+    return this.http.post(API_URL + `/users/changePassword/login=${login}`, passwordModel, this.httpOptions);
+  }
 
 }

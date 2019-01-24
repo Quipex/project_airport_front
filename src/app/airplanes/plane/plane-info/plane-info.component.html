@@ -1,0 +1,18 @@
+<mat-expansion-panel>
+
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Plane {{plane.model}}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <ul *ngIf="plane.airline">
+    <li>airline name: {{plane.airline.name}}</li>
+    <li>airline description: {{plane.airline.descr}}</li>
+    <li>airline email: {{plane.airline.email}}</li>
+    <li>airline phone number: {{plane.airline.phoneNumber}}</li>
+  </ul>
+  <p *ngIf="!plane.airline">no airline</p>
+
+</mat-expansion-panel>
+

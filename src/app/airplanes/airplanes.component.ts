@@ -1,12 +1,10 @@
+/* tslint:disable:use-life-cycle-interface */
 import {Component} from '@angular/core';
-import {BaseService} from "../services/baseService.service";
-import {FormGroup} from "@angular/forms";
-import {ColumnSetting} from "../shared/models/columnSetting.model";
-import {InputBaseModel} from "../shared/models/inputBase.model";
-import {AirplanesService} from "../services/airplanes.service";
-import {Router} from "@angular/router";
-import {AuthorityModel} from "../shared/models/entity/users/authority.model";
-import {AuthResponseModel} from "../shared/models/authResponse.model";
+import {BaseService} from '../services/baseService.service';
+import {FormGroup} from '@angular/forms';
+import {ColumnSetting} from '../shared/models/columnSetting.model';
+import {InputBaseModel} from '../shared/models/inputBase.model';
+import {AirplanesService} from '../services/airplanes.service';
 
 @Component({
   selector: 'app-airplanes',
@@ -58,17 +56,10 @@ export class AirplanesComponent {
   ];
 
   constructor(
-    private  router: Router
   ) {
   }
 
   ngOnInit(): void {
-    const authModel: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
-    if (authModel === null || authModel.authority === null) {
-      this.router.navigateByUrl('login');
-    } else if (authModel.authority !== AuthorityModel.ROLE_ADMIN.toString()) {
-      this.router.navigateByUrl('home');
-    }
   }
 
 }

@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormGroup} from "@angular/forms";
 import {PassengersService} from "../../services/passengers.service";
 import {AuthResponseModel} from "../../shared/models/authResponse.model";
-import {AuthorityModel} from "../../shared/models/entity/users/authority.model";
 import {Router} from "@angular/router";
 import {PassportsService} from "../../services/passports.service";
 import {FormControlService} from "../../services/formControl.service";
@@ -23,7 +22,6 @@ import {PassportModel} from "../../shared/models/entity/users/passengers/passpor
   providers: [PassengersService, PassportsService, DatePipe]
 })
 export class PassengersComponent implements OnInit {
-
 
   passports = [];
 
@@ -95,19 +93,10 @@ export class PassengersComponent implements OnInit {
   ];
 
   ngOnInit() {
-
     const currentUser: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
-    if (currentUser === null || currentUser.authority === null) {
-      this.router.navigateByUrl('login');
-    } else if (currentUser.authority !== AuthorityModel.ROLE_USER.toString()) {
-      this.router.navigateByUrl('home');
-    }
-
     this.userLogin = currentUser.login;
-
     this.form = this.fcs.toFormGroup(this.questions);
     this.editForm = this.fcs.toFormGroup(this.questions);
-
     this.getPassengers(this.userLogin);
   }
 
