@@ -1,6 +1,8 @@
-<div *ngFor="let item of [].constructor(section.rows); let row = index"
+rows: {{section.rows}}, cols: {{section.cols}}
+<div *ngFor="let item of section.rows | makeIterable; let row = index"
       class="flexible">
-  <div *ngFor="let item of [].constructor(section.cols); let col = index">
+  <div *ngFor="let item of section.cols | makeIterable; let col = index">
+    ({{row}},{{col}})
     <app-seat *ngIf="getSeat(row, col)"
               [colorCode]="section.colorCode"
               [seat]="getSeat(row, col)"
