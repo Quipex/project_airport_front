@@ -7,6 +7,7 @@ import {PassengerPassportCommonModel} from "../models/entity/users/passengers/pa
 import {PassengerPassportModel} from "../models/entity/users/passengers/passengerPasport.model";
 import {TicketDTOModel} from "../models/ticketDTO.model";
 import {TicketPassengerCommonModel} from "../models/ticketPassengerCommon.model";
+import {ChangePasswordModel} from "../models/changePassword.model";
 
 @Component({
   selector: 'app-dynamic-form',
@@ -51,6 +52,9 @@ export class DynamicFormComponent implements OnChanges {
         const formData = this.form.value;
         editedItem = formData;
         this.returnedItem.emit(editedItem);
+      } else if (this.currentItem instanceof ChangePasswordModel) {
+        this.currentItem = this.form.value;
+        this.returnedItem.emit(this.currentItem);
       } else {
         let editedItem = JSON.parse(JSON.stringify(this.currentItem));
         const formData = this.form.value;

@@ -16,6 +16,7 @@ import {NotFoundComponent} from './not-found-component/not-found-component.compo
 import {TicketsComponent} from "./tickets/tickets.component";
 import {RoleGuardService} from "./services/roleGuard.service";
 import {AuthGuardService} from "./services/authGuard.service";
+import {ProfileComponent} from "./profile/profile.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -111,6 +112,11 @@ const routes: Routes = [
     data: {
       roles: ['ROLE_ADMIN', 'ROLE_CONTROLLER']
     }
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuardService]
   },
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404'},

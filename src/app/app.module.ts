@@ -65,6 +65,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {UserFlightsComponent} from './users/user-flights/user-flights.component';
 import {FlightsService} from './services/flights.service';
 import {SeatTypeSectionComponent} from './airplanes/seats/seats-grid/seat-type-section/seat-type-section.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -98,7 +99,8 @@ import {SeatTypeSectionComponent} from './airplanes/seats/seats-grid/seat-type-s
     NotFoundComponent,
     SeatTypeColorpickerComponent,
     UserFlightsComponent,
-    SeatTypeSectionComponent
+    SeatTypeSectionComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
