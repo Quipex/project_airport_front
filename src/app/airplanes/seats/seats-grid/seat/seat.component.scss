@@ -1,0 +1,16 @@
+.seat {
+  height: 100px;
+  width: 100px;
+  min-width: auto;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 5px;
+}
+
+.disabled {
+  background-color: #646464;
+}
+
+.selected {
+  background-color: #324556 !important;
+}

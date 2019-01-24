@@ -39,20 +39,32 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {BsDropdownModule} from 'ngx-bootstrap';
 import {IntlTelInputModule} from 'angular-intl-tel-input';
 import {PassengersComponent} from './users/passengers/passengers.component';
-import {PassengersService} from './services/passengers.service';
-import {PassportsService} from './services/passports.service';
 import {ExtraTypeComponent} from './extra-type/extra-type.component';
 import {ExtraTypeService} from './services/extra-type.service';
 import {ErrorTestComponent} from './error-test/error-test.component';
 import {ErrorTestService} from './services/error-test.service';
+import {PassengersService} from './services/passengers.service';
+import {PassportsService} from './services/passports.service';
+import {PlaneSeatsGridComponent} from './airplanes/seats/plane-seats-grid/plane-seats-grid.component';
+import {SeatComponent} from './airplanes/seats/seats-grid/seat/seat.component';
+import {MatDividerModule} from '@angular/material/divider';
+import {PlaneSeatsEditorComponent} from './airplanes/plane-seats-editor/plane-seats-editor.component';
+import {PlaneInfoComponent} from './airplanes/plane/plane-info/plane-info.component';
+import {PlaneSeatsParametersComponent} from './airplanes/plane/plane-seats-parameters/plane-seats-parameters.component';
+import {PlaneEditorComponent} from './airplanes/plane/plane-editor/plane-editor.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import {FlightsComponent} from './flights/flights.component';
+import {NotFoundComponent} from './not-found-component/not-found-component.component';
+import {TicketsComponent} from './tickets/tickets.component';
+import {TicketsService} from './services/tickets.service';
+import {RoleGuardService} from './services/roleGuard.service';
+import {AuthGuardService} from './services/authGuard.service';
+import {SeatColorService} from './airplanes/data/seat-colors.service';
+import {SeatTypeColorpickerComponent} from './airplanes/plane/plane-seats-parameters/seat-type-colorpicker/seat-type-colorpicker.component';
+import {MatGridListModule} from '@angular/material/grid-list';
 import {UserFlightsComponent} from './users/user-flights/user-flights.component';
 import {FlightsService} from './services/flights.service';
-import {NotFoundComponent} from './not-found-component/not-found-component.component';
-import { TicketsComponent } from './tickets/tickets.component';
-import {TicketsService} from "./services/tickets.service";
-import {RoleGuardService} from "./services/roleGuard.service";
-import {AuthGuardService} from "./services/authGuard.service";
+import {SeatTypeSectionComponent} from './airplanes/seats/seats-grid/seat-type-section/seat-type-section.component';
 
 
 @NgModule({
@@ -73,10 +85,20 @@ import {AuthGuardService} from "./services/authGuard.service";
     PassengersComponent,
     ExtraTypeComponent,
     ErrorTestComponent,
-    UserFlightsComponent,
+    PlaneSeatsGridComponent,
+    SeatComponent,
+    PlaneSeatsEditorComponent,
+    PlaneInfoComponent,
+    PlaneSeatsParametersComponent,
+    PlaneEditorComponent,
+    ErrorTestComponent,
     FlightsComponent,
     NotFoundComponent,
-    TicketsComponent
+    TicketsComponent,
+    NotFoundComponent,
+    SeatTypeColorpickerComponent,
+    UserFlightsComponent,
+    SeatTypeSectionComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +118,10 @@ import {AuthGuardService} from "./services/authGuard.service";
     MatButtonToggleModule,
     BsDropdownModule.forRoot(),
     IntlTelInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDividerModule,
+    MatSidenavModule,
+    MatGridListModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [UsersService,
@@ -109,11 +134,13 @@ import {AuthGuardService} from "./services/authGuard.service";
     ExtraTypeService,
     PassportsService,
     ErrorTestService,
+    SeatColorService,
     FlightsService,
     TicketsService,
     RoleGuardService,
     AuthGuardService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }

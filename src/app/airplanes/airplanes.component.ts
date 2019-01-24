@@ -1,9 +1,10 @@
+/* tslint:disable:use-life-cycle-interface */
 import {Component} from '@angular/core';
-import {BaseService} from "../services/baseService.service";
-import {FormGroup} from "@angular/forms";
-import {ColumnSetting} from "../shared/models/columnSetting.model";
-import {InputBaseModel} from "../shared/models/inputBase.model";
-import {AirplanesService} from "../services/airplanes.service";
+import {BaseService} from '../services/baseService.service';
+import {FormGroup} from '@angular/forms';
+import {ColumnSetting} from '../shared/models/columnSetting.model';
+import {InputBaseModel} from '../shared/models/inputBase.model';
+import {AirplanesService} from '../services/airplanes.service';
 
 @Component({
   selector: 'app-airplanes',

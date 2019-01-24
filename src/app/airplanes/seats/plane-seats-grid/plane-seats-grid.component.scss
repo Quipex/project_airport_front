@@ -1,0 +1,15 @@
+.airplane-seats {
+  padding: 5px;
+}
+
+.flexible {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.divider {
+  margin: 10px 0;
+}
