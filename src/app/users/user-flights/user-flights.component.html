@@ -10,9 +10,9 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{item.flight.departureDatetime | date }} {{ item.departureAirport.name }}
-          <i style="margin-top: 3px;" class="fa fa-long-arrow-right" aria-hidden="true"></i>
-          {{ item.arrivalAirport.name }} {{item.flight.arrivalDatetime | date}}
+          {{item.flight.actualDepartureDatetime| date }} {{ item.departureAirport.name }}
+          <i style="margin: auto 15px;" class="fa fa-long-arrow-right" aria-hidden="true"></i>
+          {{ item.arrivalAirport.name }} {{item.flight.actualArrivalDatetime | date }}
         </mat-panel-title>
       </mat-expansion-panel-header>
       <h5>Travel route</h5>
@@ -24,11 +24,11 @@
           {{item.airline.name}}
         </div>
         <div class="col-md-4">
-          Departure time: {{item.flight.departureDatetime | date:'HH:mm'}} <br>
+          Departure time: {{item.flight.actualDepartureDatetime | date:'HH:mm'}} <br>
           {{item.departureAirport.city}}
         </div>
         <div class="col-md-4">
-          Arrival time: {{item.flight.arrivalDatetime | date:'HH:mm'}} <br>
+          Arrival time: {{item.flight.actualArrivalDatetime | date:'HH:mm'}} <br>
           {{item.arrivalAirport.city}}
         </div>
       </div>

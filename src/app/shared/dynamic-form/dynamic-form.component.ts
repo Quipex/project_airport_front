@@ -43,7 +43,7 @@ export class DynamicFormComponent implements OnChanges {
   onSubmit() {
     if (this.editMode) {
       if (this.currentItem instanceof PassengerPassportModel) {
-        let editedItem = new PassengerPassportCommonModel();
+        let editedItem: PassengerPassportCommonModel;
         const formData = this.form.value;
         editedItem = formData;
         this.returnedItem.emit(editedItem);

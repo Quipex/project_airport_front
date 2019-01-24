@@ -10,7 +10,7 @@ describe('PlaneEditorComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ PlaneEditorComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

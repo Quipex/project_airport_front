@@ -1,4 +1,3 @@
-/* tslint:disable:use-life-cycle-interface */
 import {Component} from '@angular/core';
 import {BaseService} from '../services/baseService.service';
 import {FormGroup} from '@angular/forms';
