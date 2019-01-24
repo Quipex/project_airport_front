@@ -1,7 +1,145 @@
-<app-project-center
-  [settings]="settings"
-  [questions]="questions"
-  [header]="'Flights'"
-></app-project-center>
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="row header-row">
+    <h2>Just all flights</h2>
+  </div>
+  <div class="row set-row">
+    <div class="col-md-6">
+      <div class="text-left">
+        <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="newModal.show(); onNew()"
+                mdbWavesEffect>New
+        </button>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group input-form">
+        <input type="text" class="form-control" id="search-input" placeholder="Search"
+               [(ngModel)]="searchString" (keypress)="onEnter($event)">
+        <button type="submit" class="btn btn-primary btn-search" mdbWavesEffect (click)="onSearch()">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container table-container" >
+  <div *ngIf="flights.length <= 0">
+    <h4>There are no items.</h4>
+  </div>
+
+
+  <table *ngIf="flights.length > 0" class="table table-striped">
+    <thead>
+    <tr>
+      <th>
+        Flight number
+        <!--<span (click)="sortBy(map.sortAttr, i)" *ngIf="map.sortAttr!==undefined">-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 0" icon="sort"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 1" icon="sort-up"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === -1" icon="sort-down"></mdb-icon>-->
+        <!--</span>-->
+      </th>
+
+      <th>
+        Departure airport
+        <!--<span (click)="sortBy(map.sortAttr, i)" *ngIf="map.sortAttr!==undefined">-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 0" icon="sort"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 1" icon="sort-up"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === -1" icon="sort-down"></mdb-icon>-->
+        <!--</span>-->
+      </th>
+      <th>
+        Departure time
+        <!--<span (click)="sortBy(map.sortAttr, i)" *ngIf="map.sortAttr!==undefined">-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 0" icon="sort"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 1" icon="sort-up"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === -1" icon="sort-down"></mdb-icon>-->
+        <!--</span>-->
+      </th>
+      <th>
+        Arrival airport
+        <!--<span (click)="sortBy(map.sortAttr, i)" *ngIf="map.sortAttr!==undefined">-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 0" icon="sort"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 1" icon="sort-up"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === -1" icon="sort-down"></mdb-icon>-->
+        <!--</span>-->
+      </th>
+      <th>
+        Arrival time
+        <!--<span (click)="sortBy(map.sortAttr, i)" *ngIf="map.sortAttr!==undefined">-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 0" icon="sort"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 1" icon="sort-up"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === -1" icon="sort-down"></mdb-icon>-->
+        <!--</span>-->
+      </th>
+      <th>
+        Airline
+        <!--<span (click)="sortBy(map.sortAttr, i)" *ngIf="map.sortAttr!==undefined">-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 0" icon="sort"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 1" icon="sort-up"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === -1" icon="sort-down"></mdb-icon>-->
+        <!--</span>-->
+      </th>
+      <th>
+        Airplane
+        <!--<span (click)="sortBy(map.sortAttr, i)" *ngIf="map.sortAttr!==undefined">-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 0" icon="sort"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 1" icon="sort-up"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === -1" icon="sort-down"></mdb-icon>-->
+        <!--</span>-->
+      </th>
+      <th>
+        Status
+        <!--<span (click)="sortBy(map.sortAttr, i)" *ngIf="map.sortAttr!==undefined">-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 0" icon="sort"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 1" icon="sort-up"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === -1" icon="sort-down"></mdb-icon>-->
+        <!--</span>-->
+      </th>
+      <th>
+        Base cost
+        <!--<span (click)="sortBy(map.sortAttr, i)" *ngIf="map.sortAttr!==undefined">-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 0" icon="sort"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === 1" icon="sort-up"></mdb-icon>-->
+        <!--<mdb-icon *ngIf="sortedDirections[i] === -1" icon="sort-down"></mdb-icon>-->
+        <!--</span>-->
+      </th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let item of flights; let i = index">
+      <td>
+        {{item.flight.flightNumber}}
+      </td>
+      <td>
+        {{item.departureAirport.name}}
+      </td>
+      <td>
+        {{item.flight.actualDepartureDatetime | date}}
+      </td>
+      <td>
+        {{item.arrivalAirport.name}}
+      </td>
+      <td>
+        {{item.flight.actualArrivalDatetime | date}}
+      </td>
+      <td>
+        {{item.airline.name}}
+      </td>
+      <td>
+        {{item.airplane.model}}
+      </td>
+      <td>
+        {{item.flight.status}}
+      </td>
+      <td>
+        {{item.flight.baseCost}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
 
 

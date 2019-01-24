@@ -5,17 +5,38 @@ import {InputBaseModel} from '../shared/models/inputBase.model';
 import {BaseService} from '../services/baseService.service';
 import {FlightsService} from '../services/flights.service';
 import {Router} from '@angular/router';
+import {FlightStatusModel} from '../shared/models/entity/flight/flightStatus.model';
+import {FlightDTOModel} from '../shared/models/flightDTO.model';
+import {FilterAndSortWrapperModel} from '../shared/models/filterAndSortWrapper.model';
+import {ResponseFilteringWrapperModel} from '../shared/models/responseFilteringWrapper.model';
+import {PassportModel} from '../shared/models/entity/users/passengers/passport.model';
+import {PassengerPassportModel} from '../shared/models/entity/users/passengers/passengerPasport.model';
+import {PassengersModel} from '../shared/models/entity/users/passengers/passengers.model';
+import {FormControlService} from '../services/formControl.service';
+import {ToastrService} from 'ngx-toastr';
+import {DatePipe} from '@angular/common';
 
-// import {UsersModel} from "../shared/models/entity/users/users.model";
 
 @Component({
   selector: 'app-flights',
   templateUrl: './flights.component.html',
   styleUrls: ['./flights.component.scss'],
-  providers: [{provide: BaseService, useClass: FlightsService}]
+  providers: [FlightsService, DatePipe]
 })
 export class FlightsComponent implements OnInit {
   form: FormGroup;
+  flights: FlightDTOModel[] = [];
+
+  editForm: FormGroup;
+  newPassenger: PassengersModel;
+  newPassport: PassportModel;
+  currentItem: PassengerPassportModel;
+  editMode: Boolean = false;
+  submitType = 'Save';
+  searchString = '';
+  deleteId: number;
+  // flights: FlightsModel[] = [];
+
 
   settings: ColumnSetting[] =
     [
@@ -34,7 +55,7 @@ export class FlightsComponent implements OnInit {
         sortAttr: 11
       },
       {
-        primaryKey: 'departureDatetime',
+        primaryKey: 'actualDepartureDatetime',
         header: 'Departure:',
         sortAttr: 6
       },
@@ -44,7 +65,7 @@ export class FlightsComponent implements OnInit {
         sortAttr: 10
       },
       {
-        primaryKey: 'arrivalDatetime',
+        primaryKey: 'actualArrivalDatetime',
         header: 'Arrival:',
         sortAttr: 7
       },
@@ -84,7 +105,7 @@ export class FlightsComponent implements OnInit {
       edit: true
     }),
     new InputBaseModel({
-      key: 'departureDatetime',
+      key: 'actualDepartureDatetime',
       label: 'Departure datetime',
       required: true,
       type: 'text',
@@ -100,7 +121,7 @@ export class FlightsComponent implements OnInit {
       edit: true
     }),
     new InputBaseModel({
-      key: 'arrivalDatetime',
+      key: 'actualArrivalDatetime',
       label: 'Arrival datetime',
       required: true,
       type: 'text',
@@ -127,20 +148,76 @@ export class FlightsComponent implements OnInit {
       key: 'status',
       label: 'Status',
       required: true,
-      type: 'text',
+      type: 'select',
       order: 8,
-      edit: true
+      edit: true,
+      value: FlightStatusModel
     })
   ];
 
   constructor(
-    private  router: Router,
-    private flightsService: FlightsService
+    private router: Router,
+    private flightsService: FlightsService,
+    private fcs: FormControlService,
+    private toastr: ToastrService,
+    private datePipe: DatePipe
   ) {
   }
 
   ngOnInit(): void {
-    this.flightsService.getTenItems(1);
+    this.getFlights();
   }
+
+  getFlights() {
+    this.flightsService.getTenItems(1).subscribe((value: FlightDTOModel[]) => {
+      this.flights = value;
+    });
+
+
+    // let values = this.flightsService.getTenItems(1);
+    // values.forEach((value: FlightDTOModel) => {
+    //   let flight = value.flight;
+    //   flight.airplane = value.airplane;
+    //   flight.departureAirport = value.departureAirport;
+    //   flight.arrivalAirport = value.arrivalAirport;
+    //   this.flights.push(flight);
+    // });
+  }
+
+  onEnter($event: KeyboardEvent) {
+    if ($event.key == 'Enter') {
+      this.onSearch();
+    }
+  }
+
+  onSearch() {
+    if (this.searchString === '') {
+      this.flights = [];
+      this.getFlights();
+    } else {
+      let wrapper = new FilterAndSortWrapperModel(this.searchString);
+      this.flightsService.search(1, wrapper)
+        .subscribe((data: ResponseFilteringWrapperModel) => {
+          this.flights = [];
+          data.entities.forEach(element => {
+            this.flights.push(element);
+          })
+        });
+    }
+  }
+
+  showInfo(message: string) {
+    this.toastr.info(message);
+  }
+
+  // fillArray() {
+  //   const passengersToDisplay = this.flights.forEach(element => {
+  //     element.passengers.forEach(passenger => {
+  //       element.passports.forEach(passport => {
+  //         passenger.passport = passport;
+  //       })
+  //     })
+  //   });
+  // }
 
 }

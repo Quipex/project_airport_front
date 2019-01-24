@@ -45,7 +45,7 @@ export class FlightsService implements BaseService {
   }
 
   editItem(id: number, item: FlightsModel) {
-    return this.http.put(API_URL + `/flights/`, item, this.httpOptions);
+    return this.http.put(API_URL + `/flights`, item, this.httpOptions);
   }
 
   deleteItem(id: number) {
