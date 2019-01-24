@@ -12,13 +12,13 @@
           <div class="search-item-from">
             <mat-form-field appearance="outline" class="mat-form-input-field">
               <mat-label>Departure</mat-label>
-              <input matInput placeholder="From">
+              <input [(ngModel)]="departureCity" matInput placeholder="From">
             </mat-form-field>
           </div>
           <div class="search-item-to">
             <mat-form-field appearance="outline" class="mat-form-input-field">
               <mat-label>Destination</mat-label>
-              <input matInput placeholder="To">
+              <input [(ngModel)]="destinationCity" matInput placeholder="To">
             </mat-form-field>
           </div>
         </div>
@@ -26,7 +26,7 @@
           <div class="datepicker-to">
             <mat-form-field appearance="outline" class="datepicker">
               <mat-label>Departure date</mat-label>
-              <input matInput (click)="date_picker.open()" [min]="minDate" [matDatepicker]="date_picker" [formControl]="date">
+              <input [(ngModel)]="departureDate" matInput (click)="date_picker.open()" [min]="minDate" [matDatepicker]="date_picker" [formControl]="date">
               <mat-datepicker-toggle matSuffix [for]="date_picker"></mat-datepicker-toggle>
               <mat-datepicker #date_picker></mat-datepicker>
             </mat-form-field>
@@ -34,14 +34,13 @@
           <div class="datepicker-back">
             <mat-form-field *ngIf="defaultFlightType == 'Round trip' " appearance="outline" class="datepicker">
               <mat-label>Return date</mat-label>
-              <input matInput (click)="date_picker_back.open()" [min]="minDate" [matDatepicker]="date_picker_back" placeholder="Choose a return date">
+              <input [(ngModel)]="returnDate" matInput (click)="date_picker_back.open()" [min]="minDate" [matDatepicker]="date_picker_back" placeholder="Choose a return date">
               <mat-datepicker-toggle matSuffix [for]="date_picker_back"></mat-datepicker-toggle>
               <mat-datepicker #date_picker_back></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
       </div>
-
     </div>
     <div class="passenger-num">
       <div class="main-search-left">
@@ -84,7 +83,7 @@
     <div class="search-button">
       <div class="main-search-left">
         <div class="search-btn-item">
-          <button mat-flat-button color="primary" class="btn btn-primary btn-flight">Search flights</button>
+          <button mat-flat-button color="primary" class="btn btn-primary btn-flight" (click)="searchFlight()">Search flights</button>
         </div>
       </div>
     </div>
