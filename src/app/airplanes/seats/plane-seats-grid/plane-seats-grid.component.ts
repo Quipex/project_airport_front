@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SeatColorService} from '../../data/seat-colors.service';
 import {SeatModel} from 'src/app/shared/models/entity/airplane/seat.model';
-import {SectionModel} from '../seats-grid/seat-type-section/section-model';
+import {SectionModel} from './seat-type-section/section-model';
 import {SeatTypeModel} from '../../../shared/models/entity/airplane/seat-type.model';
 
 @Component({
@@ -19,6 +19,7 @@ export class PlaneSeatsGridComponent implements OnInit {
   @Input() public selectedSeats: Set<SeatModel>;
   @Output() public selectedSeatsChange = new EventEmitter<Set<SeatModel>>();
   @Input() public sections: SectionModel[];
+  @Output() public sectionsChange = new EventEmitter<SectionModel[]>();
   @Input() public seats: SeatModel[];
   private setOfSeatTypes = new Set<SeatTypeModel>();
 
@@ -65,6 +66,7 @@ export class PlaneSeatsGridComponent implements OnInit {
           PlaneSeatsGridComponent.maxNumber(cols)));
         result = seatTypeIterator.next();
       }
+      this.sectionsChange.emit(this.sections);
     }
   }
 

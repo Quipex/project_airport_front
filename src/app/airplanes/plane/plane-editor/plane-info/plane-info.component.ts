@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AirplanesModel} from '../../../shared/models/entity/airplane/airplanes.model';
+import {AirplanesModel} from '../../../../shared/models/entity/airplane/airplanes.model';
 
 @Component({
   selector: 'app-plane-info',

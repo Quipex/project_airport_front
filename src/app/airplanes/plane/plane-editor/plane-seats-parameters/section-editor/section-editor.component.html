@@ -1,0 +1,28 @@
+<div class="input-line">
+  <app-seat-type-colorpicker [seatType]="section.seatType"
+                             (click)="confirm(section)"></app-seat-type-colorpicker>
+
+  <mat-form-field class="short-input">
+    <input matInput placeholder="Price modifier"
+           [ngModel]="section.seatType.modifier"
+           (change)="changeModifier($event.target.value)">
+  </mat-form-field>
+
+  <mat-form-field class="short-input">
+    <input matInput placeholder="Col"
+           [ngModel]="section.cols"
+           (change)="changeCols($event.target.value)">
+  </mat-form-field>
+
+  <mat-form-field class="short-input">
+    <input matInput placeholder="Row"
+           [ngModel]="section.rows"
+           (change)="changeRows($event.target.value)">
+  </mat-form-field>
+</div>
+
+<mat-form-field class="long-input">
+  <textarea matInput placeholder="Description"
+            [ngModel]="section.seatType.description"
+            (change)="changeDescription($event.target.value)"></textarea>
+</mat-form-field>

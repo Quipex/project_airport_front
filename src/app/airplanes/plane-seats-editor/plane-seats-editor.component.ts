@@ -6,6 +6,7 @@ import {AirplanesModel} from '../../shared/models/entity/airplane/airplanes.mode
 import {PLANES} from '../data/mock-airplanes';
 import {SeatTypeModel} from '../../shared/models/entity/airplane/seat-type.model';
 import {SEAT_TYPES} from '../data/mock-seat-types';
+import {SectionModel} from '../seats/plane-seats-grid/seat-type-section/section-model';
 
 @Component({
   selector: 'app-plane-seats-editor',
@@ -17,8 +18,10 @@ export class PlaneSeatsEditorComponent implements OnInit {
   public plane: AirplanesModel;
   public seatTypes: SeatTypeModel[];
   public selectedSeats = new Set<SeatModel>();
+  public sections: SectionModel[];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     of(SEATS).subscribe(seats => {

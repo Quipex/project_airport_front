@@ -20,6 +20,7 @@ export class SeatComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isSelected = this.selectedSeats.has(this.seat);
   }
 
   toggleSelection() {

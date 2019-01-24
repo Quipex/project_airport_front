@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SeatTypeModel} from '../../../../shared/models/entity/airplane/seat-type.model';
-import {SeatColorService} from '../../../data/seat-colors.service';
+import {SeatTypeModel} from '../../../../../../shared/models/entity/airplane/seat-type.model';
+import {SeatColorService} from '../../../../../data/seat-colors.service';
 
 @Component({
   selector: 'app-seat-type-colorpicker',

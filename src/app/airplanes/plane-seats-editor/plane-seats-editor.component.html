@@ -1,13 +1,36 @@
 <mat-sidenav-container>
 
   <mat-sidenav-content *ngIf="seats">
-    <app-airplane-seats [seats]="seats" [(selectedSeats)]="selectedSeats"></app-airplane-seats>
+    <app-airplane-seats [seats]="seats"
+                        [(selectedSeats)]="selectedSeats"
+                        [(sections)]="sections"></app-airplane-seats>
   </mat-sidenav-content>
 
   <mat-sidenav class="plane-seats-container" opened mode="side" position="end">
-    <app-plane-editor [plane]="plane" [seatTypes]="seatTypes"></app-plane-editor>
+    <app-plane-editor [plane]="plane"
+                      [(seats)]="seats"
+                      [sections]="sections"></app-plane-editor>
   </mat-sidenav>
 
 </mat-sidenav-container>
 
 <button mat-flat-button color="primary" class="right-sided-btn">SAVE</button>
+
+<!--DEBUG-->
+<div>
+  <h2>sections:</h2>
+  <ul>
+    <li *ngFor="let section of sections">{{section.toString()}}</li>
+  </ul>
+
+  <h2 *ngIf="selectedSeats.size != 0">selected:</h2>
+  <ul>
+    <li *ngFor="let selSeat of selectedSeats">{{selSeat}}</li>
+  </ul>
+
+  <h2>seats:</h2>
+  <ul>
+    <li *ngFor="let seat of seats">{{seat.toString()}}</li>
+  </ul>
+
+</div>

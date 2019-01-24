@@ -18,15 +18,10 @@ export class SeatTypeSectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('init-SeatTypeSectionComponent');
-    console.log(this.selectedSeats);
-    console.log(this.seats);
-    console.log(this.section.cols);
-    console.log([].constructor(this.section.cols + 1));
   }
 
   getSeat(row: number, col: number): SeatModel {
-    // console.log(row + ';' + col);
+    // console.log(row, col);
     for (const seat of this.seats) {
       if (seat.row === row && seat.col === col && seat.seatType === this.section.seatType) {
         return seat;

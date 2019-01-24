@@ -47,11 +47,11 @@ import {ErrorTestService} from './services/error-test.service';
 import {PassengersService} from './services/passengers.service';
 import {PassportsService} from './services/passports.service';
 import {PlaneSeatsGridComponent} from './airplanes/seats/plane-seats-grid/plane-seats-grid.component';
-import {SeatComponent} from './airplanes/seats/seats-grid/seat/seat.component';
+import {SeatComponent} from './airplanes/seats/plane-seats-grid/seat-type-section/seat/seat.component';
 import {MatDividerModule} from '@angular/material/divider';
 import {PlaneSeatsEditorComponent} from './airplanes/plane-seats-editor/plane-seats-editor.component';
-import {PlaneInfoComponent} from './airplanes/plane/plane-info/plane-info.component';
-import {PlaneSeatsParametersComponent} from './airplanes/plane/plane-seats-parameters/plane-seats-parameters.component';
+import {PlaneInfoComponent} from './airplanes/plane/plane-editor/plane-info/plane-info.component';
+import {PlaneSeatsParametersComponent} from './airplanes/plane/plane-editor/plane-seats-parameters/plane-seats-parameters.component';
 import {PlaneEditorComponent} from './airplanes/plane/plane-editor/plane-editor.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {FlightsComponent} from './flights/flights.component';
@@ -61,13 +61,15 @@ import {TicketsService} from './services/tickets.service';
 import {RoleGuardService} from './services/roleGuard.service';
 import {AuthGuardService} from './services/authGuard.service';
 import {SeatColorService} from './airplanes/data/seat-colors.service';
-import {SeatTypeColorpickerComponent} from './airplanes/plane/plane-seats-parameters/seat-type-colorpicker/seat-type-colorpicker.component';
+import {SeatTypeColorpickerComponent} from './airplanes/plane/plane-editor/plane-seats-parameters/section-editor/seat-type-colorpicker/seat-type-colorpicker.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {UserFlightsComponent} from './users/user-flights/user-flights.component';
 import {FlightsService} from './services/flights.service';
-import {SeatTypeSectionComponent} from './airplanes/seats/seats-grid/seat-type-section/seat-type-section.component';
+import {SeatTypeSectionComponent} from './airplanes/seats/plane-seats-grid/seat-type-section/seat-type-section.component';
 import {ProfileComponent} from './profile/profile.component';
 import {FlightBookingComponent} from './booking/flight-booking/flight-booking.component';
+import {SectionEditorComponent} from './airplanes/plane/plane-editor/plane-seats-parameters/section-editor/section-editor.component';
+import {MakeIterablePipe} from './airplanes/seats/plane-seats-grid/seat-type-section/make-iterable.pipe';
 
 
 @NgModule({
@@ -103,7 +105,9 @@ import {FlightBookingComponent} from './booking/flight-booking/flight-booking.co
     UserFlightsComponent,
     SeatTypeSectionComponent,
     ProfileComponent,
-    FlightBookingComponent
+    FlightBookingComponent,
+    SectionEditorComponent,
+    MakeIterablePipe
   ],
   imports: [
     BrowserModule,
