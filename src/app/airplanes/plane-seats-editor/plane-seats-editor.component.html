@@ -1,7 +1,15 @@
-<div class="card-shadow">
-  <span class="">EDIT</span>
-  <mat-slide-toggle (change)="toggleViewMode($event.checked)"></mat-slide-toggle>
-  <span>SELECT</span>
+<div class="single-lined">
+  <div class="card-shadow">
+    <span class="label">NO DEBUG</span>
+    <mat-slide-toggle (change)="isDebug = $event.checked"></mat-slide-toggle>
+    <span class="label">DEBUG</span>
+  </div>
+
+  <div class="card-shadow">
+    <span class="label">EDIT</span>
+    <mat-slide-toggle (change)="toggleViewMode($event.checked)"></mat-slide-toggle>
+    <span class="label">SELECT</span>
+  </div>
 </div>
 
 <mat-sidenav-container>
@@ -23,7 +31,7 @@
 <button mat-flat-button color="primary" class="right-sided-btn">SAVE</button>
 
 <!--DEBUG-->
-<!--<div>
+<div *ngIf="isDebug">
   <h2>sections:</h2>
   <ul>
     <li *ngFor="let section of sections">{{section.toString()}}</li>
@@ -38,4 +46,4 @@
   <ul>
     <li *ngFor="let seat of seats">{{seat.toString()}}</li>
   </ul>
-</div>-->
+</div>

@@ -7,10 +7,10 @@ import {SeatTypeModel} from '../../shared/models/entity/airplane/seat-type.model
 import {SEAT_TYPES} from '../data/mock-seat-types';
 import {SectionModel} from '../seats/plane-seats-grid/seat-type-section/section-model';
 import {ViewMode} from '../seats/plane-seats-grid/plane-seats-grid-modes.model';
-import {AirplanesService} from "../../services/airplanes.service";
-import {AirlinesService} from "../../services/airlines.service";
-import {ActivatedRoute} from "@angular/router";
-import {AirlinesModel} from "../../shared/models/entity/airline/airlines.model";
+import {AirplanesService} from '../../services/airplanes.service';
+import {AirlinesService} from '../../services/airlines.service';
+import {ActivatedRoute} from '@angular/router';
+import {AirlinesModel} from '../../shared/models/entity/airline/airlines.model';
 
 @Component({
   selector: 'app-plane-seats-editor',
@@ -25,6 +25,7 @@ export class PlaneSeatsEditorComponent implements OnInit {
   public selectedSeats = new Set<SeatModel>();
   public sections: SectionModel[];
   viewMode = ViewMode.EDIT;
+  isDebug = false;
 
   constructor(
     private airplanesService: AirplanesService,
@@ -46,14 +47,14 @@ export class PlaneSeatsEditorComponent implements OnInit {
   }
 
   getAirplane() {
-    let sub = this.route.params.subscribe(params => {
-      let airplaneId = params['airplaneId'];
+    const sub = this.route.params.subscribe(params => {
+      const airplaneId = params['airplaneId'];
       this.airplanesService.getItemById(airplaneId)
         .subscribe((response: any) => {
           this.plane.model = response.model;
           this.airlinesService.getItemById(response.airlineId)
             .subscribe((response: AirlinesModel) => {
-              this.plane.airline = response
+              this.plane.airline = response;
             });
         });
     });
