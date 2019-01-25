@@ -49,5 +49,8 @@ export class AirplanesService implements BaseService {
     return this.http.post(API_URL + `/airplanes/search/page=${page}`, wrapper, this.httpOptions);
   }
 
+  getItemById(id: number) {
+    return this.http.get(API_URL + `/airplanes/objectId=${id}`, this.httpOptions);
+  }
 
 }
