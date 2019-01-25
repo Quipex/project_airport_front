@@ -8,4 +8,10 @@ export class AirplanesModel extends BaseEntityModel {
   ) {
     super();
   }
+
+
+  toString(): string {
+    return 'model: ' + this.model +
+      ';airline {' + this.airline + '}';
+  }
 }
