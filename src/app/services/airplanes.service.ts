@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
-import {BaseService} from "./baseService.service";
-import {BaseEntityModel} from "../shared/models/baseEntity.model";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {AuthenticationService} from "./authentication.service";
-import {FilterAndSortWrapperModel} from "../shared/models/filterAndSortWrapper.model";
-import {environment} from "../../environments/environment";
+import {Injectable} from '@angular/core';
+import {BaseService} from './baseService.service';
+import {BaseEntityModel} from '../shared/models/baseEntity.model';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {AuthenticationService} from './authentication.service';
+import {FilterAndSortWrapperModel} from '../shared/models/filterAndSortWrapper.model';
+import {environment} from '../../environments/environment';
 
 const API_URL = environment.apiUrl;
 

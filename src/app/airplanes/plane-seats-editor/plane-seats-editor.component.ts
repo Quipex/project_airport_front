@@ -38,4 +38,12 @@ export class PlaneSeatsEditorComponent implements OnInit {
       this.seatTypes = seatTypes;
     });
   }
+
+  toggleViewMode(select: boolean) {
+    if (select) {
+      this.viewMode = ViewMode.SELECT;
+    } else {
+      this.viewMode = ViewMode.EDIT;
+    }
+  }
 }

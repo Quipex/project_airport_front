@@ -1,5 +1,10 @@
-<mat-sidenav-container>
+<div class="card-shadow">
+  <span class="">EDIT</span>
+  <mat-slide-toggle (change)="toggleViewMode($event.checked)"></mat-slide-toggle>
+  <span>SELECT</span>
+</div>
 
+<mat-sidenav-container>
   <mat-sidenav-content *ngIf="seats">
     <app-airplane-seats [seats]="seats"
                         [(selectedSeats)]="selectedSeats"
@@ -13,7 +18,6 @@
                       [seatTypes]="seatTypes"
                       [sections]="sections"></app-plane-editor>
   </mat-sidenav>
-
 </mat-sidenav-container>
 
 <button mat-flat-button color="primary" class="right-sided-btn">SAVE</button>

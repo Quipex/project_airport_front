@@ -1,5 +1,4 @@
-/* tslint:disable:use-life-cycle-interface */
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BaseService} from '../services/baseService.service';
 import {FormGroup} from '@angular/forms';
 import {ColumnSetting} from '../shared/models/columnSetting.model';
@@ -12,7 +11,7 @@ import {AirplanesService} from '../services/airplanes.service';
   styleUrls: ['./airplanes.component.scss'],
   providers: [{provide: BaseService, useClass: AirplanesService}]
 })
-export class AirplanesComponent {
+export class AirplanesComponent implements OnInit {
 
   form: FormGroup;
 
@@ -46,7 +45,7 @@ export class AirplanesComponent {
     }),
 
     new InputBaseModel({
-      key: 'airlineId',
+      key: 'airline',
       label: 'Airline',
       required: true,
       type: 'text',

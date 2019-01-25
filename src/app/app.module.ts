@@ -33,7 +33,8 @@ import {
   MatExpansionModule,
   MatInputModule,
   MatNativeDateModule,
-  MatSelectModule
+  MatSelectModule,
+  MatSlideToggleModule
 } from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatRadioModule} from '@angular/material/radio';
@@ -135,7 +136,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MatDividerModule,
     MatSidenavModule,
     MatGridListModule,
-    NgbModule
+    NgbModule,
+    MatSlideToggleModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [UsersService,

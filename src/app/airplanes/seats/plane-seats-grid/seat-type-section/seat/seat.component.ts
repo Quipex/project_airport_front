@@ -24,7 +24,7 @@ export class SeatComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.modalService);
+    // console.log(this.modalService);
     this.isSelected = this.selectedSeats.has(this.seat);
   }
 
@@ -47,7 +47,7 @@ export class SeatComponent implements OnInit {
       this.selectedSeats.add(this.seat);
       this.isSelected = true;
     }
-    console.log(this.selectedSeats);
+    // console.log(this.selectedSeats);
     this.selectedSeatsChange.emit(this.selectedSeats);
   }
 
