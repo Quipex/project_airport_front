@@ -1,4 +1,4 @@
-import {AfterContentInit, AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {BaseService} from '../../services/baseService.service';
 import {UsersService} from '../../services/users.service';
 import {AirlinesService} from '../../services/airlines.service';
@@ -9,17 +9,17 @@ import {ColumnSetting} from '../models/columnSetting.model';
 import {ModalDirective} from 'angular-bootstrap-md';
 import {InputBaseModel} from '../models/inputBase.model';
 import {ResponseErrorModel} from '../models/responseError.model';
-import {FormControlService} from "../../services/formControl.service";
-import {FilterAndSortWrapperModel} from "../models/filterAndSortWrapper.model";
-import {SortEntityModel} from "../models/sortEntity.model";
-import {ResponseFilteringWrapperModel} from "../models/responseFilteringWrapper.model";
+import {FormControlService} from '../../services/formControl.service';
+import {FilterAndSortWrapperModel} from '../models/filterAndSortWrapper.model';
+import {SortEntityModel} from '../models/sortEntity.model';
+import {ResponseFilteringWrapperModel} from '../models/responseFilteringWrapper.model';
 
 @Component({
   selector: 'app-project-center',
   templateUrl: './abstract-catalog.component.html',
   styleUrls: ['./abstract-catalog.component.scss']
 })
-export class AbstractCatalogComponent implements OnInit  {
+export class AbstractCatalogComponent implements OnInit {
 
   @Input() settings: ColumnSetting[];
   @Input() questions: InputBaseModel<any>[];
@@ -31,13 +31,13 @@ export class AbstractCatalogComponent implements OnInit  {
   title = 'Project Center';
   form: FormGroup;
   currentItem: BaseEntityModel;
-  showNew: Boolean = false;
+  //showNew: Boolean = false;
   editMode: Boolean = false;
   submitType = 'Save';
   selectedRow: number;
   paging = false;
   countOfPages = 0;
-  numberOfPage = 0;
+  numberOfPage = 1;
   deleteId: number;
   responseError: ResponseErrorModel;
   searchString = '';
@@ -47,6 +47,10 @@ export class AbstractCatalogComponent implements OnInit  {
   sortDirection = true;
   overflow = 'auto';
   height: number;
+
+  loading = false;
+  totalEntities = 0;
+  limit = 10;
 
   constructor(
     private  service: BaseService,
@@ -83,7 +87,7 @@ export class AbstractCatalogComponent implements OnInit  {
     this.form.patchValue(this.currentItem);
     this.submitType = 'Update';
     this.editMode = true;
-    this.showNew = true;
+    // this.showNew = true;
     this.newModal.show();
   }
 
@@ -95,13 +99,8 @@ export class AbstractCatalogComponent implements OnInit  {
     this.newModal.show();
     this.currentItem = new BaseEntityModel();
     this.submitType = 'Save';
-    this.showNew = !this.showNew;
+    // this.showNew = !this.showNew;
     this.editMode = false;
-  }
-
-  showRemoveConfirmModal(i: number) {
-    this.deleteId = i;
-    this.removeConfirmModal.show();
   }
 
   onDelete(index: number) {
@@ -117,21 +116,18 @@ export class AbstractCatalogComponent implements OnInit  {
         this.responseError = err;
         this.showError(this.responseError.error.message);
       });
+    if (this.entities.length === 0 && this.numberOfPage > 1) {
+      this.numberOfPage -= 1;
+    }
+    this.getCountOfItems();
   }
 
   onSave(returnedItem: BaseEntityModel) {
     if (this.submitType === 'Save') {
 
-      this.showNew = false;
+      // this.showNew = false;
       this.service.addItem(returnedItem)
-        .subscribe((item: BaseEntityModel) => {
-
-            if (this.numberOfPage === this.countOfPages && this.entities.length !== 10) {
-              this.entities.push(item);
-            } else {
-              this.countOfPages++;
-              this.paging = true;
-            }
+        .subscribe(() => {
             this.newModal.hide();
             const message = 'New item has been added.';
             this.showInfo(message);
@@ -146,9 +142,7 @@ export class AbstractCatalogComponent implements OnInit  {
         .subscribe((editedItem: BaseEntityModel) => {
           this.entities[this.selectedRow] = editedItem;
           this.entities = JSON.parse(JSON.stringify(this.entities));
-
           this.newModal.hide();
-
           const message = 'The item has been edited.';
           this.showInfo(message);
         }, err => {
@@ -156,14 +150,20 @@ export class AbstractCatalogComponent implements OnInit  {
           this.showError(this.responseError.error.message);
         });
     }
-    this.showNew = false;
+    // this.showNew = false;
+    this.getCountOfItems();
   }
 
   onCancel(event: boolean) {
     if (event) {
-      this.showNew = false;
+      // this.showNew = false;
       this.newModal.hide();
     }
+  }
+
+  showRemoveConfirmModal(i: number) {
+    this.deleteId = i;
+    this.removeConfirmModal.show();
   }
 
   showInfo(message: string) {
@@ -198,9 +198,6 @@ export class AbstractCatalogComponent implements OnInit  {
       }
     }
 
-    // if (this.sortList.length === 0) {
-    //   this.sortList.push(new SortEntityModel(columnAttr, true));
-    // }
     let wrapper;
     if (this.sortList.length === 0) {
       wrapper = new FilterAndSortWrapperModel(this.searchString);
@@ -216,7 +213,7 @@ export class AbstractCatalogComponent implements OnInit  {
 
   onSearch() {
     if (this.searchString === '') {
-      this.numberOfPage = 0;
+      this.numberOfPage = 1;
       this.getCountOfItems();
     } else {
       let wrapper = new FilterAndSortWrapperModel(this.searchString, this.sortList);
@@ -237,53 +234,65 @@ export class AbstractCatalogComponent implements OnInit  {
   }
 
   private getCountOfItems() {
-    this.service.getCountOfItems()
-      .subscribe((data: number) => {
-        if (data > 10) {
-          this.paging = true;
+    setTimeout(() =>
+    {
+      this.service.getCountOfItems()
+        .subscribe((data: number) => {
           this.countOfPages = Math.ceil(data / 10);
-        }
-        this.getTenItems(1, true);
-      });
+          console.log('Data:' + data + ', Pages count:' + this.countOfPages);
+          if (data > 10)
+            this.paging = true;
+          else
+            this.paging = false;
+        });
+      this.getTenItems(this.numberOfPage);
+    }, 50);
   }
 
-  private getTenItems(numberOfPage: number, direction: boolean) {
+  private getTenItems(numberOfPage: number) {
+    this.numberOfPage = numberOfPage;
+    console.log('Current page:' + this.numberOfPage);
+
     this.service.getTenItems(numberOfPage)
       .subscribe((data: BaseEntityModel[]) => {
-        console.log(data);
         this.entities = data;
+        console.log(data);
       });
-    if (direction) {
-      if (this.numberOfPage !== this.countOfPages) {
-        this.numberOfPage++;
-      }
-    } else {
-      if (this.numberOfPage !== 1) {
-        this.numberOfPage--;
-      }
-    }
   }
 
-  private getTenItemsByFilter(numberOfPage: number, direction: boolean) {
+  private getTenItemsByFilter(numberOfPage: number) {
     let wrapper = new FilterAndSortWrapperModel(this.searchString, this.sortList);
+    this.numberOfPage = numberOfPage;
 
     this.service.search(numberOfPage, wrapper)
       .subscribe((data: ResponseFilteringWrapperModel) => {
         this.entities = data.entities;
       });
-    if (direction) {
-      if (this.numberOfPage !== this.countOfPages) {
-        this.numberOfPage++;
-      }
-    } else {
-      if (this.numberOfPage !== 1) {
-        this.numberOfPage--;
-      }
-    }
+  }
+
+  onPrevPage() {
+    if (this.numberOfPage !== 1)
+      this.numberOfPage--;
+
+    if (this.filteringMode)
+      this.getTenItemsByFilter(this.numberOfPage);
+    else
+      this.getTenItems(this.numberOfPage);
+  }
+
+
+  onNextPage() {
+    if (this.numberOfPage !== this.countOfPages)
+      this.numberOfPage++;
+
+    if (this.filteringMode)
+      this.getTenItemsByFilter(this.numberOfPage);
+    else
+      this.getTenItems(this.numberOfPage);
   }
 
   onEnter($event: KeyboardEvent) {
-    if ($event.key == "Enter") {
+    if ($event.key == 'Enter') {
       this.onSearch();
     }
   }
