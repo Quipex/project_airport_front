@@ -23,7 +23,6 @@ export class SeatTypeSectionComponent implements OnInit {
   }
 
   getSeat(row: number, col: number): SeatModel {
-    // console.log(row, col);
     const seatIter = this.seats.values();
     let seatIterRes = seatIter.next();
     while (!seatIterRes.done) {

@@ -25,7 +25,7 @@ import {DynamicFormComponent} from './shared/dynamic-form/dynamic-form.component
 import {DynamicFormRenderComponent} from './shared/dynamic-form/dynamic-form-render.component';
 import {httpInterceptorProviders} from './http-interceptors';
 import {AirplanesComponent} from './airplanes/airplanes.component';
-import {FormControlService} from "./services/formControl.service";
+import {FormControlService} from './services/formControl.service';
 import {
   MatButtonModule,
   MatButtonToggleModule,
@@ -70,6 +70,8 @@ import {ProfileComponent} from './profile/profile.component';
 import {FlightBookingComponent} from './booking/flight-booking/flight-booking.component';
 import {SectionEditorComponent} from './airplanes/plane/plane-editor/plane-seats-parameters/section-editor/section-editor.component';
 import {MakeIterablePipe} from './airplanes/seats/plane-seats-grid/seat-type-section/make-iterable.pipe';
+import {SeatEditorModalComponent} from './airplanes/seats/plane-seats-grid/seat-type-section/seat/seat-editor-modal/seat-editor-modal.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -107,7 +109,8 @@ import {MakeIterablePipe} from './airplanes/seats/plane-seats-grid/seat-type-sec
     ProfileComponent,
     FlightBookingComponent,
     SectionEditorComponent,
-    MakeIterablePipe
+    MakeIterablePipe,
+    SeatEditorModalComponent
   ],
   imports: [
     BrowserModule,
@@ -131,7 +134,8 @@ import {MakeIterablePipe} from './airplanes/seats/plane-seats-grid/seat-type-sec
     MatSelectModule,
     MatDividerModule,
     MatSidenavModule,
-    MatGridListModule
+    MatGridListModule,
+    NgbModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [UsersService,
@@ -148,8 +152,10 @@ import {MakeIterablePipe} from './airplanes/seats/plane-seats-grid/seat-type-sec
     FlightsService,
     TicketsService,
     RoleGuardService,
-    AuthGuardService],
-  bootstrap: [AppComponent]
+    AuthGuardService
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [SeatEditorModalComponent]
 })
 
 export class AppModule {

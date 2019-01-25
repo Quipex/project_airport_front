@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
     "@auth0/angular-jwt": "^2.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^4.0.1",
     "@types/chart.js": "^2.7.40",
     "angular-bootstrap-md": "^7.0.0",
     "angular-intl-tel-input": "0.0.9",

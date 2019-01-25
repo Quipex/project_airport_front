@@ -27,13 +27,15 @@ export class PlaneSeatsParametersComponent implements OnInit {
   }
 
   getSectionOfSeatType(seatType: SeatTypeModel) {
-    for (const section of this.sections) {
-      if (section.seatType === seatType) {
-        return section;
+    if (this.sections !== undefined) {
+      for (const section of this.sections) {
+        if (section.seatType === seatType) {
+          return section;
+        }
       }
+      const newSection = new SectionModel(seatType, 0, 0, this.colorService.getColorBySeatType(seatType));
+      this.sections.push(newSection);
+      return newSection;
     }
-    const newSection = new SectionModel(seatType, 0, 0, this.colorService.getColorBySeatType(seatType));
-    this.sections.push(newSection);
-    return newSection;
   }
 }

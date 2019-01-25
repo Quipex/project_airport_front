@@ -7,6 +7,7 @@ import {PLANES} from '../data/mock-airplanes';
 import {SeatTypeModel} from '../../shared/models/entity/airplane/seat-type.model';
 import {SEAT_TYPES} from '../data/mock-seat-types';
 import {SectionModel} from '../seats/plane-seats-grid/seat-type-section/section-model';
+import {ViewMode} from '../seats/plane-seats-grid/plane-seats-grid-modes.model';
 
 @Component({
   selector: 'app-plane-seats-editor',
@@ -19,6 +20,7 @@ export class PlaneSeatsEditorComponent implements OnInit {
   public seatTypes: SeatTypeModel[];
   public selectedSeats = new Set<SeatModel>();
   public sections: SectionModel[];
+  viewMode = ViewMode.EDIT;
 
   constructor() {
   }
