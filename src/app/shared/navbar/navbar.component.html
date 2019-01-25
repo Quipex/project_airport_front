@@ -10,10 +10,8 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-item nav-link" routerLink="/home">Home</a>
       </li>
-      <li class="nav-item"
-          *ngIf="currentRole === role.ROLE_USER.toString() || currentRole === role.ROLE_CASHIER.toString()
-                  || authModel === null"
-          routerLinkActive="active">
+      <li class="nav-item" *ngIf="currentRole === role.ROLE_USER.toString() || currentRole === role.ROLE_CASHIER.toString()
+                 || authModel === null" routerLinkActive="active">
         <a class="nav-item nav-link" routerLink="/personal-area">Purchase a ticket</a>
       </li>
       <li class="nav-item" *ngIf="currentRole === role.ROLE_ADMIN.toString()" routerLinkActive="active">
@@ -46,8 +44,9 @@
 
       <li class="nav-item dropdown" dropdown
           *ngIf="currentRole === role.ROLE_ADMIN.toString()" routerLinkActive="active">
-        <a mdbDropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light">
-          Locations<span class="caret"></span></a>
+        <a mdbDropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light">Locations
+          <span class="caret"></span>
+        </a>
         <div *dropdownMenu class="dropdown-menu dropdown-primary" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/countries">Countries</a>
           <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/airports">Airports</a>

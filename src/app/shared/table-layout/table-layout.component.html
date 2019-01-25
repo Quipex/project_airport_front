@@ -1,5 +1,5 @@
 <div class="container table-container">
-  <table class="table table-striped">
+  <table class="table table-striped" *ngIf="records.length > 0">
     <thead>
     <tr>
       <th *ngFor="let map of columnMaps; let i = index">{{ map.header }}
@@ -27,4 +27,8 @@
     </tr>
     </tbody>
   </table>
+
+  <div *ngIf="records.length <= 0">
+    <h3>There are no items.</h3>
+  </div>
 </div>
