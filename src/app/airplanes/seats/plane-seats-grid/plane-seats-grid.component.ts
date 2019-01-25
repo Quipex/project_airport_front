@@ -20,7 +20,7 @@ export class PlaneSeatsGridComponent implements OnInit {
   @Output() public selectedSeatsChange = new EventEmitter<Set<SeatModel>>();
   @Input() public sections: SectionModel[];
   @Output() public sectionsChange = new EventEmitter<SectionModel[]>();
-  @Input() public seats: SeatModel[];
+  @Input() public seats: Set<SeatModel>;
   private setOfSeatTypes = new Set<SeatTypeModel>();
 
   private static maxNumber(nums: number[]): number {
@@ -48,31 +48,39 @@ export class PlaneSeatsGridComponent implements OnInit {
   private generateSections() {
     if (this.sections === undefined) {
       this.sections = [];
-      const seatTypeIterator = this.setOfSeatTypes.values();
-      let result = seatTypeIterator.next();
-      while (!result.done) {
-        const seatType = result.value;
+      const sTypeIter = this.setOfSeatTypes.values();
+      let sTypeIterRes = sTypeIter.next();
+      while (!sTypeIterRes.done) {
+        const seatType = sTypeIterRes.value;
         const rows = [], cols = [];
-        for (const seat of this.seats) {
+        const seatIter = this.seats.values();
+        let seatIterRes = seatIter.next();
+        while (!seatIterRes.done) {
+          const seat = seatIterRes.value;
           if (seat.seatType === seatType) {
             // adding 1 to the result because rows are zero-based, whereas number of rows is one-based
             rows.push(seat.row + 1);
             cols.push(seat.col + 1);
           }
+          seatIterRes = seatIter.next();
         }
 
         this.sections.push(new SectionModel(seatType,
           PlaneSeatsGridComponent.maxNumber(rows),
           PlaneSeatsGridComponent.maxNumber(cols)));
-        result = seatTypeIterator.next();
+        sTypeIterRes = sTypeIter.next();
       }
       this.sectionsChange.emit(this.sections);
     }
   }
 
   private populateSetOfSeatTypes() {
-    for (const seat of this.seats) {
+    const seatIter = this.seats.values();
+    let seatIterRes = seatIter.next();
+    while (!seatIterRes.done) {
+      const seat = seatIterRes.value;
       this.setOfSeatTypes.add(seat.seatType);
+      seatIterRes = seatIter.next();
     }
   }
 }

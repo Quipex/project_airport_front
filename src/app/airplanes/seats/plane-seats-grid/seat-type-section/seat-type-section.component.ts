@@ -12,7 +12,7 @@ export class SeatTypeSectionComponent implements OnInit {
   @Input() selectedSeats: Set<SeatModel>;
   @Output() selectedSeatsChange = new EventEmitter<Set<SeatModel>>();
   @Input() section: SectionModel;
-  @Input() seats: SeatModel[];
+  @Input() seats: Set<SeatModel>;
 
   constructor() {
   }
@@ -22,10 +22,14 @@ export class SeatTypeSectionComponent implements OnInit {
 
   getSeat(row: number, col: number): SeatModel {
     // console.log(row, col);
-    for (const seat of this.seats) {
+    const seatIter = this.seats.values();
+    let seatIterRes = seatIter.next();
+    while (!seatIterRes.done) {
+      const seat = seatIterRes.value;
       if (seat.row === row && seat.col === col && seat.seatType === this.section.seatType) {
         return seat;
       }
+      seatIterRes = seatIter.next();
     }
   }
 }

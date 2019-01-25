@@ -1,5 +1,7 @@
-<div *ngFor="let section of sections">
-  <app-seat-type-section [section]="section"
-                         [(selectedSeats)]="selectedSeats"
-                         [seats]="seats"></app-seat-type-section>
+<div class="seat-grid-container">
+  <div *ngFor="let section of sections">
+    <app-seat-type-section [section]="section"
+                           [(selectedSeats)]="selectedSeats"
+                           [seats]="seats"></app-seat-type-section>
+  </div>
 </div>

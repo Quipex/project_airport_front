@@ -14,7 +14,7 @@ import {SectionModel} from '../seats/plane-seats-grid/seat-type-section/section-
   styleUrls: ['./plane-seats-editor.component.scss']
 })
 export class PlaneSeatsEditorComponent implements OnInit {
-  public seats: SeatModel[];
+  public seats: Set<SeatModel>;
   public plane: AirplanesModel;
   public seatTypes: SeatTypeModel[];
   public selectedSeats = new Set<SeatModel>();
