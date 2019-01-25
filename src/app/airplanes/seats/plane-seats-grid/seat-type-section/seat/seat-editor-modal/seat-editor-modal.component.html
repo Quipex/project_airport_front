@@ -1,0 +1,52 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="activeModal.close()">
+      <span aria-hidden="true">×</span>
+    </button>
+    <h4 class="modal-title w-100">{{title}}</h4>
+  </div>
+  <div class="modal-body">
+    <mat-form-field>
+      <input matInput placeholder="Row"
+             [ngModel]="seat.row"
+             disabled>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Column"
+             [ngModel]="seat.col"
+             disabled>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Seat type"
+             [ngModel]="seat.seatType.name"
+             disabled>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Modifier"
+             [ngModel]="seat.modifier"
+             (change)="changeModifier($event.target.value)"
+             ngbAutofocus>
+    </mat-form-field>
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+            mdbBtn
+            color="secondary"
+            class="waves-light"
+            aria-label="Close"
+            (click)="activeModal.close()"
+            mdbWavesEffect>Close
+    </button>
+    <button type="button"
+            mdbBtn
+            color="primary"
+            class="relative
+            waves-light"
+            mdbWavesEffect
+            (click)="confirm()">Save
+    </button>
+  </div>
+</div>

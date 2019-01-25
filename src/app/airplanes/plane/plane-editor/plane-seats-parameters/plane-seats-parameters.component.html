@@ -1,5 +1,8 @@
-<div *ngFor="let section of sections; let i = index"
-     class="seat-type-container">
-  <app-section-editor [section]="section"></app-section-editor>
-  <mat-divider *ngIf="i + 1 < sections.length"></mat-divider>
+<div *ngFor="let seatType of seatTypes; let i = index"
+     class="card-shadow">
+  <app-section-editor *ngIf="getSectionOfSeatType(seatType)"
+                      [section]="getSectionOfSeatType(seatType)"
+                      [(seats)]="seats"
+                      [plane]="plane"></app-section-editor>
+  <!--<mat-divider *ngIf="i + 1 < seatTypes.length"></mat-divider>-->
 </div>

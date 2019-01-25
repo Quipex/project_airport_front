@@ -14,17 +14,32 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let record of records; let i = index">
-      <td *ngFor="let map of columnMaps">
-        {{ record[map.primaryKey] }}
-      </td>
-      <td>
-        <button (click)="onEdit(i)" class="btn btn-info" type="button">Edit</button>
-      </td>
-      <td>
-        <button (click)="onDelete(i)" class="btn btn-danger" type="button">Delete</button>
-      </td>
-    </tr>
+    <ng-container *ngIf="clickable">
+      <tr *ngFor="let record of records; let i = index" (click)="redirect(i)">
+        <td *ngFor="let map of columnMaps">
+          {{ record[map.primaryKey] }}
+        </td>
+        <td>
+          <button (click)="onEdit(i)" class="btn btn-info" type="button">Edit</button>
+        </td>
+        <td>
+          <button (click)="onDelete(i)" class="btn btn-danger" type="button">Delete</button>
+        </td>
+      </tr>
+    </ng-container>
+    <ng-container *ngIf="!clickable">
+      <tr *ngFor="let record of records; let i = index">
+        <td *ngFor="let map of columnMaps">
+          {{ record[map.primaryKey] }}
+        </td>
+        <td>
+          <button (click)="onEdit(i)" class="btn btn-info" type="button">Edit</button>
+        </td>
+        <td>
+          <button (click)="onDelete(i)" class="btn btn-danger" type="button">Delete</button>
+        </td>
+      </tr>
+    </ng-container>
     </tbody>
   </table>
 

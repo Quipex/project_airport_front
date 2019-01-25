@@ -1,15 +1,4 @@
-.airplane-seats {
-  padding: 5px;
+.seat-grid-container {
+  min-height: 300px;
 }
 
-.flexible {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.divider {
-  margin: 10px 0;
-}

@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {ColumnSetting} from '../models/columnSetting.model';
+import {Router} from "@angular/router";
+import {AirplanesModel} from "../models/entity/airplane/airplanes.model";
 
 @Component({
   selector: 'app-table-layout',
@@ -11,13 +13,16 @@ export class TableLayoutComponent implements OnChanges, OnInit {
   @Input() records: any[];
   @Input() caption: string;
   @Input() settings: ColumnSetting[];
+  @Input() clickable: boolean;
   @Output() deletedId = new EventEmitter<number>();
   @Output() editedId = new EventEmitter<number>();
   @Output() columnAttr = new EventEmitter<number>();
   columnMaps: ColumnSetting[];
   sortedDirections = Array();
 
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
   }
 
   ngOnChanges() {
@@ -51,6 +56,11 @@ export class TableLayoutComponent implements OnChanges, OnInit {
         this.sortedDirections[index] = 0;
       }
     }
+  }
+
+  redirect(index: number) {
+    let item = this.records[index];
+    this.router.navigate(['airplane-info', {airplaneId: item.objectId }]);
   }
 
 }

@@ -9,4 +9,11 @@ export class AirlinesModel extends BaseEntityModel {
   ) {
     super();
   }
+
+  toString(): string {
+    return 'name: ' + this.name +
+      ';description: ' + this.descr +
+      ';email: ' + this.email +
+      ';phone: ' + this.phoneNumber;
+  }
 }

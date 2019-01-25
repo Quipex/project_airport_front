@@ -1,9 +1,12 @@
-rows: {{section.rows}}, cols: {{section.cols}}
+<!--DEBUG-->
+<!--rows: {{section.rows}}, cols: {{section.cols}}-->
 <div *ngFor="let item of section.rows | makeIterable; let row = index"
       class="flexible">
   <div *ngFor="let item of section.cols | makeIterable; let col = index">
-    ({{row}},{{col}})
+    <!--DEBUG-->
+    <!--({{row}},{{col}})-->
     <app-seat *ngIf="getSeat(row, col)"
+              [viewMode]="viewMode"
               [colorCode]="section.colorCode"
               [seat]="getSeat(row, col)"
               [(selectedSeats)]="selectedSeats"></app-seat>

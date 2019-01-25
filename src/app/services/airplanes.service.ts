@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
-import {BaseService} from "./baseService.service";
-import {BaseEntityModel} from "../shared/models/baseEntity.model";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {AuthenticationService} from "./authentication.service";
-import {FilterAndSortWrapperModel} from "../shared/models/filterAndSortWrapper.model";
-import {environment} from "../../environments/environment";
+import {Injectable} from '@angular/core';
+import {BaseService} from './baseService.service';
+import {BaseEntityModel} from '../shared/models/baseEntity.model';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {AuthenticationService} from './authentication.service';
+import {FilterAndSortWrapperModel} from '../shared/models/filterAndSortWrapper.model';
+import {environment} from '../../environments/environment';
 
 const API_URL = environment.apiUrl;
 
@@ -49,5 +49,8 @@ export class AirplanesService implements BaseService {
     return this.http.post(API_URL + `/airplanes/search/page=${page}`, wrapper, this.httpOptions);
   }
 
+  getItemById(id: number) {
+    return this.http.get(API_URL + `/airplanes/objectId=${id}`, this.httpOptions);
+  }
 
 }

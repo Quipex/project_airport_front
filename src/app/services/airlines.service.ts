@@ -48,4 +48,8 @@ export class AirlinesService implements BaseService {
     return this.http.post(API_URL + `/airlines/search/page=${page}`, wrapper, this.httpOptions);
   }
 
+  getItemById(id: number) {
+    return this.http.get(API_URL + `/airlines/objectId=${id}`, this.httpOptions);
+  }
+
 }

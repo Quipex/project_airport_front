@@ -48,6 +48,7 @@
 <app-table-layout
   [records]="entities"
   [settings]="settings"
+  [clickable]="clickable"
   (deletedId)="showRemoveConfirmModal($event)"
   (editedId)="onEdit($event)"
   (columnAttr)=sortBy($event)

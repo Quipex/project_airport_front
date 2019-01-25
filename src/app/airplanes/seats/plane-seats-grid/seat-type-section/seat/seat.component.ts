@@ -1,5 +1,9 @@
-import {Component, EventEmitter, Input, NgZone, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SeatModel} from 'src/app/shared/models/entity/airplane/seat.model';
+import {ViewMode} from '../../plane-seats-grid-modes.model';
+import {MDBModalRef} from 'angular-bootstrap-md';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {SeatEditorModalComponent} from './seat-editor-modal/seat-editor-modal.component';
 
 @Component({
   selector: 'app-seat',
@@ -12,30 +16,43 @@ export class SeatComponent implements OnInit {
   @Input() public seat: SeatModel;
   @Input() public selectedSeats: Set<SeatModel> = new Set();
   @Output() public selectedSeatsChange = new EventEmitter<Set<SeatModel>>();
-  isSelected: boolean;
+  @Input() viewMode: ViewMode;
+  public isSelected: boolean;
+  private modalRef: MDBModalRef;
 
-  constructor(
-    private zone: NgZone
-  ) {
+  constructor(private modalService: NgbModal) {
   }
 
   ngOnInit() {
+    // console.log(this.modalService);
     this.isSelected = this.selectedSeats.has(this.seat);
   }
 
-  toggleSelection() {
+  onClick() {
+    switch (this.viewMode) {
+      case ViewMode.SELECT:
+        this.toggleSelection();
+        break;
+      case ViewMode.EDIT:
+        this.invokeEditModal();
+        break;
+    }
+  }
+
+  private toggleSelection() {
     if (this.selectedSeats.has(this.seat)) {
       this.selectedSeats.delete(this.seat);
-      this.zone.run(() => {
-        this.isSelected = false;
-      });
+      this.isSelected = false;
     } else {
       this.selectedSeats.add(this.seat);
-      this.zone.run(() => {
-        this.isSelected = true;
-      });
+      this.isSelected = true;
     }
-    console.log(this.selectedSeats);
+    // console.log(this.selectedSeats);
     this.selectedSeatsChange.emit(this.selectedSeats);
+  }
+
+  private invokeEditModal() {
+    const modalRef = this.modalService.open(SeatEditorModalComponent);
+    modalRef.componentInstance.seat = this.seat;
   }
 }

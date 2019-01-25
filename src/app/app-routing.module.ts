@@ -18,6 +18,7 @@ import {RoleGuardService} from "./services/roleGuard.service";
 import {AuthGuardService} from "./services/authGuard.service";
 import {ProfileComponent} from "./profile/profile.component";
 import {FlightBookingComponent} from './booking/flight-booking/flight-booking.component';
+import {AirplaneInfoComponent} from "./airplanes/airplane-info/airplane-info.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -40,6 +41,14 @@ const routes: Routes = [
   {
     path: 'airplanes',
     component: AirplanesComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      roles: ['ROLE_ADMIN']
+    }
+  },
+  {
+    path: 'airplane-info',
+    component: AirplaneInfoComponent,
     canActivate: [AuthGuardService, RoleGuardService],
     data: {
       roles: ['ROLE_ADMIN']
@@ -119,12 +128,13 @@ const routes: Routes = [
     component: ProfileComponent,
     canActivate: [AuthGuardService]
   },
-  {path: '404', component: NotFoundComponent},
-  {path: '**', redirectTo: '/404'},
   {
     path: 'flight-booking',
-    component: FlightBookingComponent
+    component: FlightBookingComponent,
+    canActivate: [AuthGuardService]
   },
+  {path: '404', component: NotFoundComponent},
+  {path: '**', redirectTo: '/404'},
 ];
 
 

@@ -6,12 +6,33 @@
     </mat-panel-title>
   </mat-expansion-panel-header>
 
-  <ul *ngIf="plane.airline">
-    <li>airline name: {{plane.airline.name}}</li>
-    <li>airline description: {{plane.airline.descr}}</li>
-    <li>airline email: {{plane.airline.email}}</li>
-    <li>airline phone number: {{plane.airline.phoneNumber}}</li>
-  </ul>
+  <div *ngIf="plane.airline">
+    <h3>Airline info</h3>
+
+    <mat-form-field>
+      <input matInput placeholder="Name"
+             [ngModel]="plane.airline.name"
+             disabled>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Description"
+             [ngModel]="plane.airline.descr"
+             disabled>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Email"
+             [ngModel]="plane.airline.email"
+             disabled>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Phone number"
+             [ngModel]="plane.airline.phoneNumber"
+             disabled>
+    </mat-form-field>
+  </div>
   <p *ngIf="!plane.airline">no airline</p>
 
 </mat-expansion-panel>
