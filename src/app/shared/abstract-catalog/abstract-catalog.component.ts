@@ -13,6 +13,7 @@ import {FormControlService} from "../../services/formControl.service";
 import {FilterAndSortWrapperModel} from "../models/filterAndSortWrapper.model";
 import {SortEntityModel} from "../models/sortEntity.model";
 import {ResponseFilteringWrapperModel} from "../models/responseFilteringWrapper.model";
+import {AirplanesService} from "../../services/airplanes.service";
 
 @Component({
   selector: 'app-project-center',
@@ -47,6 +48,7 @@ export class AbstractCatalogComponent implements OnInit  {
   sortDirection = true;
   overflow = 'auto';
   height: number;
+  clickable = false;
 
   constructor(
     private  service: BaseService,
@@ -60,6 +62,9 @@ export class AbstractCatalogComponent implements OnInit  {
   ngOnInit() {
     this.getCountOfItems();
     this.form = this.fcs.toFormGroup(this.questions);
+    if (this.service instanceof AirplanesService) {
+      this.clickable = true;
+    }
   }
 
   onEdit(index: number) {
