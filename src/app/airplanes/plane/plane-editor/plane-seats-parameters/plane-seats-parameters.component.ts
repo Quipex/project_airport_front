@@ -13,12 +13,10 @@ import {SeatColorService} from '../../../data/seat-colors.service';
 export class PlaneSeatsParametersComponent implements OnInit {
 
   @Input() public sections: SectionModel[];
-  // @Output() sectionsChange = new EventEmitter<SectionModel>();
   @Input() seats: Set<SeatModel>;
   @Input() seatTypes: SeatTypeModel[];
   @Output() seatsChange = new EventEmitter<Set<SeatModel>>();
   @Input() plane: AirplanesModel;
-  // @Output() public sectionsChange = new EventEmitter<SectionModel[]>();
 
   constructor(
     private colorService: SeatColorService

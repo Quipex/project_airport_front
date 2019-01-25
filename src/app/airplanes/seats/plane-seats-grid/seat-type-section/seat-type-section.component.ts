@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SeatModel} from '../../../../shared/models/entity/airplane/seat.model';
 import {SectionModel} from './section-model';
+import {ViewMode} from '../plane-seats-grid-modes.model';
 
 @Component({
   selector: 'app-seat-type-section',
@@ -13,6 +14,7 @@ export class SeatTypeSectionComponent implements OnInit {
   @Output() selectedSeatsChange = new EventEmitter<Set<SeatModel>>();
   @Input() section: SectionModel;
   @Input() seats: Set<SeatModel>;
+  @Input() viewMode: ViewMode;
 
   constructor() {
   }

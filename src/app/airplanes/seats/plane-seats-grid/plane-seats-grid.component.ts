@@ -3,6 +3,7 @@ import {SeatColorService} from '../../data/seat-colors.service';
 import {SeatModel} from 'src/app/shared/models/entity/airplane/seat.model';
 import {SectionModel} from './seat-type-section/section-model';
 import {SeatTypeModel} from '../../../shared/models/entity/airplane/seat-type.model';
+import {ViewMode} from './plane-seats-grid-modes.model';
 
 @Component({
   selector: 'app-airplane-seats',
@@ -11,17 +12,18 @@ import {SeatTypeModel} from '../../../shared/models/entity/airplane/seat-type.mo
 })
 export class PlaneSeatsGridComponent implements OnInit {
 
-  constructor(
-    private colorService: SeatColorService
-  ) {
-  }
-
   @Input() public selectedSeats: Set<SeatModel>;
   @Output() public selectedSeatsChange = new EventEmitter<Set<SeatModel>>();
   @Input() public sections: SectionModel[];
   @Output() public sectionsChange = new EventEmitter<SectionModel[]>();
   @Input() public seats: Set<SeatModel>;
+  @Input() viewMode = ViewMode.SELECT;
   private setOfSeatTypes = new Set<SeatTypeModel>();
+
+  constructor(
+    private colorService: SeatColorService
+  ) {
+  }
 
   private static maxNumber(nums: number[]): number {
     let maxNum = -1;

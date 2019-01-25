@@ -2,7 +2,8 @@
         class="seat"
         color="primary"
         [style.background-color]="colorCode"
-        (click)="toggleSelection()"
+        (click)="onClick()"
         [ngClass]="{selected: isSelected}">
+  <!--DEBUG-->
   r:{{seat.row}};c:{{seat.col}}
 </button>
