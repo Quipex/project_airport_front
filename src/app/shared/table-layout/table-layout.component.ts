@@ -19,6 +19,7 @@ export class TableLayoutComponent implements OnChanges, OnInit {
   @Output() columnAttr = new EventEmitter<number>();
   columnMaps: ColumnSetting[];
   sortedDirections = Array();
+  countOfItems = 0;
 
   constructor(
     private router: Router
@@ -27,6 +28,7 @@ export class TableLayoutComponent implements OnChanges, OnInit {
 
   ngOnChanges() {
     this.columnMaps = this.settings;
+    this.countOfItems = this.records.length;
   }
 
   ngOnInit(): void {
