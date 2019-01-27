@@ -19,6 +19,7 @@ import {AuthGuardService} from "./services/authGuard.service";
 import {ProfileComponent} from "./profile/profile.component";
 import {FlightBookingComponent} from './booking/flight-booking/flight-booking.component';
 import {AirplaneInfoComponent} from "./airplanes/airplane-info/airplane-info.component";
+import {SeatTypeComponent} from "./seat-type/seat-type.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -132,6 +133,14 @@ const routes: Routes = [
     path: 'flight-booking',
     component: FlightBookingComponent,
     canActivate: [AuthGuardService]
+  },
+  {
+    path: 'seat-types',
+    component: SeatTypeComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      roles: ['ROLE_ADMIN']
+    }
   },
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404'},

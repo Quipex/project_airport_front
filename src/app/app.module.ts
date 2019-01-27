@@ -74,6 +74,7 @@ import {MakeIterablePipe} from './airplanes/seats/plane-seats-grid/seat-type-sec
 import {SeatEditorModalComponent} from './airplanes/seats/plane-seats-grid/seat-type-section/seat/seat-editor-modal/seat-editor-modal.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AirplaneInfoComponent } from './airplanes/airplane-info/airplane-info.component';
+import { SeatTypeComponent } from './seat-type/seat-type.component';
 
 
 @NgModule({
@@ -113,7 +114,8 @@ import { AirplaneInfoComponent } from './airplanes/airplane-info/airplane-info.c
     SectionEditorComponent,
     MakeIterablePipe,
     SeatEditorModalComponent,
-    AirplaneInfoComponent
+    AirplaneInfoComponent,
+    SeatTypeComponent
   ],
   imports: [
     BrowserModule,
