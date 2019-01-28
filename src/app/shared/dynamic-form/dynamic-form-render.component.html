@@ -1,6 +1,7 @@
 <div [formGroup]="form">
   <div *ngIf="editMode">
-    <div *ngIf="question.type !== 'tel' && question.type !== 'date' && question.type !== 'select'">
+    <div *ngIf="question.type !== 'tel' && question.type !== 'date' && question.type !== 'select' && question.type !== 'cc-number'
+            &&  question.type !== 'cc-exp-date' &&  question.type !== 'cc-cvc'">
       <label *ngIf="question.edit" [attr.for]="question.key">{{question.label}}</label>
       <input *ngIf="question.edit" [formControlName]="question.key" [id]="question.key"
              [type]="question.type" class="form-control" mdbInputDirective mdbValidate>
@@ -26,6 +27,18 @@
         </mat-select>
       </mat-form-field>
     </div>
+    <div *ngIf="question.type === 'cc-number'">
+      <label [attr.for]="question.key">{{question.label}}</label>
+      <input [formControlName]="question.key" [id]="question.key" type="tel" autocomplete="cc-number" ccNumber  class="form-control" mdbInputDirective mdbValidate>
+    </div>
+    <div *ngIf="question.type === 'cc-exp-date'">
+      <label [attr.for]="question.key">{{question.label}}</label>
+      <input [formControlName]="question.key" [id]="question.key" type="tel" autocomplete="cc-exp" ccExp  class="form-control" mdbInputDirective mdbValidate>
+    </div>
+    <div *ngIf="question.type === 'cc-cvc'">
+      <label [attr.for]="question.key">{{question.label}}</label>
+      <input [formControlName]="question.key" [id]="question.key" type="tel" autocomplete="off" ccCvc  class="form-control" mdbInputDirective mdbValidate>
+    </div>
     <mdb-error
       *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
       <span *ngIf="form.controls[question.key].errors.required">{{question.label}} is required</span>
@@ -40,7 +53,8 @@
   </div>
 
   <div *ngIf="!editMode">
-    <div *ngIf="question.type !== 'tel' && question.type !== 'date' && question.type !== 'select'">
+    <div *ngIf="question.type !== 'tel' && question.type !== 'date' && question.type !== 'select' && question.type !== 'cc-number'
+              &&  question.type !== 'cc-exp-date' &&  question.type !== 'cc-cvc'">
       <label [attr.for]="question.key">{{question.label}}</label>
       <input [formControlName]="question.key" [id]="question.key"
              [type]="question.type" class="form-control" mdbInputDirective mdbValidate>
@@ -66,12 +80,26 @@
         </mat-select>
       </mat-form-field>
     </div>
+    <div *ngIf="question.type === 'cc-number'">
+      <label [attr.for]="question.key">{{question.label}}</label>
+      <input [formControlName]="question.key" [id]="question.type" type="tel" autocomplete="cc-number" ccNumber  class="form-control" mdbInputDirective mdbValidate>
+    </div>
+    <div *ngIf="question.type === 'cc-exp-date'">
+      <label [attr.for]="question.key">{{question.label}}</label>
+      <input [formControlName]="question.key" [id]="question.key" type="tel" autocomplete="cc-exp" ccExp  class="form-control" mdbInputDirective mdbValidate>
+    </div>
+    <div *ngIf="question.type === 'cc-cvc'">
+      <label [attr.for]="question.key">{{question.label}}</label>
+      <input [formControlName]="question.key" [id]="question.key" type="number" autocomplete="cc-cvc" ccCvc  class="form-control" mdbInputDirective mdbValidate>
+    </div>
     <mdb-error
       *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
+      <span *ngIf="form.controls[question.key].errors.validateCC">Number of card is wrong. </span>
       <span *ngIf="form.controls[question.key].errors.required">{{question.label}} is required. </span>
       <span *ngIf="form.controls[question.key].errors.validateEmail"> This email address is not valid.</span>
       <span *ngIf="form.controls[question.key].errors.validatePhone"> Phone number is required. </span>
       <span *ngIf="form.controls[question.key].errors.validatePhoneNumber"> This phone number is not valid.</span>
+      <span *ngIf="form.controls[question.key].errors.cvvValidate">CVV length must be 3</span>
     </mdb-error>
     <mdb-success
       *ngIf="form.controls[question.key].valid && (form.controls[question.key].dirty || form.controls[question.key].touched)">

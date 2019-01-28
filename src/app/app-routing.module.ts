@@ -20,6 +20,7 @@ import {ProfileComponent} from "./profile/profile.component";
 import {FlightBookingComponent} from './booking/flight-booking/flight-booking.component';
 import {AirplaneInfoComponent} from "./airplanes/airplane-info/airplane-info.component";
 import {SeatTypeComponent} from "./seat-type/seat-type.component";
+import {PaymentMethodsComponent} from "./payment-methods/payment-methods.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -140,6 +141,14 @@ const routes: Routes = [
     canActivate: [AuthGuardService, RoleGuardService],
     data: {
       roles: ['ROLE_ADMIN']
+    }
+  },
+  {
+    path: 'payment',
+    component: PaymentMethodsComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      roles: ['ROLE_USER']
     }
   },
   {path: '404', component: NotFoundComponent},

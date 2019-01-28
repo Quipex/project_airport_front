@@ -75,6 +75,9 @@ import {SeatEditorModalComponent} from './airplanes/seats/plane-seats-grid/seat-
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AirplaneInfoComponent } from './airplanes/airplane-info/airplane-info.component';
 import { SeatTypeComponent } from './seat-type/seat-type.component';
+import { PaymentMethodsComponent } from './payment-methods/payment-methods.component';
+import {CreditCardDirectivesModule} from "ng2-cc-library";
+import {PaymentService} from "./services/payment.service";
 
 
 @NgModule({
@@ -115,7 +118,8 @@ import { SeatTypeComponent } from './seat-type/seat-type.component';
     MakeIterablePipe,
     SeatEditorModalComponent,
     AirplaneInfoComponent,
-    SeatTypeComponent
+    SeatTypeComponent,
+    PaymentMethodsComponent
   ],
   imports: [
     BrowserModule,
@@ -141,7 +145,8 @@ import { SeatTypeComponent } from './seat-type/seat-type.component';
     MatSidenavModule,
     MatGridListModule,
     NgbModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    CreditCardDirectivesModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [UsersService,
@@ -158,7 +163,8 @@ import { SeatTypeComponent } from './seat-type/seat-type.component';
     FlightsService,
     TicketsService,
     RoleGuardService,
-    AuthGuardService
+    AuthGuardService,
+    PaymentService
   ],
   bootstrap: [AppComponent],
   entryComponents: [SeatEditorModalComponent]
