@@ -74,7 +74,7 @@
     <div *ngIf="question.type === 'select'">
       <!--<mat-form-field>-->
         <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key"
-                    style="border-bottom: 1px solid #757575;" ngModel>
+                    style="border-bottom: 1px solid #757575; padding: 8px;" ngModel>
           <mat-option *ngFor="let role of selectKeys" [value]="role">
             {{question.value[role]}}
           </mat-option>

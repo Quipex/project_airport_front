@@ -47,7 +47,7 @@ export class PlaneSeatsEditorComponent implements OnInit {
   }
 
   getAirplane() {
-    const sub = this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
       const airplaneId = params['airplaneId'];
       this.airplanesService.getItemById(airplaneId)
         .subscribe((response: any) => {

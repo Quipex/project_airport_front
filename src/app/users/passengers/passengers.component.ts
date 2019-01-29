@@ -110,7 +110,7 @@ export class PassengersComponent implements OnInit {
 
   fillArray(response : PassengersModel[]) {
     response.map(passenger => {this.passengers.push(passenger)});
-    const passengersToDisplay = this.passengers.forEach(element => {
+    this.passengers.forEach(element => {
       this.passportsService.getPassportsByParentId(element.objectId)
         .subscribe((response: PassportModel) => {
           this.passports.push(response);
@@ -213,10 +213,8 @@ export class PassengersComponent implements OnInit {
       this.getPassengers(this.userLogin);
     } else {
       let wrapper = new FilterAndSortWrapperModel(this.searchString);
-
       this.passengersService.search(this.userLogin,1, wrapper)
         .subscribe((data: ResponseFilteringWrapperModel) => {
-
           this.passports = [];
           this.passengers = [];
           this.items = [];

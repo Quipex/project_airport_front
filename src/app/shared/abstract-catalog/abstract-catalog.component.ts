@@ -145,8 +145,8 @@ export class AbstractCatalogComponent implements OnInit {
 
       this.service.editItem(returnedItem.objectId, returnedItem)
         .subscribe((editedItem: BaseEntityModel) => {
-          this.entities[this.selectedRow] = editedItem;
-          this.entities = JSON.parse(JSON.stringify(this.entities));
+          // this.entities[this.selectedRow] = editedItem;
+          // this.entities = JSON.parse(JSON.stringify(this.entities));
           this.newModal.hide();
           const message = 'The item has been edited.';
           this.showInfo(message);
@@ -251,7 +251,7 @@ export class AbstractCatalogComponent implements OnInit {
             this.paging = false;
         });
       this.getTenItems(this.numberOfPage);
-    }, 50);
+    }, 150);
   }
 
   private getTenItems(numberOfPage: number) {

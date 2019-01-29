@@ -55,6 +55,7 @@
 >
 </app-table-layout>
 
+
 <div mdbModal #removeConfirmModal="mdbModal" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="myBasicModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -85,7 +86,7 @@
     <ul class="pagination justify-content-end">
 
       <li class="page-item" [ngClass]="{'disabled': numberOfPage===1}">
-        <a class="page-link" (click)="onPrevPage()" tabindex="-1">Previous</a>
+        <a class="page-link" (click)="onPrevPage()">Previous</a>
       </li>
 
       <li class="page-item" [ngClass]="{'disabled': numberOfPage===1}">

@@ -9,9 +9,7 @@ import {AuthorityModel} from "../shared/models/entity/users/authority.model";
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: [
-    './users.component.scss'
-  ],
+  styleUrls: [ './users.component.scss' ],
   providers: [{provide: BaseService, useClass: UsersService}]
 })
 export class UsersComponent implements OnInit {
