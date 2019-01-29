@@ -72,13 +72,14 @@
                     mdbValidate></intl-tel-input>
   </div>
     <div *ngIf="question.type === 'select'">
-      <mat-form-field>
-        <mat-select placeholder="{{question.label}}" [formControlName]="question.key">
+      <!--<mat-form-field>-->
+        <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key"
+                    style="border-bottom: 1px solid #757575;" ngModel>
           <mat-option *ngFor="let role of selectKeys" [value]="role">
             {{question.value[role]}}
           </mat-option>
         </mat-select>
-      </mat-form-field>
+      <!--</mat-form-field>-->
     </div>
     <div *ngIf="question.type === 'cc-number'">
       <label [attr.for]="question.key">{{question.label}}</label>
