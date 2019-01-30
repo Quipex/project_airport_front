@@ -37,7 +37,7 @@
     </div>
     <div *ngIf="question.type === 'cc-cvc'">
       <label [attr.for]="question.key">{{question.label}}</label>
-      <input [formControlName]="question.key" [id]="question.key" type="tel" autocomplete="off" ccCvc  class="form-control" mdbInputDirective mdbValidate>
+      <input [formControlName]="question.key" [id]="question.key" type="tel" autocomplete="off" ccCvc maxlength="3"  class="form-control" mdbInputDirective mdbValidate>
     </div>
     <mdb-error
       *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
@@ -90,7 +90,7 @@
     </div>
     <div *ngIf="question.type === 'cc-cvc'">
       <label [attr.for]="question.key">{{question.label}}</label>
-      <input [formControlName]="question.key" [id]="question.key" type="number" autocomplete="cc-cvc" ccCvc  class="form-control" mdbInputDirective mdbValidate>
+      <input [formControlName]="question.key" [id]="question.key" type="number" autocomplete="cc-cvc" ccCvc  maxlength="3" class="form-control" mdbInputDirective mdbValidate>
     </div>
     <mdb-error
       *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">

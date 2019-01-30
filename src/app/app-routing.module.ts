@@ -21,6 +21,7 @@ import {FlightBookingComponent} from './booking/flight-booking/flight-booking.co
 import {AirplaneInfoComponent} from "./airplanes/airplane-info/airplane-info.component";
 import {SeatTypeComponent} from "./seat-type/seat-type.component";
 import {PaymentMethodsComponent} from "./payment-methods/payment-methods.component";
+import {PaymentFormComponent} from "./payment-form/payment-form.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -150,6 +151,11 @@ const routes: Routes = [
     data: {
       roles: ['ROLE_USER']
     }
+  },
+  {
+    path: 'payment-form',
+    component: PaymentFormComponent,
+    canActivate: [AuthGuardService]
   },
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404'},
