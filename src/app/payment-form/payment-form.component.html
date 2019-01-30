@@ -1,0 +1,75 @@
+<div class="container">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Payment</mat-card-title>
+      <mat-card-subtitle>Select a Payment Method</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field>
+            <mat-select [(ngModel)]="typeOfCardValue" (ngModelChange)="onTypeSelect($event)" placeholder="Payment Method">
+              <mat-option value="new">
+                New card
+              </mat-option>
+              <mat-option value="saved">
+                Saved card
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <hr>
+      <div class="row" *ngIf="typeOfCard">
+        <div class="col-md-12">
+          <h5 *ngIf="savedCards.length === 0">
+            There aren't saved cards.
+          </h5>
+            <mat-form-field *ngIf="savedCards.length !== 0" >
+              <form [formGroup]="selectCardForm">
+                <mat-select placeholder="Choose a card" (ngModelChange)="onCardSelect($event)" formControlName = "savedCard">
+                  <mat-option *ngFor="let card of savedCards; let i = index;" [value]="i">
+                    {{card.number}}
+                  </mat-option>
+                </mat-select>
+              </form>
+            </mat-form-field>
+        </div>
+      </div>
+      <form [formGroup]="newCardForm">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="mat-form-input-field card-input">
+            <mat-label>Number of card</mat-label>
+            <input [(ngModel)]="numberOfCard" matInput ccNumber formControlName = "numberOfCard">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="mat-form-input-field card-input">
+            <mat-label>Expiration date</mat-label>
+            <input [(ngModel)]="expirationDate" matInput ccExp formControlName = "expirationDate">
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field appearance="outline" class="mat-form-input-field card-input">
+            <mat-label>CVV</mat-label>
+            <input [(ngModel)]="cvv" matInput type="password" maxlength="3" ccCvc formControlName = "cvv">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" class="mat-form-input-field card-input">
+            <mat-label>Nickname</mat-label>
+            <input [(ngModel)]="nickname" matInput formControlName = "nickname">
+          </mat-form-field>
+        </div>
+      </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="onPay(newCardForm)">PAY</button>
+      <button mat-button>BACK</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

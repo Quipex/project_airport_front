@@ -28,7 +28,7 @@ import {AirplanesComponent} from './airplanes/airplanes.component';
 import {FormControlService} from './services/formControl.service';
 import {
   MatButtonModule,
-  MatButtonToggleModule,
+  MatButtonToggleModule, MatCardModule,
   MatCheckboxModule,
   MatExpansionModule,
   MatInputModule,
@@ -78,6 +78,7 @@ import { SeatTypeComponent } from './seat-type/seat-type.component';
 import { PaymentMethodsComponent } from './payment-methods/payment-methods.component';
 import {CreditCardDirectivesModule} from "ng2-cc-library";
 import {PaymentService} from "./services/payment.service";
+import { PaymentFormComponent } from './payment-form/payment-form.component';
 
 
 @NgModule({
@@ -119,7 +120,8 @@ import {PaymentService} from "./services/payment.service";
     SeatEditorModalComponent,
     AirplaneInfoComponent,
     SeatTypeComponent,
-    PaymentMethodsComponent
+    PaymentMethodsComponent,
+    PaymentFormComponent
   ],
   imports: [
     BrowserModule,
@@ -147,6 +149,7 @@ import {PaymentService} from "./services/payment.service";
     NgbModule,
     MatSlideToggleModule,
     CreditCardDirectivesModule,
+    MatCardModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [UsersService,
