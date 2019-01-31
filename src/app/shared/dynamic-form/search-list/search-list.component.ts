@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Listable} from './item.model';
 
 @Component({
@@ -29,15 +28,11 @@ export class SearchListComponent implements OnInit {
   }
 
   emitSelection(value: any) {
-    console.log(value);
+    // console.log(value);
     this.itemEmitter.emit(value);
   }
-}
 
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  logChange($event: any) {
+    console.log($event);
   }
 }
