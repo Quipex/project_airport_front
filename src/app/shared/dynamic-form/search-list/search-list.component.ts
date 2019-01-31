@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ListItemModel} from './item.model';
 import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material';
+import {Listable} from './item.model';
 
 @Component({
   selector: 'app-search-list',
@@ -10,8 +10,8 @@ import {ErrorStateMatcher} from '@angular/material';
 })
 export class SearchListComponent implements OnInit {
 
-  @Input() items: ListItemModel[] = [];
-  @Output() itemEmitter = new EventEmitter<ListItemModel>();
+  @Input() items: Listable[] = [];
+  @Output() itemEmitter = new EventEmitter<Listable>();
   @Input() selectorPlaceholder = 'Select';
   @Input() searchPlaceholder = 'Search';
   filterString = '';
@@ -29,6 +29,7 @@ export class SearchListComponent implements OnInit {
   }
 
   emitSelection(value: any) {
+    console.log(value);
     this.itemEmitter.emit(value);
   }
 }
