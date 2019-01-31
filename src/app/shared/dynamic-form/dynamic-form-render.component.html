@@ -1,11 +1,21 @@
 <div [formGroup]="form">
+
+  <!--EDITING-->
+
   <div *ngIf="editMode">
-    <div *ngIf="question.type !== 'tel' && question.type !== 'date' && question.type !== 'select' && question.type !== 'cc-number'
-            &&  question.type !== 'cc-exp-date' &&  question.type !== 'cc-cvc'">
+    <div *ngIf="question.type !== 'tel' &&
+                question.type !== 'date' &&
+                question.type !== 'select' &&
+                question.type !== 'cc-number' &&
+                question.type !== 'cc-exp-date' &&
+                question.type !== 'cc-cvc' &&
+                question.type !== 'airline-selector'">
+
       <label *ngIf="question.edit" [attr.for]="question.key">{{question.label}}</label>
       <input *ngIf="question.edit" [formControlName]="question.key" [id]="question.key"
              [type]="question.type" class="form-control" mdbInputDirective mdbValidate>
     </div>
+
     <div *ngIf="question.type === 'date'">
       <mat-form-field>
         <input matInput [matDatepicker]="picker" placeholder="{{question.label}}" [formControlName]="question.key">
@@ -13,12 +23,14 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
+
     <div *ngIf="question.type === 'tel'" class="tel-input">
       <intl-tel-input [enablePlaceholder]="true" [formControlName]="question.key"
                       [preferredCountries]="['ua', 'gb', 'de', 'be']"
                       mdbInputDirective
                       mdbValidate></intl-tel-input>
     </div>
+
     <div *ngIf="question.type === 'select'">
       <mat-form-field>
         <mat-select placeholder="{{question.label}}" [formControlName]="question.key">
@@ -28,24 +40,29 @@
         </mat-select>
       </mat-form-field>
     </div>
+
     <div *ngIf="question.type === 'cc-number'">
       <label [attr.for]="question.key">{{question.label}}</label>
       <input [formControlName]="question.key" [id]="question.key" type="tel" autocomplete="cc-number" ccNumber
              class="form-control" mdbInputDirective mdbValidate>
     </div>
+
     <div *ngIf="question.type === 'cc-exp-date'">
       <label [attr.for]="question.key">{{question.label}}</label>
       <input [formControlName]="question.key" [id]="question.key" type="tel" autocomplete="cc-exp" ccExp
              class="form-control" mdbInputDirective mdbValidate>
     </div>
+
     <div *ngIf="question.type === 'cc-cvc'">
       <label [attr.for]="question.key">{{question.label}}</label>
       <input [formControlName]="question.key" [id]="question.key" type="tel" autocomplete="off" ccCvc maxlength="3"
              class="form-control" mdbInputDirective mdbValidate>
     </div>
+
     <div *ngIf="question.type === 'airline-selector'">
-      <app-airline-selector></app-airline-selector>
+      <app-airline-selector [formControlName]="question.key"></app-airline-selector>
     </div>
+
     <mdb-error
       *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
       <span *ngIf="form.controls[question.key].errors.required">{{question.label}} is required</span>
@@ -53,24 +70,28 @@
       <span *ngIf="form.controls[question.key].errors.validatePhone"> Phone number is required. </span>
       <span *ngIf="form.controls[question.key].errors.validatePhoneNumber"> This phone number is not valid.</span>
     </mdb-error>
+
     <mdb-success
       *ngIf="form.controls[question.key].valid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
       Input valid
     </mdb-success>
   </div>
 
+  <!--CREATING NEW-->
+
   <div *ngIf="!editMode">
     <div *ngIf="question.type !== 'tel' &&
-    question.type !== 'date' &&
-    question.type !== 'select' &&
-    question.type !== 'cc-number' &&
-    question.type !== 'cc-exp-date' &&
-    question.type !== 'cc-cvc' &&
-    question.type !== 'airline-selector'">
+                question.type !== 'date' &&
+                question.type !== 'select' &&
+                question.type !== 'cc-number' &&
+                question.type !== 'cc-exp-date' &&
+                question.type !== 'cc-cvc' &&
+                question.type !== 'airline-selector'">
       <label [attr.for]="question.key">{{question.label}}</label>
       <input [formControlName]="question.key" [id]="question.key" placeholder="{{question.label}}"
              [type]="question.type" class="form-control" mdbInputDirective mdbValidate>
     </div>
+
     <div *ngIf="question.type === 'date'">
       <mat-form-field>
         <input matInput [matDatepicker]="picker" placeholder="{{question.label}}" [formControlName]="question.key">
@@ -78,20 +99,22 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
+
     <div *ngIf="question.type === 'tel'" class="tel-input">
       <intl-tel-input [enablePlaceholder]="true" [formControlName]="question.key"
                       [preferredCountries]="['ua', 'gb', 'de', 'be']"
                       mdbInputDirective
                       mdbValidate></intl-tel-input>
     </div>
+
     <div *ngIf="question.type === 'select'">
       <!--<mat-form-field>-->
-        <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key"
-                    style="border-bottom: 1px solid #757575; padding: 8px;" ngModel>
-          <mat-option *ngFor="let role of selectKeys" [value]="role">
-            {{question.value[role]}}
-          </mat-option>
-        </mat-select>
+      <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key"
+                  style="border-bottom: 1px solid #757575; padding: 8px;" ngModel>
+        <mat-option *ngFor="let role of selectKeys" [value]="role">
+          {{question.value[role]}}
+        </mat-option>
+      </mat-select>
       <!--</mat-form-field>-->
     </div>
     <div *ngIf="question.type === 'cc-number'">
@@ -110,7 +133,7 @@
              maxlength="3" class="form-control" mdbInputDirective mdbValidate>
     </div>
     <div *ngIf="question.type === 'airline-selector'">
-      <app-airline-selector></app-airline-selector>
+      <app-airline-selector [formControlName]="question.key"></app-airline-selector>
     </div>
     <mdb-error
       *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
