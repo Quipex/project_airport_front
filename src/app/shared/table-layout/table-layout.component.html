@@ -4,7 +4,7 @@
     <thead>
     <tr>
       <th>#</th>
-      <th *ngFor="let map of columnMaps; let i = index">{{ map.header }}
+      <th *ngFor="let map of columnMaps; let i = index">{{map.header}}
         <span (click)="sortBy(map.sortAttr, i)" *ngIf="map.sortAttr!==undefined">
             <mdb-icon *ngIf="sortedDirections[i] === 0" icon="sort"></mdb-icon>
             <mdb-icon *ngIf="sortedDirections[i] === 1" icon="sort-up"></mdb-icon>
@@ -18,8 +18,8 @@
     <tbody>
     <ng-container *ngIf="clickable">
       <tr *ngFor="let record of records; let i = index" class="t_line">
-        <td (click)="redirect(i)">{{i + 1 + 10 * (currentPage - 1)}}</td>
-        <td *ngFor="let map of columnMaps" (click)="redirect(i)">
+        <td (click)="redirect(i)" >{{i + 1 + 10 * (currentPage - 1)}}</td>
+        <td *ngFor="let map of columnMaps" (click)="redirect(i)" >
           {{record[map.primaryKey]}}
         </td>
         <td>

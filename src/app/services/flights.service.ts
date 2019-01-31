@@ -27,6 +27,7 @@ export class FlightsService implements BaseService {
     return this.http.get(API_URL + `/user-flights/userLogin=${userLogin}/page=${page}`, this.httpOptions);
   }
 
+// --------------------------------------------------
 
   getCountOfItems() {
     return this.http.get(API_URL + `/flights/count`, this.httpOptions);
@@ -54,5 +55,13 @@ export class FlightsService implements BaseService {
 
   search(page: number, wrapper: FilterAndSortWrapperModel) {
     return this.http.post(API_URL + `/flights/search/page=${page}`, wrapper, this.httpOptions);
+  }
+
+  getAirports() {
+    return this.http.get(API_URL + `/flights/airports`, this.httpOptions);
+  }
+
+  getAirplanesByAirport(id: number) {
+    return this.http.get(API_URL + `/flights/airportId=${id}`, this.httpOptions);
   }
 }

@@ -16,8 +16,10 @@
   margin-bottom: 5px;
 }
 
-tbody td {
-  vertical-align: middle;
+table {
+  td, th {
+    vertical-align: middle;
+  }
 }
 
 ul {

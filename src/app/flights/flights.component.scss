@@ -7,11 +7,15 @@
   margin-top: 8px;
 }
 
+.set-row {
+  margin-bottom: 10px;
+}
+
 .input-form {
   display: inline-block;
-  width: 100%;
   float: right;
   text-align: right;
+  width: 70%;
 }
 
 #search-input {
@@ -27,3 +31,22 @@ table td, th {
   vertical-align: middle;
   text-align: center;
 }
+
+mat-expansion-panel {
+  vertical-align: bottom;
+  text-align: center;
+}
+
+.form-wrapper {
+  display: inline-block;
+  margin: 20px auto;
+}
+
+.input-container {
+  vertical-align: top;
+  width: 35%;
+  margin: 20px 30px;
+  display: inline-block;
+}
+
+

@@ -1,20 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {ColumnSetting} from '../shared/models/columnSetting.model';
 import {InputBaseModel} from '../shared/models/inputBase.model';
-import {BaseService} from '../services/baseService.service';
 import {FlightsService} from '../services/flights.service';
 import {Router} from '@angular/router';
 import {FlightStatusModel} from '../shared/models/entity/flight/flightStatus.model';
 import {FlightDTOModel} from '../shared/models/flightDTO.model';
 import {FilterAndSortWrapperModel} from '../shared/models/filterAndSortWrapper.model';
 import {ResponseFilteringWrapperModel} from '../shared/models/responseFilteringWrapper.model';
-import {PassportModel} from '../shared/models/entity/users/passengers/passport.model';
-import {PassengerPassportModel} from '../shared/models/entity/users/passengers/passengerPasport.model';
-import {PassengersModel} from '../shared/models/entity/users/passengers/passengers.model';
 import {FormControlService} from '../services/formControl.service';
 import {ToastrService} from 'ngx-toastr';
 import {DatePipe} from '@angular/common';
+import {BaseEntityModel} from '../shared/models/baseEntity.model';
+import {SortEntityModel} from '../shared/models/sortEntity.model';
+import {ModalDirective} from 'angular-bootstrap-md';
+import {ResponseErrorModel} from '../shared/models/responseError.model';
+import {FlightsModel} from '../shared/models/entity/flight/flights.model';
+import {AirportModel} from '../shared/models/entity/flight/airport.model';
 
 
 @Component({
@@ -25,18 +27,31 @@ import {DatePipe} from '@angular/common';
 })
 export class FlightsComponent implements OnInit {
   form: FormGroup;
+  @ViewChild('formAdd') formAdd: ElementRef;
+  @ViewChild('removeConfirmModal') removeConfirmModal: ModalDirective;
+  // @ViewChild();
   flights: FlightDTOModel[] = [];
 
   editForm: FormGroup;
-  newPassenger: PassengersModel;
-  newPassport: PassportModel;
-  currentItem: PassengerPassportModel;
+  // newPassenger: PassengersModel;
+  // newPassport: PassportModel;
+  currentItem: FlightsModel;
   editMode: Boolean = false;
+  expanded = true;
   submitType = 'Save';
   searchString = '';
+  filteringMode = false;
+  sortList: SortEntityModel[] = [];
   deleteId: number;
   // flights: FlightsModel[] = [];
+  responseError: ResponseErrorModel;
 
+  paging = false;
+  numberOfPage = 1;
+  countOfPages = 0;
+
+  private height: number;
+  private overflow: string;
 
   settings: ColumnSetting[] =
     [
@@ -86,7 +101,6 @@ export class FlightsComponent implements OnInit {
       }
     ];
 
-
   questions: InputBaseModel<any>[] = [
     new InputBaseModel({
       key: 'flightNumber',
@@ -100,15 +114,24 @@ export class FlightsComponent implements OnInit {
       key: 'departureAirportId',
       label: 'Departure airport',
       required: true,
-      type: 'text',
+      type: 'select',
       order: 2,
+      edit: true,
+      value: this.flightsService.getAirports()
+    }),
+    new InputBaseModel({
+      key: 'actualDepartureDatetime',
+      label: 'Departure date',
+      required: true,
+      type: 'date',
+      order: 3,
       edit: true
     }),
     new InputBaseModel({
       key: 'actualDepartureDatetime',
-      label: 'Departure datetime',
+      label: 'Departure time',
       required: true,
-      type: 'text',
+      type: 'time',
       order: 3,
       edit: true
     }),
@@ -116,15 +139,24 @@ export class FlightsComponent implements OnInit {
       key: 'arrivalAirportId',
       label: 'Arrival airport',
       required: true,
-      type: 'text',
+      type: 'select',
       order: 4,
+      edit: true,
+      value: this.flightsService.getAirports()
+    }),
+    new InputBaseModel({
+      key: 'actualArrivalDatetime',
+      label: 'Arrival date',
+      required: true,
+      type: 'date',
+      order: 5,
       edit: true
     }),
     new InputBaseModel({
       key: 'actualArrivalDatetime',
-      label: 'Arrival datetime',
+      label: 'Arrival time',
       required: true,
-      type: 'text',
+      type: 'time',
       order: 5,
       edit: true
     }),
@@ -132,7 +164,7 @@ export class FlightsComponent implements OnInit {
       key: 'airplaneId',
       label: 'Airplane',
       required: true,
-      type: 'text',
+      type: 'select',
       order: 6,
       edit: true
     }),
@@ -140,7 +172,7 @@ export class FlightsComponent implements OnInit {
       key: 'baseCost',
       label: 'Cost',
       required: true,
-      type: 'text',
+      type: 'number',
       order: 7,
       edit: true
     }),
@@ -165,15 +197,13 @@ export class FlightsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.form = this.fcs.toFormGroup(this.questions);
+    this.editForm = this.fcs.toFormGroup(this.questions);
     this.getFlights();
   }
 
   getFlights() {
-    this.flightsService.getTenItems(1).subscribe((value: FlightDTOModel[]) => {
-      this.flights = value;
-    });
-
-
+    this.getCountOfItems();
     // let values = this.flightsService.getTenItems(1);
     // values.forEach((value: FlightDTOModel) => {
     //   let flight = value.flight;
@@ -184,10 +214,46 @@ export class FlightsComponent implements OnInit {
     // });
   }
 
-  onEnter($event: KeyboardEvent) {
-    if ($event.key == 'Enter') {
-      this.onSearch();
-    }
+  private getCountOfItems() {
+    setTimeout(() =>
+    {
+      this.flightsService.getCountOfItems()
+        .subscribe((data: number) => {
+          this.countOfPages = Math.ceil(data / 10);
+          console.log('Data:' + data + ', Pages count:' + this.countOfPages);
+          if (data > 10)
+            this.paging = true;
+          else
+            this.paging = false;
+        });
+      this.getTenItems(this.numberOfPage);
+    }, 50);
+  }
+
+  private getTenItems(numberOfPage: number) {
+    this.numberOfPage = numberOfPage;
+    console.log('Current page:' + this.numberOfPage);
+
+    // this.flightsService.getTenItems(numberOfPage)
+    //   .subscribe((data: BaseEntityModel[]) => {
+    //     this.entities = data;
+    //     console.log(data);
+    //   });
+
+    this.flightsService.getTenItems(1).subscribe((value: FlightDTOModel[]) => {
+      this.flights = value;
+      console.log(value);
+    });
+  }
+
+  private getTenItemsByFilter(numberOfPage: number) {
+    let wrapper = new FilterAndSortWrapperModel(this.searchString, this.sortList);
+    this.numberOfPage = numberOfPage;
+
+    this.flightsService.search(numberOfPage, wrapper)
+      .subscribe((data: ResponseFilteringWrapperModel) => {
+        this.flights = data.entities;
+      });
   }
 
   onSearch() {
@@ -206,8 +272,96 @@ export class FlightsComponent implements OnInit {
     }
   }
 
+  onSave(returnedItem: BaseEntityModel) {
+    if (this.submitType === 'Save') {
+      this.flightsService.addItem(returnedItem)
+        .subscribe(() => {
+            // this.formAdd.hide();
+            const message = 'New flight has been added.';
+            this.showInfo(message);
+          },
+          err => {
+            this.responseError = err;
+            this.showError(this.responseError.error.message);
+          });
+    } else {
+      this.flightsService.editItem(returnedItem.objectId, returnedItem)
+        .subscribe((editedItem: BaseEntityModel) => {
+          //this.flights[this.selectedRow] = editedItem;
+          this.flights = JSON.parse(JSON.stringify(this.flights));
+          // this.formAdd.hide();
+          const message = 'The flight has been edited.';
+          this.showInfo(message);
+        }, err => {
+          this.responseError = err;
+          this.showError(this.responseError.error.message);
+        });
+    }
+    this.getCountOfItems();
+  }
+
+  onNew() {
+    if (this.questions.length > 5) {
+      this.height = 79;
+      this.overflow = 'scroll';
+    }
+    this.form.reset();
+    this.submitType = 'Save';
+    this.editMode = false;
+  }
+
+  onEdit(index: number) {
+    this.editMode = true;
+    this.currentItem = this.flights[index];
+    this.editForm.patchValue(this.currentItem);
+    // this.editForm.patchValue(this.currentItem.passport);
+    this.submitType = 'Update';
+    // this.formAdd.show();
+  }
+
+  onCancel(event: boolean) {
+    if (event) {
+      this.form.reset();
+      // this.formAdd.hide();
+    }
+  }
+
+  closeAdd() {
+    this.expanded = !this.expanded;
+  }
+
+  onPrevPage() {
+    if (this.numberOfPage !== 1)
+      this.numberOfPage--;
+
+    if (this.filteringMode)
+      this.getTenItemsByFilter(this.numberOfPage);
+    else
+      this.getTenItems(this.numberOfPage);
+  }
+
+  onNextPage() {
+    if (this.numberOfPage !== this.countOfPages)
+      this.numberOfPage++;
+
+    if (this.filteringMode)
+      this.getTenItemsByFilter(this.numberOfPage);
+    else
+      this.getTenItems(this.numberOfPage);
+  }
+
+  onEnter($event: KeyboardEvent) {
+    if ($event.key == 'Enter') {
+      this.onSearch();
+    }
+  }
+
   showInfo(message: string) {
     this.toastr.info(message);
+  }
+
+  showError(message: string) {
+    this.toastr.error(message);
   }
 
   // fillArray() {
