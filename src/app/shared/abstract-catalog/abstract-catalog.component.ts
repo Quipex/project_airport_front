@@ -13,7 +13,7 @@ import {FormControlService} from '../../services/formControl.service';
 import {FilterAndSortWrapperModel} from '../models/filterAndSortWrapper.model';
 import {SortEntityModel} from '../models/sortEntity.model';
 import {ResponseFilteringWrapperModel} from '../models/responseFilteringWrapper.model';
-import {AirplanesService} from "../../services/airplanes.service";
+import {AirplanesService} from '../../services/airplanes.service';
 
 @Component({
   selector: 'app-project-center',
@@ -32,7 +32,7 @@ export class AbstractCatalogComponent implements OnInit {
   title = 'Project Center';
   form: FormGroup;
   currentItem: BaseEntityModel;
-  //showNew: Boolean = false;
+  // showNew: Boolean = false;
   editMode: Boolean = false;
   submitType = 'Save';
   selectedRow: number;
@@ -74,7 +74,7 @@ export class AbstractCatalogComponent implements OnInit {
   onEdit(index: number) {
     if (this.questions.length > 5) {
       let countOfEditInputs = 0;
-      for (let question of this.questions) {
+      for (const question of this.questions) {
         if (question.edit) {
           countOfEditInputs++;
         }
@@ -180,12 +180,12 @@ export class AbstractCatalogComponent implements OnInit {
   }
 
   sortBy(columnAttr: number) {
-    let columnAttrList = [];
-    let sortAttr = 'ATTR';
+    const columnAttrList = [];
+    const sortAttr = 'ATTR';
     let deleted = false;
     for (let i = 0; i < this.sortList.length; i++) {
       if (this.sortList[i].type === sortAttr + columnAttr) {
-        //this.sortList[i].order = !this.sortList[i].order;
+        // this.sortList[i].order = !this.sortList[i].order;
         if (this.sortList[i].order) {
           this.sortList[i].order = false;
         } else if (!this.sortList[i].order) {
@@ -221,7 +221,7 @@ export class AbstractCatalogComponent implements OnInit {
       this.numberOfPage = 1;
       this.getCountOfItems();
     } else {
-      let wrapper = new FilterAndSortWrapperModel(this.searchString, this.sortList);
+      const wrapper = new FilterAndSortWrapperModel(this.searchString, this.sortList);
 
       this.service.search(1, wrapper)
         .subscribe((data: ResponseFilteringWrapperModel) => {
@@ -239,16 +239,16 @@ export class AbstractCatalogComponent implements OnInit {
   }
 
   private getCountOfItems() {
-    setTimeout(() =>
-    {
+    setTimeout(() => {
       this.service.getCountOfItems()
         .subscribe((data: number) => {
           this.countOfPages = Math.ceil(data / 10);
           console.log('Data:' + data + ', Pages count:' + this.countOfPages);
-          if (data > 10)
+          if (data > 10) {
             this.paging = true;
-          else
+          } else {
             this.paging = false;
+          }
         });
       this.getTenItems(this.numberOfPage);
     }, 150);
@@ -266,7 +266,7 @@ export class AbstractCatalogComponent implements OnInit {
   }
 
   private getTenItemsByFilter(numberOfPage: number) {
-    let wrapper = new FilterAndSortWrapperModel(this.searchString, this.sortList);
+    const wrapper = new FilterAndSortWrapperModel(this.searchString, this.sortList);
     this.numberOfPage = numberOfPage;
 
     this.service.search(numberOfPage, wrapper)
@@ -276,28 +276,32 @@ export class AbstractCatalogComponent implements OnInit {
   }
 
   onPrevPage() {
-    if (this.numberOfPage !== 1)
+    if (this.numberOfPage !== 1) {
       this.numberOfPage--;
+    }
 
-    if (this.filteringMode)
+    if (this.filteringMode) {
       this.getTenItemsByFilter(this.numberOfPage);
-    else
+    } else {
       this.getTenItems(this.numberOfPage);
+    }
   }
 
 
   onNextPage() {
-    if (this.numberOfPage !== this.countOfPages)
+    if (this.numberOfPage !== this.countOfPages) {
       this.numberOfPage++;
+    }
 
-    if (this.filteringMode)
+    if (this.filteringMode) {
       this.getTenItemsByFilter(this.numberOfPage);
-    else
+    } else {
       this.getTenItems(this.numberOfPage);
+    }
   }
 
   onEnter($event: KeyboardEvent) {
-    if ($event.key == 'Enter') {
+    if ($event.key === 'Enter') {
       this.onSearch();
     }
   }
