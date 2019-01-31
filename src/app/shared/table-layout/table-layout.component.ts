@@ -14,6 +14,7 @@ export class TableLayoutComponent implements OnChanges, OnInit {
   @Input() caption: string;
   @Input() settings: ColumnSetting[];
   @Input() clickable: boolean;
+  @Input() currentPage: number;
   @Output() deletedId = new EventEmitter<number>();
   @Output() editedId = new EventEmitter<number>();
   @Output() columnAttr = new EventEmitter<number>();

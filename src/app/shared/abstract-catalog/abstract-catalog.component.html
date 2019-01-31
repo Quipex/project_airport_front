@@ -31,7 +31,8 @@
         <button type="button" class="close pull-right" aria-label="Close" (click)="newModal.hide()">
           <span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title w-100" id="newModalLabel">Add new item</h4>
+        <h4 *ngIf="!editMode" class="modal-title w-100">Add new item</h4>
+        <h4 *ngIf="editMode" class="modal-title w-100">Edit item</h4>
       </div>
       <div [style.overflow-y]="overflow">
         <app-dynamic-form *ngIf="editMode" [editMode]="editMode" [questions]="questions" [submitType]="submitType"
@@ -49,6 +50,7 @@
   [records]="entities"
   [settings]="settings"
   [clickable]="clickable"
+  [currentPage]="numberOfPage"
   (deletedId)="showRemoveConfirmModal($event)"
   (editedId)="onEdit($event)"
   (columnAttr)=sortBy($event)

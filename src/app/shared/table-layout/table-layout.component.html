@@ -1,7 +1,9 @@
 <div class="container table-container">
   <table class="table table-striped" *ngIf="countOfItems > 0">
+  <!--<table class="table table-striped" *ngIf="records.length">-->
     <thead>
     <tr>
+      <th>#</th>
       <th *ngFor="let map of columnMaps; let i = index">{{ map.header }}
         <span (click)="sortBy(map.sortAttr, i)" *ngIf="map.sortAttr!==undefined">
             <mdb-icon *ngIf="sortedDirections[i] === 0" icon="sort"></mdb-icon>
@@ -15,9 +17,10 @@
     </thead>
     <tbody>
     <ng-container *ngIf="clickable">
-      <tr *ngFor="let record of records; let i = index" (click)="redirect(i)">
+      <tr *ngFor="let record of records; let i = index" (click)="redirect(i)" class="t_line">
+        <td>{{i + 1 + 10 * (currentPage - 1)}}</td>
         <td *ngFor="let map of columnMaps">
-          {{ record[map.primaryKey] }}
+          {{record[map.primaryKey]}}
         </td>
         <td>
           <button (click)="onEdit(i)" class="btn btn-info" type="button">Edit</button>
@@ -29,8 +32,9 @@
     </ng-container>
     <ng-container *ngIf="!clickable">
       <tr *ngFor="let record of records; let i = index">
+        <td>{{i + 1 + 10 * (currentPage - 1)}}</td>
         <td *ngFor="let map of columnMaps">
-          {{ record[map.primaryKey] }}
+          {{record[map.primaryKey]}}
         </td>
         <td>
           <button (click)="onEdit(i)" class="btn btn-info" type="button">Edit</button>
@@ -44,6 +48,7 @@
   </table>
 
   <div *ngIf="countOfItems <= 0">
+  <!--<div *ngIf="!records.length">-->
     <h3>There are no items.</h3>
   </div>
 </div>

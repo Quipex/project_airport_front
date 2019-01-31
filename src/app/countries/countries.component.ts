@@ -17,10 +17,10 @@ export class CountriesComponent implements OnInit {
 
   settings: ColumnSetting[] =
     [
-      {
-        primaryKey: 'id',
-        header: '#'
-      },
+      // {
+      //   primaryKey: 'objectId',
+      //   header: '#'
+      // },
       {
         primaryKey: 'name',
         header: 'Name',

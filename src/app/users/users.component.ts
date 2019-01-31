@@ -18,10 +18,10 @@ export class UsersComponent implements OnInit {
 
   settings: ColumnSetting[] =
     [
-      {
-        primaryKey: 'objectId',
-        header: '#'
-      },
+      // {
+      //   primaryKey: 'objectId',
+      //   header: '#'
+      // },
       {
         primaryKey: 'login',
         header: 'Login',

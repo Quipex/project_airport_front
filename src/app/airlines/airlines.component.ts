@@ -17,10 +17,10 @@ export class AirlinesComponent implements OnInit {
 
   settings: ColumnSetting[] =
     [
-      {
-        primaryKey: 'objectId',
-        header: '#'
-      },
+      // {
+      //   primaryKey: 'objectId',
+      //   header: '#'
+      // },
       {
         primaryKey: 'name',
         header: 'Name',

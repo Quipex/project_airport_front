@@ -22,8 +22,8 @@
     <div *ngIf="question.type === 'select'">
       <mat-form-field>
         <mat-select placeholder="{{question.label}}" [formControlName]="question.key">
-          <mat-option *ngFor="let role of selectKeys" [value]="role">
-            {{question.value[role]}}
+          <mat-option *ngFor="let index of selectKeys" [value]="index">
+            {{question.value[index]}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -65,7 +65,7 @@
     question.type !== 'cc-cvc' &&
     question.type !== 'airline-selector'">
       <label [attr.for]="question.key">{{question.label}}</label>
-      <input [formControlName]="question.key" [id]="question.key"
+      <input [formControlName]="question.key" [id]="question.key" placeholder="{{question.label}}"
              [type]="question.type" class="form-control" mdbInputDirective mdbValidate>
     </div>
     <div *ngIf="question.type === 'date'">

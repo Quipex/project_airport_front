@@ -17,10 +17,10 @@ export class ExtraTypeComponent implements OnInit {
 
   settings: ColumnSetting[] =
     [
-      {
-        primaryKey: 'id',
-        header: '#'
-      },
+      // {
+      //   primaryKey: 'id',
+      //   header: '#'
+      // },
       {
         primaryKey: 'name',
         header: 'Name'
@@ -59,7 +59,7 @@ export class ExtraTypeComponent implements OnInit {
       key: 'baseCost',
       label: 'Base cost',
       required: true,
-      type: 'cost',
+      type: 'number',
       order: 3,
       edit: true
     })
