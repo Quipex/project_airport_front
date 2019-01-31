@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SeatModel} from 'src/app/shared/models/entity/airplane/seat.model';
 import {ViewMode} from '../../plane-seats-grid-modes.model';
-import {MDBModalRef} from 'angular-bootstrap-md';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SeatEditorModalComponent} from './seat-editor-modal/seat-editor-modal.component';
 
@@ -18,7 +17,6 @@ export class SeatComponent implements OnInit {
   @Output() public selectedSeatsChange = new EventEmitter<Set<SeatModel>>();
   @Input() viewMode: ViewMode;
   public isSelected: boolean;
-  private modalRef: MDBModalRef;
 
   constructor(private modalService: NgbModal) {
   }
