@@ -44,17 +44,16 @@ export class DynamicFormComponent implements OnChanges {
     if (this.editMode) {
       if (this.currentItem instanceof PassengerPassportModel) {
         let editedItem: PassengerPassportCommonModel;
-        const formData = this.form.value;
-        editedItem = formData;
+        editedItem = this.form.value;
         this.returnedItem.emit(editedItem);
       } else if (this.currentItem instanceof TicketDTOModel) {
-        let editedItem: TicketPassengerCommonModel = this.form.value;
+        const editedItem: TicketPassengerCommonModel = this.form.value;
         this.returnedItem.emit(editedItem);
       } else if (this.currentItem instanceof ChangePasswordModel) {
         this.currentItem = this.form.value;
         this.returnedItem.emit(this.currentItem);
       } else {
-        let editedItem = JSON.parse(JSON.stringify(this.currentItem));
+        const editedItem = JSON.parse(JSON.stringify(this.currentItem));
         const formData = this.form.value;
         for (const x in editedItem) {
           for (const y in formData) {

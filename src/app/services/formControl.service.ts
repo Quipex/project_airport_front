@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {InputBaseModel} from '../shared/models/inputBase.model';
-import {FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {CreditCardValidator} from "ng2-cc-library";
-import {isPresent} from "ng2-cc-library/dist/lang";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {CreditCardValidator} from 'ng2-cc-library';
 
 @Injectable()
 export class FormControlService {
@@ -10,7 +9,7 @@ export class FormControlService {
   }
 
   toFormGroup(items: InputBaseModel<any>[]) {
-    let group: any = {};
+    const group: any = {};
 
     items.forEach(item => {
       if (item.type === 'email') {
@@ -38,7 +37,7 @@ export class FormControlService {
   }
 
   validateCreditCard(control: FormControl) {
-    let CC_REGEXP = /^4[0-9]{12}(?:[0-9]{3})?$/;
+    const CC_REGEXP = /^4[0-9]{12}(?:[0-9]{3})?$/;
 
     return CC_REGEXP.test(control.value) ? null : {
       validateCC: {
@@ -48,7 +47,7 @@ export class FormControlService {
   }
 
   validateEmailAddress(control: FormControl) {
-    let EMAIL_REGEXP = /[^\s]+@[^\s]+\.[^\s]+/;
+    const EMAIL_REGEXP = /[^\s]+@[^\s]+\.[^\s]+/;
 
     return EMAIL_REGEXP.test(control.value) ? null : {
       validateEmail: {
@@ -65,16 +64,16 @@ export class FormControlService {
     };
   }
 
-  cvvValueValidator = (min:number, max:number) => {
-    return (control:FormControl) => {
-      var num = +control.value;
-      if(isNaN(num) || num < min){
+  cvvValueValidator = (min: number, max: number) => {
+    return (control: FormControl) => {
+      const num = +control.value;
+      if (isNaN(num) || num < min) {
         return {
           cvvValidate: {
             valid: false
           }
         };
-      } else if (isNaN(num) || num > max)  {
+      } else if (isNaN(num) || num > max) {
         return {
           cvvValidate: {
             valid: false
@@ -83,5 +82,5 @@ export class FormControlService {
       }
       return null;
     };
-  };
+  }
 }

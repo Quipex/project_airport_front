@@ -43,6 +43,9 @@
       <input [formControlName]="question.key" [id]="question.key" type="tel" autocomplete="off" ccCvc maxlength="3"
              class="form-control" mdbInputDirective mdbValidate>
     </div>
+    <div *ngIf="question.type === 'airline-selector'">
+      <app-airline-selector></app-airline-selector>
+    </div>
     <mdb-error
       *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
       <span *ngIf="form.controls[question.key].errors.required">{{question.label}} is required</span>
