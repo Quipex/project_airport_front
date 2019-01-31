@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AirlinesService} from '../../services/airlines.service';
 import {AirlinesModel} from '../../shared/models/entity/airline/airlines.model';
+import {ListItemModel} from '../../shared/dynamic-form/search-list/item.model';
 
 @Component({
   selector: 'app-airline-selector',
@@ -9,7 +10,8 @@ import {AirlinesModel} from '../../shared/models/entity/airline/airlines.model';
 })
 export class AirlineSelectorComponent implements OnInit {
 
-  public airlines: AirlinesModel[];
+  items: ListItemModel[];
+  selectedItem: ListItemModel;
 
   constructor(
     private service: AirlinesService) {
@@ -17,11 +19,14 @@ export class AirlineSelectorComponent implements OnInit {
 
   ngOnInit() {
     this.service.getAll().subscribe((data: AirlinesModel[]) => {
-      this.airlines = data;
+      this.items = [];
+      for (const dataItem of data) {
+        this.items.push(new ListItemModel(dataItem.name, dataItem.objectId));
+      }
     });
   }
 
-  selectAirlineId(id: number) {
-
+  changeSelection(item: ListItemModel) {
+    this.selectedItem = item;
   }
 }

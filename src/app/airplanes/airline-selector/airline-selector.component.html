@@ -1,4 +1,5 @@
-<app-search-list [items]="airlines"
-                 [searchPlaceholder]="'Enter airline name'"
+<app-search-list [items]="items"
+                 [searchPlaceholder]="'Filter airlines'"
                  [selectorPlaceholder]="'Select an airline'"
-                 (itemEmitter)="selectAirlineId($event.id)"></app-search-list>
+                 (itemEmitter)="changeSelection($event)"></app-search-list>
+<!--<span *ngIf="selectedItem">selected id = {{selectedItem.id}}; {{selectedItem}}</span>-->

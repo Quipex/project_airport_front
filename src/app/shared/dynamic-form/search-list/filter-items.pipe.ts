@@ -7,6 +7,10 @@ import {ListItemModel} from './item.model';
 export class FilterItemsPipe implements PipeTransform {
 
   transform(value: ListItemModel[], substring: string): ListItemModel[] {
+    if (value === undefined) {
+      return [];
+    }
+
     const matchingItems = [];
     for (const item of value) {
       const upperOrigin = item.name.toUpperCase();

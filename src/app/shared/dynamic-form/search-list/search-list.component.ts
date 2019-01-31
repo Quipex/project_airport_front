@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ListItemModel} from './item.model';
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material';
 
 @Component({
   selector: 'app-search-list',
@@ -8,18 +10,30 @@ import {ListItemModel} from './item.model';
 })
 export class SearchListComponent implements OnInit {
 
-  @Input() items: ListItemModel[];
+  @Input() items: ListItemModel[] = [];
   @Output() itemEmitter = new EventEmitter<ListItemModel>();
-  filterString: string;
   @Input() selectorPlaceholder = 'Select';
   @Input() searchPlaceholder = 'Search';
+  filterString = '';
+  selected = new FormControl('valid', [
+    Validators.required
+  ]);
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
   emitSelection(value: any) {
     this.itemEmitter.emit(value);
+  }
+}
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
