@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {ColumnSetting} from '../models/columnSetting.model';
-import {Router} from "@angular/router";
-import {AirplanesModel} from "../models/entity/airplane/airplanes.model";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-table-layout',
@@ -29,7 +28,9 @@ export class TableLayoutComponent implements OnChanges, OnInit {
 
   ngOnChanges() {
     this.columnMaps = this.settings;
-    this.countOfItems = this.records.length;
+    if (this.records) {
+      this.countOfItems = this.records.length;
+    }
   }
 
   ngOnInit(): void {
@@ -62,8 +63,8 @@ export class TableLayoutComponent implements OnChanges, OnInit {
   }
 
   redirect(index: number) {
-    let item = this.records[index];
-    this.router.navigate(['airplane-info', {airplaneId: item.objectId }]);
+    const item = this.records[index];
+    this.router.navigate(['airplane-info', {airplaneId: item.objectId}]);
   }
 
 }
