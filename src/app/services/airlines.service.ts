@@ -3,8 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
 import {BaseService} from './baseService.service';
 import {BaseEntityModel} from '../shared/models/baseEntity.model';
-import {FilterAndSortWrapperModel} from "../shared/models/filterAndSortWrapper.model";
-import {environment} from "../../environments/environment";
+import {FilterAndSortWrapperModel} from '../shared/models/filterAndSortWrapper.model';
+import {environment} from '../../environments/environment';
 
 const API_URL = environment.apiUrl;
 
@@ -50,6 +50,10 @@ export class AirlinesService implements BaseService {
 
   getItemById(id: number) {
     return this.http.get(API_URL + `/airlines/objectId=${id}`, this.httpOptions);
+  }
+
+  getAll() {
+    return this.http.get(API_URL + `/airlines/`);
   }
 
 }

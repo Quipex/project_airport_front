@@ -1,0 +1,13 @@
+<mat-form-field>
+  <input matInput [placeholder]="searchPlaceholder"
+         [(ngModel)]="filterString">
+</mat-form-field>
+
+<mat-select *ngIf="(items | filterItems:filterString)"
+            [placeholder]="selectorPlaceholder"
+            (selectionChange)="emitSelection($event.value)">
+  <mat-option *ngFor="let item of (items | filterItems:filterString)"
+              [value]="item.name">{{item.name}}</mat-option>
+</mat-select>
+
+<h4 *ngIf="!(items | filterItems:filterString)">No items available</h4>

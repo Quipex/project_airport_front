@@ -1,0 +1,4 @@
+<app-search-list [items]="airlines"
+                 [searchPlaceholder]="'Enter airline name'"
+                 [selectorPlaceholder]="'Select an airline'"
+                 (itemEmitter)="selectAirlineId($event.id)"></app-search-list>
