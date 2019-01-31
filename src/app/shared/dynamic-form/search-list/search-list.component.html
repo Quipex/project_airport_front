@@ -17,5 +17,6 @@
       </mat-select>
     </form>
   </mat-form-field>
-  <mat-error *ngIf="!selectorForm.valid">You must make a selection</mat-error>
+  <mat-error *ngIf="selectorForm.controls['selected'].invalid
+  && (selectorForm.controls['selected'].dirty || selectorForm.controls['selected'].touched)">You must make a selection</mat-error>
 </mat-card>
