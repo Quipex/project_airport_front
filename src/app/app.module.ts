@@ -28,7 +28,8 @@ import {AirplanesComponent} from './airplanes/airplanes.component';
 import {FormControlService} from './services/formControl.service';
 import {
   MatButtonModule,
-  MatButtonToggleModule, MatCardModule,
+  MatButtonToggleModule,
+  MatCardModule,
   MatCheckboxModule,
   MatExpansionModule,
   MatInputModule,
@@ -73,12 +74,15 @@ import {SectionEditorComponent} from './airplanes/plane/plane-editor/plane-seats
 import {MakeIterablePipe} from './airplanes/seats/plane-seats-grid/seat-type-section/make-iterable.pipe';
 import {SeatEditorModalComponent} from './airplanes/seats/plane-seats-grid/seat-type-section/seat/seat-editor-modal/seat-editor-modal.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { AirplaneInfoComponent } from './airplanes/airplane-info/airplane-info.component';
-import { SeatTypeComponent } from './seat-type/seat-type.component';
-import { PaymentMethodsComponent } from './payment-methods/payment-methods.component';
+import {AirplaneInfoComponent} from './airplanes/airplane-info/airplane-info.component';
+import {SeatTypeComponent} from './seat-type/seat-type.component';
+import {PaymentMethodsComponent} from './payment-methods/payment-methods.component';
 import {CreditCardDirectivesModule} from "ng2-cc-library";
 import {PaymentService} from "./services/payment.service";
-import { PaymentFormComponent } from './payment-form/payment-form.component';
+import {PaymentFormComponent} from './payment-form/payment-form.component';
+import {SearchListComponent} from './shared/dynamic-form/search-list/search-list.component';
+import {FilterItemsPipe} from './shared/dynamic-form/search-list/filter-items.pipe';
+import {AirlineSelectorComponent} from './airplanes/airline-selector/airline-selector.component';
 
 
 @NgModule({
@@ -121,7 +125,10 @@ import { PaymentFormComponent } from './payment-form/payment-form.component';
     AirplaneInfoComponent,
     SeatTypeComponent,
     PaymentMethodsComponent,
-    PaymentFormComponent
+    PaymentFormComponent,
+    SearchListComponent,
+    FilterItemsPipe,
+    AirlineSelectorComponent
   ],
   imports: [
     BrowserModule,

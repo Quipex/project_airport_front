@@ -48,7 +48,7 @@ export class AirplanesComponent implements OnInit {
       key: 'airline',
       label: 'Airline',
       required: true,
-      type: 'text',
+      type: 'airline-selector',
       order: 2,
       edit: true
     })

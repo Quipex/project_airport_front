@@ -55,7 +55,7 @@ export class AbstractCatalogComponent implements OnInit {
   limit = 10;
 
   constructor(
-    private  service: BaseService,
+    private service: BaseService,
     private usersService: UsersService,
     private airlinesService: AirlinesService,
     private toastr: ToastrService,
