@@ -7,13 +7,16 @@
   <h4 *ngIf="(items | filterItems:filterString).length === 0"
       class="container-form-field">No items available</h4>
 
+
   <mat-form-field class="container-form-field">
-    <mat-select [disabled]="(items | filterItems:filterString).length === 0"
-                [placeholder]="selectorPlaceholder"
-                (selectionChange)="emitSelection($event.value)">
-      <mat-option *ngFor="let item of (items | filterItems:filterString)"
-                  [value]="item">{{item.name}}</mat-option>
-      <mat-error *ngIf="selected.hasError('required')">You must make a selection</mat-error>
-    </mat-select>
+    <form [formGroup]="selectorForm">
+      <mat-select formControlName="selected" [disabled]="(items | filterItems:filterString).length === 0"
+                  [placeholder]="selectorPlaceholder"
+                  (selectionChange)="emitSelection($event.value)">
+        <mat-option *ngFor="let item of (items | filterItems:filterString)"
+                    [value]="item">{{item.name}}</mat-option>
+      </mat-select>
+    </form>
   </mat-form-field>
+  <mat-error *ngIf="!selectorForm.valid">You must make a selection</mat-error>
 </mat-card>

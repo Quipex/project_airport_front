@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ListItemModel} from './item.model';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material';
 
 @Component({
@@ -15,9 +15,12 @@ export class SearchListComponent implements OnInit {
   @Input() selectorPlaceholder = 'Select';
   @Input() searchPlaceholder = 'Search';
   filterString = '';
-  selected = new FormControl('valid', [
-    Validators.required
-  ]);
+
+  selectorForm = new FormGroup({
+    selected: new FormControl('', [
+      Validators.required
+    ])
+  });
 
   constructor() {
   }
