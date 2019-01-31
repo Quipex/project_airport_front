@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {ColumnSetting} from "../shared/models/columnSetting.model";
-import {InputBaseModel} from "../shared/models/inputBase.model";
+import {ColumnSetting} from '../shared/models/columnSetting.model';
+import {InputBaseModel} from '../shared/models/inputBase.model';
 import {BaseService} from '../services/baseService.service';
 import {CountriesService} from '../services/countries.service';
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-countries',
@@ -40,7 +39,6 @@ export class CountriesComponent implements OnInit {
   ];
 
   constructor(
-    private  router: Router
   ) {
   }
 
