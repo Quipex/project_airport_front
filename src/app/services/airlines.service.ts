@@ -53,7 +53,7 @@ export class AirlinesService implements BaseService {
   }
 
   getAll() {
-    return this.http.get(API_URL + `/airlines/`);
+    return this.http.get(API_URL + `/airlines/`, this.httpOptions);
   }
 
 }
