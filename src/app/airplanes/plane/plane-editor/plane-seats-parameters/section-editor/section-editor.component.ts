@@ -48,7 +48,6 @@ export class SectionEditorComponent implements OnInit {
   }
 
   changeRows(newValue) {
-    console.log(newValue);
     if (newValue === '') {
       newValue = 0;
     }
@@ -99,7 +98,6 @@ export class SectionEditorComponent implements OnInit {
         if (!found) {
           const newSeat = new SeatModel(j, i, this.plane, this.section.seatType);
           this.seats.add(newSeat);
-          console.log('added ' + newSeat);
         }
       }
     }
