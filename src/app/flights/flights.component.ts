@@ -18,13 +18,15 @@ import {ResponseErrorModel} from '../shared/models/responseError.model';
 import {FlightsModel} from '../shared/models/entity/flight/flights.model';
 import {AirportModel} from '../shared/models/entity/flight/airport.model';
 import {AirportsService} from "../services/airports.service";
+import {AirplanesModel} from "../shared/models/entity/airplane/airplanes.model";
+import {AirplanesService} from "../services/airplanes.service";
 
 
 @Component({
   selector: 'app-flights',
   templateUrl: './flights.component.html',
   styleUrls: ['./flights.component.scss'],
-  providers: [FlightsService, DatePipe, AirportsService]
+  providers: [FlightsService, DatePipe, AirportsService, AirplanesService]
 })
 export class FlightsComponent implements OnInit {
   form: FormGroup;
@@ -54,6 +56,7 @@ export class FlightsComponent implements OnInit {
   private height: number;
   private overflow: string;
   private airports: AirportModel[] = [];
+  private airplanes: AirplanesModel[] = [];
 
   settings: ColumnSetting[] =
     [
@@ -166,9 +169,10 @@ export class FlightsComponent implements OnInit {
       key: 'airplaneId',
       label: 'Airplane',
       required: true,
-      type: 'select',
+      type: 'airplane-selector',
       order: 6,
-      edit: true
+      edit: true,
+      value: this.airplanes
     }),
     new InputBaseModel({
       key: 'baseCost',
@@ -193,6 +197,7 @@ export class FlightsComponent implements OnInit {
     private router: Router,
     private flightsService: FlightsService,
     private airportsService: AirportsService,
+    private airplanesService: AirplanesService,
     private fcs: FormControlService,
     private toastr: ToastrService,
     private datePipe: DatePipe
@@ -207,6 +212,12 @@ export class FlightsComponent implements OnInit {
       .subscribe((data: AirportModel[]) => {
         data.forEach(item => {
           this.airports.push(item);
+        });
+      });
+    this.airplanesService.getAll()
+      .subscribe((data: AirplanesModel[]) => {
+        data.forEach(item => {
+          this.airplanes.push(item);
         });
       });
   }

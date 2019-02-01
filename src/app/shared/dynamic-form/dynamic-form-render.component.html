@@ -94,7 +94,8 @@
                 question.type !== 'cc-exp-date' &&
                 question.type !== 'cc-cvc' &&
                 question.type !== 'airline-selector' &&
-                question.type !== 'airport-selector'">
+                question.type !== 'airport-selector' &&
+                question.type !== 'airplane-selector'">
       <label [attr.for]="question.key">{{question.label}}</label>
       <input [formControlName]="question.key" [id]="question.key" placeholder="{{question.label}}"
              [type]="question.type" class="form-control" mdbInputDirective mdbValidate>
@@ -164,7 +165,15 @@
       </mat-select>
     </mat-form-field>
   </div>
-
+    <div *ngIf="question.type === 'airplane-selector'">
+      <mat-form-field>
+        <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
+          <mat-option *ngFor="let airplane of question.value" [value]="airplane">
+            {{airplane.model}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
     <mdb-error
       *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
