@@ -49,6 +49,8 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
               if (error.error.message === 'Unauthorized') {
                 window.localStorage.removeItem('currentUser');
                 this.router.navigateByUrl('login');
+              } else if (error.error.message === null || error.error.message === '') {
+                this.showErrorToastr(error);
               }
               errMsg = `Error: ${error.message}`;
               this.showWarningToastr(error);

@@ -134,7 +134,10 @@ const routes: Routes = [
   {
     path: 'flight-booking',
     component: FlightBookingComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService],
+    data: {
+      roles: ['ROLE_ADMIN']
+    }
   },
   {
     path: 'seat-types',
