@@ -17,6 +17,9 @@ import {ModalDirective} from 'angular-bootstrap-md';
 import {ResponseErrorModel} from '../shared/models/responseError.model';
 import {FlightsModel} from '../shared/models/entity/flight/flights.model';
 import {AirportModel} from '../shared/models/entity/flight/airport.model';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {AuthResponseModel} from '../shared/models/authResponse.model';
+import {AuthorityModel} from '../shared/models/entity/users/authority.model';
 
 
 @Component({
@@ -27,6 +30,9 @@ import {AirportModel} from '../shared/models/entity/flight/airport.model';
 })
 export class FlightsComponent implements OnInit {
   form: FormGroup;
+  authModel: AuthResponseModel;
+  role = AuthorityModel;
+  currentRole = '';
   @ViewChild('formAdd') formAdd: ElementRef;
   @ViewChild('removeConfirmModal') removeConfirmModal: ModalDirective;
   // @ViewChild();
@@ -37,7 +43,7 @@ export class FlightsComponent implements OnInit {
   // newPassport: PassportModel;
   currentItem: FlightsModel;
   editMode: Boolean = false;
-  expanded = true;
+  expanded = false;
   submitType = 'Save';
   searchString = '';
   filteringMode = false;
@@ -111,16 +117,16 @@ export class FlightsComponent implements OnInit {
       edit: true
     }),
     new InputBaseModel({
-      key: 'departureAirportId',
+      key: 'name',
       label: 'Departure airport',
       required: true,
       type: 'select',
       order: 2,
       edit: true,
-      value: this.flightsService.getAirports()
+      value: this.getAllAirports()
     }),
     new InputBaseModel({
-      key: 'actualDepartureDatetime',
+      key: 'actualDepartureDate',
       label: 'Departure date',
       required: true,
       type: 'date',
@@ -128,11 +134,11 @@ export class FlightsComponent implements OnInit {
       edit: true
     }),
     new InputBaseModel({
-      key: 'actualDepartureDatetime',
+      key: 'actualDepartureTime',
       label: 'Departure time',
       required: true,
       type: 'time',
-      order: 3,
+      order: 4,
       edit: true
     }),
     new InputBaseModel({
@@ -140,24 +146,24 @@ export class FlightsComponent implements OnInit {
       label: 'Arrival airport',
       required: true,
       type: 'select',
-      order: 4,
+      order: 5,
       edit: true,
-      value: this.flightsService.getAirports()
+      // value: this.flightsService.getAirports()
     }),
     new InputBaseModel({
-      key: 'actualArrivalDatetime',
+      key: 'actualArrivalDate',
       label: 'Arrival date',
       required: true,
       type: 'date',
-      order: 5,
+      order: 6,
       edit: true
     }),
     new InputBaseModel({
-      key: 'actualArrivalDatetime',
+      key: 'actualArrivalTime',
       label: 'Arrival time',
       required: true,
       type: 'time',
-      order: 5,
+      order: 7,
       edit: true
     }),
     new InputBaseModel({
@@ -165,7 +171,7 @@ export class FlightsComponent implements OnInit {
       label: 'Airplane',
       required: true,
       type: 'select',
-      order: 6,
+      order: 8,
       edit: true
     }),
     new InputBaseModel({
@@ -173,7 +179,7 @@ export class FlightsComponent implements OnInit {
       label: 'Cost',
       required: true,
       type: 'number',
-      order: 7,
+      order: 9,
       edit: true
     }),
     new InputBaseModel({
@@ -181,7 +187,7 @@ export class FlightsComponent implements OnInit {
       label: 'Status',
       required: true,
       type: 'select',
-      order: 8,
+      order: 10,
       edit: true,
       value: FlightStatusModel
     })
@@ -197,6 +203,12 @@ export class FlightsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authModel = JSON.parse(window.localStorage.getItem('currentUser'));
+    var token = this.authModel.token;
+    const helper = new JwtHelperService();
+    const decodedToken = helper.decodeToken(token);
+    this.currentRole = decodedToken.user_role;
+    
     this.form = this.fcs.toFormGroup(this.questions);
     this.editForm = this.fcs.toFormGroup(this.questions);
     this.getFlights();
@@ -215,8 +227,7 @@ export class FlightsComponent implements OnInit {
   }
 
   private getCountOfItems() {
-    setTimeout(() =>
-    {
+    setTimeout(() => {
       this.flightsService.getCountOfItems()
         .subscribe((data: number) => {
           this.countOfPages = Math.ceil(data / 10);
@@ -240,7 +251,7 @@ export class FlightsComponent implements OnInit {
     //     console.log(data);
     //   });
 
-    this.flightsService.getTenItems(1).subscribe((value: FlightDTOModel[]) => {
+    this.flightsService.getTenItems(numberOfPage).subscribe((value: FlightDTOModel[]) => {
       this.flights = value;
       console.log(value);
     });
@@ -254,6 +265,24 @@ export class FlightsComponent implements OnInit {
       .subscribe((data: ResponseFilteringWrapperModel) => {
         this.flights = data.entities;
       });
+  }
+
+  getAllAirports(): AirportModel[]{
+      let it: AirportModel[] = [];
+      this.flightsService.getAirports().subscribe((airport: AirportModel[]) => {
+        airport.forEach(  item => {
+          it.push(item);
+        });
+        // this.questions[1].value = it;
+        // console.log(this.questions[1].label + " " + this.questions[1].value);
+      });
+    console.log(it);
+    return it;
+  }
+
+  closeAdd() {
+    this.expanded = !this.expanded;
+
   }
 
   onSearch() {
@@ -324,10 +353,6 @@ export class FlightsComponent implements OnInit {
       this.form.reset();
       // this.formAdd.hide();
     }
-  }
-
-  closeAdd() {
-    this.expanded = !this.expanded;
   }
 
   onPrevPage() {

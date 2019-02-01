@@ -114,6 +114,8 @@
         <!--<mdb-icon *ngIf="sortedDirections[i] === -1" icon="sort-down"></mdb-icon>-->
         <!--</span>-->
       </th>
+      <th></th>
+      <th *ngIf="currentRole === role.ROLE_ADMIN"></th>
     </tr>
     </thead>
 
@@ -145,6 +147,12 @@
       </td>
       <td>
         {{item.flight.baseCost}}
+      </td>
+      <td>
+        <button (click)="onEdit(i)" class="btn btn-info" type="button">Edit</button>
+      </td>
+      <td *ngIf="currentRole === role.ROLE_ADMIN">
+        <button (click)="onDelete(i)" class="btn btn-danger" type="button">Delete</button>
       </td>
     </tr>
     </tbody>

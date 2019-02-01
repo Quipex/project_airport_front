@@ -30,3 +30,7 @@ mdb-success {
   position: fixed !important;
   z-index: 100000 !important; /* set value you need */
 }
+
+mat-form-field, mat-form-field ::ng-deep .mat-form-field-infix{
+  width: 100% !important;
+}

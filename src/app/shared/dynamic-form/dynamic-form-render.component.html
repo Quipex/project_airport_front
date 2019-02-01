@@ -1,6 +1,6 @@
 <div [formGroup]="form">
 
-  <!--EDITING-->
+  <!--EDITING ITEM-->
 
   <div *ngIf="editMode">
     <div *ngIf="question.type !== 'tel' &&
@@ -77,7 +77,7 @@
     </mdb-success>
   </div>
 
-  <!--CREATING NEW-->
+  <!--CREATING NEW ITEM-->
 
   <div *ngIf="!editMode">
     <div *ngIf="question.type !== 'tel' &&
