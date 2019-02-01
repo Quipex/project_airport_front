@@ -2,13 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {AirlinesService} from '../../services/airlines.service';
 import {AirlinesModel} from '../../shared/models/entity/airline/airlines.model';
 import {Listable} from '../../shared/dynamic-form/search-list/item.model';
+import {ControlValueAccessor} from '@angular/forms';
 
 @Component({
   selector: 'app-airline-selector',
   templateUrl: './airline-selector.component.html',
   styleUrls: ['./airline-selector.component.scss'],
 })
-export class AirlineSelectorComponent implements OnInit {
+export class AirlineSelectorComponent implements OnInit, ControlValueAccessor {
 
   items: AirlinesModel[];
   selectedItem: AirlinesModel;
@@ -37,6 +38,26 @@ export class AirlineSelectorComponent implements OnInit {
   }
 
   changeSelection(item: Listable) {
-    this.selectedItem = item;
+    this.writeValue(item);
+  }
+
+  onChange: any = () => {};
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  onTouched: any = () => {};
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  writeValue(val: Listable): void {
+    const selEl = this.items.find(el => el.getDisplayedId() === val.getDisplayedId());
+    if (selEl) {
+      this.selectedItem = selEl;
+      this.onChange(selEl);
+    }
   }
 }
