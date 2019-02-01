@@ -1,28 +1,13 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AuthenticationService} from './authentication.service';
 import {CountriesModel} from '../shared/models/entity/flight/countries.model';
-import {BaseService} from "./baseService.service";
-import {FilterAndSortWrapperModel} from "../shared/models/filterAndSortWrapper.model";
-import {environment} from "../../environments/environment";
+import {BaseService} from './baseService.service';
+import {FilterAndSortWrapperModel} from '../shared/models/filterAndSortWrapper.model';
+import {environment} from '../../environments/environment';
 
 const API_URL = environment.apiUrl;
 
 @Injectable()
-export class CountriesService implements BaseService {
-
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Authorization': 'Bearer ' + this.authenticationService.getToken(),
-      'Content-Type': 'application/json'
-    })
-  };
-
-  constructor(
-    private http: HttpClient,
-    private authenticationService: AuthenticationService
-  ) {
-  }
+export class CountriesService extends BaseService {
 
   getCountOfItems() {
     return this.http.get(API_URL + `/countries/count`, this.httpOptions);
