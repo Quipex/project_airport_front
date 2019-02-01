@@ -1,6 +1,4 @@
 import {Injectable} from '@angular/core';
-import {AuthenticationService} from './authentication.service';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FlightsModel} from '../shared/models/entity/flight/flights.model';
 import {BaseService} from './baseService.service';
 import {FilterAndSortWrapperModel} from '../shared/models/filterAndSortWrapper.model';
@@ -9,19 +7,7 @@ import {environment} from '../../environments/environment';
 const API_URL = environment.apiUrl;
 
 @Injectable()
-export class FlightsService implements BaseService {
-
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Authorization': 'Bearer ' + this.authenticationService.getToken(),
-      'Content-Type': 'application/json'
-    })
-  };
-
-  constructor(
-    private http: HttpClient,
-    private authenticationService: AuthenticationService
-  ) {}
+export class FlightsService extends BaseService {
 
   getFlightsByUserLogin(userLogin: string, page: number) {
     return this.http.get(API_URL + `/user-flights/userLogin=${userLogin}/page=${page}`, this.httpOptions);

@@ -8,6 +8,7 @@ import {InputBaseModel} from '../models/inputBase.model';
   styleUrls: ['./dynamic-form-render.component.scss'],
 })
 export class DynamicFormRenderComponent implements OnInit {
+
   @Input() question: InputBaseModel<any>;
   @Input() form: FormGroup;
   @Input() editMode: boolean;
@@ -20,14 +21,18 @@ export class DynamicFormRenderComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.question.type === 'select') {
-      for (let x in this.question.value) {
+      for (const x in this.question.value) {
         this.selectKeys.push(x);
       }
     }
+
+    // if (this.question.type === 'airline-selector') {
+    //   for (const )
+    // }
   }
 
   test(event: any) {
-    console.log(event)
+    console.log(event);
   }
 
 }

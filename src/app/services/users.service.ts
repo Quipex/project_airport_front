@@ -1,30 +1,14 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AuthenticationService} from './authentication.service';
 import {BaseService} from './baseService.service';
 import {BaseEntityModel} from '../shared/models/baseEntity.model';
-import {FilterAndSortWrapperModel} from "../shared/models/filterAndSortWrapper.model";
-import {environment} from "../../environments/environment";
-import {ChangePasswordModel} from "../shared/models/changePassword.model";
+import {FilterAndSortWrapperModel} from '../shared/models/filterAndSortWrapper.model';
+import {environment} from '../../environments/environment';
+import {ChangePasswordModel} from '../shared/models/changePassword.model';
 
 const API_URL = environment.apiUrl;
 
 @Injectable()
-export class UsersService implements BaseService {
-
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Authorization': 'Bearer ' + this.authenticationService.getToken(),
-      'Content-Type': 'application/json'
-    })
-  };
-
-
-  constructor(
-    private http: HttpClient,
-    private authenticationService: AuthenticationService
-  ) {
-  }
+export class UsersService extends BaseService {
 
   getCountOfItems() {
     return this.http.get(API_URL + `/users/count`, this.httpOptions);

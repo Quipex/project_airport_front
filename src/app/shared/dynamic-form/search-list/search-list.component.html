@@ -1,22 +1,23 @@
-<mat-card>
-  <mat-form-field class="container-form-field">
-    <input matInput [placeholder]="searchPlaceholder"
-           [(ngModel)]="filterString">
-  </mat-form-field>
+<!--SEARCH BAR-->
+<mat-form-field class="container-form-field" appearance="outline">
+  <mat-label>{{searchPlaceholder}}</mat-label>
+  <input matInput placeholder="name"
+         [(ngModel)]="filterString">
+  <mat-icon matSuffix class="fa fa-search icon"></mat-icon>
+</mat-form-field>
 
-  <span *ngIf="(items | filterItems:filterString).length === 0"
-        class="container-form-field"><i>No items available</i></span>
+<!--NO ITEMS MESSAGE-->
+<span *ngIf="(items | filterItems:filterString).length === 0"
+      class="container-form-field"><i>No items available</i></span>
 
-  <mat-form-field class="container-form-field">
-    <form [formGroup]="selectorForm">
-      <mat-select formControlName="selected" [disabled]="(items | filterItems:filterString).length === 0"
-                  [placeholder]="selectorPlaceholder"
-                  (selectionChange)="emitSelection($event.value)">
-        <mat-option *ngFor="let item of (items | filterItems:filterString)"
-                    [value]="item">{{item.getDisplayedName()}}</mat-option>
-      </mat-select>
-    </form>
-  </mat-form-field>
-  <mat-error *ngIf="selectorForm.controls['selected'].invalid
-  && (selectorForm.controls['selected'].dirty || selectorForm.controls['selected'].touched)">You must make a selection</mat-error>
-</mat-card>
+<!--SELECTOR-->
+<mat-form-field class="container-form-field">
+  <mat-select [disabled]="(items | filterItems:filterString).length === 0"
+              [placeholder]="selectorPlaceholder"
+              (valueChange)="logChange($event)"
+              (selectionChange)="emitSelection($event.value)">
+    <mat-option *ngFor="let item of (items | filterItems:filterString)"
+                [value]="item">{{item.getDisplayedName()}}</mat-option>
+  </mat-select>
+</mat-form-field>
+

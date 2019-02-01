@@ -77,12 +77,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AirplaneInfoComponent} from './airplanes/airplane-info/airplane-info.component';
 import {SeatTypeComponent} from './seat-type/seat-type.component';
 import {PaymentMethodsComponent} from './payment-methods/payment-methods.component';
-import {CreditCardDirectivesModule} from "ng2-cc-library";
-import {PaymentService} from "./services/payment.service";
+import {CreditCardDirectivesModule} from 'ng2-cc-library';
+import {PaymentService} from './services/payment.service';
 import {PaymentFormComponent} from './payment-form/payment-form.component';
 import {SearchListComponent} from './shared/dynamic-form/search-list/search-list.component';
 import {FilterItemsPipe} from './shared/dynamic-form/search-list/filter-items.pipe';
 import {AirlineSelectorComponent} from './airplanes/airline-selector/airline-selector.component';
+import {SeatTypeService} from './services/seatType.service';
 
 
 @NgModule({
@@ -174,7 +175,8 @@ import {AirlineSelectorComponent} from './airplanes/airline-selector/airline-sel
     TicketsService,
     RoleGuardService,
     AuthGuardService,
-    PaymentService
+    PaymentService,
+    SeatTypeService
   ],
   bootstrap: [AppComponent],
   entryComponents: [SeatEditorModalComponent]
