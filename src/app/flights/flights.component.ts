@@ -16,17 +16,20 @@ import {SortEntityModel} from '../shared/models/sortEntity.model';
 import {ModalDirective} from 'angular-bootstrap-md';
 import {ResponseErrorModel} from '../shared/models/responseError.model';
 import {FlightsModel} from '../shared/models/entity/flight/flights.model';
-import {AirportModel} from '../shared/models/entity/flight/airport.model';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {AuthResponseModel} from '../shared/models/authResponse.model';
 import {AuthorityModel} from '../shared/models/entity/users/authority.model';
+import {AirportsService} from "../services/airports.service";
+import {AirplanesModel} from "../shared/models/entity/airplane/airplanes.model";
+import {AirplanesService} from "../services/airplanes.service";
+import {AirportModel} from "../shared/models/entity/flight/airport.model";
 
 
 @Component({
   selector: 'app-flights',
   templateUrl: './flights.component.html',
   styleUrls: ['./flights.component.scss'],
-  providers: [FlightsService, DatePipe]
+  providers: [FlightsService, DatePipe, AirportsService, AirplanesService]
 })
 export class FlightsComponent implements OnInit {
   form: FormGroup;
@@ -58,6 +61,8 @@ export class FlightsComponent implements OnInit {
 
   private height: number;
   private overflow: string;
+  private airports: AirportModel[] = [];
+  private airplanes: AirplanesModel[] = [];
 
   settings: ColumnSetting[] =
     [
@@ -120,10 +125,10 @@ export class FlightsComponent implements OnInit {
       key: 'name',
       label: 'Departure airport',
       required: true,
-      type: 'select',
+      type: 'airport-selector',
       order: 2,
       edit: true,
-      value: this.getAllAirports()
+      value: this.airports
     }),
     new InputBaseModel({
       key: 'actualDepartureDate',
@@ -145,10 +150,10 @@ export class FlightsComponent implements OnInit {
       key: 'arrivalAirportId',
       label: 'Arrival airport',
       required: true,
-      type: 'select',
+      type: 'airport-selector',
       order: 5,
       edit: true,
-      // value: this.flightsService.getAirports()
+      value: this.airports
     }),
     new InputBaseModel({
       key: 'actualArrivalDate',
@@ -170,9 +175,10 @@ export class FlightsComponent implements OnInit {
       key: 'airplaneId',
       label: 'Airplane',
       required: true,
-      type: 'select',
+      type: 'airplane-selector',
       order: 8,
-      edit: true
+      edit: true,
+      value: this.airplanes
     }),
     new InputBaseModel({
       key: 'baseCost',
@@ -196,6 +202,8 @@ export class FlightsComponent implements OnInit {
   constructor(
     private router: Router,
     private flightsService: FlightsService,
+    private airportsService: AirportsService,
+    private airplanesService: AirplanesService,
     private fcs: FormControlService,
     private toastr: ToastrService,
     private datePipe: DatePipe
@@ -208,10 +216,22 @@ export class FlightsComponent implements OnInit {
     const helper = new JwtHelperService();
     const decodedToken = helper.decodeToken(token);
     this.currentRole = decodedToken.user_role;
-    
+
     this.form = this.fcs.toFormGroup(this.questions);
     this.editForm = this.fcs.toFormGroup(this.questions);
     this.getFlights();
+    this.airportsService.getAll()
+      .subscribe((data: AirportModel[]) => {
+        data.forEach(item => {
+          this.airports.push(item);
+        });
+      });
+    this.airplanesService.getAll()
+      .subscribe((data: AirplanesModel[]) => {
+        data.forEach(item => {
+          this.airplanes.push(item);
+        });
+      });
   }
 
   getFlights() {
@@ -267,18 +287,18 @@ export class FlightsComponent implements OnInit {
       });
   }
 
-  getAllAirports(): AirportModel[]{
-      let it: AirportModel[] = [];
-      this.flightsService.getAirports().subscribe((airport: AirportModel[]) => {
-        airport.forEach(  item => {
-          it.push(item);
-        });
-        // this.questions[1].value = it;
-        // console.log(this.questions[1].label + " " + this.questions[1].value);
-      });
-    console.log(it);
-    return it;
-  }
+  // getAllAirports(): AirportModel[]{
+  //     let it: AirportModel[] = [];
+  //     this.flightsService.getAirports().subscribe((airport: AirportModel[]) => {
+  //       airport.forEach(  item => {
+  //         it.push(item);
+  //       });
+  //       // this.questions[1].value = it;
+  //       // console.log(this.questions[1].label + " " + this.questions[1].value);
+  //     });
+  //   console.log(it);
+  //   return it;
+  // }
 
   closeAdd() {
     this.expanded = !this.expanded;

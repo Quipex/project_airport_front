@@ -37,4 +37,8 @@ export class AirplanesService extends BaseService {
     return this.http.get(API_URL + `/airplanes/objectId=${id}`, this.httpOptions);
   }
 
+  getAll() {
+    return this.http.get(API_URL + `/airplanes`, this.httpOptions);
+  }
+
 }

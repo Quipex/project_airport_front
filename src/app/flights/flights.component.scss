@@ -49,4 +49,8 @@ mat-expansion-panel {
   display: inline-block;
 }
 
+::ng-deep .mat-form-field {
+  width: 100% !important;
+}
+
 
