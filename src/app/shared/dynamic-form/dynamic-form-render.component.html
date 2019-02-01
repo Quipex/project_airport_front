@@ -156,7 +156,6 @@
   </div>
 
   <div *ngIf="question.type === 'airport-selector'">
-    <span *ngIf="question.value === undefined">undefined</span>
     <mat-form-field>
       <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
         <mat-option *ngFor="let airport of question.value" [value]="airport">
