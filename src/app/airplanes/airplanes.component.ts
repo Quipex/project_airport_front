@@ -4,6 +4,8 @@ import {FormGroup} from '@angular/forms';
 import {ColumnSetting} from '../shared/models/columnSetting.model';
 import {InputBaseModel} from '../shared/models/inputBase.model';
 import {AirplanesService} from '../services/airplanes.service';
+import {AirlinesModel} from '../shared/models/entity/airline/airlines.model';
+import {AirlinesService} from '../services/airlines.service';
 
 @Component({
   selector: 'app-airplanes',
@@ -12,6 +14,8 @@ import {AirplanesService} from '../services/airplanes.service';
   providers: [{provide: BaseService, useClass: AirplanesService}]
 })
 export class AirplanesComponent implements OnInit {
+
+  airlines: AirlinesModel[] = [];
 
   form: FormGroup;
 
@@ -33,32 +37,36 @@ export class AirplanesComponent implements OnInit {
       }
     ];
 
-  questions: InputBaseModel<any>[] = [
-
-    new InputBaseModel({
-      key: 'model',
-      label: 'Model',
-      required: true,
-      type: 'text',
-      order: 1,
-      edit: true
-    }),
-
-    new InputBaseModel({
-      key: 'airline',
-      label: 'Airline',
-      required: true,
-      type: 'airline-selector',
-      order: 2,
-      edit: true
-    })
-  ];
+  questions;
 
   constructor(
+    private airlineService: AirlinesService
   ) {
   }
 
   ngOnInit(): void {
+    this.airlineService.getAll().subscribe((next: AirlinesModel[]) => {
+      this.questions = [
+        new InputBaseModel({
+          key: 'model',
+          label: 'Model',
+          required: true,
+          type: 'text',
+          order: 1,
+          edit: true
+        }),
+
+        new InputBaseModel({
+          value: next,
+          key: 'airline',
+          label: 'Airline',
+          required: true,
+          type: 'airline-selector',
+          order: 2,
+          edit: true
+        })
+      ];
+    });
   }
 
 }
