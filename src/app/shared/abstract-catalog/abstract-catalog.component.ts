@@ -89,6 +89,7 @@ export class AbstractCatalogComponent implements OnInit {
     }
     this.selectedRow = index;
     this.currentItem = this.entities[index];
+    console.log(this.form);
     this.form.patchValue(this.currentItem);
     this.submitType = 'Update';
     this.editMode = true;

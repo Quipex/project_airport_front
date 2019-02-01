@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {AuthenticationService} from "./authentication.service";
-import {PassengerPassportModel} from "../shared/models/entity/users/passengers/passengerPasport.model";
-import {FilterAndSortWrapperModel} from "../shared/models/filterAndSortWrapper.model";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {AuthenticationService} from './authentication.service';
+import {PassengerPassportModel} from '../shared/models/entity/users/passengers/passengerPasport.model';
+import {FilterAndSortWrapperModel} from '../shared/models/filterAndSortWrapper.model';
 
 @Injectable()
 export class PassengersService {
@@ -17,7 +17,8 @@ export class PassengersService {
   constructor(
     private http: HttpClient,
     private authenticationService: AuthenticationService
-  ) {}
+  ) {
+  }
 
   getPassengersByUserLogin(userLogin: string, page: number) {
     return this.http.get(`http://localhost:8080/passengers/userLogin=${userLogin}/page=${page}`, this.httpOptions);

@@ -1,6 +1,4 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AuthenticationService} from './authentication.service';
 import {ExtraTypeModel} from '../shared/models/entity/airplane/extra-type.model';
 import {BaseService} from './baseService.service';
 import {FilterAndSortWrapperModel} from '../shared/models/filterAndSortWrapper.model';
@@ -9,20 +7,7 @@ import {environment} from '../../environments/environment';
 const API_URL = environment.apiUrl;
 
 @Injectable()
-export class ExtraTypeService implements BaseService {
-
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Authorization': 'Bearer ' + this.authenticationService.getToken(),
-      'Content-Type': 'application/json'
-    })
-  };
-
-  constructor(
-    private http: HttpClient,
-    private authenticationService: AuthenticationService
-  ) {
-  }
+export class ExtraTypeService extends BaseService {
 
   addItem(item: ExtraTypeModel) {
     return this.http.post(API_URL + `/extra-type`, item, this.httpOptions);

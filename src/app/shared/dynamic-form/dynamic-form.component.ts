@@ -30,6 +30,7 @@ export class DynamicFormComponent implements OnChanges {
 
   ngOnChanges() {
     this.form = this.fcs.toFormGroup(this.questions);
+    console.log(this.form);
     if (this.editMode) {
       this.form = this.editedForm;
     }

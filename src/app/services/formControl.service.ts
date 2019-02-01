@@ -11,27 +11,40 @@ export class FormControlService {
   toFormGroup(items: InputBaseModel<any>[]) {
     const group: any = {};
 
+    let validators: {};
     items.forEach(item => {
-      if (item.type === 'email') {
-        group[item.key] = item.required ? new FormControl(item.value || '', [Validators.required, this.validateEmailAddress])
-          : new FormControl(item.value || '');
-      } else if (item.type === 'tel') {
-        group[item.key] = item.required ? new FormControl(item.value || '', [Validators.required, this.validatePhoneNumber])
-          : new FormControl(item.value || '');
-      } else if (item.type === 'cc-number') {
-        group[item.key] = item.required ? new FormControl(item.value || '', [Validators.required, this.validateCreditCard])
-          : new FormControl(item.value || '');
-      } else if (item.type === 'cc-exp-date') {
-        group[item.key] = item.required ? new FormControl(item.value || '', [Validators.required, <any>CreditCardValidator.validateExpDate])
-          : new FormControl(item.value || '');
-      } else if (item.type === 'cc-cvc') {
-        group[item.key] = item.required ? new FormControl(item.value || '', [Validators.required, this.cvvValueValidator(100, 999)])
-          : new FormControl(item.value || '');
-      } else {
-        group[item.key] = item.required ? new FormControl(item.value || '', Validators.required)
-          : new FormControl(item.value || '');
+      switch (item.type) {
+        case 'email': {
+          validators = [Validators.required, this.validateEmailAddress];
+          break;
+        }
+        case 'tel': {
+          validators = [Validators.required, this.validatePhoneNumber];
+          break;
+        }
+        case 'cc-number': {
+          validators = [Validators.required, this.validateCreditCard];
+          break;
+        }
+        case 'cc-exp-date': {
+          validators = [Validators.required, <any>CreditCardValidator.validateExpDate];
+          break;
+        }
+        case 'cc-cvc': {
+          validators = [Validators.required, this.cvvValueValidator(100, 999)];
+          break;
+        }
+        case 'airlines-selector': {
+          validators = [Validators.required];
+          break;
+        }
+        default: {
+          validators = [Validators.required];
+          break;
+        }
       }
-
+      group[item.key] = item.required ? new FormControl(item.value || '', validators)
+        : new FormControl(item.value || '');
     });
     return new FormGroup(group);
   }

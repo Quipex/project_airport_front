@@ -2,9 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UsersModel} from '../shared/models/entity/users/users.model';
 import {Subject} from 'rxjs';
-import {environment} from "../../environments/environment";
-import {Router} from "@angular/router";
-import {JwtHelperService} from "@auth0/angular-jwt";
+import {environment} from '../../environments/environment';
 
 const API_URL = environment.apiUrl;
 
@@ -48,9 +46,9 @@ export class AuthenticationService {
   }
 
   getToken(): String {
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    var token = currentUser && currentUser.token;
-    return token ? token : "";
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const token = currentUser && currentUser.token;
+    return token ? token : '';
   }
 
   logout() {

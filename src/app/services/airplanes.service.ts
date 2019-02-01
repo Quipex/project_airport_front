@@ -1,29 +1,13 @@
 import {Injectable} from '@angular/core';
 import {BaseService} from './baseService.service';
 import {BaseEntityModel} from '../shared/models/baseEntity.model';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AuthenticationService} from './authentication.service';
 import {FilterAndSortWrapperModel} from '../shared/models/filterAndSortWrapper.model';
 import {environment} from '../../environments/environment';
 
 const API_URL = environment.apiUrl;
 
 @Injectable()
-export class AirplanesService implements BaseService {
-
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Authorization': 'Bearer ' + this.authenticationService.getToken(),
-      'Content-Type': 'application/json'
-    })
-  };
-
-  constructor(
-    private http: HttpClient,
-    private authenticationService: AuthenticationService
-  ) {
-  }
-
+export class AirplanesService extends BaseService {
 
   addItem(baseEntity: BaseEntityModel) {
     return this.http.post(API_URL + `/airplanes`, baseEntity, this.httpOptions);
