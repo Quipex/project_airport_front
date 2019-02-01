@@ -17,13 +17,14 @@ import {ModalDirective} from 'angular-bootstrap-md';
 import {ResponseErrorModel} from '../shared/models/responseError.model';
 import {FlightsModel} from '../shared/models/entity/flight/flights.model';
 import {AirportModel} from '../shared/models/entity/flight/airport.model';
+import {AirportsService} from "../services/airports.service";
 
 
 @Component({
   selector: 'app-flights',
   templateUrl: './flights.component.html',
   styleUrls: ['./flights.component.scss'],
-  providers: [FlightsService, DatePipe]
+  providers: [FlightsService, DatePipe, AirportsService]
 })
 export class FlightsComponent implements OnInit {
   form: FormGroup;
@@ -52,6 +53,7 @@ export class FlightsComponent implements OnInit {
 
   private height: number;
   private overflow: string;
+  private airports: AirportModel[] = [];
 
   settings: ColumnSetting[] =
     [
@@ -114,10 +116,10 @@ export class FlightsComponent implements OnInit {
       key: 'departureAirportId',
       label: 'Departure airport',
       required: true,
-      type: 'select',
+      type: 'airport-selector',
       order: 2,
       edit: true,
-      value: this.flightsService.getAirports()
+      value: this.airports
     }),
     new InputBaseModel({
       key: 'actualDepartureDatetime',
@@ -139,10 +141,10 @@ export class FlightsComponent implements OnInit {
       key: 'arrivalAirportId',
       label: 'Arrival airport',
       required: true,
-      type: 'select',
+      type: 'airport-selector',
       order: 4,
       edit: true,
-      value: this.flightsService.getAirports()
+      value: this.airports
     }),
     new InputBaseModel({
       key: 'actualArrivalDatetime',
@@ -190,6 +192,7 @@ export class FlightsComponent implements OnInit {
   constructor(
     private router: Router,
     private flightsService: FlightsService,
+    private airportsService: AirportsService,
     private fcs: FormControlService,
     private toastr: ToastrService,
     private datePipe: DatePipe
@@ -200,6 +203,12 @@ export class FlightsComponent implements OnInit {
     this.form = this.fcs.toFormGroup(this.questions);
     this.editForm = this.fcs.toFormGroup(this.questions);
     this.getFlights();
+    this.airportsService.getAll()
+      .subscribe((data: AirportModel[]) => {
+        data.forEach(item => {
+          this.airports.push(item);
+        });
+      });
   }
 
   getFlights() {
