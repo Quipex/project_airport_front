@@ -12,16 +12,12 @@
 
 <!--SELECTOR-->
 <mat-form-field class="container-form-field">
-  <form [formGroup]="selectorForm">
-    <mat-select formControlName="selected" [disabled]="(items | filterItems:filterString).length === 0"
-                [placeholder]="selectorPlaceholder"
-                (valueChange)="logChange($event)"
-                (selectionChange)="emitSelection($event.value)">
-      <mat-option *ngFor="let item of (items | filterItems:filterString)"
-                  [value]="item">{{item.getDisplayedName()}}</mat-option>
-    </mat-select>
-  </form>
+  <mat-select [disabled]="(items | filterItems:filterString).length === 0"
+              [placeholder]="selectorPlaceholder"
+              (valueChange)="logChange($event)"
+              (selectionChange)="emitSelection($event.value)">
+    <mat-option *ngFor="let item of (items | filterItems:filterString)"
+                [value]="item">{{item.getDisplayedName()}}</mat-option>
+  </mat-select>
 </mat-form-field>
-<mat-error *ngIf="selectorForm.controls['selected'].invalid
-  && (selectorForm.controls['selected'].dirty || selectorForm.controls['selected'].touched)">You must make a selection
-</mat-error>
+
