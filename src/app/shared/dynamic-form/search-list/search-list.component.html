@@ -8,7 +8,9 @@
 
 <!--NO ITEMS MESSAGE-->
 <span *ngIf="(items | filterItems:filterString).length === 0"
-      class="container-form-field"><i>No items available</i></span>
+      class="container-form-field">
+  <i>No items available</i>
+</span>
 
 <!--SELECTOR-->
 <mat-form-field class="container-form-field">

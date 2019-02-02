@@ -18,8 +18,15 @@
   <div class="container">
     <mat-expansion-panel expanded="{{expanded}}">
       <div class="form-wrapper">
-        <div *ngFor="let question of questions" class="md-form input-container">
-          <app-form-input [editMode]="editMode" [form]="form" [question]="question"></app-form-input>
+        <div *ngIf="editMode">
+          <div *ngFor="let question of editQuestions" class="md-form input-container">
+            <app-form-input [editMode]="editMode" [form]="editForm" [question]="question"></app-form-input>
+          </div>
+        </div>
+        <div *ngIf="!editMode">
+          <div *ngFor="let question of questions" class="md-form input-container">
+            <app-form-input [editMode]="editMode" [form]="form" [question]="question"></app-form-input>
+          </div>
         </div>
       </div>
 
@@ -27,7 +34,9 @@
         <button (click)="onCancel();" aria-label="Cancel" class="waves-light" color="secondary" mdbBtn mdbWavesEffect
                 type="button">Cancel
         </button>
-        <button (click)="onSubmit();" [disabled]="!form.valid" class="relative waves-light" color="primary" mdbBtn mdbWavesEffect
+        <button (click)="onSubmit();" [disabled]="!form.valid" *ngIf="!editMode" class="relative waves-light" color="primary" mdbBtn mdbWavesEffect
+                type="submit">{{submitType}}</button>
+        <button (click)="onSubmit();" [disabled]="!editForm.valid" *ngIf="editMode" class="relative waves-light" color="primary" mdbBtn mdbWavesEffect
                 type="submit">{{submitType}}</button>
       </div>
 
@@ -114,6 +123,8 @@
         <!--<mdb-icon *ngIf="sortedDirections[i] === -1" icon="sort-down"></mdb-icon>-->
         <!--</span>-->
       </th>
+      <th></th>
+      <th *ngIf="currentRole === role.ROLE_ADMIN"></th>
     </tr>
     </thead>
 
@@ -126,13 +137,17 @@
         {{item.departureAirport.name}}
       </td>
       <td>
-        {{item.flight.actualDepartureDatetime | date}}
+        <div class>
+          <div>
+            {{item.flight.actualDepartureDatetime | date:'medium'}}
+          </div>
+        </div>
       </td>
       <td>
         {{item.arrivalAirport.name}}
       </td>
       <td>
-        {{item.flight.actualArrivalDatetime | date}}
+        {{item.flight.actualArrivalDatetime | date:'medium'}}
       </td>
       <td>
         {{item.airline.name}}
@@ -145,6 +160,12 @@
       </td>
       <td>
         {{item.flight.baseCost}}
+      </td>
+      <td>
+        <button (click)="onEdit(i)" class="btn btn-info" type="button">Edit</button>
+      </td>
+      <td *ngIf="currentRole === role.ROLE_ADMIN">
+        <button (click)="onDelete(i)" class="btn btn-danger" type="button">Delete</button>
       </td>
     </tr>
     </tbody>

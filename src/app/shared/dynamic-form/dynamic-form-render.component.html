@@ -1,6 +1,6 @@
 <div [formGroup]="form">
 
-  <!--EDITING-->
+  <!--EDITING ITEM-->
 
   <div *ngIf="editMode">
     <div *ngIf="question.type !== 'tel' &&
@@ -9,7 +9,9 @@
                 question.type !== 'cc-number' &&
                 question.type !== 'cc-exp-date' &&
                 question.type !== 'cc-cvc' &&
-                question.type !== 'airline-selector'">
+                question.type !== 'airline-selector' &&
+                question.type !== 'airport-selector' &&
+                question.type !== 'status-selector'">
 
       <label *ngIf="question.edit" [attr.for]="question.key">{{question.label}}</label>
       <input *ngIf="question.edit" [formControlName]="question.key" [id]="question.key"
@@ -69,6 +71,24 @@
         </mat-select>
       </mat-form-field>
     </div>
+    <div *ngIf="question.type === 'airport-selector'">
+      <mat-form-field>
+        <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
+          <mat-option *ngFor="let airport of question.value" [value]="airport.objectId">
+            {{airport.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="question.type === 'status-selector'">
+      <mat-form-field>
+        <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
+          <mat-option *ngFor="let status of question.value" [value]="status">
+            {{status}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
     <mdb-error
       *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
@@ -84,7 +104,7 @@
     </mdb-success>
   </div>
 
-  <!--CREATING NEW-->
+  <!--CREATING NEW ITEM-->
 
   <div *ngIf="!editMode">
     <div *ngIf="question.type !== 'tel' &&
@@ -93,7 +113,9 @@
                 question.type !== 'cc-number' &&
                 question.type !== 'cc-exp-date' &&
                 question.type !== 'cc-cvc' &&
-                question.type !== 'airline-selector'">
+                question.type !== 'airline-selector' &&
+                question.type !== 'airport-selector' &&
+                question.type !== 'airplane-selector'">
       <label [attr.for]="question.key">{{question.label}}</label>
       <input [formControlName]="question.key" [id]="question.key" placeholder="{{question.label}}"
              [type]="question.type" class="form-control" mdbInputDirective mdbValidate>
@@ -144,16 +166,34 @@
     </div>
 
     <div *ngIf="question.type === 'airline-selector'">
-      <!--<app-airline-selector [formControlName]="question.key"></app-airline-selector>-->
+    <!--<app-airline-selector [formControlName]="question.key"></app-airline-selector>-->
+    <mat-form-field>
+      <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
+        <mat-option *ngFor="let airline of question.value" [value]="airline">
+          {{airline.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="question.type === 'airport-selector'">
+    <mat-form-field>
+      <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
+        <mat-option *ngFor="let airport of question.value" [value]="airport">
+          {{airport.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+    <div *ngIf="question.type === 'airplane-selector'">
       <mat-form-field>
         <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
-          <mat-option *ngFor="let airline of question.value" [value]="airline">
-            {{airline.name}}
+          <mat-option *ngFor="let airplane of question.value" [value]="airplane">
+            {{airplane.model}}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-
 
     <mdb-error
       *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
