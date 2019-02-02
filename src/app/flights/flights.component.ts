@@ -419,10 +419,16 @@ export class FlightsComponent implements OnInit {
     // }
   }
 
-  onCancel(event: boolean) {
-    if (event) {
+  showRemoveConfirmModal(i: number) {
+    this.deleteId = i;
+    this.removeConfirmModal.show();
+  }
+
+  onClear() {
+    if (this.submitType === 'Save') {
       this.form.reset();
-      // this.formAdd.hide();
+    } else if (this.submitType === 'Update') {
+      this.editForm.reset();
     }
   }
 
@@ -464,9 +470,27 @@ export class FlightsComponent implements OnInit {
       this.currentItem.flight.actualArrivalDatetime = actualArrivalDatetime;
       this.currentItem.flight.arrivalAirportId = this.editForm.value['arrivalAirport'].objectId;
       this.currentItem.flight.status = this.editForm.value['status'];
-      console.log(this.currentItem.flight)
-      this.onSave(this.currentItem.flight)
+      console.log(this.currentItem.flight);
+      this.onSave(this.currentItem.flight);
     }
+  }
+
+  onDelete(index: number) {
+    this.currentItem = this.flights[index].flight;
+    this.flights.splice(index, 1);
+
+    this.flightsService.deleteItem(this.currentItem.objectId)
+      .subscribe(() => {
+        const message = 'The item has been deleted.';
+        this.showInfo(message);
+      }, err => {
+        this.responseError = err;
+        this.showError(this.responseError.error.message);
+      });
+    if (this.flights.length === 0 && this.numberOfPage > 1) {
+      this.numberOfPage -= 1;
+    }
+    this.getCountOfItems();
   }
 
   closeAdd() {
