@@ -265,15 +265,9 @@ export class FlightsComponent implements OnInit {
     this.numberOfPage = numberOfPage;
     console.log('Current page:' + this.numberOfPage);
 
-    // this.flightsService.getTenItems(numberOfPage)
-    //   .subscribe((data: BaseEntityModel[]) => {
-    //     this.entities = data;
-    //     console.log(data);
-    //   });
-
     this.flightsService.getTenItems(numberOfPage).subscribe((value: FlightDTOModel[]) => {
       this.flights = value;
-      console.log(value);
+      // console.log(value);
     });
   }
 
