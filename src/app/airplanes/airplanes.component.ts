@@ -37,7 +37,7 @@ export class AirplanesComponent implements OnInit {
       }
     ];
 
-  questions;
+  questions = [];
 
   constructor(
     private airlineService: AirlinesService

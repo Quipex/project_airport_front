@@ -12,18 +12,18 @@ import {ViewMode} from './plane-seats-grid-modes.model';
 })
 export class PlaneSeatsGridComponent implements OnInit {
 
+  constructor(
+    private colorService: SeatColorService
+  ) {
+  }
+
   @Input() public selectedSeats: Set<SeatModel>;
   @Output() public selectedSeatsChange = new EventEmitter<Set<SeatModel>>();
   @Input() public sections: SectionModel[];
   @Output() public sectionsChange = new EventEmitter<SectionModel[]>();
   @Input() public seats: Set<SeatModel>;
   @Input() viewMode = ViewMode.SELECT;
-  private setOfSeatTypes = new Set<SeatTypeModel>();
-
-  constructor(
-    private colorService: SeatColorService
-  ) {
-  }
+  private setOfSeatTypes: Set<SeatTypeModel>;
 
   private static maxNumber(nums: number[]): number {
     let maxNum = -1;
@@ -35,8 +35,45 @@ export class PlaneSeatsGridComponent implements OnInit {
     return maxNum;
   }
 
+  private static setToTuple(set: Set<any>): any[] {
+    const result = [];
+
+    const setIter = set.values();
+    let setIterResult = setIter.next();
+    while (!setIterResult.done) {
+      const item = setIterResult.value;
+      result.push(item);
+      setIterResult = setIter.next();
+    }
+
+    return result;
+  }
+
+  private static getSetOfSeatTypes(seats: Set<SeatModel>): Set<SeatTypeModel> {
+    console.log('populating set of seat types');
+    const seatTypes = new Set<SeatTypeModel>();
+    const seatTypeIds = new Set<number>();
+
+    const seatIter = seats.values();
+    let seatIterRes = seatIter.next();
+    while (!seatIterRes.done) {
+      const seatTypeId = seatIterRes.value.seatType.objectId;
+      if (!seatTypeIds.has(seatTypeId)) {
+        seatTypes.add(seatIterRes.value.seatType);
+        seatTypeIds.add(seatTypeId);
+      }
+      seatIterRes = seatIter.next();
+    }
+    console.log('set of seat types populated:');
+    console.log(seatTypes);
+    return seatTypes;
+  }
+
   ngOnInit() {
-    this.populateSetOfSeatTypes();
+    console.log('init plane-seats-grid');
+    console.log('sections:');
+    console.log(this.sections);
+    this.setOfSeatTypes = PlaneSeatsGridComponent.getSetOfSeatTypes(this.seats);
     this.generateSections();
     this.assignColorForEachSection();
   }
@@ -49,17 +86,18 @@ export class PlaneSeatsGridComponent implements OnInit {
 
   private generateSections() {
     if (this.sections === undefined) {
+      console.log('sections are undefined. generating sections...');
       this.sections = [];
       const sTypeIter = this.setOfSeatTypes.values();
-      let sTypeIterRes = sTypeIter.next();
-      while (!sTypeIterRes.done) {
-        const seatType = sTypeIterRes.value;
+      let sTypeIterResult = sTypeIter.next();
+      while (!sTypeIterResult.done) {
+        const seatType = sTypeIterResult.value;
         const rows = [], cols = [];
         const seatIter = this.seats.values();
         let seatIterRes = seatIter.next();
         while (!seatIterRes.done) {
           const seat = seatIterRes.value;
-          if (seat.seatType === seatType) {
+          if (seat.seatType.objectId === seatType.objectId) {
             // adding 1 to the result because rows are zero-based, whereas number of rows is one-based
             rows.push(seat.row + 1);
             cols.push(seat.col + 1);
@@ -70,19 +108,11 @@ export class PlaneSeatsGridComponent implements OnInit {
         this.sections.push(new SectionModel(seatType,
           PlaneSeatsGridComponent.maxNumber(rows),
           PlaneSeatsGridComponent.maxNumber(cols)));
-        sTypeIterRes = sTypeIter.next();
+        sTypeIterResult = sTypeIter.next();
       }
+      console.log('sections generated:');
+      console.log(this.sections);
       this.sectionsChange.emit(this.sections);
-    }
-  }
-
-  private populateSetOfSeatTypes() {
-    const seatIter = this.seats.values();
-    let seatIterRes = seatIter.next();
-    while (!seatIterRes.done) {
-      const seat = seatIterRes.value;
-      this.setOfSeatTypes.add(seat.seatType);
-      seatIterRes = seatIter.next();
     }
   }
 }

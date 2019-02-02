@@ -3,17 +3,31 @@ import {Listable} from '../../../dynamic-form/search-list/item.model';
 
 export class AirlinesModel extends BaseEntityModel implements Listable {
 
-  getDisplayedName() {
-    return this.name;
+  public name: string;
+  public descr: string;
+  public email: string;
+  public phoneNumber: string;
+
+
+  constructor(name?: string,
+              descr?: string,
+              email?: string,
+              phoneNumber?: string,
+              id?: number,
+              objectId?: number,
+              parentId?: number,
+              objectName?: string,
+              objectDescription?: string,
+  ) {
+    super(id, objectId, parentId, objectName, objectDescription);
+    this.name = name;
+    this.descr = descr;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
   }
 
-  constructor(
-    public name?: string,
-    public descr?: string,
-    public email?: string,
-    public phoneNumber?: string
-  ) {
-    super();
+  getDisplayedName() {
+    return this.name;
   }
 
   toString(): string {

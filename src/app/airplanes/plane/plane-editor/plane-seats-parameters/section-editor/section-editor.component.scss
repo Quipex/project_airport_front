@@ -1,14 +1,25 @@
 .short-input {
-  width: 100px !important;
+  //width: 100px !important;
   margin-left: 1em;
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .input-line {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  overflow: auto;
 }
 
 .long-input {
   width: 100% !important;
+}
+
+.line-edits {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-width: 150px;
 }

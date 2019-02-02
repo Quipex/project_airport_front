@@ -20,6 +20,10 @@ export class SeatTypeSectionComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('init section..');
+    console.log(this.section);
+    console.log('seats:');
+    console.log(this.seats);
   }
 
   getSeat(row: number, col: number): SeatModel {
@@ -27,7 +31,7 @@ export class SeatTypeSectionComponent implements OnInit {
     let seatIterRes = seatIter.next();
     while (!seatIterRes.done) {
       const seat = seatIterRes.value;
-      if (seat.row === row && seat.col === col && seat.seatType === this.section.seatType) {
+      if (seat.row === row && seat.col === col && seat.seatType.objectId === this.section.seatType.objectId) {
         return seat;
       }
       seatIterRes = seatIter.next();

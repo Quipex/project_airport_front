@@ -29,7 +29,7 @@ export class PlaneSeatsParametersComponent implements OnInit {
   getSectionOfSeatType(seatType: SeatTypeModel) {
     if (this.sections !== undefined) {
       for (const section of this.sections) {
-        if (section.seatType === seatType) {
+        if (section.seatType.objectId === seatType.objectId) {
           return section;
         }
       }

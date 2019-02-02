@@ -4,9 +4,20 @@ export class SeatTypeModel extends BaseEntityModel {
   constructor(
     public name: string,
     public modifier: number,
-    public description?: string
+    public description?: string,
+    objectId?: number,
+    parentId?: number,
+    objectName?: string,
+    objectDescription?: string,
+    id?: number
   ) {
-    super();
+    super(
+      id,
+      objectId,
+      parentId,
+      objectName,
+      objectDescription
+    );
   }
 
 

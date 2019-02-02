@@ -16,7 +16,7 @@ export class SeatColorService {
     '#a9557e'
   ]);
 
-  private typesToColors = new Map<SeatTypeModel, string>();
+  private typeIdsToColors = new Map<number, string>();
 
   public addColor(colorCode: string) {
     this.colors.add(colorCode);
@@ -38,7 +38,7 @@ export class SeatColorService {
   }
 
   public setColorForSeatType(sType: SeatTypeModel, colorCode: string) {
-    this.typesToColors.set(sType, colorCode);
+    this.typeIdsToColors.set(sType.objectId, colorCode);
   }
 
   public getColorByNum(num: number): string {
@@ -54,10 +54,10 @@ export class SeatColorService {
   }
 
   public getColorBySeatType(seatType: SeatTypeModel): string {
-    if (this.typesToColors.get(seatType) === undefined) {
-      const colorCode = this.getColorByNum(this.typesToColors.size);
-      this.typesToColors.set(seatType, colorCode);
+    if (this.typeIdsToColors.get(seatType.objectId) === undefined) {
+      const colorCode = this.getColorByNum(this.typeIdsToColors.size);
+      this.typeIdsToColors.set(seatType.objectId, colorCode);
     }
-    return this.typesToColors.get(seatType);
+    return this.typeIdsToColors.get(seatType.objectId);
   }
 }

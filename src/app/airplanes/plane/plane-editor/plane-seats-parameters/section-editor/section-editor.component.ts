@@ -70,7 +70,7 @@ export class SectionEditorComponent implements OnInit {
     let result = iterator.next();
     while (!result.done) {
       const seat = result.value;
-      if (seat.seatType === this.section.seatType) {
+      if (seat.seatType.objectId === this.section.seatType.objectId) {
         if (seat.row >= this.section.rows ||
           seat.col >= this.section.cols) {
           this.seats.delete(seat);
@@ -89,7 +89,7 @@ export class SectionEditorComponent implements OnInit {
         let found = false;
         while (!seatRes.done) {
           const seat = seatRes.value;
-          if (seat.col === j && seat.row === i && seat.seatType === this.section.seatType) {
+          if (seat.col === j && seat.row === i && seat.seatType.objectId === this.section.seatType.objectId) {
             found = true;
             break;
           }

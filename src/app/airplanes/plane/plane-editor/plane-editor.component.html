@@ -1,8 +1,10 @@
-<app-plane-info
-  [plane]="plane"
-  class="plane-info-container"></app-plane-info>
-<app-plane-seats-parameters
-  [seatTypes]="seatTypes"
-  [sections]="sections"
-  [(seats)]="seats"
-  [plane]="plane"></app-plane-seats-parameters>
+<div class="plane-editor-container">
+  <app-plane-info
+    [plane]="plane"
+    class="plane-info-container"></app-plane-info>
+  <app-plane-seats-parameters
+    [seatTypes]="seatTypes"
+    [sections]="sections"
+    [(seats)]="seats"
+    [plane]="plane"></app-plane-seats-parameters>
+</div>

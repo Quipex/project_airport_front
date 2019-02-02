@@ -8,9 +8,14 @@ export class SeatModel extends BaseEntityModel {
     public row: number,
     public airplane: AirplanesModel,
     public seatType: SeatTypeModel,
-    public modifier?: number
+    public modifier?: number,
+    id?: number,
+    objectId?: number,
+    parentId?: number,
+    objectName?: string,
+    objectDescription?: string
   ) {
-    super();
+    super(id, objectId, parentId, objectName, objectDescription);
   }
 
 
