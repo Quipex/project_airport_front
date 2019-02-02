@@ -84,6 +84,7 @@ import {SearchListComponent} from './shared/dynamic-form/search-list/search-list
 import {FilterItemsPipe} from './shared/dynamic-form/search-list/filter-items.pipe';
 import {AirlineSelectorComponent} from './airplanes/airline-selector/airline-selector.component';
 import {SeatTypeService} from './services/seatType.service';
+import {SectionStore} from './airplanes/data/section-store.service';
 
 
 @NgModule({
@@ -176,7 +177,8 @@ import {SeatTypeService} from './services/seatType.service';
     RoleGuardService,
     AuthGuardService,
     PaymentService,
-    SeatTypeService
+    SeatTypeService,
+    SectionStore
   ],
   bootstrap: [AppComponent],
   entryComponents: [SeatEditorModalComponent]

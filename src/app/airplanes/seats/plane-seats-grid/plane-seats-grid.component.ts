@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SeatColorService} from '../../data/seat-colors.service';
 import {SeatModel} from 'src/app/shared/models/entity/airplane/seat.model';
-import {SectionModel} from './seat-type-section/section-model';
+import {SectionModel} from '../../data/section-model';
 import {SeatTypeModel} from '../../../shared/models/entity/airplane/seat-type.model';
 import {ViewMode} from './plane-seats-grid-modes.model';
 

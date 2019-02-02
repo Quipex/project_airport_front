@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SeatModel} from '../../../../shared/models/entity/airplane/seat.model';
-import {SectionModel} from './section-model';
+import {SectionModel} from '../../../data/section-model';
 import {ViewMode} from '../plane-seats-grid-modes.model';
 
 @Component({
