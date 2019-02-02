@@ -1,18 +1,18 @@
 <app-navbar></app-navbar>
 
 <div class="container">
-  <div class="row header-row">
+  <div class="header-row">
     <h2>Just all flights</h2>
   </div>
   <div class="set-row text-justify">
-        <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="closeAdd()"
-                mdbWavesEffect>Add
-        </button>
-      <div class="input-form">
-        <input type="text" class="form-control" id="search-input" placeholder="Search"
-               [(ngModel)]="searchString" (keypress)="onEnter($event)">
-        <button type="submit" class="btn btn-primary btn-search" mdbWavesEffect (click)="onSearch()">Search</button>
-      </div>
+    <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="closeAdd()"
+            mdbWavesEffect>Add
+    </button>
+    <div class="input-form">
+      <input type="text" class="form-control" id="search-input" placeholder="Search"
+             [(ngModel)]="searchString" (keypress)="onEnter($event)">
+      <button type="submit" class="btn btn-primary btn-search" mdbWavesEffect (click)="onSearch()">Search</button>
+    </div>
   </div>
 
   <div class="container">
@@ -31,18 +31,18 @@
       </div>
 
       <div class="modal-footer">
-        <button (click)="onCancel();" aria-label="Cancel" class="waves-light" color="secondary" mdbBtn mdbWavesEffect
-                type="button">Cancel
+        <button (click)="onClear();" aria-label="Clear" class="waves-light" color="secondary" mdbBtn mdbWavesEffect
+                type="button">Clear
         </button>
-        <button (click)="onSubmit();" [disabled]="!form.valid" *ngIf="!editMode" class="relative waves-light" color="primary" mdbBtn mdbWavesEffect
+        <button (click)="onSubmit();" [disabled]="!form.valid" *ngIf="!editMode" class="relative waves-light"
+                color="primary" mdbBtn mdbWavesEffect
                 type="submit">{{submitType}}</button>
-        <button (click)="onSubmit();" [disabled]="!editForm.valid" *ngIf="editMode" class="relative waves-light" color="primary" mdbBtn mdbWavesEffect
+        <button (click)="onSubmit();" [disabled]="!editForm.valid" *ngIf="editMode" class="relative waves-light"
+                color="primary" mdbBtn mdbWavesEffect
                 type="submit">{{submitType}}</button>
       </div>
 
-      <!--<app-dynamic-form *ngIf="!editMode" [questions]="questions" [submitType]="submitType"-->
-                        <!--(isCancel)="onCancel($event)" (returnedItem)="onSave($event)"></app-dynamic-form>-->
-     </mat-expansion-panel>
+    </mat-expansion-panel>
   </div>
 </div>
 
@@ -137,9 +137,22 @@
         {{item.departureAirport.name}}
       </td>
       <td>
-        <div class>
+        <div class="div-container">
+          <span>Expected:</span>
           <div>
-            {{item.flight.actualDepartureDatetime | date:'medium'}}
+            Date: {{item.flight.actualDepartureDatetime | date}}
+          </div>
+          <div>
+            Time: {{item.flight.actualDepartureDatetime | date:'hh:mm a'}}
+          </div>
+        </div>
+        <div class="div-container">
+          <span>Actual:</span>
+          <div>
+            Date: {{item.flight.actualDepartureDatetime != null ? (item.flight.actualDepartureDatetime | date) : '-'}}
+          </div>
+          <div>
+            Time: {{item.flight.actualDepartureDatetime != null ? (item.flight.actualDepartureDatetime | date:'hh:mm a') : '-'}}
           </div>
         </div>
       </td>
@@ -147,7 +160,24 @@
         {{item.arrivalAirport.name}}
       </td>
       <td>
-        {{item.flight.actualArrivalDatetime | date:'medium'}}
+        <div class="div-container">
+          <span>Expected:</span>
+          <div>
+            <!--Date:--> {{item.flight.actualArrivalDatetime != null ? (item.flight.actualArrivalDatetime | date:'medium') : '-'}}
+          </div>
+          <!--<div>-->
+          <!--Time: {{item.flight.actualArrivalDatetime | date:'medium'}}-->
+          <!--</div>-->
+        </div>
+        <div class="div-container">
+          <span>Actual:</span>
+          <div>
+            <!--Date:--> {{item.flight.actualArrivalDatetime != null ? (item.flight.actualArrivalDatetime | date:'medium') : '-'}}
+          </div>
+          <!--<div>-->
+          <!--Time: {{item.flight.actualArrivalDatetime | date:'medium'}}-->
+          <!--</div>-->
+        </div>
       </td>
       <td>
         {{item.airline.name}}
