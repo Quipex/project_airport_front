@@ -50,7 +50,20 @@ export class PlaneSeatsEditorComponent implements OnInit {
 
   private initSeatTypes() {
     this.seatTypesService.getAllItems().subscribe((data: SeatTypeModel[]) => {
-      this.seatTypes = data;
+      this.seatTypes = [];
+      for (const item of data) {
+        const seatType = new SeatTypeModel(
+          item.name,
+          item.modifier,
+          item.description,
+          item.objectId,
+          item.parentId,
+          item.objectName,
+          item.objectDescription,
+          item.id
+        );
+        this.seatTypes.push(seatType);
+      }
       console.log(this.seatTypes);
     });
   }
