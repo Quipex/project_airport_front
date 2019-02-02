@@ -14,10 +14,10 @@
 
 <mat-sidenav-container class="plane-seats__editor">
   <mat-sidenav-content *ngIf="seats">
-    <app-airplane-seats [seats]="seats"
+    <app-plane-seats-grid [seats]="seats"
                         [(selectedSeats)]="selectedSeats"
                         [(sections)]="sections"
-                        [viewMode]="viewMode"></app-airplane-seats>
+                        [viewMode]="viewMode"></app-plane-seats-grid>
   </mat-sidenav-content>
 
   <mat-sidenav class="plane-seats-container" opened mode="side" position="end">

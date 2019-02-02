@@ -6,7 +6,7 @@ import {SeatTypeModel} from '../../../shared/models/entity/airplane/seat-type.mo
 import {ViewMode} from './plane-seats-grid-modes.model';
 
 @Component({
-  selector: 'app-airplane-seats',
+  selector: 'app-plane-seats-grid',
   templateUrl: './plane-seats-grid.component.html',
   styleUrls: ['./plane-seats-grid.component.scss']
 })
@@ -50,11 +50,13 @@ export class PlaneSeatsGridComponent implements OnInit {
   }
 
   private static getSetOfSeatTypes(seats: Set<SeatModel>): Set<SeatTypeModel> {
-    console.log('populating set of seat types');
+    console.log('***populating set of seat types');
     const seatTypes = new Set<SeatTypeModel>();
     const seatTypeIds = new Set<number>();
 
     const seatIter = seats.values();
+    console.log('seats from which seattypes are gathered:');
+    console.log(seats);
     let seatIterRes = seatIter.next();
     while (!seatIterRes.done) {
       const seatTypeId = seatIterRes.value.seatType.objectId;

@@ -150,9 +150,11 @@ export class PlaneSeatsEditorComponent implements OnInit {
       seatValueRes = seatValueIter.next();
     }
     this.seatsService.saveSeats(seatsAsTuple, this.plane.objectId).subscribe(next => {
+      alert('saved');
       console.log('saved seats, got updated back:');
       console.log(next);
     }, error1 => {
+      alert('tried to save, but got an error:' + error1);
       console.log('tried to save, but got an error:');
       console.log(error1);
     });
