@@ -1,7 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {BaseService} from '../../services/baseService.service';
-import {UsersService} from '../../services/users.service';
-import {AirlinesService} from '../../services/airlines.service';
 import {ToastrService} from 'ngx-toastr';
 import {FormGroup} from '@angular/forms';
 import {BaseEntityModel} from '../models/baseEntity.model';
@@ -34,7 +32,6 @@ export class AbstractCatalogComponent implements OnInit {
   currentItem: BaseEntityModel;
   editMode: Boolean = false;
   submitType = 'Save';
-  selectedRow: number;
   paging = false;
   countOfPages = 0;
   numberOfPage = 1;
@@ -84,7 +81,6 @@ export class AbstractCatalogComponent implements OnInit {
         this.overflow = 'auto';
       }
     }
-    this.selectedRow = index;
     this.currentItem = this.entities[index];
     console.log(this.form);
     this.form.patchValue(this.currentItem);
@@ -106,7 +102,6 @@ export class AbstractCatalogComponent implements OnInit {
 
   onDelete(index: number) {
     this.currentItem = this.entities[index];
-    this.selectedRow = index;
     this.entities.splice(index, 1);
 
     this.service.deleteItem(this.currentItem.objectId)
@@ -139,9 +134,7 @@ export class AbstractCatalogComponent implements OnInit {
     } else {
 
       this.service.editItem(returnedItem.objectId, returnedItem)
-        .subscribe((editedItem: BaseEntityModel) => {
-          // this.entities[this.selectedRow] = editedItem;
-          // this.entities = JSON.parse(JSON.stringify(this.entities));
+        .subscribe(() => {
           this.newModal.hide();
           const message = 'The item has been edited.';
           this.showInfo(message);
@@ -178,7 +171,6 @@ export class AbstractCatalogComponent implements OnInit {
     let deleted = false;
     for (let i = 0; i < this.sortList.length; i++) {
       if (this.sortList[i].type === sortAttr + columnAttr) {
-        // this.sortList[i].order = !this.sortList[i].order;
         if (this.sortList[i].order) {
           this.sortList[i].order = false;
         } else if (!this.sortList[i].order) {

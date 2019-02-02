@@ -1,5 +1,6 @@
 .table-container {
   margin-top: 50px;
+  overflow: auto;
 }
 
 #search-input {
@@ -18,6 +19,7 @@
 
 table {
   td, th {
+    text-align: center;
     vertical-align: middle;
   }
 }
