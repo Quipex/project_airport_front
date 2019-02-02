@@ -1,10 +1,15 @@
 <div class="seat-grid-container">
   <div *ngFor="let section of sections; let i = index">
+    <!--SECTION NAME-->
     <span *ngIf="section.cols > 0 && section.rows > 0">{{section.seatType.name}}</span>
+
+    <!--SECTION RENDER-->
     <app-seat-type-section [viewMode]="viewMode"
                            [section]="section"
                            [(selectedSeats)]="selectedSeats"
                            [seats]="seats"></app-seat-type-section>
+
+    <!--DIVIDER-->
     <div *ngIf="section.cols > 0 && section.rows > 0">
       <mat-divider *ngIf="i < sections.length - 1"></mat-divider>
     </div>
