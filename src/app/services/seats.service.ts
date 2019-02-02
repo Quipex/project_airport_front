@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {BaseService} from './baseService.service';
 import {BaseEntityModel} from '../shared/models/baseEntity.model';
 import {FilterAndSortWrapperModel} from '../shared/models/filterAndSortWrapper.model';
+import {SeatModel} from '../shared/models/entity/airplane/seat.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +33,12 @@ export class SeatsService extends BaseService {
     return this.http.post(this.API_URL + `/seats/search/page=${page}`, wrapper, this.httpOptions);
   }
 
-  getAll() {
-    return this.http.get(this.API_URL + `/seats`, this.httpOptions);
-  }
-
   getByPlaneId(id: number) {
     return this.http.get(this.API_URL + `/seats/airplaneId=${id}`, this.httpOptions);
+  }
+
+  saveSeats(seats: SeatModel[], planeId: number) {
+    console.log(seats);
+    return this.http.post(this.API_URL + `/seats/airplaneId=${planeId}`, seats, this.httpOptions);
   }
 }
