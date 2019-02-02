@@ -377,20 +377,22 @@ export class FlightsComponent implements OnInit {
       let actualArrivalDate = this.datePipe.transform(this.form.value['actualArrivalDate'], 'yyyy-MM-dd');
       let actualArrivalTime = this.form.value['actualArrivalTime'];
       let actualArrivalDateTime = new Date(actualArrivalDate + 'T' + actualArrivalTime);
+      let actualArrivalDatetime = this.datePipe.transform(actualArrivalDateTime, 'yyyy-MM-dd\'T\'HH:mm:ss');
 
       let actualDepartureDate = this.datePipe.transform(this.form.value['actualDepartureDate'], 'yyyy-MM-dd');
       let actualDepartureTime = this.form.value['actualDepartureTime'];
       let actualDepartureDateTime = new Date(actualDepartureDate + 'T' + actualDepartureTime);
+      let actualDepartureDatetime = this.datePipe.transform(actualDepartureDateTime, 'yyyy-MM-dd\'T\'HH:mm:ss');
 
       let newFlight: any = {};
       newFlight.arrivalAirportId = this.form.value['arrivalAirportId'].objectId;
       newFlight.departureAirportId = this.form.value['departureAirportId'].objectId;
       newFlight.baseCost = this.form.value['baseCost'];
       newFlight.status = 'SCHEDULED';
-      newFlight.actualDepartureDatetime = actualDepartureDateTime;
-      newFlight.actualArrivalDatetime = actualArrivalDateTime;
-      newFlight.expectedDepartureDatetime = actualDepartureDateTime;
-      newFlight.expectedArrivalDatetime = actualArrivalDateTime;
+      newFlight.actualDepartureDatetime = actualDepartureDatetime;
+      newFlight.actualArrivalDatetime = actualArrivalDatetime;
+      newFlight.expectedDepartureDatetime = actualDepartureDatetime;
+      newFlight.expectedArrivalDatetime = actualArrivalDatetime;
       newFlight.flightNumber = this.form.value['flightNumber'];
       newFlight.airplaneId = this.form.value['airplaneId'].objectId;
       this.onSave(newFlight);
