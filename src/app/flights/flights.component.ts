@@ -125,7 +125,7 @@ export class FlightsComponent implements OnInit {
       value: this.airports
     }),
     new InputBaseModel({
-      key: 'actualDepartureDatetime',
+      key: 'actualDepartureDate',
       label: 'Departure date',
       required: true,
       type: 'date',
@@ -133,7 +133,7 @@ export class FlightsComponent implements OnInit {
       edit: true
     }),
     new InputBaseModel({
-      key: 'actualDepartureDatetime',
+      key: 'actualDepartureTime',
       label: 'Departure time',
       required: true,
       type: 'time',
@@ -150,7 +150,7 @@ export class FlightsComponent implements OnInit {
       value: this.airports
     }),
     new InputBaseModel({
-      key: 'actualArrivalDatetime',
+      key: 'actualArrivalDate',
       label: 'Arrival date',
       required: true,
       type: 'date',
@@ -158,7 +158,7 @@ export class FlightsComponent implements OnInit {
       edit: true
     }),
     new InputBaseModel({
-      key: 'actualArrivalDatetime',
+      key: 'actualArrivalTime',
       label: 'Arrival time',
       required: true,
       type: 'time',
@@ -292,7 +292,7 @@ export class FlightsComponent implements OnInit {
     }
   }
 
-  onSave(returnedItem: BaseEntityModel) {
+  onSave(returnedItem: any) {
     if (this.submitType === 'Save') {
       this.flightsService.addItem(returnedItem)
         .subscribe(() => {
@@ -343,6 +343,32 @@ export class FlightsComponent implements OnInit {
     if (event) {
       this.form.reset();
       // this.formAdd.hide();
+    }
+  }
+
+  onSubmit() {
+    if (this.submitType === 'Save') {
+      let actualArrivalDate = this.datePipe.transform(this.form.value['actualArrivalDate'], 'yyyy-MM-dd');
+      let actualArrivalTime = this.form.value['actualArrivalTime'];
+      let actualArrivalDateTime = new Date(actualArrivalDate + 'T' + actualArrivalTime);
+
+      let actualDepartureDate = this.datePipe.transform(this.form.value['actualDepartureDate'], 'yyyy-MM-dd');
+      let actualDepartureTime = this.form.value['actualDepartureTime'];
+      let actualDepartureDateTime = new Date(actualDepartureDate + 'T' + actualDepartureTime);
+
+      let newFlight: any = {};
+      newFlight.arrivalAirportId = this.form.value['arrivalAirportId'].objectId;
+      newFlight.departureAirportId = this.form.value['departureAirportId'].objectId;
+      newFlight.baseCost = this.form.value['baseCost'];
+      newFlight.status = 'SCHEDULED';
+      newFlight.actualDepartureDatetime = actualDepartureDateTime;
+      newFlight.actualArrivalDatetime = actualArrivalDateTime;
+      newFlight.expectedDepartureDatetime = actualDepartureDateTime;
+      newFlight.expectedArrivalDatetime = actualArrivalDateTime;
+      newFlight.flightNumber = this.form.value['flightNumber'];
+      newFlight.airplaneId = this.form.value['airplaneId'].objectId;
+
+      this.onSave(newFlight);
     }
   }
 
