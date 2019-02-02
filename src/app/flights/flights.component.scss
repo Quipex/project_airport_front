@@ -25,15 +25,17 @@
 
 .table-container {
   margin-top: 30px;
+  overflow: auto;
 }
 
-table td, th {
-  vertical-align: middle;
-  text-align: center;
+table {
+  td, th {
+    vertical-align: middle;
+    text-align: center;
+  }
 }
 
 mat-expansion-panel {
-  vertical-align: bottom;
   text-align: center;
 }
 
@@ -49,8 +51,20 @@ mat-expansion-panel {
   display: inline-block;
 }
 
-//::ng-deep .mat-form-field {
-//  width: 100% !important;
-//}
+td {
+  .div-container {
+    display: block;
+    width: max-content;
+    margin: 0 auto 10px auto;
+    text-align: center;
+    //div {
+    //  text-align: left;
+    //}
+  }
+
+  .div-container:last-child {
+    margin-bottom: 0;
+  }
+}
 
 
