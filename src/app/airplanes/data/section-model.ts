@@ -1,4 +1,4 @@
-import {SeatTypeModel} from '../../../../shared/models/entity/airplane/seat-type.model';
+import {SeatTypeModel} from '../../shared/models/entity/airplane/seat-type.model';
 
 export class SectionModel {
   constructor(
