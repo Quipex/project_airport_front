@@ -49,7 +49,22 @@ export class PlaneSeatsGridComponent implements OnInit {
     return result;
   }
 
-  private static getSetOfSeatTypes(seats: Set<SeatModel>): Set<SeatTypeModel> {
+  ngOnInit() {
+    console.log('init plane-seats-grid');
+    console.log('sections:');
+    console.log(this.sections);
+    this.setOfSeatTypes = this.getSetOfSeatTypes(this.seats);
+    this.generateSections();
+    this.assignColorForEachSection();
+  }
+
+  private assignColorForEachSection() {
+    for (const section of this.sections) {
+      section.colorCode = this.colorService.getColorBySeatType(section.seatType);
+    }
+  }
+
+  private getSetOfSeatTypes(seats: Set<SeatModel>): Set<SeatTypeModel> {
     console.log('***populating set of seat types');
     const seatTypes = new Set<SeatTypeModel>();
     const seatTypeIds = new Set<number>();
@@ -71,21 +86,6 @@ export class PlaneSeatsGridComponent implements OnInit {
     return seatTypes;
   }
 
-  ngOnInit() {
-    console.log('init plane-seats-grid');
-    console.log('sections:');
-    console.log(this.sections);
-    this.setOfSeatTypes = PlaneSeatsGridComponent.getSetOfSeatTypes(this.seats);
-    this.generateSections();
-    this.assignColorForEachSection();
-  }
-
-  private assignColorForEachSection() {
-    for (const section of this.sections) {
-      section.colorCode = this.colorService.getColorBySeatType(section.seatType);
-    }
-  }
-
   private generateSections() {
     if (this.sections === undefined) {
       console.log('sections are undefined. generating sections...');
@@ -95,6 +95,8 @@ export class PlaneSeatsGridComponent implements OnInit {
       while (!sTypeIterResult.done) {
         const seatType = sTypeIterResult.value;
         const rows = [], cols = [];
+        console.log('seats when generating sections:');
+        console.log(this.seats);
         const seatIter = this.seats.values();
         let seatIterRes = seatIter.next();
         while (!seatIterRes.done) {
