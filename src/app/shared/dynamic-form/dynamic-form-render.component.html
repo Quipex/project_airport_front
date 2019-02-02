@@ -9,7 +9,9 @@
                 question.type !== 'cc-number' &&
                 question.type !== 'cc-exp-date' &&
                 question.type !== 'cc-cvc' &&
-                question.type !== 'airline-selector'">
+                question.type !== 'airline-selector' &&
+                question.type !== 'airport-selector' &&
+                question.type !== 'status-selector'">
 
       <label *ngIf="question.edit" [attr.for]="question.key">{{question.label}}</label>
       <input *ngIf="question.edit" [formControlName]="question.key" [id]="question.key"
@@ -65,6 +67,24 @@
         <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
           <mat-option *ngFor="let airline of question.value" [value]="airline">
             {{airline.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="question.type === 'airport-selector'">
+      <mat-form-field>
+        <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
+          <mat-option *ngFor="let airport of question.value" [value]="airport.objectId">
+            {{airport.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="question.type === 'status-selector'">
+      <mat-form-field>
+        <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
+          <mat-option *ngFor="let status of question.value" [value]="status">
+            {{status}}
           </mat-option>
         </mat-select>
       </mat-form-field>

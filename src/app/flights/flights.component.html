@@ -18,8 +18,15 @@
   <div class="container">
     <mat-expansion-panel expanded="{{expanded}}">
       <div class="form-wrapper">
-        <div *ngFor="let question of questions" class="md-form input-container">
-          <app-form-input [editMode]="editMode" [form]="form" [question]="question"></app-form-input>
+        <div *ngIf="editMode">
+          <div *ngFor="let question of editQuestions" class="md-form input-container">
+            <app-form-input [editMode]="editMode" [form]="editForm" [question]="question"></app-form-input>
+          </div>
+        </div>
+        <div *ngIf="!editMode">
+          <div *ngFor="let question of questions" class="md-form input-container">
+            <app-form-input [editMode]="editMode" [form]="form" [question]="question"></app-form-input>
+          </div>
         </div>
       </div>
 
@@ -27,7 +34,9 @@
         <button (click)="onCancel();" aria-label="Cancel" class="waves-light" color="secondary" mdbBtn mdbWavesEffect
                 type="button">Cancel
         </button>
-        <button (click)="onSubmit();" [disabled]="!form.valid" class="relative waves-light" color="primary" mdbBtn mdbWavesEffect
+        <button (click)="onSubmit();" [disabled]="!form.valid" *ngIf="!editMode" class="relative waves-light" color="primary" mdbBtn mdbWavesEffect
+                type="submit">{{submitType}}</button>
+        <button (click)="onSubmit();" [disabled]="!editForm.valid" *ngIf="editMode" class="relative waves-light" color="primary" mdbBtn mdbWavesEffect
                 type="submit">{{submitType}}</button>
       </div>
 
@@ -130,13 +139,7 @@
       <td>
         <div class>
           <div>
-            {{item.flight.actualDepartureDatetime | date}}
-          </div>
-          <div>
-            {{item.flight.actualDepartureDatetime | date}}
-          </div>
-          <div>
-            {{item.flight.actualDepartureDatetime | date}}
+            {{item.flight.actualDepartureDatetime | date:'medium'}}
           </div>
         </div>
       </td>
@@ -144,7 +147,7 @@
         {{item.arrivalAirport.name}}
       </td>
       <td>
-        {{item.flight.actualArrivalDatetime | date}}
+        {{item.flight.actualArrivalDatetime | date:'medium'}}
       </td>
       <td>
         {{item.airline.name}}
