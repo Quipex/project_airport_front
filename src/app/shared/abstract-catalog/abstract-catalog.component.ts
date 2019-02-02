@@ -32,7 +32,6 @@ export class AbstractCatalogComponent implements OnInit {
   title = 'Project Center';
   form: FormGroup;
   currentItem: BaseEntityModel;
-  // showNew: Boolean = false;
   editMode: Boolean = false;
   submitType = 'Save';
   selectedRow: number;
@@ -56,8 +55,6 @@ export class AbstractCatalogComponent implements OnInit {
 
   constructor(
     private service: BaseService,
-    private usersService: UsersService,
-    private airlinesService: AirlinesService,
     private toastr: ToastrService,
     private fcs: FormControlService
   ) {
@@ -93,7 +90,6 @@ export class AbstractCatalogComponent implements OnInit {
     this.form.patchValue(this.currentItem);
     this.submitType = 'Update';
     this.editMode = true;
-    // this.showNew = true;
     this.newModal.show();
   }
 
@@ -105,7 +101,6 @@ export class AbstractCatalogComponent implements OnInit {
     this.newModal.show();
     this.currentItem = new BaseEntityModel();
     this.submitType = 'Save';
-    // this.showNew = !this.showNew;
     this.editMode = false;
   }
 
@@ -130,8 +125,7 @@ export class AbstractCatalogComponent implements OnInit {
 
   onSave(returnedItem: BaseEntityModel) {
     if (this.submitType === 'Save') {
-
-      // this.showNew = false;
+      
       this.service.addItem(returnedItem)
         .subscribe(() => {
             this.newModal.hide();
@@ -156,13 +150,11 @@ export class AbstractCatalogComponent implements OnInit {
           this.showError(this.responseError.error.message);
         });
     }
-    // this.showNew = false;
     this.getCountOfItems();
   }
 
   onCancel(event: boolean) {
     if (event) {
-      // this.showNew = false;
       this.newModal.hide();
     }
   }
@@ -223,7 +215,6 @@ export class AbstractCatalogComponent implements OnInit {
       this.getCountOfItems();
     } else {
       const wrapper = new FilterAndSortWrapperModel(this.searchString, this.sortList);
-
       this.service.search(1, wrapper)
         .subscribe((data: ResponseFilteringWrapperModel) => {
           if (data.countOfPages < 2) {

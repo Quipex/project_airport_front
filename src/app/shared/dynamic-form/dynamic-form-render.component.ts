@@ -25,10 +25,6 @@ export class DynamicFormRenderComponent implements OnInit {
         this.selectKeys.push(x);
       }
     }
-
-    // if (this.question.type === 'airline-selector') {
-    //   for (const )
-    // }
   }
 
   test(event: any) {
