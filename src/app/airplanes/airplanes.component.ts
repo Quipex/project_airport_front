@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {BaseService} from '../services/baseService.service';
 import {FormGroup} from '@angular/forms';
 import {ColumnSetting} from '../shared/models/columnSetting.model';
@@ -6,6 +6,7 @@ import {InputBaseModel} from '../shared/models/inputBase.model';
 import {AirplanesService} from '../services/airplanes.service';
 import {AirlinesModel} from '../shared/models/entity/airline/airlines.model';
 import {AirlinesService} from '../services/airlines.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-airplanes',
@@ -13,7 +14,9 @@ import {AirlinesService} from '../services/airlines.service';
   styleUrls: ['./airplanes.component.scss'],
   providers: [{provide: BaseService, useClass: AirplanesService}]
 })
-export class AirplanesComponent implements OnInit {
+export class AirplanesComponent implements OnInit, OnDestroy {
+
+  private airlinesServiceSub: Subscription;
 
   airlines: AirlinesModel[] = [];
 
@@ -45,7 +48,7 @@ export class AirplanesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.airlineService.getAll().subscribe((next: AirlinesModel[]) => {
+    this.airlinesServiceSub = this.airlineService.getAll().subscribe((next: AirlinesModel[]) => {
       this.questions = [
         new InputBaseModel({
           key: 'model',
@@ -67,6 +70,10 @@ export class AirplanesComponent implements OnInit {
         })
       ];
     });
+  }
+
+  ngOnDestroy(): void {
+    this.airlinesServiceSub.unsubscribe();
   }
 
 }

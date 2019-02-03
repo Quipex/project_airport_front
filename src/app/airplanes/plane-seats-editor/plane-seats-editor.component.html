@@ -14,9 +14,12 @@
 
 <mat-sidenav-container class="plane-seats__editor">
   <mat-sidenav-content *ngIf="seats">
-    <app-plane-seats-grid [seats]="seats"
-                        [(selectedSeats)]="selectedSeats"
-                        [viewMode]="viewMode"></app-plane-seats-grid>
+    <mat-spinner *ngIf="!seatTypes"></mat-spinner>
+    <h3 *ngIf="!seats.size" class="no-seats-label">No seats available</h3>
+    <app-plane-seats-grid *ngIf="seats.size"
+                          [seats]="seats"
+                          [(selectedSeats)]="selectedSeats"
+                          [viewMode]="viewMode"></app-plane-seats-grid>
   </mat-sidenav-content>
 
   <mat-sidenav class="plane-seats-container" opened mode="side" position="end">

@@ -26,9 +26,8 @@
 
     <mat-form-field>
       <input matInput placeholder="Modifier"
-             [ngModel]="seat.modifier"
-             (change)="changeModifier($event.target.value)"
-             ngbAutofocus>
+             [value]="seat.modifier"
+             (change)="changeModifier($event.target.value)">
     </mat-form-field>
   </div>
   <div class="modal-footer">
@@ -47,7 +46,7 @@
             class="relative
             waves-light"
             mdbWavesEffect
-            (click)="confirm()">
+            (click)="confirm()" ngbautofocus="true">
       Save
     </button>
   </div>

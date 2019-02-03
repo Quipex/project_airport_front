@@ -1,25 +1,27 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AirlinesService} from '../../services/airlines.service';
 import {AirlinesModel} from '../../shared/models/entity/airline/airlines.model';
 import {Listable} from '../../shared/dynamic-form/search-list/item.model';
 import {ControlValueAccessor} from '@angular/forms';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-airline-selector',
   templateUrl: './airline-selector.component.html',
   styleUrls: ['./airline-selector.component.scss'],
 })
-export class AirlineSelectorComponent implements OnInit, ControlValueAccessor {
+export class AirlineSelectorComponent implements OnInit, ControlValueAccessor, OnDestroy {
 
   items: AirlinesModel[];
   selectedItem: AirlinesModel;
+  private airlinesSub: Subscription;
 
   constructor(
     private service: AirlinesService) {
   }
 
   ngOnInit() {
-    this.service.getAll().subscribe((data: AirlinesModel[]) => {
+    this.airlinesSub = this.service.getAll().subscribe((data: AirlinesModel[]) => {
       this.items = [];
       for (const item of data) {
         const airline = new AirlinesModel();
@@ -59,5 +61,12 @@ export class AirlineSelectorComponent implements OnInit, ControlValueAccessor {
       this.selectedItem = selEl;
       this.onChange(selEl);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.airlinesSub.unsubscribe();
+  }
+
+  setDisabledState(isDisabled: boolean): void {
   }
 }

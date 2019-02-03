@@ -54,8 +54,8 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
       this.initPlaneAndSeats(this.planeId);
       // this.sections = this.sectionsStore.getSections(this.planeId);
       this.sectionsStore.getSections(this.planeId).subscribe(value => {
-        console.log('++++sections changed:');
-        console.log(value);
+        // console.log('++++sections changed:');
+        // console.log(value);
         this.sections = value;
       });
     });
@@ -78,7 +78,7 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
         );
         this.seatTypes.push(seatType);
       }
-      console.log(this.seatTypes);
+      // console.log(this.seatTypes);
     });
   }
 
@@ -87,11 +87,11 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
       .subscribe((response: any) => {
         this.plane.objectId = response.objectId;
         this.plane.model = response.model;
-        console.log(this.plane);
+        // console.log(this.plane);
         this.airlinesService.getItemById(response.airlineId)
           .subscribe((resp: AirlinesModel) => {
             this.plane.airline = resp;
-            console.log(this.plane.airline);
+            // console.log(this.plane.airline);
           });
 
         this.initSeats(this.plane.objectId);
@@ -101,8 +101,8 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
   private initSeats(planeId: number) {
     this.seatsService.getByPlaneId(planeId).subscribe((data: SeatModel[]) => {
       this.seats = new Set<SeatModel>();
-      console.log('got seats from backend. initial data:');
-      console.log(data);
+      // console.log('got seats from backend. initial data:');
+      // console.log(data);
       for (const dataItem of data) {
         const initialAirline = dataItem.airplane.airline;
         let airline;
@@ -155,8 +155,8 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
         );
         this.seats.add(seat);
       }
-      console.log('data after parsing:');
-      console.log(this.seats);
+      // console.log('data after parsing:');
+      // console.log(this.seats);
     });
   }
 

@@ -20,10 +20,10 @@ export class SeatTypeSectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('init section..');
-    console.log(this.section);
-    console.log('seats:');
-    console.log(this.seats);
+    // console.log('init section..');
+    // console.log(this.section);
+    // console.log('seats:');
+    // console.log(this.seats);
   }
 
   getSeat(row: number, col: number): SeatModel {
