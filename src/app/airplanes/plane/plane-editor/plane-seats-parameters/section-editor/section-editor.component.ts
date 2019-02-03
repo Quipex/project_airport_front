@@ -53,22 +53,21 @@ export class SectionEditorComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   changeCols(newValue) {
-    console.log('change');
-    if (newValue === '') {
+    if (!this.isNumber(newValue)) {
       newValue = 0;
     }
     this.tempCols = newValue;
   }
 
   changeRows(newValue) {
-    if (newValue === '') {
+    if (!this.isNumber(newValue)) {
       newValue = 0;
     }
     this.tempRows = newValue;
   }
 
   changeModifier(newValue) {
-    if (newValue === '') {
+    if (!this.isNumber(newValue)) {
       newValue = 1;
     }
     this.tempModifier = newValue;
@@ -114,6 +113,10 @@ export class SectionEditorComponent implements OnInit, OnDestroy, OnChanges {
         }
       }
     }
+  }
+
+  private isNumber(input: string): boolean {
+    return !!input.match(/^[0-9]+$/);
   }
 
   ngOnDestroy(): void {
