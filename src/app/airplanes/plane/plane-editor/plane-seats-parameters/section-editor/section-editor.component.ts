@@ -2,6 +2,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SectionModel} from '../../../../data/section-model';
 import {SeatModel} from '../../../../../shared/models/entity/airplane/seat.model';
 import {AirplanesModel} from '../../../../../shared/models/entity/airplane/airplanes.model';
+import {SectionStore} from '../../../../data/section-store.service';
+import {ActivatedRoute, Params} from '@angular/router';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-section-editor',
@@ -19,8 +22,12 @@ export class SectionEditorComponent implements OnInit {
   private tempCols: number;
   private tempModifier: number;
   private tempDescr: string;
+  private planeId: number;
 
-  constructor() {
+  constructor(
+    private sectionStore: SectionStore,
+    private route: ActivatedRoute
+  ) {
   }
 
   ngOnInit() {
@@ -28,13 +35,18 @@ export class SectionEditorComponent implements OnInit {
     this.tempRows = this.section.rows;
     this.tempModifier = this.section.seatType.modifier;
     this.tempDescr = this.section.seatType.description;
+    this.route.params.subscribe((params: Observable<Params>) => {
+      this.planeId = params['airplaneId'];
+    });
   }
 
   confirm() {
-    this.section.rows = this.tempRows;
-    this.section.cols = this.tempCols;
-    this.section.seatType.modifier = this.tempModifier;
-    this.section.seatType.description = this.tempDescr;
+    const updatedSection = this.section;
+    updatedSection.rows = this.tempRows;
+    updatedSection.cols = this.tempCols;
+    updatedSection.seatType.modifier = this.tempModifier;
+    updatedSection.seatType.description = this.tempDescr;
+    this.sectionStore.updateSection(this.planeId, updatedSection);
     this.reduceSeats();
     this.addSeats();
     this.seatsChange.emit(this.seats);

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SeatModel} from '../../shared/models/entity/airplane/seat.model';
 import {AirplanesModel} from '../../shared/models/entity/airplane/airplanes.model';
 import {SeatTypeModel} from '../../shared/models/entity/airplane/seat-type.model';
@@ -11,6 +11,7 @@ import {AirlinesModel} from '../../shared/models/entity/airline/airlines.model';
 import {SeatTypeService} from '../../services/seatType.service';
 import {SeatsService} from '../../services/seats.service';
 import {Observable} from 'rxjs';
+import {SectionStore} from '../data/section-store.service';
 
 @Component({
   selector: 'app-plane-seats-editor',
@@ -18,7 +19,8 @@ import {Observable} from 'rxjs';
   styleUrls: ['./plane-seats-editor.component.scss'],
   providers: [AirplanesService, AirlinesService]
 })
-export class PlaneSeatsEditorComponent implements OnInit {
+export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
+
   public seats: Set<SeatModel>;
   public plane: AirplanesModel = new AirplanesModel(null, null);
   public seatTypes: SeatTypeModel[];
@@ -26,12 +28,14 @@ export class PlaneSeatsEditorComponent implements OnInit {
   public sections: SectionModel[];
   viewMode = ViewMode.EDIT;
   isDebug = false;
+  private planeId: number;
 
   constructor(
     private airplanesService: AirplanesService,
     private airlinesService: AirlinesService,
     private seatTypesService: SeatTypeService,
     private seatsService: SeatsService,
+    private sectionsStore: SectionStore,
     private route: ActivatedRoute
   ) {
   }
@@ -40,10 +44,20 @@ export class PlaneSeatsEditorComponent implements OnInit {
     this.initData();
   }
 
+  ngOnDestroy(): void {
+    this.sectionsStore.clear(this.planeId);
+  }
+
   private initData() {
     this.route.params.subscribe((params: Observable<Params>) => {
-      const airplaneId = params['airplaneId'];
-      this.initPlaneAndSeats(airplaneId);
+      this.planeId = params['airplaneId'];
+      this.initPlaneAndSeats(this.planeId);
+      // this.sections = this.sectionsStore.getSections(this.planeId);
+      this.sectionsStore.getSections(this.planeId).subscribe(value => {
+        console.log('++++sections changed:');
+        console.log(value);
+        this.sections = value;
+      });
     });
     this.initSeatTypes();
   }
