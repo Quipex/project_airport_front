@@ -38,7 +38,7 @@ export class SeatsService extends BaseService {
   }
 
   saveSeats(seats: SeatModel[], planeId: number) {
-    console.log(seats);
+    // console.log(seats);
     return this.http.post(this.API_URL + `/seats/airplaneId=${planeId}`, seats, this.httpOptions);
   }
 }
