@@ -85,6 +85,7 @@ import {FilterItemsPipe} from './shared/dynamic-form/search-list/filter-items.pi
 import {AirlineSelectorComponent} from './airplanes/airline-selector/airline-selector.component';
 import {SeatTypeService} from './services/seatType.service';
 import {SectionStore} from './airplanes/data/section-store.service';
+import {HalfPipe} from './airplanes/plane/plane-editor/plane-seats-parameters/section-editor/half.pipe';
 
 
 @NgModule({
@@ -130,7 +131,8 @@ import {SectionStore} from './airplanes/data/section-store.service';
     PaymentFormComponent,
     SearchListComponent,
     FilterItemsPipe,
-    AirlineSelectorComponent
+    AirlineSelectorComponent,
+    HalfPipe
   ],
   imports: [
     BrowserModule,
