@@ -1,28 +1,28 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {SectionModel} from '../../../../data/section-model';
 import {SeatModel} from '../../../../../shared/models/entity/airplane/seat.model';
 import {AirplanesModel} from '../../../../../shared/models/entity/airplane/airplanes.model';
 import {SectionStore} from '../../../../data/section-store.service';
 import {ActivatedRoute, Params} from '@angular/router';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-section-editor',
   templateUrl: './section-editor.component.html',
   styleUrls: ['./section-editor.component.scss']
 })
-export class SectionEditorComponent implements OnInit {
+export class SectionEditorComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() section: SectionModel;
   @Input() plane: AirplanesModel;
   @Input() seats: Set<SeatModel>;
-  // @Output() sectionChange = new EventEmitter<SectionModel>();
   @Output() seatsChange = new EventEmitter<Set<SeatModel>>();
   private tempRows: number;
   private tempCols: number;
   private tempModifier: number;
   private tempDescr: string;
   private planeId: number;
+  private routeParamsSub: Subscription;
 
   constructor(
     private sectionStore: SectionStore,
@@ -53,6 +53,7 @@ export class SectionEditorComponent implements OnInit {
   }
 
   changeCols(newValue) {
+    console.log('change');
     if (newValue === '') {
       newValue = 0;
     }
@@ -86,7 +87,7 @@ export class SectionEditorComponent implements OnInit {
         if (seat.row >= this.section.rows ||
           seat.col >= this.section.cols) {
           this.seats.delete(seat);
-          console.log('removed ' + seat);
+          // console.log('removed ' + seat);
         }
       }
       result = iterator.next();
@@ -111,6 +112,21 @@ export class SectionEditorComponent implements OnInit {
           const newSeat = new SeatModel(j, i, this.plane, this.section.seatType);
           this.seats.add(newSeat);
         }
+      }
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.routeParamsSub.unsubscribe();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    for (const param in changes) {
+      if (param === 'section') {
+        this.tempCols = this.section.cols;
+        this.tempRows = this.section.rows;
+        this.tempModifier = this.section.seatType.modifier;
+        this.tempDescr = this.section.seatType.description;
       }
     }
   }
