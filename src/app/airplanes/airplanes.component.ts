@@ -31,7 +31,7 @@ export class AirplanesComponent implements OnInit {
         sortAttr: 16
       },
       {
-        primaryKey: 'airlineId',
+        primaryKey: 'airline.name',
         header: 'Airline',
         sortAttr: 17
       }

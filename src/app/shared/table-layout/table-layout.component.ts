@@ -67,4 +67,12 @@ export class TableLayoutComponent implements OnChanges, OnInit {
     this.router.navigate(['airplane-info', {airplaneId: item.objectId}]);
   }
 
+  getParameterOfPath(object: Object, pathToParameter: string) {
+    const pathParts = pathToParameter.split('.');
+    let parsedObject = object;
+    for (const part of pathParts) {
+      parsedObject = parsedObject[part];
+    }
+    return parsedObject;
+  }
 }
