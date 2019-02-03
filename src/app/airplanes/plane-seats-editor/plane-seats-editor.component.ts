@@ -21,6 +21,16 @@ import {SectionStore} from '../data/section-store.service';
 })
 export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
 
+  constructor(
+    private airplanesService: AirplanesService,
+    private airlinesService: AirlinesService,
+    private seatTypesService: SeatTypeService,
+    private seatsService: SeatsService,
+    private sectionsStore: SectionStore,
+    private route: ActivatedRoute
+  ) {
+  }
+
   public seats: Set<SeatModel>;
   public plane: AirplanesModel = new AirplanesModel(null, null);
   public seatTypes: SeatTypeModel[];
@@ -30,14 +40,64 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
   isDebug = false;
   private planeId: number;
 
-  constructor(
-    private airplanesService: AirplanesService,
-    private airlinesService: AirlinesService,
-    private seatTypesService: SeatTypeService,
-    private seatsService: SeatsService,
-    private sectionsStore: SectionStore,
-    private route: ActivatedRoute
-  ) {
+  private static getSetFromSeatObjects(data: SeatModel[]) {
+    const seatSet = new Set<SeatModel>();
+    // console.log('got seats from backend. initial data:');
+    // console.log(data);
+
+    for (const dataItem of data) {
+      const initialAirline = dataItem.airplane.airline;
+      let airline;
+      if (initialAirline !== null) {
+        airline = new AirlinesModel(
+          initialAirline.name,
+          initialAirline.descr,
+          initialAirline.email,
+          initialAirline.phoneNumber,
+          initialAirline.id,
+          initialAirline.objectId,
+          initialAirline.parentId,
+          initialAirline.objectName,
+          initialAirline.objectDescription
+        );
+      }
+      const initialAirplane = dataItem.airplane;
+      const airplane = new AirplanesModel(
+        initialAirplane.model,
+        airline,
+        initialAirplane.id,
+        initialAirplane.objectId,
+        initialAirplane.parentId,
+        initialAirplane.objectName,
+        initialAirplane.objectDescription
+      );
+      const initialSeatType = dataItem.seatType;
+      const seatType = new SeatTypeModel(
+        initialSeatType.name,
+        initialSeatType.modifier,
+        initialSeatType.description,
+        initialSeatType.objectId,
+        initialSeatType.parentId,
+        initialSeatType.objectName,
+        initialSeatType.objectDescription,
+        initialSeatType.id
+      );
+      const initialSeat = dataItem;
+      const seat = new SeatModel(
+        initialSeat.col,
+        initialSeat.row,
+        airplane,
+        seatType,
+        initialSeat.modifier,
+        initialSeat.id,
+        initialSeat.objectId,
+        initialSeat.parentId,
+        initialSeat.objectName,
+        initialSeat.objectDescription
+      );
+      seatSet.add(seat);
+    }
+    return seatSet;
   }
 
   ngOnInit() {
@@ -100,61 +160,7 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
 
   private initSeats(planeId: number) {
     this.seatsService.getByPlaneId(planeId).subscribe((data: SeatModel[]) => {
-      this.seats = new Set<SeatModel>();
-      // console.log('got seats from backend. initial data:');
-      // console.log(data);
-      for (const dataItem of data) {
-        const initialAirline = dataItem.airplane.airline;
-        let airline;
-        if (initialAirline !== null) {
-          airline = new AirlinesModel(
-            initialAirline.name,
-            initialAirline.descr,
-            initialAirline.email,
-            initialAirline.phoneNumber,
-            initialAirline.id,
-            initialAirline.objectId,
-            initialAirline.parentId,
-            initialAirline.objectName,
-            initialAirline.objectDescription
-          );
-        }
-        const initialAirplane = dataItem.airplane;
-        const airplane = new AirplanesModel(
-          initialAirplane.model,
-          airline,
-          initialAirplane.id,
-          initialAirplane.objectId,
-          initialAirplane.parentId,
-          initialAirplane.objectName,
-          initialAirplane.objectDescription
-        );
-        const initialSeatType = dataItem.seatType;
-        const seatType = new SeatTypeModel(
-          initialSeatType.name,
-          initialSeatType.modifier,
-          initialSeatType.description,
-          initialSeatType.objectId,
-          initialSeatType.parentId,
-          initialSeatType.objectName,
-          initialSeatType.objectDescription,
-          initialSeatType.id
-        );
-        const initialSeat = dataItem;
-        const seat = new SeatModel(
-          initialSeat.col,
-          initialSeat.row,
-          airplane,
-          seatType,
-          initialSeat.modifier,
-          initialSeat.id,
-          initialSeat.objectId,
-          initialSeat.parentId,
-          initialSeat.objectName,
-          initialSeat.objectDescription
-        );
-        this.seats.add(seat);
-      }
+      this.seats = PlaneSeatsEditorComponent.getSetFromSeatObjects(data);
       // console.log('data after parsing:');
       // console.log(this.seats);
     });
@@ -176,10 +182,12 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
       seatsAsTuple.push(seatValueRes.value);
       seatValueRes = seatValueIter.next();
     }
-    this.seatsService.saveSeats(seatsAsTuple, this.plane.objectId).subscribe(next => {
+    this.seatsService.saveSeats(seatsAsTuple, this.plane.objectId)
+      .subscribe((next: SeatModel[]) => {
       alert('saved');
-      console.log('saved seats, got updated back:');
-      console.log(next);
+      this.seats = PlaneSeatsEditorComponent.getSetFromSeatObjects(next);
+      // console.log('saved seats, got updated back:');
+      // console.log(next);
     }, error1 => {
       alert('tried to save, but got an error:' + error1);
       console.log('tried to save, but got an error:');

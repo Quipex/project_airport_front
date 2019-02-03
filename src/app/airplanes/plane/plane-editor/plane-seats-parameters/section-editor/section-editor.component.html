@@ -10,8 +10,8 @@
     </mat-form-field>
 
     <mat-form-field class="short-input">
-      <input matInput placeholder="Columns"
-             [ngModel]="section.cols"
+      <input matInput placeholder="Columns (one-side)"
+             [ngModel]="section.cols | half"
              (change)="changeCols($event.target.value)">
     </mat-form-field>
 

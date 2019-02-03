@@ -22,7 +22,7 @@ export class SectionEditorComponent implements OnInit, OnDestroy, OnChanges {
   private tempModifier: number;
   private tempDescr: string;
   private planeId: number;
-  private routeParamsSub: Subscription;
+  private routeSub: Subscription;
 
   constructor(
     private sectionStore: SectionStore,
@@ -35,7 +35,7 @@ export class SectionEditorComponent implements OnInit, OnDestroy, OnChanges {
     this.tempRows = this.section.rows;
     this.tempModifier = this.section.seatType.modifier;
     this.tempDescr = this.section.seatType.description;
-    this.route.params.subscribe((params: Observable<Params>) => {
+    this.routeSub = this.route.params.subscribe((params: Observable<Params>) => {
       this.planeId = params['airplaneId'];
     });
   }
@@ -53,24 +53,34 @@ export class SectionEditorComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   changeCols(newValue) {
-    if (!this.isNumber(newValue)) {
+    // console.log('entered new col value');
+    // console.log(newValue);
+    if (!this.isInteger(newValue)) {
+      // console.log('it is not a solid number, so setting to 0');
       newValue = 0;
     }
-    this.tempCols = newValue;
+    // console.log('it becomes');
+    console.log(newValue * 2);
+    this.tempCols = newValue * 2;
   }
 
   changeRows(newValue) {
-    if (!this.isNumber(newValue)) {
+    if (!this.isInteger(newValue)) {
       newValue = 0;
     }
     this.tempRows = newValue;
   }
 
   changeModifier(newValue) {
-    if (!this.isNumber(newValue)) {
+    // console.log('entered new modif value');
+    // console.log(newValue);
+    if (!this.isFloat(newValue)) {
+      // console.log('it is not a float number, so setting to 1');
       newValue = 1;
     }
-    this.tempModifier = newValue;
+    // console.log('it becomes');
+    console.log(+newValue);
+    this.tempModifier = +newValue;
   }
 
   changeDescription(newValue) {
@@ -115,12 +125,18 @@ export class SectionEditorComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  private isNumber(input: string): boolean {
+  private isInteger(input: string): boolean {
     return !!input.match(/^[0-9]+$/);
   }
 
+  private isFloat(input: string): boolean {
+    return !!input.match(/^[-+]?[0-9]*\.?[0-9]+$/);
+  }
+
   ngOnDestroy(): void {
-    this.routeParamsSub.unsubscribe();
+    if (this.routeSub) {
+      this.routeSub.unsubscribe();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
