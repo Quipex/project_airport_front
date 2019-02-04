@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FlightSearchWrapperModel} from '../../shared/models/flightSearchWrapper.model';
 import {FlightDTOModel} from '../../shared/models/flightDTO.model';
 import {AuthenticationService} from '../../services/authentication.service';
+import {DatePipe} from "@angular/common";
 
 const API_URL = environment.apiUrl;
 
@@ -11,6 +12,7 @@ const API_URL = environment.apiUrl;
   selector: 'app-flight-booking',
   templateUrl: './flight-booking.component.html',
   styleUrls: ['./flight-booking.component.scss'],
+  providers: [DatePipe]
 })
 export class FlightBookingComponent implements OnInit {
 
@@ -19,6 +21,7 @@ export class FlightBookingComponent implements OnInit {
   departureDate = new Date();
   returnDate;
   finalSearchString = '';
+  flights: FlightDTOModel[] = [];
 
   currentDay = new Date().getDate();
   currentMonth = new Date().getMonth();
@@ -39,7 +42,8 @@ export class FlightBookingComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit() {
@@ -47,14 +51,20 @@ export class FlightBookingComponent implements OnInit {
 
   searchFlight() {
     if (this.defaultFlightType === 'One way') {
-      let wrapper = new FlightSearchWrapperModel(this.departureCity, this.destinationCity, this.departureDate);
+      let departureDate = this.datePipe.transform(this.departureDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
+      let wrapper = new FlightSearchWrapperModel(this.departureCity, this.destinationCity, departureDate);
       console.log(this.departureCity, this.destinationCity, this.departureDate, this.returnDate)
       this.searchOneWay(1, wrapper)
-        .subscribe((data: FlightDTOModel) => {
-          // TODO
+        .subscribe((data: FlightDTOModel[]) => {
+          this.flights = [];
+          data.forEach(item => {
+            this.flights.push(item)
+          });
         });
     } else if (this.defaultFlightType === 'Round trip') {
-      let wrapper = new FlightSearchWrapperModel(this.departureCity, this.destinationCity, this.departureDate, this.returnDate);
+      let departureDate = this.datePipe.transform(this.departureDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
+      let returnDate = this.datePipe.transform(this.returnDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
+      let wrapper = new FlightSearchWrapperModel(this.departureCity, this.destinationCity, departureDate, returnDate);
       console.log(this.departureCity, this.destinationCity, this.departureDate, this.returnDate)
       this.searchBoth(1, wrapper)
         .subscribe((data: FlightDTOModel) => {
