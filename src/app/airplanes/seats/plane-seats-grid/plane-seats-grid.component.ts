@@ -19,7 +19,7 @@ export class PlaneSeatsGridComponent implements OnInit, OnDestroy {
   @Input() public seats: Set<SeatModel>;
   @Input() viewMode = ViewMode.SELECT;
   setOfSeatTypes: Set<SeatTypeModel>;
-  private sections: SectionModel[];
+  sections: SectionModel[];
   private airplaneId: number;
   private routeSub: Subscription;
   private sectionSub: Subscription;
