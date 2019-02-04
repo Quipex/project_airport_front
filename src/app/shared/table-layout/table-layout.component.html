@@ -34,7 +34,7 @@
       <tr *ngFor="let record of records; let i = index">
         <td>{{i + 1 + 10 * (currentPage - 1)}}</td>
         <td *ngFor="let map of columnMaps">
-          {{record[map.primaryKey]}}
+          {{getParameterOfPath(record, map.primaryKey)}}
         </td>
         <td>
           <button (click)="onEdit(i)" class="btn btn-info" type="button">Edit</button>
