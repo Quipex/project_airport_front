@@ -18,11 +18,11 @@ import {RoleGuardService} from './services/roleGuard.service';
 import {AuthGuardService} from './services/authGuard.service';
 import {ProfileComponent} from './profile/profile.component';
 import {FlightBookingComponent} from './booking/flight-booking/flight-booking.component';
-import {AirplaneInfoComponent} from "./airplanes/airplane-info/airplane-info.component";
-import {SeatTypeComponent} from "./seat-type/seat-type.component";
-import {PaymentMethodsComponent} from "./payment-methods/payment-methods.component";
-import {PaymentFormComponent} from "./payment-form/payment-form.component";
-import {AirportsComponent} from "./airports/airports.component";
+import {AirplaneInfoComponent} from './airplanes/airplane-info/airplane-info.component';
+import {SeatTypeComponent} from './seat-type/seat-type.component';
+import {PaymentMethodsComponent} from './payment-methods/payment-methods.component';
+import {PaymentFormComponent} from './payment-form/payment-form.component';
+import {AirportsComponent} from './airports/airports.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
