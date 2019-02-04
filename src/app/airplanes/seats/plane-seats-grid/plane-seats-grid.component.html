@@ -11,7 +11,7 @@
       <!--SECTION COL NUMERATION-->
       <div class="flexible">
         <div *ngFor="let item of section.cols | makeIterable; let col = index" class="single-lined">
-          <div class="column-label">{{col + 1 | asLiteral}}</div>
+          <div class="column-label">{{col | asLiteral}}</div>
           <div *ngIf="col + 1 === section.cols / 2"
                class="column-label__empty"></div>
         </div>
