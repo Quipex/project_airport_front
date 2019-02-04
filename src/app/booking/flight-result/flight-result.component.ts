@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FlightsModel} from "../../shared/models/entity/flight/flights.model";
+import {FlightDTOModel} from '../../shared/models/flightDTO.model';
 
 @Component({
   selector: 'app-flight-result',
@@ -8,7 +9,7 @@ import {FlightsModel} from "../../shared/models/entity/flight/flights.model";
 })
 export class FlightResultComponent implements OnInit {
 
-  @Input() flights: FlightsModel[];
+  @Input() flights: FlightDTOModel[];
 
   constructor() { }
 
