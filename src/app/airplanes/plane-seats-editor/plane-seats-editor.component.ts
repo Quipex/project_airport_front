@@ -179,6 +179,9 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
     const seatValueIter = this.seats.values();
     let seatValueRes = seatValueIter.next();
     while (!seatValueRes.done) {
+      if (seatValueRes.value.modifier === 1) {
+        seatValueRes.value.modifier = undefined;
+      }
       seatsAsTuple.push(seatValueRes.value);
       seatValueRes = seatValueIter.next();
     }

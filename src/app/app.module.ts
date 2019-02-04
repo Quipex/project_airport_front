@@ -34,6 +34,7 @@ import {
   MatExpansionModule,
   MatInputModule,
   MatNativeDateModule,
+  MatProgressSpinnerModule,
   MatSelectModule,
   MatSlideToggleModule
 } from '@angular/material';
@@ -87,6 +88,7 @@ import {SeatTypeService} from './services/seatType.service';
 import {SectionStore} from './airplanes/data/section-store.service';
 import {HalfPipe} from './airplanes/plane/plane-editor/plane-seats-parameters/section-editor/half.pipe';
 import {AsLiteralPipe} from './airplanes/seats/plane-seats-grid/as-literal.pipe';
+import {ModifierPipe} from './airplanes/seats/plane-seats-grid/seat-type-section/seat/modifier.pipe';
 import {AirportsComponent} from "./airports/airports.component";
 
 
@@ -136,7 +138,9 @@ import {AirportsComponent} from "./airports/airports.component";
     AirlineSelectorComponent,
     HalfPipe,
     AsLiteralPipe,
-    AirportsComponent
+    AirportsComponent,
+    AsLiteralPipe,
+    ModifierPipe
   ],
   imports: [
     BrowserModule,
@@ -161,6 +165,7 @@ import {AirportsComponent} from "./airports/airports.component";
     MatDividerModule,
     MatSidenavModule,
     MatGridListModule,
+    MatProgressSpinnerModule,
     NgbModule,
     MatSlideToggleModule,
     CreditCardDirectivesModule,
