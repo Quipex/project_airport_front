@@ -89,6 +89,7 @@ import {SectionStore} from './airplanes/data/section-store.service';
 import {HalfPipe} from './airplanes/plane/plane-editor/plane-seats-parameters/section-editor/half.pipe';
 import {AsLiteralPipe} from './airplanes/seats/plane-seats-grid/as-literal.pipe';
 import {ModifierPipe} from './airplanes/seats/plane-seats-grid/seat-type-section/seat/modifier.pipe';
+import {AirportsComponent} from "./airports/airports.component";
 
 
 @NgModule({
@@ -136,6 +137,8 @@ import {ModifierPipe} from './airplanes/seats/plane-seats-grid/seat-type-section
     FilterItemsPipe,
     AirlineSelectorComponent,
     HalfPipe,
+    AsLiteralPipe,
+    AirportsComponent,
     AsLiteralPipe,
     ModifierPipe
   ],

@@ -1,24 +1,36 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AuthenticationService} from './authentication.service';
 import {environment} from '../../environments/environment';
+import {BaseService} from "./baseService.service";
+import {BaseEntityModel} from "../shared/models/baseEntity.model";
+import {FilterAndSortWrapperModel} from "../shared/models/filterAndSortWrapper.model";
 
 const API_URL = environment.apiUrl;
 
 @Injectable()
-export class AirportsService {
+export class AirportsService extends BaseService{
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Authorization': 'Bearer ' + this.authenticationService.getToken(),
-      'Content-Type': 'application/json'
-    })
-  };
+  addItem(baseEntity: BaseEntityModel) {
+    return this.http.post(API_URL + `/airports`, baseEntity, this.httpOptions);
+  }
 
-  constructor(
-    private http: HttpClient,
-    private authenticationService: AuthenticationService
-  ) {
+  deleteItem(id: number) {
+    return this.http.delete(API_URL + `/airports/${id}`, this.httpOptions);
+  }
+
+  editItem(id: number, baseEntity: BaseEntityModel) {
+    return this.http.put(API_URL + `/airports/`, baseEntity, this.httpOptions);
+  }
+
+  getCountOfItems() {
+    return this.http.get(API_URL + `/airports/count`, this.httpOptions);
+  }
+
+  getTenItems(page: number) {
+    return this.http.get(API_URL + `/airports/page=${page}`, this.httpOptions);
+  }
+
+  search(page: number, wrapper: FilterAndSortWrapperModel) {
+    return this.http.post(API_URL + `/airports/search/page=${page}`, wrapper, this.httpOptions);
   }
 
   getAll() {
