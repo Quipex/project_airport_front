@@ -37,4 +37,8 @@ export class CountriesService extends BaseService {
     return this.http.post(API_URL + `/countries/search/page=${page}`, wrapper, this.httpOptions);
   }
 
+  getAll() {
+    return this.http.get(API_URL + `/countries`, this.httpOptions);
+  }
+
 }
