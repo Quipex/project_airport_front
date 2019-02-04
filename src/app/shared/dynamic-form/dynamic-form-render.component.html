@@ -100,18 +100,21 @@
       </mat-form-field>
     </div>
 
-    <mdb-error
-      *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
-      <span *ngIf="form.controls[question.key].errors.required">{{question.label}} is required</span>
-      <span *ngIf="form.controls[question.key].errors.validateEmail"> This email address is not valid.</span>
-      <span *ngIf="form.controls[question.key].errors.validatePhone"> Phone number is required. </span>
-      <span *ngIf="form.controls[question.key].errors.validatePhoneNumber"> This phone number is not valid.</span>
-    </mdb-error>
+    <div *ngIf="form">
+      <mdb-error
+        *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
+        <span *ngIf="form.controls[question.key].errors.required">{{question.label}} is required</span>
+        <span *ngIf="form.controls[question.key].errors.validateEmail"> This email address is not valid.</span>
+        <span *ngIf="form.controls[question.key].errors.validatePhone"> Phone number is required. </span>
+        <span *ngIf="form.controls[question.key].errors.validatePhoneNumber"> This phone number is not valid.</span>
+      </mdb-error>
 
-    <mdb-success
-      *ngIf="form.controls[question.key].valid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
-      Input valid
-    </mdb-success>
+
+      <mdb-success
+        *ngIf="form.controls[question.key].valid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
+        Input valid
+      </mdb-success>
+    </div>
   </div>
 
   <!--CREATING NEW ITEM-->
@@ -177,25 +180,25 @@
     </div>
 
     <div *ngIf="question.type === 'airline-selector'">
-    <!--<app-airline-selector [formControlName]="question.key"></app-airline-selector>-->
-    <mat-form-field>
-      <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
-        <mat-option *ngFor="let airline of question.value" [value]="airline">
-          {{airline.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+      <!--<app-airline-selector [formControlName]="question.key"></app-airline-selector>-->
+      <mat-form-field>
+        <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
+          <mat-option *ngFor="let airline of question.value" [value]="airline">
+            {{airline.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-  <div *ngIf="question.type === 'airport-selector'">
-    <mat-form-field>
-      <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
-        <mat-option *ngFor="let airport of question.value" [value]="airport">
-          {{airport.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+    <div *ngIf="question.type === 'airport-selector'">
+      <mat-form-field>
+        <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
+          <mat-option *ngFor="let airport of question.value" [value]="airport">
+            {{airport.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
     <div *ngIf="question.type === 'airplane-selector'">
       <mat-form-field>
         <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">

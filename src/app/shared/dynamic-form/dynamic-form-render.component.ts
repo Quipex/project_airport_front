@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {InputBaseModel} from '../models/inputBase.model';
-import {AirportModel} from "../models/entity/flight/airport.model";
 
 @Component({
   selector: 'app-form-input',
@@ -30,11 +29,12 @@ export class DynamicFormRenderComponent implements OnInit {
     }
     if (this.editMode) {
       if (this.question.type === 'airport-selector') {
+        console.log('selecting default val...');
         this.defaultValue = this.question.value[0];
       }
     }
     if (this.question.type === 'status-selector') {
-      console.log(this.question.value)
+      console.log(this.question.value);
     }
   }
 

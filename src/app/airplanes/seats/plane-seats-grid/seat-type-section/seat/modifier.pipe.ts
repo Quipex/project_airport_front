@@ -6,7 +6,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 export class ModifierPipe implements PipeTransform {
 
   transform(value: number, args?: any): number {
-    if (value === null) {
+    if (value === null || value === undefined) {
       return 1;
     }
     return value;
