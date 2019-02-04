@@ -21,6 +21,7 @@ export class AirplanesComponent implements OnInit, OnDestroy {
   airlines: AirlinesModel[] = [];
 
   form: FormGroup;
+  airline: AirlinesModel[] = [];
 
   settings: ColumnSetting[] =
     [
@@ -40,7 +41,26 @@ export class AirplanesComponent implements OnInit, OnDestroy {
       }
     ];
 
-  questions = [];
+  questions = [
+    new InputBaseModel({
+      key: 'model',
+      label: 'Model',
+      required: true,
+      type: 'text',
+      order: 1,
+      edit: true
+    }),
+
+    new InputBaseModel({
+      value: this.airlines,
+      key: 'airline',
+      label: 'Airline',
+      required: true,
+      type: 'airline-selector',
+      order: 2,
+      edit: true
+    })
+  ];
 
   constructor(
     private airlineService: AirlinesService
@@ -49,26 +69,9 @@ export class AirplanesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.airlinesServiceSub = this.airlineService.getAll().subscribe((next: AirlinesModel[]) => {
-      this.questions = [
-        new InputBaseModel({
-          key: 'model',
-          label: 'Model',
-          required: true,
-          type: 'text',
-          order: 1,
-          edit: true
-        }),
-
-        new InputBaseModel({
-          value: next,
-          key: 'airline',
-          label: 'Airline',
-          required: true,
-          type: 'airline-selector',
-          order: 2,
-          edit: true
-        })
-      ];
+      next.forEach(item => {
+        this.airlines.push(item);
+      });
     });
   }
 
