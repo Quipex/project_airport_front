@@ -5,6 +5,7 @@ import {AirplanesModel} from '../../../../../shared/models/entity/airplane/airpl
 import {SectionStore} from '../../../../data/section-store.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
+import {RegexValidator} from '../../../../../shared/validator/input-regex-validator';
 
 @Component({
   selector: 'app-section-editor',
@@ -12,6 +13,12 @@ import {Observable, Subscription} from 'rxjs';
   styleUrls: ['./section-editor.component.scss']
 })
 export class SectionEditorComponent implements OnInit, OnDestroy, OnChanges {
+
+  constructor(
+    private sectionStore: SectionStore,
+    private route: ActivatedRoute
+  ) {
+  }
 
   @Input() section: SectionModel;
   @Input() plane: AirplanesModel;
@@ -23,12 +30,6 @@ export class SectionEditorComponent implements OnInit, OnDestroy, OnChanges {
   private tempDescr: string;
   private planeId: number;
   private routeSub: Subscription;
-
-  constructor(
-    private sectionStore: SectionStore,
-    private route: ActivatedRoute
-  ) {
-  }
 
   ngOnInit() {
     this.tempCols = this.section.cols;
@@ -55,7 +56,7 @@ export class SectionEditorComponent implements OnInit, OnDestroy, OnChanges {
   changeCols(newValue) {
     // console.log('entered new col value');
     // console.log(newValue);
-    if (!this.isInteger(newValue)) {
+    if (!RegexValidator.isInteger(newValue)) {
       // console.log('it is not a solid number, so setting to 0');
       newValue = 0;
     }
@@ -65,7 +66,7 @@ export class SectionEditorComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   changeRows(newValue) {
-    if (!this.isInteger(newValue)) {
+    if (!RegexValidator.isInteger(newValue)) {
       newValue = 0;
     }
     this.tempRows = newValue;
@@ -74,7 +75,7 @@ export class SectionEditorComponent implements OnInit, OnDestroy, OnChanges {
   changeModifier(newValue) {
     // console.log('entered new modif value');
     // console.log(newValue);
-    if (!this.isFloat(newValue)) {
+    if (!RegexValidator.isFloat(newValue)) {
       // console.log('it is not a float number, so setting to 1');
       newValue = 1;
     }
@@ -123,14 +124,6 @@ export class SectionEditorComponent implements OnInit, OnDestroy, OnChanges {
         }
       }
     }
-  }
-
-  private isInteger(input: string): boolean {
-    return !!input.match(/^[0-9]+$/);
-  }
-
-  private isFloat(input: string): boolean {
-    return !!input.match(/^[-+]?[0-9]*\.?[0-9]+$/);
   }
 
   ngOnDestroy(): void {

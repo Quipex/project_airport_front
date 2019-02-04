@@ -5,3 +5,23 @@
   justify-content: center;
   align-items: center;
 }
+
+.single-lined {
+  display: flex;
+}
+
+.passage {
+  //display: table-cell;
+  width: 80px;
+  height: 90px;
+  //background-color: #c1c1c1;
+  color: #515151;
+  vertical-align: middle;
+  text-align: center;
+  //vertical-align: middle;
+  font-size: large;
+  line-height: 90px;
+  border-left: 2px solid #5d5d5d;
+  border-right: 2px solid #5d5d5d;
+  margin: 0 10px;
+}

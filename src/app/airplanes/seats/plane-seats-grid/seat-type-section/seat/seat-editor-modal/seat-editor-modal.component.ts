@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SeatModel} from '../../../../../../shared/models/entity/airplane/seat.model';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {RegexValidator} from '../../../../../../shared/validator/input-regex-validator';
 
 @Component({
   selector: 'app-seat-editor-modal',
@@ -21,11 +22,17 @@ export class SeatEditorModalComponent implements OnInit {
   }
 
   changeModifier(newVal: any) {
-    this.tempModifier = newVal;
+    if (!RegexValidator.isFloat(newVal)) {
+      // console.log('it is not a float number, so setting to 1');
+      newVal = 1;
+    }
+    this.tempModifier = +newVal;
   }
 
   confirm() {
     this.seat.modifier = this.tempModifier;
     this.activeModal.close();
   }
+
+
 }

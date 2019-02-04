@@ -1,14 +1,19 @@
 <!--DEBUG-->
 <!--rows: {{section.rows}}, cols: {{section.cols}}-->
 <div *ngFor="let item of section.rows | makeIterable; let row = index"
-      class="flexible">
+     class="flexible">
   <div *ngFor="let item of section.cols | makeIterable; let col = index">
     <!--DEBUG-->
     <!--({{row}},{{col}})-->
-    <app-seat *ngIf="getSeat(row, col)"
-              [viewMode]="viewMode"
-              [colorCode]="section.colorCode"
-              [seat]="getSeat(row, col)"
-              [(selectedSeats)]="selectedSeats"></app-seat>
+    <div class="single-lined">
+      <app-seat *ngIf="getSeat(row, col)"
+                [viewMode]="viewMode"
+                [colorCode]="section.colorCode"
+                [seat]="getSeat(row, col)"
+                [(selectedSeats)]="selectedSeats"></app-seat>
+
+      <div *ngIf="col + 1 === section.cols / 2"
+            class="passage">{{row + 1}}</div>
+    </div>
   </div>
 </div>

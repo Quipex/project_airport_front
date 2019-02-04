@@ -86,6 +86,7 @@ import {AirlineSelectorComponent} from './airplanes/airline-selector/airline-sel
 import {SeatTypeService} from './services/seatType.service';
 import {SectionStore} from './airplanes/data/section-store.service';
 import {HalfPipe} from './airplanes/plane/plane-editor/plane-seats-parameters/section-editor/half.pipe';
+import {AsLiteralPipe} from './airplanes/seats/plane-seats-grid/as-literal.pipe';
 
 
 @NgModule({
@@ -132,7 +133,8 @@ import {HalfPipe} from './airplanes/plane/plane-editor/plane-seats-parameters/se
     SearchListComponent,
     FilterItemsPipe,
     AirlineSelectorComponent,
-    HalfPipe
+    HalfPipe,
+    AsLiteralPipe
   ],
   imports: [
     BrowserModule,
