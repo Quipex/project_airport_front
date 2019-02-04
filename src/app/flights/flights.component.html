@@ -140,19 +140,13 @@
         <div class="div-container">
           <span>Expected:</span>
           <div>
-            Date: {{item.flight.actualDepartureDatetime | date}}
-          </div>
-          <div>
-            Time: {{item.flight.actualDepartureDatetime | date:'hh:mm a'}}
+            {{item.flight.actualDepartureDatetime != null ? (item.flight.actualDepartureDatetime | date:'medium') : '-'}}
           </div>
         </div>
         <div class="div-container">
           <span>Actual:</span>
           <div>
-            Date: {{item.flight.actualDepartureDatetime != null ? (item.flight.actualDepartureDatetime | date) : '-'}}
-          </div>
-          <div>
-            Time: {{item.flight.actualDepartureDatetime != null ? (item.flight.actualDepartureDatetime | date:'hh:mm a') : '-'}}
+            {{item.flight.actualDepartureDatetime != null ? (item.flight.actualDepartureDatetime | date:'medium') : '-'}}
           </div>
         </div>
       </td>
@@ -180,10 +174,10 @@
         </div>
       </td>
       <td>
-        {{item.airline.name}}
+        {{item.airline != null ? item.airline.name : '-'}}
       </td>
       <td>
-        {{item.airplane.model}}
+        {{item.airplane != null ? item.airplane.model : '-'}}
       </td>
       <td>
         {{item.flight.status}}
