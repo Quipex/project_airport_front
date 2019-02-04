@@ -22,6 +22,7 @@ import {AirplaneInfoComponent} from "./airplanes/airplane-info/airplane-info.com
 import {SeatTypeComponent} from "./seat-type/seat-type.component";
 import {PaymentMethodsComponent} from "./payment-methods/payment-methods.component";
 import {PaymentFormComponent} from "./payment-form/payment-form.component";
+import {AirportsComponent} from "./airports/airports.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -153,6 +154,14 @@ const routes: Routes = [
     canActivate: [AuthGuardService, RoleGuardService],
     data: {
       roles: ['ROLE_USER']
+    }
+  },
+  {
+    path: 'airports',
+    component: AirportsComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      roles: ['ROLE_ADMIN']
     }
   },
   {
