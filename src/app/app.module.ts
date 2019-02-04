@@ -90,6 +90,7 @@ import {HalfPipe} from './airplanes/plane/plane-editor/plane-seats-parameters/se
 import {AsLiteralPipe} from './airplanes/seats/plane-seats-grid/as-literal.pipe';
 import {ModifierPipe} from './airplanes/seats/plane-seats-grid/seat-type-section/seat/modifier.pipe';
 import {AirportsComponent} from "./airports/airports.component";
+import { FlightResultComponent } from './booking/flight-result/flight-result.component';
 
 
 @NgModule({
@@ -140,7 +141,8 @@ import {AirportsComponent} from "./airports/airports.component";
     AsLiteralPipe,
     AirportsComponent,
     AsLiteralPipe,
-    ModifierPipe
+    ModifierPipe,
+    FlightResultComponent
   ],
   imports: [
     BrowserModule,
