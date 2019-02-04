@@ -1,7 +1,7 @@
 .flexible {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
 }
@@ -24,4 +24,8 @@
   border-left: 2px solid #5d5d5d;
   border-right: 2px solid #5d5d5d;
   margin: 0 10px;
+}
+
+.shrinkable {
+  flex: 0 1 80px;
 }
