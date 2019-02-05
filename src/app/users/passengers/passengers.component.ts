@@ -23,6 +23,9 @@ import {PassportModel} from "../../shared/models/entity/users/passengers/passpor
 })
 export class PassengersComponent implements OnInit {
 
+  userLogin: string;
+  items: PassengerPassportModel[] = [];
+  passengers: any = [];
   passports = [];
 
   form: FormGroup;
@@ -45,10 +48,6 @@ export class PassengersComponent implements OnInit {
     private datePipe: DatePipe
   ) {
   }
-
-  userLogin: string;
-  passengers: any = [];
-  items: PassengerPassportModel[] = [];
 
   questions: InputBaseModel<any>[] = [
     new InputBaseModel({
@@ -208,16 +207,16 @@ export class PassengersComponent implements OnInit {
   }
 
   onSearch() {
+    this.items = [];
+    this.passengers = [];
+    this.items = [];
+    
     if (this.searchString === '') {
-      this.items = [];
       this.getPassengers(this.userLogin);
     } else {
       let wrapper = new FilterAndSortWrapperModel(this.searchString);
       this.passengersService.search(this.userLogin,1, wrapper)
         .subscribe((data: ResponseFilteringWrapperModel) => {
-          this.passports = [];
-          this.passengers = [];
-          this.items = [];
           data.entities.forEach(element => {
             this.passportsService.getPassportsByParentId(element.objectId)
               .subscribe((response: PassportModel) => {
