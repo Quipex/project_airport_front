@@ -48,6 +48,10 @@ export class FlightsComponent implements OnInit {
   sortList: SortEntityModel[] = [];
   deleteId: number;
   responseError: ResponseErrorModel;
+  currentDay = new Date().getDate();
+  currentMonth = new Date().getMonth();
+  currentYear = new Date().getFullYear();
+  minDate = new Date(this.currentYear, this.currentMonth, this.currentDay);
 
   paging = false;
   numberOfPage = 1;
@@ -83,7 +87,8 @@ export class FlightsComponent implements OnInit {
       required: true,
       type: 'date',
       order: 3,
-      edit: true
+      edit: true,
+      minDate: this.minDate
     }),
     new InputBaseModel({
       key: 'actualDepartureTime',
@@ -108,7 +113,8 @@ export class FlightsComponent implements OnInit {
       required: true,
       type: 'date',
       order: 6,
-      edit: true
+      edit: true,
+      minDate: this.minDate
     }),
     new InputBaseModel({
       key: 'actualArrivalTime',
@@ -144,7 +150,8 @@ export class FlightsComponent implements OnInit {
       required: true,
       type: 'date',
       order: 3,
-      edit: true
+      edit: true,
+      minDate: this.minDate
     }),
     new InputBaseModel({
       key: 'actualDepartureTime',
@@ -152,7 +159,8 @@ export class FlightsComponent implements OnInit {
       required: true,
       type: 'time',
       order: 4,
-      edit: true
+      edit: true,
+      minDate: this.minDate
     }),
     new InputBaseModel({
       key: 'arrivalAirport',
@@ -169,7 +177,8 @@ export class FlightsComponent implements OnInit {
       required: true,
       type: 'date',
       order: 6,
-      edit: true
+      edit: true,
+      minDate: this.minDate
     }),
     new InputBaseModel({
       key: 'actualArrivalTime',

@@ -1,20 +1,22 @@
 export class InputBaseModel<T> {
-  value: T;
+  value: any;
   key: string;
   label: string;
   required: boolean;
   order: number;
   type: string;
   edit: boolean;
+  minDate: any;
 
   constructor(options: {
-    value?: T,
+    value?: any,
     key?: string,
     label?: string,
     required?: boolean,
     order?: number,
     type?: string,
-    edit?: boolean
+    edit?: boolean,
+    minDate?: any,
   } = {}) {
     this.value = options.value;
     this.key = options.key || '';
@@ -23,5 +25,6 @@ export class InputBaseModel<T> {
     this.order = options.order === undefined ? 1 : options.order;
     this.type = options.type || '';
     this.edit = options.edit;
+    this.minDate = options.minDate;
   }
 }

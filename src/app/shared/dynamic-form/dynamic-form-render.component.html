@@ -13,7 +13,6 @@
                 question.type !== 'airport-selector' &&
                 question.type !== 'status-selector' &&
                 question.type !== 'country-selector'">
-
       <label *ngIf="question.edit" [attr.for]="question.key">{{question.label}}</label>
       <input *ngIf="question.edit" [formControlName]="question.key" [id]="question.key"
              [type]="question.type" class="form-control" mdbInputDirective mdbValidate>
@@ -21,7 +20,8 @@
 
     <div *ngIf="question.type === 'date'">
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="{{question.label}}" [formControlName]="question.key">
+        <input matInput placeholder="{{question.label}}" [formControlName]="question.key" [min]="question.minDate"
+               [matDatepicker]="picker">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -32,16 +32,6 @@
                       [preferredCountries]="['ua', 'gb', 'de', 'be']"
                       mdbInputDirective
                       mdbValidate></intl-tel-input>
-    </div>
-
-    <div *ngIf="question.type === 'select'">
-      <mat-form-field>
-        <mat-select placeholder="{{question.label}}" [formControlName]="question.key">
-          <mat-option *ngFor="let index of selectKeys" [value]="index">
-            {{question.value[index]}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
     </div>
 
     <div *ngIf="question.type === 'cc-number'">
@@ -62,11 +52,21 @@
              class="form-control" mdbInputDirective mdbValidate>
     </div>
 
+    <div *ngIf="question.type === 'select'">
+      <mat-form-field>
+        <mat-select placeholder="{{question.label}}" [formControlName]="question.key">
+          <mat-option *ngFor="let index of selectKeys" [value]="index">
+            {{question.value[index]}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <div *ngIf="question.type === 'airline-selector'">
       <!--<app-airline-selector [formControlName]="question.key"></app-airline-selector>-->
       <mat-form-field>
         <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
-          <mat-option *ngFor="let airline of question.value" [value]="airline">
+          <mat-option *ngFor="let airline of question.value" [value]="airline.objectId">
             {{airline.name}}
           </mat-option>
         </mat-select>
@@ -137,7 +137,7 @@
 
     <div *ngIf="question.type === 'date'">
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="{{question.label}}" [formControlName]="question.key">
+        <input matInput [matDatepicker]="picker" placeholder="{{question.label}}" [formControlName]="question.key" [min]="question.minDate">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -150,17 +150,7 @@
                       mdbValidate></intl-tel-input>
     </div>
 
-    <div *ngIf="question.type === 'select'">
       <!--<mat-form-field>-->
-      <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key"
-                  style="border-bottom: 1px solid #757575; padding: 8px;" ngModel>
-        <mat-option *ngFor="let role of selectKeys" [value]="role">
-          {{question.value[role]}}
-        </mat-option>
-      </mat-select>
-      <!--</mat-form-field>-->
-    </div>
-
     <div *ngIf="question.type === 'cc-number'">
       <label [attr.for]="question.key">{{question.label}}</label>
       <input [formControlName]="question.key" [id]="question.type" type="tel" autocomplete="cc-number" ccNumber
@@ -177,6 +167,16 @@
       <label [attr.for]="question.key">{{question.label}}</label>
       <input [formControlName]="question.key" [id]="question.key" type="number" autocomplete="cc-cvc" ccCvc
              maxlength="3" class="form-control" mdbInputDirective mdbValidate>
+    </div>
+
+    <div *ngIf="question.type === 'select'">
+      <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key"
+                  style="border-bottom: 1px solid #757575; padding: 8px;" ngModel>
+        <mat-option *ngFor="let role of selectKeys" [value]="role">
+          {{question.value[role]}}
+        </mat-option>
+      </mat-select>
+      <!--</mat-form-field>-->
     </div>
 
     <div *ngIf="question.type === 'airline-selector'">
