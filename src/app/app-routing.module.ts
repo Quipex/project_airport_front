@@ -25,7 +25,7 @@ import {PaymentFormComponent} from './payment-form/payment-form.component';
 import {AirportsComponent} from './airports/airports.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
   {
     path: 'users',
     component: UsersComponent,
@@ -84,8 +84,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent,
-    canActivate: [AuthGuardService]
+    component: HomeComponent
   },
   {
     path: 'passengers',

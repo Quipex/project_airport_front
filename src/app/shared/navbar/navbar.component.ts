@@ -27,17 +27,19 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.authModel = JSON.parse(window.localStorage.getItem('currentUser'));
-    var token = this.authModel.token;
-    const helper = new JwtHelperService();
-    const decodedToken = helper.decodeToken(token);
-    this.currentRole = decodedToken.user_role;
+    if (this.authModel !== null) {
+      var token = this.authModel.token;
+      const helper = new JwtHelperService();
+      const decodedToken = helper.decodeToken(token);
+      this.currentRole = decodedToken.user_role;
+    }
   }
 
 
   onLogout() {
     this.authModel = null;
     this.authenticationService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
   }
 
 }
