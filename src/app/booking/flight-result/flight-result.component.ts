@@ -9,6 +9,8 @@ import {FlightsModel} from "../../shared/models/entity/flight/flights.model";
 export class FlightResultComponent implements OnInit {
 
   @Input() flights: FlightsModel[];
+  @Input() returnFlights: FlightsModel[];
+  @Input() flightType: boolean;
 
   constructor() { }
 
