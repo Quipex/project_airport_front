@@ -46,7 +46,7 @@
   </div>
 </div>
 
-<div class="container table-container flexible">
+<mat-card class="container table-container flexible">
   <table *ngIf="flights.length" class="table table-striped">
     <thead>
     <tr>
@@ -198,7 +198,7 @@
   <div *ngIf="!flights.length">
     <h4>There are no items.</h4>
   </div>
-</div>
+</mat-card>
 
 
 <div mdbModal #removeConfirmModal="mdbModal" class="modal fade" role="dialog"
