@@ -32,7 +32,7 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
   }
 
   public seats: Set<SeatModel>;
-  public plane: AirplanesModel = new AirplanesModel(null, null);
+  public plane: AirplanesModel = new AirplanesModel(null, null, 0);
   public seatTypes: SeatTypeModel[];
   public selectedSeats = new Set<SeatModel>();
   public sections: SectionModel[];
@@ -65,6 +65,7 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
       const airplane = new AirplanesModel(
         initialAirplane.model,
         airline,
+        initialAirplane.versionNum,
         initialAirplane.id,
         initialAirplane.objectId,
         initialAirplane.parentId,
@@ -147,6 +148,7 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
       .subscribe((response: any) => {
         this.plane.objectId = response.objectId;
         this.plane.model = response.model;
+        this.plane.versionNum = response.versionNum;
         // console.log(this.plane);
         this.airlinesService.getItemById(response.airlineId)
           .subscribe((resp: AirlinesModel) => {
