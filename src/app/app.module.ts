@@ -27,6 +27,7 @@ import {httpInterceptorProviders} from './http-interceptors';
 import {AirplanesComponent} from './airplanes/airplanes.component';
 import {FormControlService} from './services/formControl.service';
 import {
+  MatAutocompleteModule,
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
@@ -172,7 +173,8 @@ import { FlightResultComponent } from './booking/flight-result/flight-result.com
     MatSlideToggleModule,
     CreditCardDirectivesModule,
     MatCardModule,
-    MatStepperModule
+    MatStepperModule,
+    MatAutocompleteModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [UsersService,
