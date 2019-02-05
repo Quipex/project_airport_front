@@ -420,7 +420,7 @@ export class FlightsComponent implements OnInit {
 
       this.currentItem.flight.actualDepartureDatetime = actualDepartureDatetime;
       this.currentItem.flight.actualArrivalDatetime = actualArrivalDatetime;
-      this.currentItem.flight.arrivalAirportId = this.editForm.value['arrivalAirportId'].objectId;
+      this.currentItem.flight.arrivalAirportId = this.editForm.value['arrivalAirportId'];
       this.currentItem.flight.status = this.editForm.value['status'];
       console.log(this.currentItem.flight);
       this.onSave(this.currentItem.flight);
