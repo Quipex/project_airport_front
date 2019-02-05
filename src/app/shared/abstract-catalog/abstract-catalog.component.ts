@@ -120,9 +120,10 @@ export class AbstractCatalogComponent implements OnInit {
 
   onSave(returnedItem: BaseEntityModel) {
     if (this.submitType === 'Save') {
-      
+
       this.service.addItem(returnedItem)
-        .subscribe(() => {
+        .subscribe(item => {
+            this.entities.push(item);
             this.newModal.hide();
             const message = 'New item has been added.';
             this.showInfo(message);

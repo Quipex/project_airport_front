@@ -70,44 +70,51 @@ export class FlightBookingComponent implements OnInit {
     if (this.showResult) {
       this.showResult = false;
     }
+
     if (!this.searchForm.valid) {
       this.showError('All field are required.');
     } else {
-      if (this.defaultFlightType === 'One way') {
-        let departureDate = this.datePipe.transform(this.departureDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
-        let wrapper = new FlightSearchWrapperModel(this.departureCity, this.destinationCity, departureDate);
-        this.searchOneWay(1, wrapper)
-          .subscribe((data: FlightDTOModel[]) => {
-            if (data.length === 0) {
-              this.showWarning('There are no flights.')
-            } else {
-              this.flights = [];
-              data.forEach(item => {
-                this.flights.push(item)
-              });
-              this.showResult = true;
-            }
-          });
-      } else if (this.defaultFlightType === 'Round trip') {
-        let departureDate = this.datePipe.transform(this.departureDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
-        let returnDate = this.datePipe.transform(this.returnDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
-        let wrapper = new FlightSearchWrapperModel(this.departureCity, this.destinationCity, departureDate, returnDate);
-        this.searchBoth(1, wrapper)
-          .subscribe((data: any[][]) => {
-            if (data['departureFlights'] === null || data['returnFlights'] === null) {
-              this.showWarning('There are no flights.')
-            } else {
-              this.flights = [];
-              this.returnFlights = [];
-              data['departureFlights'].forEach((item: FlightDTOModel) => {
-                this.flights.push(item);
-              });
-              data['returnFlights'].forEach((item: FlightDTOModel) => {
-                this.returnFlights.push(item);
-              });
-              this.showResult = true;
-            }
-          });
+      if (this.departureCities.has(this.departureCity) && this.destinationCities.has(this.destinationCity)) {
+        if (this.defaultFlightType === 'One way') {
+          let departureDate = this.datePipe.transform(this.departureDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
+          let wrapper = new FlightSearchWrapperModel(this.departureCity, this.destinationCity, departureDate);
+          this.searchOneWay(1, wrapper)
+            .subscribe((data: FlightDTOModel[]) => {
+              if (data.length === 0) {
+                this.showWarning('There are no flights.')
+              } else {
+                this.flights = [];
+                data.forEach(item => {
+                  this.flights.push(item)
+                });
+                this.showResult = true;
+              }
+            });
+        } else if (this.defaultFlightType === 'Round trip') {
+          let departureDate = this.datePipe.transform(this.departureDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
+          let returnDate = this.datePipe.transform(this.returnDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
+          let wrapper = new FlightSearchWrapperModel(this.departureCity, this.destinationCity, departureDate, returnDate);
+          this.searchBoth(1, wrapper)
+            .subscribe((data: any[][]) => {
+              if (data['departureFlights'] === null || data['returnFlights'] === null) {
+                this.showWarning('There are no flights.')
+              } else {
+                this.flights = [];
+                this.returnFlights = [];
+                data['departureFlights'].forEach((item: FlightDTOModel) => {
+                  this.flights.push(item);
+                });
+                data['returnFlights'].forEach((item: FlightDTOModel) => {
+                  this.returnFlights.push(item);
+                });
+                this.showResult = true;
+              }
+            });
+        }
+      } else if (!this.departureCities.has(this.departureCity)) {
+        this.departureCity = '';
+      } else if (!this.destinationCities.has(this.destinationCity)) {
+        this.destinationCity = '';
       }
     }
   }
