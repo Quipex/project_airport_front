@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Router} from '@angular/router';
 import {FlightSearchWrapperModel} from '../../shared/models/flightSearchWrapper.model';
 import {FlightDTOModel} from '../../shared/models/flightDTO.model';
 import {AuthenticationService} from '../../services/authentication.service';
@@ -51,6 +52,7 @@ export class FlightBookingComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private authenticationService: AuthenticationService,
+    private router: Router,
     private datePipe: DatePipe,
     private toastr: ToastrService
   ) { }
@@ -162,5 +164,10 @@ export class FlightBookingComponent implements OnInit {
           });
         });
     }
+  }
+
+  goBooking(index: number) {
+    let flight = this.flights[index];
+    this.router.navigate(['airplane-info', {airplaneId: 40}]);
   }
 }

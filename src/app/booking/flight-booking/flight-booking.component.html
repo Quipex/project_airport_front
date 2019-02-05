@@ -11,7 +11,8 @@
     <div class="col-md-3 departure-col">
       <mat-form-field appearance="outline" class="mat-form-input-field departure-input">
         <mat-label>Departure</mat-label>
-        <input formControlName="departureCity" [(ngModel)]="departureCity" matInput placeholder="From" (keyup)="onKeyUpForDepartureCities($event)" [matAutocomplete]="departureAuto">
+        <input formControlName="departureCity" [(ngModel)]="departureCity" matInput placeholder="From"
+               (keyup)="onKeyUpForDepartureCities($event)" [matAutocomplete]="departureAuto">
         <mat-autocomplete #departureAuto="matAutocomplete" [displayWith]="displayFn">
           <mat-option *ngFor="let city of departureCities" [value]="city">
             {{city}}
@@ -22,7 +23,8 @@
     <div class="col-md-3 destination-col">
       <mat-form-field appearance="outline" class="mat-form-input-field destination-input">
         <mat-label>Destination</mat-label>
-        <input formControlName="destinationCity" [(ngModel)]="destinationCity" matInput placeholder="To" (keyup)="onKeyUpForDestinationCities($event)" [matAutocomplete]="destinationAuto">
+        <input formControlName="destinationCity" [(ngModel)]="destinationCity" matInput placeholder="To"
+               (keyup)="onKeyUpForDestinationCities($event)" [matAutocomplete]="destinationAuto">
         <mat-autocomplete #destinationAuto="matAutocomplete" [displayWith]="displayFn">
           <mat-option *ngFor="let city of destinationCities" [value]="city">
             {{city}}
@@ -33,7 +35,8 @@
     <div class="col-md-3 departure-date-col">
       <mat-form-field appearance="outline" class="datepicker departure-date">
         <mat-label>Departure date</mat-label>
-        <input formControlName="departureDate" [(ngModel)]="departureDate" matInput (click)="date_picker.open()" [min]="minDate" [matDatepicker]="date_picker">
+        <input formControlName="departureDate" [(ngModel)]="departureDate" matInput (click)="date_picker.open()"
+               [min]="minDate" [matDatepicker]="date_picker">
         <mat-datepicker-toggle matSuffix [for]="date_picker"></mat-datepicker-toggle>
         <mat-datepicker #date_picker></mat-datepicker>
       </mat-form-field>
@@ -41,7 +44,8 @@
     <div class="col-md-3 return-date-col">
       <mat-form-field *ngIf="defaultFlightType == 'Round trip' " appearance="outline" class="datepicker return-date">
         <mat-label>Return date</mat-label>
-        <input formControlName="returnDate" [(ngModel)]="returnDate" matInput (click)="date_picker_back.open()" [min]="minDate" [matDatepicker]="date_picker_back" placeholder="Choose a return date">
+        <input formControlName="returnDate" [(ngModel)]="returnDate" matInput (click)="date_picker_back.open()" [min]="minDate"
+               [matDatepicker]="date_picker_back" placeholder="Choose a return date">
         <mat-datepicker-toggle matSuffix [for]="date_picker_back"></mat-datepicker-toggle>
         <mat-datepicker #date_picker_back></mat-datepicker>
       </mat-form-field>

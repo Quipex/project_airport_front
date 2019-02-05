@@ -22,8 +22,8 @@ export class DynamicFormRenderComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (this.question.type === 'select') {
-      for (const x in this.question.value) {
+    if (this.question.type === 'select' || this.question.type === 'country-selector') {
+      for (let x in this.question.value) {
         this.selectKeys.push(x);
       }
     }
@@ -38,7 +38,7 @@ export class DynamicFormRenderComponent implements OnInit {
     }
   }
 
-  test(event: any) {
+  static test(event: any) {
     console.log(event);
   }
 

@@ -46,8 +46,7 @@ export class AirportsComponent implements OnInit {
     ];
 
   questions: InputBaseModel<any>[] = [
-
-
+    
     new InputBaseModel({
       key: 'name',
       label: 'Name',
@@ -81,7 +80,7 @@ export class AirportsComponent implements OnInit {
       label: 'City',
       required: true,
       type: 'text',
-      order: 5,
+      order: 4,
       edit: true
     })
   ];

@@ -82,7 +82,7 @@ export class FlightsComponent implements OnInit {
       value: this.airports
     }),
     new InputBaseModel({
-      key: 'actualDepartureDate',
+      key: 'expectedDepartureDate',
       label: 'Departure date',
       required: true,
       type: 'date',
@@ -91,7 +91,7 @@ export class FlightsComponent implements OnInit {
       minDate: this.minDate
     }),
     new InputBaseModel({
-      key: 'actualDepartureTime',
+      key: 'expectedDepartureTime',
       label: 'Departure time',
       required: true,
       type: 'time',
@@ -108,7 +108,7 @@ export class FlightsComponent implements OnInit {
       value: this.airports
     }),
     new InputBaseModel({
-      key: 'actualArrivalDate',
+      key: 'expectedArrivalDate',
       label: 'Arrival date',
       required: true,
       type: 'date',
@@ -117,7 +117,7 @@ export class FlightsComponent implements OnInit {
       minDate: this.minDate
     }),
     new InputBaseModel({
-      key: 'actualArrivalTime',
+      key: 'expectedArrivalTime',
       label: 'Arrival time',
       required: true,
       type: 'time',
@@ -217,7 +217,6 @@ export class FlightsComponent implements OnInit {
     const decodedToken = helper.decodeToken(token);
     this.currentRole = decodedToken.user_role;
 
-    // this.datePipe.
     this.form = this.fcs.toFormGroup(this.questions);
     this.editForm = this.fcs.toFormGroup(this.editQuestions);
     this.getFlights();
@@ -260,7 +259,7 @@ export class FlightsComponent implements OnInit {
 
     this.flightsService.getTenItems(numberOfPage).subscribe((value: FlightDTOModel[]) => {
       this.flights = value;
-      // console.log(value);
+      console.log(value);
     });
   }
 
