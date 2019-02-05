@@ -163,7 +163,7 @@ export class FlightsComponent implements OnInit {
       minDate: this.minDate
     }),
     new InputBaseModel({
-      key: 'arrivalAirport',
+      key: 'arrivalAirportId',
       label: 'Arrival airport',
       required: true,
       type: 'airport-selector',
@@ -348,7 +348,7 @@ export class FlightsComponent implements OnInit {
     this.editForm.controls['actualArrivalTime'].setValue(expectedArrivalTime);
     this.editForm.controls['actualDepartureDate'].setValue(new Date(expectedDepartureDate));
     this.editForm.controls['actualDepartureTime'].setValue(expectedDepartureTime);
-    this.editForm.controls['arrivalAirport'].setValue(this.currentItem.arrivalAirport.objectId);
+    this.editForm.controls['arrivalAirportId'].setValue(this.currentItem.arrivalAirport.objectId);
     this.editForm.patchValue(this.currentItem.flight);
 
     this.submitType = 'Update';
@@ -382,25 +382,27 @@ export class FlightsComponent implements OnInit {
 
   onSubmit() {
     if (this.submitType === 'Save') {
-      let actualArrivalDate = this.datePipe.transform(this.form.value['actualArrivalDate'], 'yyyy-MM-dd');
-      let actualArrivalTime = this.form.value['actualArrivalTime'];
-      let actualArrivalDateTime = new Date(actualArrivalDate + 'T' + actualArrivalTime);
-      let actualArrivalDatetime = this.datePipe.transform(actualArrivalDateTime, 'yyyy-MM-dd\'T\'HH:mm:ss');
+      let expectedArrivalDate = this.datePipe.transform(this.form.value['expectedArrivalDate'], 'yyyy-MM-dd');
+      console.log(expectedArrivalDate);
+      let expectedArrivalTime = this.form.value['expectedArrivalTime'];
+      let expectedArrivalDateTime = new Date(expectedArrivalDate + 'T' + expectedArrivalTime);
+      console.log(expectedArrivalDateTime);
+      let expectedArrivalDatetime = this.datePipe.transform(expectedArrivalDateTime, 'yyyy-MM-dd\'T\'HH:mm:ss');
 
-      let actualDepartureDate = this.datePipe.transform(this.form.value['actualDepartureDate'], 'yyyy-MM-dd');
-      let actualDepartureTime = this.form.value['actualDepartureTime'];
-      let actualDepartureDateTime = new Date(actualDepartureDate + 'T' + actualDepartureTime);
-      let actualDepartureDatetime = this.datePipe.transform(actualDepartureDateTime, 'yyyy-MM-dd\'T\'HH:mm:ss');
+      let expectedDepartureDate = this.datePipe.transform(this.form.value['expectedDepartureDate'], 'yyyy-MM-dd');
+      let expectedDepartureTime = this.form.value['expectedDepartureTime'];
+      let expectedDepartureDateTime = new Date(expectedDepartureDate + 'T' + expectedDepartureTime);
+      let expectedDepartureDatetime = this.datePipe.transform(expectedDepartureDateTime, 'yyyy-MM-dd\'T\'HH:mm:ss');
 
       let newFlight: any = {};
       newFlight.arrivalAirportId = this.form.value['arrivalAirportId'].objectId;
       newFlight.departureAirportId = this.form.value['departureAirportId'].objectId;
       newFlight.baseCost = this.form.value['baseCost'];
       newFlight.status = 'SCHEDULED';
-      newFlight.actualDepartureDatetime = actualDepartureDatetime;
-      newFlight.actualArrivalDatetime = actualArrivalDatetime;
-      newFlight.expectedDepartureDatetime = actualDepartureDatetime;
-      newFlight.expectedArrivalDatetime = actualArrivalDatetime;
+      newFlight.expectedDepartureDatetime = expectedDepartureDatetime;
+      newFlight.expectedArrivalDatetime = expectedArrivalDatetime;
+      // newFlight.actualDepartureDatetime = expectedDepartureDatetime;
+      // newFlight.actualArrivalDatetime = expectedArrivalDatetime;
       newFlight.flightNumber = this.form.value['flightNumber'];
       newFlight.airplaneId = this.form.value['airplaneId'].objectId;
       this.onSave(newFlight);
@@ -418,7 +420,7 @@ export class FlightsComponent implements OnInit {
 
       this.currentItem.flight.actualDepartureDatetime = actualDepartureDatetime;
       this.currentItem.flight.actualArrivalDatetime = actualArrivalDatetime;
-      this.currentItem.flight.arrivalAirportId = this.editForm.value['arrivalAirport'].objectId;
+      this.currentItem.flight.arrivalAirportId = this.editForm.value['arrivalAirportId'].objectId;
       this.currentItem.flight.status = this.editForm.value['status'];
       console.log(this.currentItem.flight);
       this.onSave(this.currentItem.flight);
