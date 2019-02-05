@@ -3,7 +3,11 @@
         color="primary"
         [style.background-color]="colorCode"
         (click)="onClick()"
-        [ngClass]="{selected: isSelected}">
+        [ngClass]="{selected: isSelected, disabled: disabled}"
+        [disabled]="disabled">
   <!--DEBUG-->
-  x{{seat.modifier | toModifier}}
+  <div [ngSwitch]="viewMode">
+    <div *ngSwitchCase="'SELECT'">price</div>
+    <div *ngSwitchCase="'EDIT'">x{{seat.modifier | toModifier}}</div>
+  </div>
 </button>

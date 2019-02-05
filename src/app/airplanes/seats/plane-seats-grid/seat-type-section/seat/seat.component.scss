@@ -1,3 +1,8 @@
+$disabled-color: #bababa;
+
+$selected-background: #002445;
+$selected-font-color: #FFFD50;
+
 .seat {
   width: 80px;
   height: 80px;
@@ -7,10 +12,13 @@
   margin: 5px;
 }
 
+
 .disabled {
-  background-color: #646464;
+  background-color: $disabled-color !important;
+  color: $disabled-color !important;
 }
 
 .selected {
-  background-color: #324556 !important;
+  background-color: $selected-background !important;
+  color: $selected-font-color !important;
 }
