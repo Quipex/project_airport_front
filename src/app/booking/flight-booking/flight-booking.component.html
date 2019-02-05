@@ -11,13 +11,23 @@
     <div class="col-md-3 departure-col">
       <mat-form-field appearance="outline" class="mat-form-input-field departure-input">
         <mat-label>Departure</mat-label>
-        <input formControlName="departureCity" [(ngModel)]="departureCity" matInput placeholder="From">
+        <input formControlName="departureCity" [(ngModel)]="departureCity" matInput placeholder="From" (keyup)="onKeyUpForDepartureCities($event)" [matAutocomplete]="departureAuto">
+        <mat-autocomplete #departureAuto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let city of departureCities" [value]="city">
+            {{city}}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
     </div>
     <div class="col-md-3 destination-col">
       <mat-form-field appearance="outline" class="mat-form-input-field destination-input">
         <mat-label>Destination</mat-label>
-        <input formControlName="destinationCity" [(ngModel)]="destinationCity" matInput placeholder="To">
+        <input formControlName="destinationCity" [(ngModel)]="destinationCity" matInput placeholder="To" (keyup)="onKeyUpForDestinationCities($event)" [matAutocomplete]="destinationAuto">
+        <mat-autocomplete #destinationAuto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let city of destinationCities" [value]="city">
+            {{city}}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
     </div>
     <div class="col-md-3 departure-date-col">

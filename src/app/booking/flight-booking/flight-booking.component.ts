@@ -7,6 +7,7 @@ import {AuthenticationService} from '../../services/authentication.service';
 import {DatePipe} from "@angular/common";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
+import {AirportModel} from "../../shared/models/entity/flight/airport.model";
 
 const API_URL = environment.apiUrl;
 
@@ -37,6 +38,8 @@ export class FlightBookingComponent implements OnInit {
     {'name': 'Round trip', id: 'round_trip'}
   ];
   defaultFlightType = this.flightTypes[0].name;
+  departureCities = [];
+  destinationCities = [];
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -125,11 +128,35 @@ export class FlightBookingComponent implements OnInit {
     return this.http.post(API_URL + `/flight-booking/search-both/page=${page}`, wrapper, this.httpOptions);
   }
 
+  searchCityName(cityName: string) {
+    return this.http.get(API_URL + `/airports/searchCityName/cityName=${cityName}`, this.httpOptions);
+  }
+
   showError(message: string) {
     this.toastr.error(message);
   }
 
   showWarning(message: string) {
     this.toastr.warning(message);
+  }
+
+  onKeyUpForDepartureCities(value: KeyboardEvent) {
+    this.departureCities = [];
+    this.searchCityName(this.departureCity)
+      .subscribe((data: AirportModel[]) => {
+        data.forEach((item: AirportModel) => {
+          this.departureCities.push(item.city)
+        });
+      })
+  }
+
+  onKeyUpForDestinationCities(value: KeyboardEvent) {
+    this.destinationCities = [];
+    this.searchCityName(this.destinationCity)
+      .subscribe((data: AirportModel[]) => {
+        data.forEach((item: AirportModel) => {
+          this.destinationCities.push(item.city)
+        });
+      })
   }
 }
