@@ -7,8 +7,8 @@
       <th *ngFor="let map of columnMaps; let i = index">{{map.header}}
         <span (click)="sortBy(map.sortAttr, i)" *ngIf="map.sortAttr!==undefined">
             <mdb-icon *ngIf="sortedDirections[i] === 0" icon="sort"></mdb-icon>
-            <mdb-icon *ngIf="sortedDirections[i] === 1" icon="sort-up"></mdb-icon>
-            <mdb-icon *ngIf="sortedDirections[i] === -1" icon="sort-down"></mdb-icon>
+            <mdb-icon *ngIf="sortedDirections[i] === 1" icon="sort-down"></mdb-icon>
+            <mdb-icon *ngIf="sortedDirections[i] === -1" icon="sort-up"></mdb-icon>
           </span>
       </th>
       <th></th>
