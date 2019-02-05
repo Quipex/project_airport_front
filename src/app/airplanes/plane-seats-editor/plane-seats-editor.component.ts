@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {SeatModel} from '../../shared/models/entity/airplane/seat.model';
 import {AirplanesModel} from '../../shared/models/entity/airplane/airplanes.model';
 import {SeatTypeModel} from '../../shared/models/entity/airplane/seat-type.model';
@@ -34,6 +34,7 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
   ) {
   }
 
+  @Input() forceDebug = false;
   public seats: Set<SeatModel>;
   public plane: AirplanesModel = new AirplanesModel(null, null, 0);
   public seatTypes: SeatTypeModel[];

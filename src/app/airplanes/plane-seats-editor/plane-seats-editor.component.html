@@ -1,65 +1,71 @@
-<div class="single-lined">
-  <div class="card-shadow">
-    <span class="label">NO DEBUG</span>
-    <mat-slide-toggle (change)="isDebug = $event.checked"></mat-slide-toggle>
-    <span class="label">DEBUG</span>
-  </div>
-
-  <div class="card-shadow">
-    <span class="label">EDIT</span>
-    <mat-slide-toggle (change)="toggleViewMode($event.checked)"></mat-slide-toggle>
-    <span class="label">SELECT</span>
-  </div>
-</div>
-
-<mat-sidenav-container class="plane-seats__editor">
-  <!--SEATS-->
-  <mat-sidenav-content class="content-container">
-    <mat-spinner *ngIf="!seats" class="spinner"></mat-spinner>
-
-    <div *ngIf="seats">
-      <h3 *ngIf="!seats.size" class="no-seats-label">No seats available</h3>
-
-      <!--SEATS-GRID-->
-      <app-plane-seats-grid *ngIf="seats.size"
-                            [seats]="seats"
-                            [(selectedSeats)]="selectedSeats"
-                            [viewMode]="viewMode"></app-plane-seats-grid>
+<mat-card>
+  <div *ngIf="forceDebug" class="single-lined">
+    <div class="card-shadow">
+      <span class="label">NO DEBUG</span>
+      <mat-slide-toggle (change)="isDebug = $event.checked"></mat-slide-toggle>
+      <span class="label">DEBUG</span>
     </div>
-  </mat-sidenav-content>
 
-  <!--SEAT-TYPE-EDITORS-->
-  <mat-sidenav class="plane-seats-container" opened mode="side" position="end">
-    <app-plane-editor [plane]="plane"
-                      [(seats)]="seats"
-                      [seatTypes]="seatTypes"></app-plane-editor>
-  </mat-sidenav>
-</mat-sidenav-container>
+    <div class="card-shadow">
+      <span class="label">EDIT</span>
+      <mat-slide-toggle (change)="toggleViewMode($event.checked)"></mat-slide-toggle>
+      <span class="label">SELECT</span>
+    </div>
+  </div>
 
-<button mat-flat-button color="primary" class="right-sided-btn" (click)="saveSeats()">SAVE</button>
+  <mat-card-content>
+    <mat-sidenav-container class="plane-seats__editor">
+      <!--SEATS-->
+      <mat-sidenav-content class="content-container">
+        <mat-spinner *ngIf="!seats" class="spinner"></mat-spinner>
 
-<!--DEBUG-->
-<div *ngIf="isDebug">
-  <h2>plane:</h2>
-  <ul>
-    <li>objId: {{plane.objectId}}</li>
-    <li>model: {{plane.model}}</li>
-    <li>airline: {{plane.airline.toString()}}</li>
-    <li>versionNum: {{plane.versionNum}}</li>
-  </ul>
+        <div *ngIf="seats">
+          <h3 *ngIf="!seats.size" class="no-seats-label">No seats available</h3>
 
-  <h2>sections:</h2>
-  <ul>
-    <li *ngFor="let section of sections">{{section.toString()}}</li>
-  </ul>
+          <!--SEATS-GRID-->
+          <app-plane-seats-grid *ngIf="seats.size"
+                                [seats]="seats"
+                                [(selectedSeats)]="selectedSeats"
+                                [viewMode]="viewMode"></app-plane-seats-grid>
+        </div>
+      </mat-sidenav-content>
 
-  <h2 *ngIf="selectedSeats.size != 0">selected:</h2>
-  <ul>
-    <li *ngFor="let selSeat of selectedSeats">{{selSeat}}</li>
-  </ul>
+      <!--SEAT-TYPE-EDITORS-->
+      <mat-sidenav class="plane-seats-container" opened mode="side" position="end">
+        <app-plane-editor [plane]="plane"
+                          [(seats)]="seats"
+                          [seatTypes]="seatTypes"></app-plane-editor>
+      </mat-sidenav>
+    </mat-sidenav-container>
+  </mat-card-content>
 
-  <h2>seats:</h2>
-  <ul>
-    <li *ngFor="let seat of seats">{{seat.toString()}}</li>
-  </ul>
-</div>
+  <mat-card-actions align="end">
+    <button mat-flat-button color="primary" (click)="saveSeats()">SAVE</button>
+  </mat-card-actions>
+
+  <!--DEBUG-->
+  <mat-card-footer *ngIf="isDebug">
+    <h2>plane:</h2>
+    <ul>
+      <li>objId: {{plane.objectId}}</li>
+      <li>model: {{plane.model}}</li>
+      <li>airline: {{plane.airline.toString()}}</li>
+      <li>versionNum: {{plane.versionNum}}</li>
+    </ul>
+
+    <h2>sections:</h2>
+    <ul>
+      <li *ngFor="let section of sections">{{section.toString()}}</li>
+    </ul>
+
+    <h2 *ngIf="selectedSeats.size != 0">selected:</h2>
+    <ul>
+      <li *ngFor="let selSeat of selectedSeats">{{selSeat}}</li>
+    </ul>
+
+    <h2>seats:</h2>
+    <ul>
+      <li *ngFor="let seat of seats">{{seat.toString()}}</li>
+    </ul>
+  </mat-card-footer>
+</mat-card>
