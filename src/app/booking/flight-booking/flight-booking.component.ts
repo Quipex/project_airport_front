@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Router} from '@angular/router';
 import {FlightSearchWrapperModel} from '../../shared/models/flightSearchWrapper.model';
 import {FlightDTOModel} from '../../shared/models/flightDTO.model';
 import {AuthenticationService} from '../../services/authentication.service';
-import {DatePipe} from '@angular/common';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ToastrService} from 'ngx-toastr';
-import {AirportModel} from '../../shared/models/entity/flight/airport.model';
+import {DatePipe} from "@angular/common";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {ToastrService} from "ngx-toastr";
+import {AirportModel} from "../../shared/models/entity/flight/airport.model";
+import {Router} from "@angular/router";
 
 const API_URL = environment.apiUrl;
 
@@ -71,33 +71,31 @@ export class FlightBookingComponent implements OnInit {
       this.showResult = false;
     }
     if (!this.searchForm.valid) {
-      this.showWarning('All fields are required.');
+      this.showError('All field are required.');
     } else {
       if (this.defaultFlightType === 'One way') {
-        const departureDate = this.datePipe.transform(this.departureDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
-        const wrapper = new FlightSearchWrapperModel(this.departureCity, this.destinationCity, departureDate);
-        console.log(this.departureCity, this.destinationCity, this.departureDate, this.returnDate);
+        let departureDate = this.datePipe.transform(this.departureDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
+        let wrapper = new FlightSearchWrapperModel(this.departureCity, this.destinationCity, departureDate);
         this.searchOneWay(1, wrapper)
           .subscribe((data: FlightDTOModel[]) => {
             if (data.length === 0) {
-              this.showWarning('There are no flights.');
+              this.showWarning('There are no flights.')
             } else {
               this.flights = [];
               data.forEach(item => {
-                this.flights.push(item);
+                this.flights.push(item)
               });
               this.showResult = true;
             }
           });
       } else if (this.defaultFlightType === 'Round trip') {
-        const departureDate = this.datePipe.transform(this.departureDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
-        const returnDate = this.datePipe.transform(this.returnDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
-        const wrapper = new FlightSearchWrapperModel(this.departureCity, this.destinationCity, departureDate, returnDate);
-        console.log(this.departureCity, this.destinationCity, this.departureDate, this.returnDate);
+        let departureDate = this.datePipe.transform(this.departureDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
+        let returnDate = this.datePipe.transform(this.returnDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
+        let wrapper = new FlightSearchWrapperModel(this.departureCity, this.destinationCity, departureDate, returnDate);
         this.searchBoth(1, wrapper)
           .subscribe((data: any[][]) => {
-            if (data.length === 0) {
-              this.showWarning('There are no flights.');
+            if (data['departureFlights'] === null || data['returnFlights'] === null) {
+              this.showWarning('There are no flights.')
             } else {
               this.flights = [];
               this.returnFlights = [];
@@ -148,7 +146,7 @@ export class FlightBookingComponent implements OnInit {
       this.searchCityName(this.departureCity)
         .subscribe((data: AirportModel[]) => {
           data.forEach((item: AirportModel) => {
-            this.departureCities.add(item.city);
+            this.departureCities.add(item.city)
           });
         });
     }
@@ -160,7 +158,7 @@ export class FlightBookingComponent implements OnInit {
       this.searchCityName(this.destinationCity)
         .subscribe((data: AirportModel[]) => {
           data.forEach((item: AirportModel) => {
-            this.destinationCities.add(item.city);
+            this.destinationCities.add(item.city)
           });
         });
     }
