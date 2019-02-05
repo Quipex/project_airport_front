@@ -190,14 +190,14 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
     }
     this.seatsService.saveSeats(seatsAsTuple, this.plane.objectId)
       .subscribe((next: SeatModel[]) => {
-      alert('saved');
-      this.seats = PlaneSeatsEditorComponent.getSetFromSeatObjects(next);
-      // console.log('saved seats, got updated back:');
-      // console.log(next);
-    }, error1 => {
-      alert('tried to save, but got an error:' + error1);
-      console.log('tried to save, but got an error:');
-      console.log(error1);
-    });
+        alert('saved');
+        this.seats = PlaneSeatsEditorComponent.getSetFromSeatObjects(next);
+        // console.log('saved seats, got updated back:');
+        // console.log(next);
+      }, error1 => {
+        alert('tried to save, but got an error:' + error1);
+        console.log('tried to save, but got an error:');
+        console.log(error1);
+      });
   }
 }
