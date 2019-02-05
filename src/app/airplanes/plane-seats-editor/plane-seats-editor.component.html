@@ -40,6 +40,14 @@
 
 <!--DEBUG-->
 <div *ngIf="isDebug">
+  <h2>plane:</h2>
+  <ul>
+    <li>objId: {{plane.objectId}}</li>
+    <li>model: {{plane.model}}</li>
+    <li>airline: {{plane.airline.toString()}}</li>
+    <li>versionNum: {{plane.versionNum}}</li>
+  </ul>
+
   <h2>sections:</h2>
   <ul>
     <li *ngFor="let section of sections">{{section.toString()}}</li>

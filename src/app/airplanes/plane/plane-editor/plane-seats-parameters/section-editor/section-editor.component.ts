@@ -75,7 +75,7 @@ export class SectionEditorComponent implements OnInit, OnDestroy, OnChanges {
   changeModifier(newValue) {
     // console.log('entered new modif value');
     // console.log(newValue);
-    if (!RegexValidator.isFloat(newValue)) {
+    if (!RegexValidator.isPositiveFloat(newValue)) {
       // console.log('it is not a float number, so setting to 1');
       newValue = 1;
     }

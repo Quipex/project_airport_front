@@ -5,10 +5,12 @@ export class AirplanesModel extends BaseEntityModel {
 
   public model: string;
   public airline: AirlinesModel;
+  public versionNum: number;
 
 
   constructor(model: string,
               airline: AirlinesModel,
+              versionNum: number,
               id?: number,
               objectId?: number,
               parentId?: number,
@@ -18,10 +20,12 @@ export class AirplanesModel extends BaseEntityModel {
     super(id, objectId, parentId, objectName, objectDescription);
     this.model = model;
     this.airline = airline;
+    this.versionNum = versionNum;
   }
 
   toString(): string {
     return 'model: ' + this.model +
-      ';airline {' + this.airline + '}';
+      ';airline {' + this.airline + '}' +
+      ';version: ' + this.versionNum;
   }
 }

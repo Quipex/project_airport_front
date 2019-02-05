@@ -22,7 +22,7 @@ export class SeatEditorModalComponent implements OnInit {
   }
 
   changeModifier(newVal: any) {
-    if (!RegexValidator.isFloat(newVal)) {
+    if (!RegexValidator.isPositiveFloat(newVal)) {
       // console.log('it is not a float number, so setting to 1');
       newVal = 1;
     }
