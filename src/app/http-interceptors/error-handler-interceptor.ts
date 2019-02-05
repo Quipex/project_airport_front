@@ -9,21 +9,21 @@ import {Router} from '@angular/router';
 export class ErrorHandlerInterceptor implements HttpInterceptor {
 
   constructor(
-    private toastr: ToastrService,
+    private toastService: ToastrService,
     private router: Router
   ) {
   }
 
-  showWarningToastr(error: HttpErrorResponse) {
-    this.toastr.warning(error.error.message, error.status.toString());
+  showWarningToast(error: HttpErrorResponse) {
+    this.toastService.warning(error.error.message, 'Warning');
   }
 
-  showErrorToastr(error: HttpErrorResponse) {
-    this.toastr.error('Sorry, something went wrong. Please try again later.', error.status.toString());
+  showErrorToast(error: HttpErrorResponse) {
+    this.toastService.error('Something went wrong. Please try again later.', 'Error');
   }
 
   showErrorToastrWithCustomMessage(message: string) {
-    this.toastr.error(message);
+    this.toastService.error(message);
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -44,19 +44,19 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
           } else {
             if (error.status === 0) {
               errMsg = `Error Code: ${error.status},  Message: ${error.message}`;
-              this.toastr.error('Unknown error');
+              this.toastService.error('Unknown error');
             } else if ((error.status / 100) >= 4 && (error.status / 100) < 5) {
               if (error.error.message === 'Unauthorized') {
                 window.localStorage.removeItem('currentUser');
                 this.router.navigateByUrl('login');
               } else if (error.error.message === null || error.error.message === '') {
-                this.showErrorToastr(error);
+                this.showErrorToast(error);
               }
               errMsg = `Error: ${error.message}`;
-              this.showWarningToastr(error);
+              this.showWarningToast(error);
             } else if ((error.status / 100) >= 5) {
               errMsg = `Error: ${error.message}`;
-              this.showErrorToastr(error);
+              this.showErrorToast(error);
             }
           }
         }
