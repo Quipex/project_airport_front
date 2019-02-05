@@ -8,13 +8,13 @@
   <div class="modal-body form-container">
     <mat-form-field>
       <input matInput placeholder="Row"
-             [ngModel]="seat.row"
+             [ngModel]="seat.row + 1"
              disabled>
     </mat-form-field>
 
     <mat-form-field>
       <input matInput placeholder="Column"
-             [ngModel]="seat.col"
+             [ngModel]="seat.col | asLiteral"
              disabled>
     </mat-form-field>
 
