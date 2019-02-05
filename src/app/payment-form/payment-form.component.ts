@@ -5,6 +5,8 @@ import {CreditCardModel} from "../shared/models/entity/users/creditCard.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CreditCardValidator} from "ng2-cc-library";
 import {ToastrService} from "ngx-toastr";
+import {UsersService} from "../services/users.service";
+import {UsersModel} from "../shared/models/entity/users/users.model";
 
 @Component({
   selector: 'app-payment-form',
@@ -14,7 +16,7 @@ import {ToastrService} from "ngx-toastr";
 export class PaymentFormComponent implements OnInit {
 
   typeOfCard = false;
-  typeOfCardValue: string;
+  typeOfCardValue: string = 'new';
   savedCards: CreditCardModel[] = [];
   savedCard: string;
   selectCardForm: FormGroup = new FormGroup({
@@ -28,18 +30,35 @@ export class PaymentFormComponent implements OnInit {
     nickname: new FormControl('', [Validators.required])
   });
 
+  emailForm: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required])
+  });
+
   numberOfCard: string;
   cvv: string;
   expirationDate: string;
   nickname: string;
+  email: string = '';
+
+  currentUser: UsersModel;
 
   @Output() paymentCreditCard = new EventEmitter<CreditCardModel>();
+  @Output() userEmail = new EventEmitter<string>();
   constructor(
     private paymentService: PaymentService,
+    private usersService: UsersService,
     private toastr: ToastrService
   ) { }
 
   ngOnInit() {
+    const currentUser: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
+    if (currentUser !== null) {
+      this.usersService.getUserByLogin(currentUser.login)
+        .subscribe((user: UsersModel) => {
+          this.currentUser = user;
+          this.email = user.email;
+        });
+    }
   }
 
   onTypeSelect(type: string) {
@@ -54,8 +73,8 @@ export class PaymentFormComponent implements OnInit {
       this.savedCards = [];
       this.selectCardForm.reset();
     }
-    const currentUser: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
-    this.paymentService.getCreditCardsByUserLogin(currentUser.login, 1)
+
+    this.paymentService.getCreditCardsByUserLogin(this.currentUser.login, 1)
       .subscribe((data: CreditCardModel[]) => {
         this.savedCards = data;
         this.savedCards.forEach((item: any) => {
@@ -104,6 +123,7 @@ export class PaymentFormComponent implements OnInit {
       paymentCreditCard.year = year;
 
       this.paymentCreditCard.emit(paymentCreditCard);
+      this.userEmail.emit(this.email);
     }
   }
 

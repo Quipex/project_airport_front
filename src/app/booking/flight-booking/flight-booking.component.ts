@@ -38,8 +38,8 @@ export class FlightBookingComponent implements OnInit {
     {'name': 'Round trip', id: 'round_trip'}
   ];
   defaultFlightType = this.flightTypes[0].name;
-  departureCities = [];
-  destinationCities = [];
+  departureCities: Set<string> = new Set<string>();
+  destinationCities: Set<string> = new Set<string>();
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -141,22 +141,26 @@ export class FlightBookingComponent implements OnInit {
   }
 
   onKeyUpForDepartureCities(value: KeyboardEvent) {
-    this.departureCities = [];
-    this.searchCityName(this.departureCity)
-      .subscribe((data: AirportModel[]) => {
-        data.forEach((item: AirportModel) => {
-          this.departureCities.push(item.city)
+    if (this.departureCity !== '') {
+      this.departureCities = new Set<string>();
+      this.searchCityName(this.departureCity)
+        .subscribe((data: AirportModel[]) => {
+          data.forEach((item: AirportModel) => {
+            this.departureCities.add(item.city)
+          });
         });
-      })
+    }
   }
 
   onKeyUpForDestinationCities(value: KeyboardEvent) {
-    this.destinationCities = [];
-    this.searchCityName(this.destinationCity)
-      .subscribe((data: AirportModel[]) => {
-        data.forEach((item: AirportModel) => {
-          this.destinationCities.push(item.city)
+    if (this.destinationCity !== '') {
+      this.destinationCities = new Set<string>();
+      this.searchCityName(this.destinationCity)
+        .subscribe((data: AirportModel[]) => {
+          data.forEach((item: AirportModel) => {
+            this.destinationCities.add(item.city)
+          });
         });
-      })
+    }
   }
 }
