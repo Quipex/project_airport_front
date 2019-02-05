@@ -27,6 +27,7 @@
   margin-top: 30px;
   overflow: auto;
   margin-bottom: 40px;
+  max-width: fit-content;
 }
 
 table {
@@ -71,5 +72,4 @@ td {
 .flexible {
   display: flex;
   justify-content: center;
-  overflow: visible;
 }

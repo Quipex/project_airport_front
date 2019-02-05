@@ -1,54 +1,52 @@
-<div class="container table-container">
-  <table class="table table-striped" *ngIf="countOfItems > 0">
+<table class="table table-striped" *ngIf="countOfItems > 0">
   <!--<table class="table table-striped" *ngIf="records.length">-->
-    <thead>
-    <tr>
-      <th>#</th>
-      <th *ngFor="let map of columnMaps; let i = index">{{map.header}}
-        <span (click)="sortBy(map.sortAttr, i)" *ngIf="map.sortAttr!==undefined">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th *ngFor="let map of columnMaps; let i = index">{{map.header}}
+      <span (click)="sortBy(map.sortAttr, i)" *ngIf="map.sortAttr!==undefined">
             <mdb-icon *ngIf="sortedDirections[i] === 0" icon="sort"></mdb-icon>
             <mdb-icon *ngIf="sortedDirections[i] === 1" icon="sort-down"></mdb-icon>
             <mdb-icon *ngIf="sortedDirections[i] === -1" icon="sort-up"></mdb-icon>
           </span>
-      </th>
-      <th></th>
-      <th></th>
+    </th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-container *ngIf="clickable">
+    <tr *ngFor="let record of records; let i = index" class="t_line">
+      <td (click)="redirect(i)">{{i + 1 + 10 * (currentPage - 1)}}</td>
+      <td *ngFor="let map of columnMaps" (click)="redirect(i)">
+        {{getParameterOfPath(record, map.primaryKey) }}
+      </td>
+      <td>
+        <button (click)="onEdit(i)" class="btn btn-info" type="button">Edit</button>
+      </td>
+      <td>
+        <button (click)="onDelete(i)" class="btn btn-danger" type="button">Delete</button>
+      </td>
     </tr>
-    </thead>
-    <tbody>
-    <ng-container *ngIf="clickable">
-      <tr *ngFor="let record of records; let i = index" class="t_line">
-        <td (click)="redirect(i)" >{{i + 1 + 10 * (currentPage - 1)}}</td>
-        <td *ngFor="let map of columnMaps" (click)="redirect(i)" >
-          {{getParameterOfPath(record, map.primaryKey) }}
-        </td>
-        <td>
-          <button (click)="onEdit(i)" class="btn btn-info" type="button">Edit</button>
-        </td>
-        <td>
-          <button (click)="onDelete(i)" class="btn btn-danger" type="button">Delete</button>
-        </td>
-      </tr>
-    </ng-container>
-    <ng-container *ngIf="!clickable">
-      <tr *ngFor="let record of records; let i = index">
-        <td>{{i + 1 + 10 * (currentPage - 1)}}</td>
-        <td *ngFor="let map of columnMaps">
-          {{getParameterOfPath(record, map.primaryKey)}}
-        </td>
-        <td>
-          <button (click)="onEdit(i)" class="btn btn-info" type="button">Edit</button>
-        </td>
-        <td>
-          <button (click)="onDelete(i)" class="btn btn-danger" type="button">Delete</button>
-        </td>
-      </tr>
-    </ng-container>
-    </tbody>
-  </table>
+  </ng-container>
+  <ng-container *ngIf="!clickable">
+    <tr *ngFor="let record of records; let i = index">
+      <td>{{i + 1 + 10 * (currentPage - 1)}}</td>
+      <td *ngFor="let map of columnMaps">
+        {{getParameterOfPath(record, map.primaryKey)}}
+      </td>
+      <td>
+        <button (click)="onEdit(i)" class="btn btn-info" type="button">Edit</button>
+      </td>
+      <td>
+        <button (click)="onDelete(i)" class="btn btn-danger" type="button">Delete</button>
+      </td>
+    </tr>
+  </ng-container>
+  </tbody>
+</table>
 
-  <div *ngIf="countOfItems <= 0">
+<div *ngIf="countOfItems <= 0">
   <!--<div *ngIf="!records.length">-->
-    <h3>There are no items.</h3>
-  </div>
+  <h3>There are no items.</h3>
 </div>

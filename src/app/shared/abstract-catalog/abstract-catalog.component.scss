@@ -4,6 +4,7 @@
 
 .table-container {
   margin-top: 50px;
+  margin-bottom: 1em;
 }
 
 #search-input {
@@ -32,3 +33,6 @@ app-dynamic-form {
   height: 100%;
 }
 
+.no-margin-bottom {
+  margin-bottom: 0 !important;
+}
