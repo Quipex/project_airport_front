@@ -65,8 +65,8 @@
     <div *ngIf="question.type === 'airline-selector'">
       <!--<app-airline-selector [formControlName]="question.key"></app-airline-selector>-->
       <mat-form-field>
-        <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
-          <mat-option *ngFor="let airline of question.value" [value]="airline.objectId">
+        <mat-select ngModel [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
+          <mat-option *ngFor="let airline of question.value" [value]="airline">
             {{airline.name}}
           </mat-option>
         </mat-select>
@@ -222,7 +222,8 @@
       *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
       <span *ngIf="form.controls[question.key].errors.validateCC">Number of card is wrong. </span>
       <span *ngIf="form.controls[question.key].errors.required">{{question.label}} is required. </span>
-      <span *ngIf="form.controls[question.key].errors.validateEmail"> This email address is not valid.</span>
+      <span *ngIf="!form.controls[question.key].errors.required &&
+      form.controls[question.key].errors.validateEmail"> This email address is not valid.</span>
       <span *ngIf="form.controls[question.key].errors.validatePhone"> Phone number is required. </span>
       <span *ngIf="form.controls[question.key].errors.validatePhoneNumber"> This phone number is not valid.</span>
       <span *ngIf="form.controls[question.key].errors.cvvValidate">CVV length must be 3</span>
