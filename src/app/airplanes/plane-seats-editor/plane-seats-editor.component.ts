@@ -10,8 +10,10 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {AirlinesModel} from '../../shared/models/entity/airline/airlines.model';
 import {SeatTypeService} from '../../services/seatType.service';
 import {SeatsService} from '../../services/seats.service';
-import {Observable} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {SectionStore} from '../data/section-store.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-plane-seats-editor',
@@ -27,7 +29,8 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
     private seatTypesService: SeatTypeService,
     private seatsService: SeatsService,
     private sectionsStore: SectionStore,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {
   }
 
@@ -190,14 +193,14 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
     }
     this.seatsService.saveSeats(seatsAsTuple, this.plane.objectId)
       .subscribe((next: SeatModel[]) => {
-        alert('saved');
         this.seats = PlaneSeatsEditorComponent.getSetFromSeatObjects(next);
-        // console.log('saved seats, got updated back:');
-        // console.log(next);
-      }, error1 => {
-        alert('tried to save, but got an error:' + error1);
-        console.log('tried to save, but got an error:');
-        console.log(error1);
+        this.successfullyEditedPlane();
+      }, (error1: HttpErrorResponse) => {
+        throwError(error1);
       });
+  }
+
+  private successfullyEditedPlane() {
+    this.toastr.success('The plane has been saved', 'Success');
   }
 }
