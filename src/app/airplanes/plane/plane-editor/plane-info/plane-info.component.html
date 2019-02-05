@@ -2,12 +2,14 @@
 
   <mat-expansion-panel-header>
     <mat-panel-title>
-      Plane {{plane.model}}
+      Plane: {{plane.model}}
     </mat-panel-title>
   </mat-expansion-panel-header>
 
   <div *ngIf="plane.airline" class="plane-info-section">
-    <h3>Airline info</h3>
+    <hr class="divider">
+
+    <span class="airline-title">Airline info</span>
 
     <mat-form-field>
       <input matInput placeholder="Name"
