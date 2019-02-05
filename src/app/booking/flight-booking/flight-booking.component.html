@@ -1,56 +1,59 @@
 <!--<app-navbar></app-navbar>-->
-<div class="flight-booking">
-  <div class="flight-booking-container">
-    <div class="flight-type main-search-left">
-      <mat-radio-group name="flight-type-list" [(ngModel)]="defaultFlightType">
-        <mat-radio-button *ngFor="let flightType of flightTypes" [value]="flightType.name" name="flight-type-list">{{flightType.name}}</mat-radio-button>
-      </mat-radio-group>
+<div class="container search-container">
+  <div class="row">
+    <mat-radio-group name="flight-type-list radio-group" [(ngModel)]="defaultFlightType">
+      <mat-radio-button *ngFor="let flightType of flightTypes" [value]="flightType.name" name="flight-type-list radio-button"
+                        (click)="changeFlightType()">{{flightType.name}}</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <form [formGroup]="searchForm">
+  <div class="row">
+    <div class="col-md-3 departure-col">
+      <mat-form-field appearance="outline" class="mat-form-input-field departure-input">
+        <mat-label>Departure</mat-label>
+        <input formControlName="departureCity" [(ngModel)]="departureCity" matInput placeholder="From">
+      </mat-form-field>
     </div>
-    <div class="search-form">
-      <div class="main-search-left">
-        <div class="search-items-fields">
-          <div class="search-item-from">
-            <mat-form-field appearance="outline" class="mat-form-input-field">
-              <mat-label>Departure</mat-label>
-              <input [(ngModel)]="departureCity" matInput placeholder="From">
-            </mat-form-field>
-          </div>
-          <div class="search-item-to">
-            <mat-form-field appearance="outline" class="mat-form-input-field">
-              <mat-label>Destination</mat-label>
-              <input [(ngModel)]="destinationCity" matInput placeholder="To">
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="<datepicker-wrapper">
-          <div class="datepicker-to">
-            <mat-form-field appearance="outline" class="datepicker">
-              <mat-label>Departure date</mat-label>
-              <input [(ngModel)]="departureDate" matInput (click)="date_picker.open()" [min]="minDate" [matDatepicker]="date_picker">
-              <mat-datepicker-toggle matSuffix [for]="date_picker"></mat-datepicker-toggle>
-              <mat-datepicker #date_picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="datepicker-back">
-            <mat-form-field *ngIf="defaultFlightType == 'Round trip' " appearance="outline" class="datepicker">
-              <mat-label>Return date</mat-label>
-              <input [(ngModel)]="returnDate" matInput (click)="date_picker_back.open()" [min]="minDate" [matDatepicker]="date_picker_back" placeholder="Choose a return date">
-              <mat-datepicker-toggle matSuffix [for]="date_picker_back"></mat-datepicker-toggle>
-              <mat-datepicker #date_picker_back></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
+    <div class="col-md-3 destination-col">
+      <mat-form-field appearance="outline" class="mat-form-input-field destination-input">
+        <mat-label>Destination</mat-label>
+        <input formControlName="destinationCity" [(ngModel)]="destinationCity" matInput placeholder="To">
+      </mat-form-field>
     </div>
-    <div class="search-button">
-      <div class="main-search-left">
-        <div class="search-btn-item">
-          <button mat-flat-button color="primary" class="btn btn-primary btn-flight" (click)="searchFlight()">Search flights</button>
-        </div>
+    <div class="col-md-3 departure-date-col">
+      <mat-form-field appearance="outline" class="datepicker departure-date">
+        <mat-label>Departure date</mat-label>
+        <input formControlName="departureDate" [(ngModel)]="departureDate" matInput (click)="date_picker.open()" [min]="minDate" [matDatepicker]="date_picker">
+        <mat-datepicker-toggle matSuffix [for]="date_picker"></mat-datepicker-toggle>
+        <mat-datepicker #date_picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3 return-date-col">
+      <mat-form-field *ngIf="defaultFlightType == 'Round trip' " appearance="outline" class="datepicker return-date">
+        <mat-label>Return date</mat-label>
+        <input formControlName="returnDate" [(ngModel)]="returnDate" matInput (click)="date_picker_back.open()" [min]="minDate" [matDatepicker]="date_picker_back" placeholder="Choose a return date">
+        <mat-datepicker-toggle matSuffix [for]="date_picker_back"></mat-datepicker-toggle>
+        <mat-datepicker #date_picker_back></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  </form>
+  <div class="row">
+      <div class="col-md-3">
+        <button mat-flat-button color="primary" class="btn btn-primary btn-flight" (click)="searchFlight()">Search flights</button>
       </div>
+  </div>
+</div>
+
+<div *ngIf="showResult">
+  <div *ngIf="flights.length > 0">
+    <div *ngIf="!flightType">
+      <app-flight-result [flights]="flights" [flightType]="flightType"></app-flight-result>
+    </div>
+    <div *ngIf="flightType">
+      <app-flight-result [flights]="flights" [returnFlights]="returnFlights" [flightType]="flightType"></app-flight-result>
     </div>
   </div>
 </div>
 
-<app-flight-result [flights]="flights"></app-flight-result>
 

@@ -1,35 +1,90 @@
 <div class="container">
-  <div class="row" *ngFor="let flight of flights">
-    <mdb-card>
-      <mdb-card-body>
+  <mat-horizontal-stepper #stepper>
+    <mat-step>
+      <ng-template matStepLabel>Choose a departure flight</ng-template>
+      <ng-container *ngFor="let flight of flights">
         <div class="row">
-          <div class="col-md-4">
-            Flight: {{flight.flight.flightNumber}} <br>
-            Airline: {{flight.airline.name}} <br>
-            Airplane: {{flight.airplane.model}} <br>
-          </div>
-          <div class="col-md-4">
-            Time: {{flight.flight.expectedDepartureDatetime | date:"shortTime"}} <br>
-            Time: {{flight.flight.expectedDepartureDatetime | date}} <br>
-            City: {{flight.departureAirport.city}}
-          </div>
-          <div class="col-md-4">
-            Time: {{flight.flight.expectedArrivalDatetime | date:"shortTime"}} <br>
-            Time: {{flight.flight.expectedArrivalDatetime | date}} <br>
-            City: {{flight.arrivalAirport.city}}
-          </div>
+          <mdb-card>
+            <mdb-card-body>
+              <div class="row">
+                <div class="col-md-4">
+                  Flight: {{flight.flight.flightNumber}} <br>
+                  Airline: {{flight.airline.name}} <br>
+                  Airplane: {{flight.airplane.model}} <br>
+                </div>
+                <div class="col-md-4">
+                  Time: {{flight.flight.expectedDepartureDatetime | date:"shortTime"}} <br>
+                  Time: {{flight.flight.expectedDepartureDatetime | date}} <br>
+                  City: {{flight.departureAirport.city}}
+                </div>
+                <div class="col-md-4">
+                  Time: {{flight.flight.expectedArrivalDatetime | date:"shortTime"}} <br>
+                  Time: {{flight.flight.expectedArrivalDatetime | date}} <br>
+                  City: {{flight.arrivalAirport.city}}
+                </div>
+                <hr>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-md-12">
+                  <div style="float: right;">
+                    <span style="margin-right: 25px;">Cost: {{flight.flight.baseCost}}$</span>
+                    <button mdbBtn color="primary" mdbWavesEffect matStepperNext>Buy</button>
+                  </div>
+                </div>
+              </div>
+            </mdb-card-body>
+          </mdb-card>
         </div>
         <hr>
+      </ng-container>
+    </mat-step>
+    <mat-step *ngIf="flightType">
+      <ng-template matStepLabel>Choose a return flight</ng-template>
+      <ng-container *ngFor="let flight of returnFlights">
         <div class="row">
-          <div class="col-md-12">
-            <div style="float: right;">
-              <span style="margin-right: 25px;">Cost: {{flight.flight.baseCost}}$</span>
-              <a href="#" mdbBtn color="primary" mdbWavesEffect>Buy</a>
-            </div>
-          </div>
+          <mdb-card>
+            <mdb-card-body>
+              <div class="row">
+                <div class="col-md-4">
+                  Flight: {{flight.flight.flightNumber}} <br>
+                  Airline: {{flight.airline.name}} <br>
+                  Airplane: {{flight.airplane.model}} <br>
+                </div>
+                <div class="col-md-4">
+                  Time: {{flight.flight.expectedDepartureDatetime | date:"shortTime"}} <br>
+                  Time: {{flight.flight.expectedDepartureDatetime | date}} <br>
+                  City: {{flight.departureAirport.city}}
+                </div>
+                <div class="col-md-4">
+                  Time: {{flight.flight.expectedArrivalDatetime | date:"shortTime"}} <br>
+                  Time: {{flight.flight.expectedArrivalDatetime | date}} <br>
+                  City: {{flight.arrivalAirport.city}}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-md-12">
+                  <div style="float: right;">
+                    <span style="margin-right: 25px;">Cost: {{flight.flight.baseCost}}$</span>
+                    <button mdbBtn color="primary" mdbWavesEffect matStepperNext>Buy</button>
+                  </div>
+                </div>
+                <hr>
+              </div>
+            </mdb-card-body>
+          </mdb-card>
         </div>
-      </mdb-card-body>
-    </mdb-card>
-  </div>
-  <hr>
+        <hr>
+      </ng-container>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Choose places</ng-template>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Payment form</ng-template>
+      <app-payment-form></app-payment-form>
+    </mat-step>
+  </mat-horizontal-stepper>
+
 </div>

@@ -1,211 +1,46 @@
-* {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  vertical-align: baseline;
-}
-.div {
-  display: block;
-}
-.flight-booking {
-  padding: 6px 10px 6px;
-  position: relative;
-  line-height: 1;
-}
-.flight-booking-container {
-  width: 100%;
-  max-width: 1180px;
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 10px;
-  padding-right: 10px;
-  clear: both;
-  box-sizing: border-box;
-}
-.flight-booking-container:after {
-  content: "";
-  clear: both;
-  display: block;
-  overflow: hidden;
-  width: 100%;
-}
-.flight-type {
-  padding: 30px 0 10px 0;
-}
-.flight-type:after {
-  content: "";
-  clear: both;
-  display: block;
-  overflow: hidden;
-  width: 100%;
-  height: 5px;
-}
-.mat-radio-button {
-  display: inline-block;
-  margin: 5px 20px 5px 5px;
-}
-.search-form:after {
-  content: "";
-  clear: both;
-  display: block;
-  overflow: hidden;
-  width: 100%;
-  height: 5px;
-}
-.main-search-left{
-  width: 80%;
-  padding-left: 10%;
-  float: left;
-  position: relative;
-}
-.search-item-from:before {
-  position: absolute;
-  top: 10px;
-  left: 9px;
-}
-.search-item-from {
-  width: 25%;
-  padding: 0;
-  float: left;
-  min-height: 1px;
-  position: relative;
-}
-.search-item-to:before {
-  position: absolute;
-  top: 10px;
-  left: 9px;
-}
-.search-item-to {
-  width: 25%;
-  padding: 0;
-  float: left;
-  min-height: 1px;
-  position: relative;
-}
-.mat-form-input-field {
-  width: 100%;
-}
-.datepicker {
-  width: 100%;
-}
-.datepicker-to {
-  width: 25%;
-  padding: 0 0 0 6px;
-  float: left;
-  min-height: 1px;
-  position: relative;
-}
-.datepicker-back {
-  width: 25%;
-  padding: 0 6px 0 0;
-  float: left;
-  min-height: 1px;
-  position: relative;
-}
-.main-search-right {
-  width: 20%;
-  position: relative;
-  float: right;
-}
-.item-expansion {
-  width: 50%;
-  position: relative;
-}
-.expansion-panel {
-  width: 100%;
-}
-.passenger-num:after {
-  content: "";
-  clear: both;
-  display: block;
-  overflow: hidden;
-  width: 100%;
-  height: 5px;
-}
-.footer-search-left{
-  width: 72%;
-  float: left;
-  position: relative;
-}
-.adults-item {
-  width: 25%;
-  padding: 0;
-  float: left;
-  min-height: 1px;
-  position: relative;
-}
-.children-item {
-  width: 25%;
-  padding: 0;
-  float: left;
-  min-height: 1px;
-  position: relative;
-}
-.ticket-class {
-  width: 25%;
-  padding: 0 0 0 6px;
-  float: left;
-  min-height: 1px;
-  position: relative;
-}
-.search-button:after {
-  content: "";
-  clear: both;
-  display: block;
-  overflow: hidden;
-  width: 100%;
-  height: 5px;
-}
-.search-btn-item{
-  width: 25%;
-  padding: 0;
-  float: left;
-  min-height: 1px;
-  position: relative;
-}
-.btn-flight {
-  width: 100%;
-  height: 59px;
+.search-container {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  padding: 30px;
 }
 
-table {
-  td, th {
-    vertical-align: middle;
-    text-align: center;
-  }
+.departure-input {
+  width: 100%;
 }
 
-mat-expansion-panel {
-  text-align: center;
+.departure-col {
+  padding-right: 0;
 }
 
-.form-wrapper {
-  display: inline-block;
-  margin: 20px auto;
+.destination-input {
+  width: 100%;
 }
 
-.input-container {
-  vertical-align: top;
-  width: 35%;
-  margin: 20px 30px;
-  display: inline-block;
+.destination-col {
+  padding-left: 0;
 }
 
-td {
-  .div-container {
-    display: block;
-    width: max-content;
-    margin: 0 auto 10px auto;
-    text-align: center;
-    //div {
-    //  text-align: left;
-    //}
-  }
+.departure-date {
+  width: 100%;
+}
 
-  .div-container:last-child {
-    margin-bottom: 0;
-  }
+.departure-date-col {
+  padding-right: 0;
+}
+
+.return-date {
+  width: 100%;
+}
+
+.return-date-col {
+  padding-left: 0;
+}
+
+mat-radio-group {
+  margin-left: 15px;
+}
+
+mat-radio-button {
+  margin-right: 5px;
 }
 

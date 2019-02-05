@@ -36,7 +36,7 @@ import {
   MatNativeDateModule,
   MatProgressSpinnerModule,
   MatSelectModule,
-  MatSlideToggleModule
+  MatSlideToggleModule, MatStepperModule
 } from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatRadioModule} from '@angular/material/radio';
@@ -171,7 +171,8 @@ import { FlightResultComponent } from './booking/flight-result/flight-result.com
     NgbModule,
     MatSlideToggleModule,
     CreditCardDirectivesModule,
-    MatCardModule
+    MatCardModule,
+    MatStepperModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [UsersService,
