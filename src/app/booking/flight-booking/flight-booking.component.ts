@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FlightSearchWrapperModel} from '../../shared/models/flightSearchWrapper.model';
 import {FlightDTOModel} from '../../shared/models/flightDTO.model';
 import {AuthenticationService} from '../../services/authentication.service';
 import {DatePipe} from "@angular/common";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {ToastrService} from "ngx-toastr";
 
 const API_URL = environment.apiUrl;
 
@@ -22,6 +24,9 @@ export class FlightBookingComponent implements OnInit {
   returnDate;
   finalSearchString = '';
   flights: FlightDTOModel[] = [];
+  returnFlights: FlightDTOModel[] = [];
+  flightType = false;
+  showResult = false;
 
   currentDay = new Date().getDate();
   currentMonth = new Date().getMonth();
@@ -43,33 +48,73 @@ export class FlightBookingComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private authenticationService: AuthenticationService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private toastr: ToastrService
   ) { }
+
+  searchForm = new FormGroup({
+    departureCity: new FormControl('', [Validators.required]),
+    destinationCity: new FormControl('', [Validators.required]),
+    departureDate: new FormControl('', [Validators.required])
+  });
 
   ngOnInit() {
   }
 
   searchFlight() {
-    if (this.defaultFlightType === 'One way') {
-      let departureDate = this.datePipe.transform(this.departureDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
-      let wrapper = new FlightSearchWrapperModel(this.departureCity, this.destinationCity, departureDate);
-      console.log(this.departureCity, this.destinationCity, this.departureDate, this.returnDate)
-      this.searchOneWay(1, wrapper)
-        .subscribe((data: FlightDTOModel[]) => {
-          this.flights = [];
-          data.forEach(item => {
-            this.flights.push(item)
+    if (this.showResult) {
+      this.showResult = false;
+    }
+    if (!this.searchForm.valid) {
+      this.showError('All field are required.');
+    } else {
+      if (this.defaultFlightType === 'One way') {
+        let departureDate = this.datePipe.transform(this.departureDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
+        let wrapper = new FlightSearchWrapperModel(this.departureCity, this.destinationCity, departureDate);
+        console.log(this.departureCity, this.destinationCity, this.departureDate, this.returnDate)
+        this.searchOneWay(1, wrapper)
+          .subscribe((data: FlightDTOModel[]) => {
+            if (data.length === 0) {
+              this.showWarning('There are no flights.')
+            } else {
+              this.flights = [];
+              data.forEach(item => {
+                this.flights.push(item)
+              });
+              this.showResult = true;
+            }
           });
-        });
-    } else if (this.defaultFlightType === 'Round trip') {
-      let departureDate = this.datePipe.transform(this.departureDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
-      let returnDate = this.datePipe.transform(this.returnDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
-      let wrapper = new FlightSearchWrapperModel(this.departureCity, this.destinationCity, departureDate, returnDate);
-      console.log(this.departureCity, this.destinationCity, this.departureDate, this.returnDate)
-      this.searchBoth(1, wrapper)
-        .subscribe((data: FlightDTOModel) => {
-          // TODO
-        });
+      } else if (this.defaultFlightType === 'Round trip') {
+        let departureDate = this.datePipe.transform(this.departureDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
+        let returnDate = this.datePipe.transform(this.returnDate, 'yyyy-MM-dd\'T\'HH:mm:ss');
+        let wrapper = new FlightSearchWrapperModel(this.departureCity, this.destinationCity, departureDate, returnDate);
+        console.log(this.departureCity, this.destinationCity, this.departureDate, this.returnDate)
+        this.searchBoth(1, wrapper)
+          .subscribe((data: any[][]) => {
+            if (data.length === 0) {
+              this.showWarning('There are no flights.')
+            } else {
+              this.flights = [];
+              this.returnFlights = [];
+              data['departureFlights'].forEach((item: FlightDTOModel) => {
+                this.flights.push(item);
+              });
+              data['returnFlights'].forEach((item: FlightDTOModel) => {
+                this.returnFlights.push(item);
+              });
+              this.showResult = true;
+            }
+          });
+      }
+    }
+  }
+
+  changeFlightType() {
+    this.flightType = !this.flightType;
+    if (this.flightType) {
+      this.searchForm.addControl('returnDate', new FormControl('', [Validators.required]));
+    } else {
+      this.searchForm.removeControl('returnDate');
     }
   }
 
@@ -78,5 +123,13 @@ export class FlightBookingComponent implements OnInit {
   }
   searchBoth(page: number, wrapper: FlightSearchWrapperModel) {
     return this.http.post(API_URL + `/flight-booking/search-both/page=${page}`, wrapper, this.httpOptions);
+  }
+
+  showError(message: string) {
+    this.toastr.error(message);
+  }
+
+  showWarning(message: string) {
+    this.toastr.warning(message);
   }
 }
