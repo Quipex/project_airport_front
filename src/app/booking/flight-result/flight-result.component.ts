@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FlightsModel} from "../../shared/models/entity/flight/flights.model";
+import {FlightsModel} from '../../shared/models/entity/flight/flights.model';
 
 @Component({
   selector: 'app-flight-result',

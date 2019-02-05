@@ -34,3 +34,12 @@ mdb-success {
 mat-form-field, mat-form-field ::ng-deep .mat-form-field-infix{
   width: 100% !important;
 }
+
+.validator-message {
+  font-size: small;
+  max-height: 0;
+  overflow: visible;
+  & span {
+    height: 0;
+  }
+}
