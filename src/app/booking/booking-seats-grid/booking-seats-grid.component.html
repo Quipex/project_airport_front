@@ -1,13 +1,20 @@
-<mat-sidenav-container *ngIf="flight">
-  <mat-sidenav-content>
-    <div>Выберите места на рейс {{flight.departureAirport.city}} - {{flight.arrivalAirport.city}}. {{flight.airline.name}}</div>
-    <app-plane-seats-grid [seats]="flightSeats"
-                          (selectedSeatsChange)="changeSelectedSeats($event)"
-                          [flight]="flight"></app-plane-seats-grid>
-  </mat-sidenav-content>
-  <mat-sidenav position="end">
-    <ul>
-      <li *ngFor="let seat of selectedSeats">{{seat.toString()}}</li>
-    </ul>
-  </mat-sidenav>
-</mat-sidenav-container>
+<mat-card>
+  <mat-sidenav-container *ngIf="flight">
+    <!--SEATS GRID-->
+    <mat-sidenav-content>
+      <div>Выберите места на рейс {{flight.departureAirport.city}} - {{flight.arrivalAirport.city}}
+        . {{flight.airline.name}}</div>
+      <app-plane-seats-grid [seats]="seats"
+                            [(selectedSeats)]="selectedSeats"
+                            [flight]="flight"></app-plane-seats-grid>
+    </mat-sidenav-content>
+
+    <!--CHOSEN SEATS-->
+    <mat-sidenav class="seats-choice-container" position="end" opened mode="side">
+      <ul>
+        <div>Selected seats:</div>
+        <li *ngFor="let seat of selectedSeats">{{seat.toString()}}</li>
+      </ul>
+    </mat-sidenav>
+  </mat-sidenav-container>
+</mat-card>
