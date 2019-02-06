@@ -22,6 +22,11 @@ export class DynamicFormRenderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.question.type === 'select') {
+      for (let x in this.question.value) {
+        this.selectKeys.push(x);
+      }
+    }
   }
 
   asAirline(val) : AirlinesModel { return val; }
