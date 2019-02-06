@@ -46,63 +46,10 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
 
   private static getSetFromSeatObjects(data: SeatModel[]) {
     const seatSet = new Set<SeatModel>();
-    // console.log('got seats from backend. initial data:');
-    // console.log(data);
-
     for (const dataItem of data) {
-      const initialAirline = dataItem.airplane.airline;
-      let airline;
-      if (initialAirline !== null) {
-        airline = new AirlinesModel(
-          initialAirline.name,
-          initialAirline.descr,
-          initialAirline.email,
-          initialAirline.phoneNumber,
-          initialAirline.id,
-          initialAirline.objectId,
-          initialAirline.parentId,
-          initialAirline.objectName,
-          initialAirline.objectDescription
-        );
-      }
-      const initialAirplane = dataItem.airplane;
-      const airplane = new AirplanesModel(
-        initialAirplane.model,
-        airline,
-        initialAirplane.versionNum,
-        initialAirplane.id,
-        initialAirplane.objectId,
-        initialAirplane.parentId,
-        initialAirplane.objectName,
-        initialAirplane.objectDescription
-      );
-      const initialSeatType = dataItem.seatType;
-      const seatType = new SeatTypeModel(
-        initialSeatType.name,
-        initialSeatType.modifier,
-        initialSeatType.description,
-        initialSeatType.objectId,
-        initialSeatType.parentId,
-        initialSeatType.objectName,
-        initialSeatType.objectDescription,
-        initialSeatType.id
-      );
-      const initialSeat = dataItem;
-      const seat = new SeatModel(
-        initialSeat.col,
-        initialSeat.row,
-        airplane,
-        seatType,
-        initialSeat.modifier,
-        null,
-        null,
-        initialSeat.id,
-        initialSeat.objectId,
-        initialSeat.parentId,
-        initialSeat.objectName,
-        initialSeat.objectDescription
-      );
-      seatSet.add(seat);
+      const tempSeat = new SeatModel();
+      tempSeat.clone(dataItem);
+      seatSet.add(tempSeat);
     }
     return seatSet;
   }
@@ -133,16 +80,8 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
     this.seatTypesService.getAllItems().subscribe((data: SeatTypeModel[]) => {
       this.seatTypes = [];
       for (const item of data) {
-        const seatType = new SeatTypeModel(
-          item.name,
-          item.modifier,
-          item.description,
-          item.objectId,
-          item.parentId,
-          item.objectName,
-          item.objectDescription,
-          item.id
-        );
+        const seatType = new SeatTypeModel();
+        seatType.clone(item);
         this.seatTypes.push(seatType);
       }
       // console.log(this.seatTypes);
