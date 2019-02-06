@@ -86,7 +86,7 @@ export class FlightsComponent implements OnInit {
     }),
     new InputBaseModel({
       key: 'expectedDepartureDate',
-      label: 'Departure date',
+      label: 'Expected departure date',
       required: true,
       type: 'date',
       order: 3,
@@ -95,7 +95,7 @@ export class FlightsComponent implements OnInit {
     }),
     new InputBaseModel({
       key: 'expectedDepartureTime',
-      label: 'Departure time',
+      label: 'Expected departure time',
       required: true,
       type: 'time',
       order: 4,
@@ -112,7 +112,7 @@ export class FlightsComponent implements OnInit {
     }),
     new InputBaseModel({
       key: 'expectedArrivalDate',
-      label: 'Arrival date',
+      label: 'Expected arrival date',
       required: true,
       type: 'date',
       order: 6,
@@ -121,7 +121,7 @@ export class FlightsComponent implements OnInit {
     }),
     new InputBaseModel({
       key: 'expectedArrivalTime',
-      label: 'Arrival time',
+      label: 'Expected arrival time',
       required: true,
       type: 'time',
       order: 7,
@@ -399,6 +399,8 @@ export class FlightsComponent implements OnInit {
     //     }
     //   }
     // }
+
+    scrollTo(0, 90);
   }
 
   showRemoveConfirmModal(i: number) {

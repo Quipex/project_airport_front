@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <div class="container">
+  <div class="container" id="form">
     <mat-expansion-panel expanded="{{expanded}}">
       <div class="form-wrapper">
         <div *ngIf="editMode">
@@ -48,7 +48,7 @@
   </div>
 </div>
 
-<mat-card class="container table-container flexible">
+<mat-card class="container table-container">
   <table *ngIf="flights.length" class="table table-striped">
     <thead>
     <tr>
