@@ -249,12 +249,6 @@ export class FlightsComponent implements OnInit {
           this.airlines.push(item);
         });
       });
-    // this.airplanesService.getAll()
-    //   .subscribe((data: AirplanesModel[]) => {
-    //     data.forEach(item => {
-    //       this.airplanes.push(item);
-    //     });
-    //   });
   }
 
   getAirplanesByAirlineId(airlineId: number) {
@@ -266,11 +260,12 @@ export class FlightsComponent implements OnInit {
             this.airplanes.push(item);
           }
         });
+        this.form.controls['airplaneId'].setValue(this.airplanes[0]);
       });
+
     this.form.controls['airplaneId'].reset();
     // console.log(this.airplanes.length);
     this.questions[8].value = this.airplanes;
-    this.form.controls['airplaneId'].setValue(this.airplanes.length); // FIX
   }
 
   getFlights() {
