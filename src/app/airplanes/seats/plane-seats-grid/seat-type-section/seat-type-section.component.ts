@@ -1,10 +1,9 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {SeatModel} from '../../../../shared/models/entity/airplane/seat.model';
 import {SectionModel} from '../../../data/section-model';
 import {ViewMode} from '../plane-seats-grid-modes.model';
 import {BookedSeatsService} from '../../../../booking/service/booked-seats.service';
-import {Subscription} from 'rxjs';
-import {FlightsModel} from '../../../../shared/models/entity/flight/flights.model';
+import {FlightDTOModel} from '../../../../shared/models/flightDTO.model';
 
 @Component({
   selector: 'app-seat-type-section',
@@ -18,7 +17,7 @@ export class SeatTypeSectionComponent implements OnInit, OnDestroy {
   @Input() section: SectionModel;
   @Input() seats: Set<SeatModel>;
   @Input() viewMode: ViewMode;
-  @Input() flight: FlightsModel;
+  @Input() flight: FlightDTOModel;
   private bookedSeatIds: number[];
   private bookedSeatsSub: Subscription;
 

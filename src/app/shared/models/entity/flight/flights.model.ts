@@ -1,6 +1,4 @@
 import {BaseEntityModel} from '../../baseEntity.model';
-import {AirportModel} from './airport.model';
-import {AirplanesModel} from '../airplane/airplanes.model';
 import {FlightStatusModel} from "./flightStatus.model";
 
 export class FlightsModel extends BaseEntityModel {
@@ -10,10 +8,10 @@ export class FlightsModel extends BaseEntityModel {
     public actualDepartureDatetime?: Date,
     public expectedArrivalDatetime?: Date,
     public actualArrivalDatetime?: Date,
-    public airplane?: AirplanesModel,
+    public airplaneId?: number,
     public baseCost?: number,
-    public arrivalAirport?: AirportModel,
-    public departureAirport?: AirportModel,
+    public arrivalAirportId?: number,
+    public departureAirportId?: number,
     public status?: FlightStatusModel
   ) {
     super();

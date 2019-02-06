@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FlightsModel} from '../../../shared/models/entity/flight/flights.model';
+import {FlightDTOModel} from '../../../shared/models/flightDTO.model';
 
 @Component({
   selector: 'app-flight-info-card',
@@ -8,7 +8,7 @@ import {FlightsModel} from '../../../shared/models/entity/flight/flights.model';
 })
 export class FlightInfoCardComponent implements OnInit {
 
-  @Input() flight: FlightsModel;
+  @Input() flight: FlightDTOModel;
 
   constructor() {
   }

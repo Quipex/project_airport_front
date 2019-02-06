@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FlightsModel} from '../../shared/models/entity/flight/flights.model';
+import {FlightDTOModel} from '../../shared/models/flightDTO.model';
 
 @Component({
   selector: 'app-flight-result',
@@ -8,22 +8,23 @@ import {FlightsModel} from '../../shared/models/entity/flight/flights.model';
 })
 export class FlightResultComponent implements OnInit {
 
-  @Input() flights: FlightsModel[];
-  @Input() returnFlights: FlightsModel[];
+  @Input() flights: FlightDTOModel[];
+  @Input() returnFlights: FlightDTOModel[];
   @Input() flightType: boolean;
-  private returnFlight: FlightsModel;
-  private departureFlight: FlightsModel;
+  private returnFlight: FlightDTOModel;
+  private departureFlight: FlightDTOModel;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
-  selectReturnFlight(flight: FlightsModel) {
+  selectReturnFlight(flight: FlightDTOModel) {
     this.returnFlight = flight;
   }
 
-  selectDepartureFlight(flight: FlightsModel) {
+  selectDepartureFlight(flight: FlightDTOModel) {
     console.log(flight);
     this.departureFlight = flight;
   }

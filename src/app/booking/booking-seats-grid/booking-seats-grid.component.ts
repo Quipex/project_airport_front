@@ -1,8 +1,8 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {FlightsModel} from '../../shared/models/entity/flight/flights.model';
 import {SeatModel} from '../../shared/models/entity/airplane/seat.model';
 import {SeatsService} from '../../services/seats.service';
 import {Subscription} from 'rxjs';
+import {FlightDTOModel} from '../../shared/models/flightDTO.model';
 
 @Component({
   selector: 'app-booking-seats-grid',
@@ -11,10 +11,11 @@ import {Subscription} from 'rxjs';
 })
 export class BookingSeatsGridComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Input() flight: FlightsModel;
-  flightSeats: SeatModel[];
-  selectedSeats: Set<SeatModel>;
-  private seatsServiceSub: Subscription;
+  @Input() flight: FlightDTOModel;
+  seats: Set<SeatModel>;
+  selectedSeats = new Set<SeatModel>();
+  private bookedSeatsServiceSub: Subscription;
+  private planeSeatsServiceSub: Subscription;
 
   constructor(
     private seatsService: SeatsService

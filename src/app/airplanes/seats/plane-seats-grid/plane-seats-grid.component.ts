@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {SeatColorService} from '../../data/seat-colors.service';
 import {SeatModel} from 'src/app/shared/models/entity/airplane/seat.model';
 import {SectionModel} from '../../data/section-model';
@@ -7,7 +7,7 @@ import {ViewMode} from './plane-seats-grid-modes.model';
 import {SectionStore} from '../../data/section-store.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
-import {FlightsModel} from '../../../shared/models/entity/flight/flights.model';
+import {FlightDTOModel} from '../../../shared/models/flightDTO.model';
 
 @Component({
   selector: 'app-plane-seats-grid',
@@ -19,7 +19,7 @@ export class PlaneSeatsGridComponent implements OnInit, OnDestroy {
   @Output() public selectedSeatsChange = new EventEmitter<Set<SeatModel>>();
   @Input() public seats: Set<SeatModel>;
   @Input() viewMode = ViewMode.SELECT;
-  @Input() flight: FlightsModel;
+  @Input() flight: FlightDTOModel;
   setOfSeatTypes: Set<SeatTypeModel>;
   sections: SectionModel[];
   private airplaneId: number;
