@@ -37,7 +37,8 @@ import {
   MatNativeDateModule,
   MatProgressSpinnerModule,
   MatSelectModule,
-  MatSlideToggleModule, MatStepperModule
+  MatSlideToggleModule,
+  MatStepperModule
 } from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatRadioModule} from '@angular/material/radio';
@@ -91,7 +92,9 @@ import {HalfPipe} from './airplanes/plane/plane-editor/plane-seats-parameters/se
 import {AsLiteralPipe} from './airplanes/seats/plane-seats-grid/as-literal.pipe';
 import {ModifierPipe} from './airplanes/seats/plane-seats-grid/seat-type-section/seat/modifier.pipe';
 import {AirportsComponent} from "./airports/airports.component";
-import { FlightResultComponent } from './booking/flight-result/flight-result.component';
+import {FlightResultComponent} from './booking/flight-result/flight-result.component';
+import {FlightInfoCardComponent} from './booking/flight-result/flight-info-card/flight-info-card.component';
+import {BookingSeatsGridComponent} from './booking/booking-seats-grid/booking-seats-grid.component';
 
 
 @NgModule({
@@ -143,7 +146,9 @@ import { FlightResultComponent } from './booking/flight-result/flight-result.com
     AirportsComponent,
     AsLiteralPipe,
     ModifierPipe,
-    FlightResultComponent
+    FlightResultComponent,
+    FlightInfoCardComponent,
+    BookingSeatsGridComponent
   ],
   imports: [
     BrowserModule,

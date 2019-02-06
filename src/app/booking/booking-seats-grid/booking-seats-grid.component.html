@@ -1,0 +1,13 @@
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <div>Выберите места на рейс {{flight.departureAirport.city}} - {{flight.arrivalAirport.city}}</div>
+    <app-plane-seats-grid [seats]="flightSeats"
+                          (selectedSeatsChange)="changeSelectedSeats($event)"
+                          [flight]="flight"></app-plane-seats-grid>
+  </mat-sidenav-content>
+  <mat-sidenav position="end">
+    <ul>
+      <li *ngFor="let seat of selectedSeats">{{seat.toString()}}</li>
+    </ul>
+  </mat-sidenav>
+</mat-sidenav-container>
