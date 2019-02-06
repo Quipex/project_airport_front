@@ -1,7 +1,7 @@
 import {BaseEntityModel} from '../../baseEntity.model';
 import {Listable} from '../../../dynamic-form/search-list/item.model';
 
-export class AirlinesModel extends BaseEntityModel implements Listable {
+export class AirlinesModel extends BaseEntityModel implements Listable, Cloneable {
 
   public name: string;
   public descr: string;
@@ -35,5 +35,15 @@ export class AirlinesModel extends BaseEntityModel implements Listable {
       ';description: ' + this.descr +
       ';email: ' + this.email +
       ';phone: ' + this.phoneNumber;
+  }
+
+  clone(object: any) {
+    super.clone(object);
+    if (object) {
+      this.name = object.name;
+      this.descr = object.descr;
+      this.email = object.email;
+      this.phoneNumber = object.phoneNumber;
+    }
   }
 }
