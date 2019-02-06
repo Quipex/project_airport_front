@@ -94,6 +94,8 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
         airplane,
         seatType,
         initialSeat.modifier,
+        null,
+        null,
         initialSeat.id,
         initialSeat.objectId,
         initialSeat.parentId,

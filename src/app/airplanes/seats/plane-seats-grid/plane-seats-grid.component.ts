@@ -7,6 +7,7 @@ import {ViewMode} from './plane-seats-grid-modes.model';
 import {SectionStore} from '../../data/section-store.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
+import {FlightsModel} from '../../../shared/models/entity/flight/flights.model';
 
 @Component({
   selector: 'app-plane-seats-grid',
@@ -18,6 +19,7 @@ export class PlaneSeatsGridComponent implements OnInit, OnDestroy {
   @Output() public selectedSeatsChange = new EventEmitter<Set<SeatModel>>();
   @Input() public seats: Set<SeatModel>;
   @Input() viewMode = ViewMode.SELECT;
+  @Input() flight: FlightsModel;
   setOfSeatTypes: Set<SeatTypeModel>;
   sections: SectionModel[];
   private airplaneId: number;

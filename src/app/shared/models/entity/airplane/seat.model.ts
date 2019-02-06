@@ -9,6 +9,8 @@ export class SeatModel extends BaseEntityModel {
     public airplane: AirplanesModel,
     public seatType: SeatTypeModel,
     public modifier?: number,
+    public isBooked?: boolean,
+    public cost?: number,
     id?: number,
     objectId?: number,
     parentId?: number,
