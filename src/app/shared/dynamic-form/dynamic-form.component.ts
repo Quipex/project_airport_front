@@ -1,6 +1,6 @@
 import {FormControlService} from '../../services/formControl.service';
 import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {InputBaseModel} from '../models/inputBase.model';
 import {BaseEntityModel} from '../models/baseEntity.model';
 import {PassengerPassportCommonModel} from '../models/entity/users/passengers/passengerPassportCommon.model';
@@ -8,6 +8,8 @@ import {PassengerPassportModel} from '../models/entity/users/passengers/passenge
 import {TicketDTOModel} from '../models/ticketDTO.model';
 import {TicketPassengerCommonModel} from '../models/ticketPassengerCommon.model';
 import {ChangePasswordModel} from '../models/changePassword.model';
+import {AirlinesModel} from "../models/entity/airline/airlines.model";
+import {CountriesModel} from "../models/entity/flight/countries.model";
 
 @Component({
   selector: 'app-dynamic-form',
@@ -30,9 +32,25 @@ export class DynamicFormComponent implements OnChanges {
 
   ngOnChanges() {
     this.form = this.fcs.toFormGroup(this.questions);
-    console.log(this.form);
     if (this.editMode) {
       this.form = this.editedForm;
+      this.questions.forEach((item: InputBaseModel<any>) => {
+        if (item.type === 'airline-selector') {
+          let airlinesArray: Array<AirlinesModel> = item.value;
+          airlinesArray.forEach((airline: AirlinesModel) => {
+            if (airline.name === this.form.controls['airline'].value.name) {
+              this.form.controls['airline'].setValue(airline);
+            }
+          });
+        } else if (item.type === 'country-selector') {
+          let airlinesArray: Array<CountriesModel> = item.value;
+          airlinesArray.forEach((country: CountriesModel) => {
+            if (country.name === this.form.controls['country'].value.name) {
+              this.form.controls['country'].setValue(country.objectId);
+            }
+          });
+        }
+      });
     }
   }
 

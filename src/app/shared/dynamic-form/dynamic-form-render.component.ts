@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {InputBaseModel} from '../models/inputBase.model';
+import {AirlinesModel} from "../models/entity/airline/airlines.model";
 
 @Component({
   selector: 'app-form-input',
@@ -15,29 +16,15 @@ export class DynamicFormRenderComponent implements OnInit {
   @Output() itemId = new EventEmitter<number>();
 
   selectKeys = [];
-  defaultValue = {};
 
   get isValid() {
     return this.form.controls[this.question.key].valid;
   }
 
   ngOnInit(): void {
-
-    if (this.question.type === 'select' || this.question.type === 'country-selector') {
-      for (let x in this.question.value) {
-        this.selectKeys.push(x);
-      }
-    }
-    if (this.editMode) {
-      if (this.question.type === 'airport-selector') {
-        console.log('selecting default val...');
-        this.defaultValue = this.question.value[0];
-      }
-    }
-    if (this.question.type === 'status-selector') {
-      console.log(this.question.value);
-    }
   }
+
+  asAirline(val) : AirlinesModel { return val; }
 
   static test(event: any) {
     console.log(event);

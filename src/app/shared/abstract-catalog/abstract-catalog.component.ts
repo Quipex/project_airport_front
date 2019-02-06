@@ -12,6 +12,7 @@ import {FilterAndSortWrapperModel} from '../models/filterAndSortWrapper.model';
 import {SortEntityModel} from '../models/sortEntity.model';
 import {ResponseFilteringWrapperModel} from '../models/responseFilteringWrapper.model';
 import {AirplanesService} from '../../services/airplanes.service';
+import {AirlinesModel} from "../models/entity/airline/airlines.model";
 
 @Component({
   selector: 'app-project-center',
@@ -82,7 +83,16 @@ export class AbstractCatalogComponent implements OnInit {
       }
     }
     this.currentItem = this.entities[index];
+    this.form = this.fcs.toFormGroup(this.questions);
     this.form.patchValue(this.currentItem);
+    if (this.form.controls['airline']) {
+      let curObj:any = this.currentItem;
+      this.form.controls['airline'].setValue(curObj.airline);
+    }
+    if (this.form.controls['country']) {
+      let curObj:any = this.currentItem;
+      this.form.controls['country'].setValue(curObj.country);
+    }
     this.submitType = 'Update';
     this.editMode = true;
     this.newModal.show();
