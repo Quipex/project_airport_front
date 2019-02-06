@@ -183,7 +183,7 @@
       <!--<app-airline-selector [formControlName]="question.key"></app-airline-selector>-->
       <mat-form-field>
         <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
-          <mat-option *ngFor="let airline of question.value" [value]="airline">
+          <mat-option *ngFor="let airline of question.value; let i = index;" [value]="airline" (click)="itemChange(i)">
             {{airline.name}}
           </mat-option>
         </mat-select>
@@ -223,7 +223,7 @@
       <span *ngIf="form.controls[question.key].errors.validateCC">Number of card is wrong. </span>
       <span *ngIf="form.controls[question.key].errors.required">{{question.label}} is required. </span>
       <span *ngIf="!form.controls[question.key].errors.required &&
-      form.controls[question.key].errors.validateEmail"> This email address is not valid.</span>
+                    form.controls[question.key].errors.validateEmail"> This email address is not valid.</span>
       <span *ngIf="form.controls[question.key].errors.validatePhone"> Phone number is required. </span>
       <span *ngIf="form.controls[question.key].errors.validatePhoneNumber"> This phone number is not valid.</span>
       <span *ngIf="form.controls[question.key].errors.cvvValidate">CVV length must be 3</span>

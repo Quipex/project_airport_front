@@ -19,13 +19,15 @@
     <mat-expansion-panel expanded="{{expanded}}">
       <div class="form-wrapper">
         <div *ngIf="editMode">
-          <div *ngFor="let question of editQuestions" class="md-form input-container">
+          <div *ngFor="let question of editQuestions;" class="md-form input-container">
             <app-form-input [editMode]="editMode" [form]="editForm" [question]="question"></app-form-input>
           </div>
         </div>
         <div *ngIf="!editMode">
-          <div *ngFor="let question of questions" class="md-form input-container">
-            <app-form-input [editMode]="editMode" [form]="form" [question]="question"></app-form-input>
+          <div *ngFor="let question of questions; let i = index;" class="md-form input-container">
+            <app-form-input *ngIf="i != 7" [editMode]="editMode" [form]="form" [question]="question"></app-form-input>
+            <app-form-input *ngIf="i == 7" [editMode]="editMode" [form]="form" [question]="question"
+                            (itemId)="getAirplanesByAirline($event)"></app-form-input>
           </div>
         </div>
       </div>

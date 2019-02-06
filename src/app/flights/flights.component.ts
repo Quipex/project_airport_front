@@ -21,6 +21,8 @@ import {AirportsService} from '../services/airports.service';
 import {AirplanesModel} from '../shared/models/entity/airplane/airplanes.model';
 import {AirplanesService} from '../services/airplanes.service';
 import {AirportModel} from '../shared/models/entity/flight/airport.model';
+import {AirlinesModel} from '../shared/models/entity/airline/airlines.model';
+import {AirlinesService} from '../services/airlines.service';
 
 
 @Component({
@@ -62,6 +64,7 @@ export class FlightsComponent implements OnInit {
   private overflow: string;
   private airports: AirportModel[] = [];
   private airplanes: AirplanesModel[] = [];
+  private airlines: AirlinesModel[] = [];
 
   questions: InputBaseModel<any>[] = [
     new InputBaseModel({
@@ -125,11 +128,20 @@ export class FlightsComponent implements OnInit {
       edit: true
     }),
     new InputBaseModel({
+      key: 'airlineId',
+      label: 'Airline',
+      required: true,
+      type: 'airline-selector',
+      order: 8,
+      edit: true,
+      value: this.airlines
+    }),
+    new InputBaseModel({
       key: 'airplaneId',
       label: 'Airplane',
       required: true,
       type: 'airplane-selector',
-      order: 8,
+      order: 9,
       edit: true,
       value: this.airplanes
     }),
@@ -138,7 +150,7 @@ export class FlightsComponent implements OnInit {
       label: 'Cost',
       required: true,
       type: 'number',
-      order: 9,
+      order: 10,
       edit: true
     })
   ];
@@ -193,7 +205,7 @@ export class FlightsComponent implements OnInit {
       label: 'Status',
       required: true,
       type: 'select',
-      order: 10,
+      order: 8,
       edit: true,
       value: FlightStatusModel
     })
@@ -204,6 +216,7 @@ export class FlightsComponent implements OnInit {
     private flightsService: FlightsService,
     private airportsService: AirportsService,
     private airplanesService: AirplanesService,
+    private airlinesService: AirlinesService,
     private fcs: FormControlService,
     private toastr: ToastrService,
     private datePipe: DatePipe
@@ -226,12 +239,33 @@ export class FlightsComponent implements OnInit {
           this.airports.push(item);
         });
       });
+    this.airlinesService.getAll()
+      .subscribe((data: AirlinesModel[]) => {
+        data.forEach(item => {
+          this.airlines.push(item);
+        });
+      });
+    // this.airplanesService.getAll()
+    //   .subscribe((data: AirplanesModel[]) => {
+    //     data.forEach(item => {
+    //       this.airplanes.push(item);
+    //     });
+    //   });
+  }
+
+  getAirplanesByAirline(airlineId: number) {
+    this.airplanes = [];
     this.airplanesService.getAll()
       .subscribe((data: AirplanesModel[]) => {
         data.forEach(item => {
-          this.airplanes.push(item);
-        });
+          if (item.airlineId == airlineId) {
+            this.airplanes.push(item);
+          }
+        })
       });
+    this.form.controls['airplaneId'].reset();
+    this.questions[8].value = this.airplanes;
+    console.log(this.airplanes);
   }
 
   getFlights() {
@@ -378,6 +412,7 @@ export class FlightsComponent implements OnInit {
     } else if (this.submitType === 'Update') {
       this.editForm.reset();
     }
+    this.questions[8].value = [];
   }
 
   onSubmit() {

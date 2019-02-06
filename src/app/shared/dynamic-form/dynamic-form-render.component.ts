@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {InputBaseModel} from '../models/inputBase.model';
 
@@ -12,6 +12,7 @@ export class DynamicFormRenderComponent implements OnInit {
   @Input() question: InputBaseModel<any>;
   @Input() form: FormGroup;
   @Input() editMode: boolean;
+  @Output() itemId = new EventEmitter<number>();
 
   selectKeys = [];
   defaultValue = {};
@@ -42,4 +43,8 @@ export class DynamicFormRenderComponent implements OnInit {
     console.log(event);
   }
 
+  itemChange(index: number) {
+    let id = this.question.value[index].objectId;
+    this.itemId.emit(id);
+  }
 }
