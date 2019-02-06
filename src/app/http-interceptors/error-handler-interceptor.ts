@@ -55,8 +55,12 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
               errMsg = `Error: ${error.message}`;
               this.showWarningToast(error);
             } else if ((error.status / 100) >= 5) {
-              errMsg = `Error: ${error.message}`;
-              this.showErrorToast(error);
+              if (error.error.debugMessage === 'Sorry, but you can\'t delete this item') {
+                this.showErrorToastrWithCustomMessage('Sorry, but you can\'t delete this item');
+              } else {
+                errMsg = `Error: ${error.message}`;
+                this.showErrorToast(error);
+              }
             }
           }
         }
