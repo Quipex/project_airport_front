@@ -6,6 +6,7 @@ export class AirplanesModel extends BaseEntityModel {
   public model: string;
   public airline: AirlinesModel;
   public versionNum: number;
+  public airlineId: number;
 
   constructor(model: string,
               airline: AirlinesModel,

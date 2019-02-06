@@ -70,6 +70,14 @@ export class FormControlService {
   }
 
   validatePhoneNumber(control: FormControl) {
+    if (control.value === null) {
+      return {
+        validatePhone: {
+          valid: false
+        }
+      };
+    }
+
     return control.value.number !== undefined ? null : {
       validatePhone: {
         valid: false

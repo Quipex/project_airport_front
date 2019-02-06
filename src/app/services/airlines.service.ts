@@ -35,7 +35,7 @@ export class AirlinesService extends BaseService {
   }
 
   getAll() {
-    return this.http.get(this.API_URL + `/airlines/`, this.httpOptions);
+    return this.http.get(this.API_URL + `/airlines`, this.httpOptions);
   }
 
 }

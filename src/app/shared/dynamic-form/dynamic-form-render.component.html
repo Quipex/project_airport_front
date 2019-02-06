@@ -137,7 +137,8 @@
 
     <div *ngIf="question.type === 'date'">
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="{{question.label}}" [formControlName]="question.key" [min]="question.minDate">
+        <input matInput [matDatepicker]="picker" [placeholder]="question.label" [formControlName]="question.key"
+               [min]="question.minDate">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
