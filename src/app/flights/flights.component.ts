@@ -207,7 +207,7 @@ export class FlightsComponent implements OnInit {
       type: 'select',
       order: 8,
       edit: true,
-      value: FlightStatusModel
+      value: FlightStatusModel  //this.editEnum
     })
   ];
 
@@ -224,6 +224,10 @@ export class FlightsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    for (let x in FlightStatusModel) {
+      this.editEnum.push(x);
+      // console.log(x);
+    }
     this.authModel = JSON.parse(window.localStorage.getItem('currentUser'));
     const token = this.authModel.token;
     const helper = new JwtHelperService();
@@ -253,7 +257,7 @@ export class FlightsComponent implements OnInit {
     //   });
   }
 
-  getAirplanesByAirline(airlineId: number) {
+  getAirplanesByAirlineId(airlineId: number) {
     this.airplanes = [];
     this.airplanesService.getAll()
       .subscribe((data: AirplanesModel[]) => {
@@ -264,8 +268,9 @@ export class FlightsComponent implements OnInit {
         });
       });
     this.form.controls['airplaneId'].reset();
+    // console.log(this.airplanes.length);
     this.questions[8].value = this.airplanes;
-    console.log(this.airplanes);
+    this.form.controls['airplaneId'].setValue(this.airplanes.length); // FIX
   }
 
   getFlights() {
@@ -367,7 +372,7 @@ export class FlightsComponent implements OnInit {
     if (!this.expanded) {
       this.expanded = true;
     }
-
+    this.setAllFromStatus(index);
     this.editMode = true;
     this.currentItem = this.flights[index];
     let arrivalDate: Date = new Date(this.currentItem.flight.actualArrivalDatetime);
@@ -441,9 +446,9 @@ export class FlightsComponent implements OnInit {
 
     //-----------------------------------------------------------
 
-    this.questions[7].value = this.editEnum;
-
-
+    // this.questions[7].value = this.editEnum;
+    // this.form.controls['status'].reset();
+    console.log(this.questions[7].value);
   }
 
   showRemoveConfirmModal(i: number) {

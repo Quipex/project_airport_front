@@ -203,7 +203,7 @@
     </div>
     <div *ngIf="question.type === 'airplane-selector'">
       <mat-form-field>
-        <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
+        <mat-select disabled="{{question.value == null || question.value.length <= 0}}" [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
           <mat-option *ngFor="let airplane of question.value" [value]="airplane">
             {{airplane.model}}
           </mat-option>

@@ -12,7 +12,6 @@ import {FilterAndSortWrapperModel} from '../models/filterAndSortWrapper.model';
 import {SortEntityModel} from '../models/sortEntity.model';
 import {ResponseFilteringWrapperModel} from '../models/responseFilteringWrapper.model';
 import {AirplanesService} from '../../services/airplanes.service';
-import {AirlinesModel} from "../models/entity/airline/airlines.model";
 
 @Component({
   selector: 'app-project-center',
@@ -85,15 +84,31 @@ export class AbstractCatalogComponent implements OnInit {
     this.currentItem = this.entities[index];
     this.form = this.fcs.toFormGroup(this.questions);
     this.form.patchValue(this.currentItem);
-    
+
     if (this.form.controls['airline']) {
-      let curObj:any = this.currentItem;
+      let curObj: any = this.currentItem;
       this.form.controls['airline'].setValue(curObj.airline);
     }
     if (this.form.controls['country']) {
-      let curObj:any = this.currentItem;
+      let curObj: any = this.currentItem;
       this.form.controls['country'].setValue(curObj.country);
     }
+    // if (this.form.controls['select']) {
+    //   let temp: any = [];
+    //   for (let question in this.questions) {
+    //     console.log('yes');
+    //     if (question.type == 'select') {
+    //       console.log('yes');
+    //       for (let x in this.question.value) {
+    //         temp.push(x);
+    //       }
+    //       question.value = temp;
+    //       console.log(temp);
+    //       // this.form.controls['country'].setValue(curObj.country);
+    //     }
+    //   }
+    // }
+
     this.submitType = 'Update';
     this.editMode = true;
     this.newModal.show();
