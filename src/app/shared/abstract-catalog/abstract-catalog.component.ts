@@ -149,7 +149,7 @@ export class AbstractCatalogComponent implements OnInit {
 
       this.service.addItem(returnedItem)
         .subscribe(item => {
-            this.entities.push(item);
+            // this.entities.push(item);
             this.newModal.hide();
             const message = 'New item has been added.';
             this.showInfo(message);
