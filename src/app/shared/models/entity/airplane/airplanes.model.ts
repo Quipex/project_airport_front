@@ -34,10 +34,13 @@ export class AirplanesModel extends BaseEntityModel implements Cloneable {
     super.clone(object);
     if (object) {
       this.model = object.model;
+
       const tempAirline = new AirlinesModel();
       tempAirline.clone(object.airline);
-      this.airline = object.airline;
+      this.airline = tempAirline;
+
       this.versionNum = object.versionNum;
+      this.airlineId = object.airlineId;
     }
   }
 }
