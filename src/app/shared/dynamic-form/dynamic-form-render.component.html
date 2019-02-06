@@ -65,7 +65,7 @@
     <div *ngIf="question.type === 'airline-selector'">
       <!--<app-airline-selector [formControlName]="question.key"></app-airline-selector>-->
       <mat-form-field>
-        <mat-select ngModel [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
+        <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
           <mat-option *ngFor="let airline of question.value" [value]="airline">
             {{airline.name}}
           </mat-option>
@@ -104,7 +104,8 @@
       <mdb-error
         *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
         <span *ngIf="form.controls[question.key].errors.required">{{question.label}} is required</span>
-        <span *ngIf="form.controls[question.key].errors.validateEmail"> This email address is not valid.</span>
+        <span *ngIf="!form.controls[question.key].errors.required &&
+          form.controls[question.key].errors.validateEmail"> This email address is not valid.</span>
         <span *ngIf="form.controls[question.key].errors.validatePhone"> Phone number is required. </span>
         <span *ngIf="form.controls[question.key].errors.validatePhoneNumber"> This phone number is not valid.</span>
       </mdb-error>
