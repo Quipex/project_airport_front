@@ -76,8 +76,7 @@ body {
   height: auto;
   padding: 5px;
   box-sizing: border-box;
-  margin: auto;
-  margin-top: 5%;
+  margin: 3% auto auto;
 }
 
 .signup-container img {
@@ -224,6 +223,10 @@ body {
   transition: background 0.2s ease-in-out;
 }
 
+.login-button:disabled {
+  color: rgba(0, 0, 0, 0.3);
+}
+
 .login-button.raised {
   padding: 5px 10px;
   color: #FAFAFA;
@@ -242,12 +245,11 @@ body {
 }
 
 .intro-2 {
-  background: url("http://mdbootstrap.com/img/Photos/Others/img%20(42).jpg") no-repeat center center;
   background-size: cover;
 }
 
 .view {
-  height: 100vh !important;
+
 }
 
 .top-nav-collapse {
@@ -264,6 +266,6 @@ body {
   }
 }
 
-.rgba-gradient .full-bg-img {
-  background: linear-gradient(45deg, rgba(83, 125, 210, 0.4), rgba(178, 30, 123, 0.4) 100%);
+.wrapper {
+
 }

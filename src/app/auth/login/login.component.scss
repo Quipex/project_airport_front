@@ -75,8 +75,7 @@ body {
   height: auto;
   padding: 5px;
   box-sizing: border-box;
-  margin: auto;
-  margin-top: 5%;
+  margin: 5% auto auto;
 }
 
 .login-container img {
@@ -263,9 +262,9 @@ body {
   }
 }
 
-.rgba-gradient .full-bg-img {
-  background: linear-gradient(45deg, rgba(83, 125, 210, 0.4), rgba(178, 30, 123, 0.4) 100%);
-}
+//.rgba-gradient, .full-bg-img {
+  //background: linear-gradient(45deg, rgba(83, 125, 210, 0.4), rgba(178, 30, 123, 0.4) 100%);
+//}
 
 .card {
   background-color: rgba(229, 228, 255, 0.2);
