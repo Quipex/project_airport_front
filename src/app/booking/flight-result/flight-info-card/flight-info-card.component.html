@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-4">
+    Flight: {{flight.flight.flightNumber}} <br>
+    Airline: {{flight.airline.name}} <br>
+    Airplane: {{flight.airplane.model}} <br>
+  </div>
+  <div class="col-md-4">
+    Time: {{flight.flight.expectedDepartureDatetime | date:"shortTime"}} <br>
+    Time: {{flight.flight.expectedDepartureDatetime | date}} <br>
+    City: {{flight.departureAirport.city}}
+  </div>
+  <div class="col-md-4">
+    Time: {{flight.flight.expectedArrivalDatetime | date:"shortTime"}} <br>
+    Time: {{flight.flight.expectedArrivalDatetime | date}} <br>
+    City: {{flight.arrivalAirport.city}}
+  </div>
+</div>

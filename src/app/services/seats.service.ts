@@ -41,4 +41,8 @@ export class SeatsService extends BaseService {
     // console.log(seats);
     return this.http.post(this.API_URL + `/seats/airplaneId=${planeId}`, seats, this.httpOptions);
   }
+
+  getByFlightId(flightId: number) {
+    return this.http.get(this.API_URL + `/seats/flightId=${flightId}`, this.httpOptions);
+  }
 }

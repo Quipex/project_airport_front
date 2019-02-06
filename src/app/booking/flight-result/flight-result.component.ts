@@ -11,10 +11,20 @@ export class FlightResultComponent implements OnInit {
   @Input() flights: FlightsModel[];
   @Input() returnFlights: FlightsModel[];
   @Input() flightType: boolean;
+  private returnFlight: FlightsModel;
+  private departureFlight: FlightsModel;
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  selectReturnFlight(flight: FlightsModel) {
+    this.returnFlight = flight;
+  }
+
+  selectDepartureFlight(flight: FlightsModel) {
+    console.log(flight);
+    this.departureFlight = flight;
+  }
 }

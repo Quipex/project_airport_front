@@ -1,6 +1,6 @@
 import {Listable} from '../dynamic-form/search-list/item.model';
 
-export class BaseEntityModel implements Listable {
+export class BaseEntityModel implements Listable, Cloneable {
   constructor(
     public id?: number,
     public objectId?: number,
@@ -16,6 +16,16 @@ export class BaseEntityModel implements Listable {
 
   getDisplayedName() {
     return this.objectName;
+  }
+
+  clone(object: any) {
+    if (object) {
+      this.id = object.id;
+      this.objectId = object.objectId;
+      this.parentId = object.parentId;
+      this.objectName = object.objectName;
+      this.objectDescription = object.objectDescription;
+    }
   }
 
 }
