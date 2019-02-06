@@ -1,6 +1,6 @@
 <mat-sidenav-container *ngIf="flight">
   <mat-sidenav-content>
-    <div>Выберите места на рейс {{flight.departureAirport.city}} - {{flight.arrivalAirport.city}}</div>
+    <div>Выберите места на рейс {{flight.departureAirport.city}} - {{flight.arrivalAirport.city}}. {{flight.airline.name}}</div>
     <app-plane-seats-grid [seats]="flightSeats"
                           (selectedSeatsChange)="changeSelectedSeats($event)"
                           [flight]="flight"></app-plane-seats-grid>

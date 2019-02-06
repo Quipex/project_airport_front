@@ -24,6 +24,7 @@ export class FlightResultComponent implements OnInit {
   }
 
   selectDepartureFlight(flight: FlightsModel) {
+    console.log(flight);
     this.departureFlight = flight;
   }
 }
