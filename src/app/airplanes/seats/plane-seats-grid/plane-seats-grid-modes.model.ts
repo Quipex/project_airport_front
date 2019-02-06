@@ -1,4 +1,4 @@
 export enum ViewMode {
-  EDIT,
-  SELECT
+  EDIT = 'EDIT',
+  SELECT = 'SELECT'
 }

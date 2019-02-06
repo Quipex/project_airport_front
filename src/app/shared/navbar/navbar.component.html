@@ -10,10 +10,6 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-item nav-link" routerLink="/home">Home</a>
       </li>
-      <li class="nav-item" *ngIf="currentRole === role.ROLE_USER.toString() || currentRole === role.ROLE_CASHIER.toString()
-                 || authModel === null" routerLinkActive="active">
-        <a class="nav-item nav-link" routerLink="/personal-area">Purchase a ticket</a>
-      </li>
       <li class="nav-item" *ngIf="currentRole === role.ROLE_ADMIN.toString()" routerLinkActive="active">
         <a class="nav-item nav-link" routerLink="/users">Users</a>
       </li>

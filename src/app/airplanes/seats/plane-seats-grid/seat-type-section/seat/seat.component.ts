@@ -16,6 +16,7 @@ export class SeatComponent implements OnInit {
   @Input() public selectedSeats: Set<SeatModel> = new Set();
   @Output() public selectedSeatsChange = new EventEmitter<Set<SeatModel>>();
   @Input() viewMode: ViewMode;
+  @Input() disabled: boolean;
   public isSelected: boolean;
 
   constructor(private modalService: NgbModal) {
