@@ -456,13 +456,14 @@ export class FlightsComponent implements OnInit {
     this.removeConfirmModal.show();
   }
 
-  onClear() {
+  onCancel() {
     if (this.submitType === 'Save') {
       this.form.reset();
     } else if (this.submitType === 'Update') {
       this.editForm.reset();
     }
-    this.questions[8].value = [];
+    this.expanded = false;
+    // this.questions[8].value = [];
   }
 
   onSubmit() {

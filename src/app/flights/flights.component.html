@@ -37,8 +37,8 @@
       </div>
 
       <div class="modal-footer">
-        <button (click)="onClear();" aria-label="Clear" class="waves-light" color="secondary" mdbBtn mdbWavesEffect
-                type="button">Clear
+        <button (click)="onCancel();" aria-label="Clear" class="waves-light" color="secondary" mdbBtn mdbWavesEffect
+                type="button">Cancel
         </button>
         <button (click)="onSubmit();" [disabled]="!form.valid" *ngIf="!editMode" class="relative waves-light"
                 color="primary" mdbBtn mdbWavesEffect
