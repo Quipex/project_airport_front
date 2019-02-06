@@ -65,6 +65,9 @@ export class PlaneSeatsGridComponent implements OnInit, OnDestroy {
   }
 
   private getSetOfSeatTypes(seats: Set<SeatModel>): Set<SeatTypeModel> {
+    if (!seats)
+      return new Set();
+
     // console.log('***populating set of seat types');
     const seatTypes = new Set<SeatTypeModel>();
     const seatTypeIds = new Set<number>();
