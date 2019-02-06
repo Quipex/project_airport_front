@@ -57,6 +57,7 @@ export class DynamicFormComponent implements OnChanges {
   onCancel() {
     this.isCancel.emit(true);
     this.form.reset();
+    this.editedForm.reset();
   }
 
   onSubmit() {

@@ -38,7 +38,7 @@
         <app-dynamic-form *ngIf="editMode" [editMode]="editMode" [questions]="questions" [submitType]="submitType"
                           [currentItem]="currentItem" (isCancel)="onCancel($event)" [editedForm]="form"
                           (returnedItem)="onSave($event)"></app-dynamic-form>
-        <app-dynamic-form *ngIf="!editMode" [questions]="questions" [submitType]="submitType"
+        <app-dynamic-form *ngIf="!editMode" [questions]="questions" [submitType]="submitType" [editedForm]="form"
                           (isCancel)="onCancel($event)" (returnedItem)="onSave($event)"></app-dynamic-form>
       </div>
     </div>

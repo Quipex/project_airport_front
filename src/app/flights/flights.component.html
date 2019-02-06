@@ -21,6 +21,8 @@
         <div *ngIf="editMode">
           <div *ngFor="let question of editQuestions;" class="md-form input-container">
             <app-form-input [editMode]="editMode" [form]="editForm" [question]="question"></app-form-input>
+            <!--<app-form-input *ngIf="i == 10 ?" [editMode]="editMode" [form]="editForm" [question]="question" -->
+                            <!--(itemId)=""></app-form-input>-->
           </div>
         </div>
         <div *ngIf="!editMode">

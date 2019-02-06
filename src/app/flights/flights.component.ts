@@ -158,7 +158,7 @@ export class FlightsComponent implements OnInit {
   editQuestions: InputBaseModel<any>[] = [
     new InputBaseModel({
       key: 'actualDepartureDate',
-      label: 'Departure date',
+      label: 'Actual departure date',
       required: true,
       type: 'date',
       order: 3,
@@ -167,7 +167,7 @@ export class FlightsComponent implements OnInit {
     }),
     new InputBaseModel({
       key: 'actualDepartureTime',
-      label: 'Departure time',
+      label: 'Actual departure time',
       required: true,
       type: 'time',
       order: 4,
@@ -185,7 +185,7 @@ export class FlightsComponent implements OnInit {
     }),
     new InputBaseModel({
       key: 'actualArrivalDate',
-      label: 'Arrival date',
+      label: 'Actual arrival date',
       required: true,
       type: 'date',
       order: 6,
@@ -194,7 +194,7 @@ export class FlightsComponent implements OnInit {
     }),
     new InputBaseModel({
       key: 'actualArrivalTime',
-      label: 'Arrival time',
+      label: 'Actual arrival time',
       required: true,
       type: 'time',
       order: 7,
@@ -261,7 +261,7 @@ export class FlightsComponent implements OnInit {
           if (item.airlineId == airlineId) {
             this.airplanes.push(item);
           }
-        })
+        });
       });
     this.form.controls['airplaneId'].reset();
     this.questions[8].value = this.airplanes;
@@ -284,7 +284,7 @@ export class FlightsComponent implements OnInit {
             this.paging = false;
         });
       this.getTenItems(this.numberOfPage);
-    }, 50);
+    }, 150);
   }
 
   private getTenItems(numberOfPage: number) {
@@ -401,6 +401,49 @@ export class FlightsComponent implements OnInit {
     // }
 
     scrollTo(0, 90);
+  }
+
+  setAllFromStatus(itemIndex: number) {
+    this.currentItem = this.flights[itemIndex].flight;
+
+    //-----------------  Filling status array  ------------------
+
+    // switch (this.currentItem.status) {
+    //   case FlightStatusModel.SCHEDULED: ;
+    // }
+    if (this.currentItem.status == FlightStatusModel.SCHEDULED) {
+      this.editEnum = [FlightStatusModel.SCHEDULED, FlightStatusModel.CHECK_IN, FlightStatusModel.CANCELED];
+
+    } else if (this.currentItem.status == FlightStatusModel.CHECK_IN) {
+      this.editEnum = [FlightStatusModel.CHECK_IN, FlightStatusModel.SCHEDULED, FlightStatusModel.BOARDING, FlightStatusModel.CANCELED];
+
+    } else if (this.currentItem.status == FlightStatusModel.BOARDING) {
+      this.editEnum = [FlightStatusModel.BOARDING, FlightStatusModel.CHECK_IN, FlightStatusModel.DEPARTED, FlightStatusModel.CANCELED];
+
+    } else if (this.currentItem.status == FlightStatusModel.DEPARTED) {
+      this.editEnum = [FlightStatusModel.DEPARTED, FlightStatusModel.EXPECTING, FlightStatusModel.DELAYED, FlightStatusModel.REDIRECTED, FlightStatusModel.LANDED];
+
+    } else if (this.currentItem.status == FlightStatusModel.EXPECTING) {
+      this.editEnum = [FlightStatusModel.EXPECTING, FlightStatusModel.DELAYED, FlightStatusModel.REDIRECTED, FlightStatusModel.LANDED];
+
+    } else if (this.currentItem.status == FlightStatusModel.DELAYED) {
+      this.editEnum = [FlightStatusModel.DELAYED, FlightStatusModel.REDIRECTED, FlightStatusModel.LANDED];
+
+    } else if (this.currentItem.status == FlightStatusModel.REDIRECTED) {
+      this.editEnum = [FlightStatusModel.REDIRECTED, FlightStatusModel.LANDED];
+
+    } else if (this.currentItem.status == FlightStatusModel.CANCELED) {
+      this.editEnum = [FlightStatusModel.CANCELED];
+
+    } else {
+      this.editEnum = [FlightStatusModel.LANDED];
+    }
+
+    //-----------------------------------------------------------
+
+    this.questions[7].value = this.editEnum;
+
+
   }
 
   showRemoveConfirmModal(i: number) {

@@ -85,6 +85,7 @@ export class AbstractCatalogComponent implements OnInit {
     this.currentItem = this.entities[index];
     this.form = this.fcs.toFormGroup(this.questions);
     this.form.patchValue(this.currentItem);
+    
     if (this.form.controls['airline']) {
       let curObj:any = this.currentItem;
       this.form.controls['airline'].setValue(curObj.airline);
@@ -99,6 +100,7 @@ export class AbstractCatalogComponent implements OnInit {
   }
 
   onNew() {
+    this.form.reset();
     if (this.questions.length > 5) {
       this.height = 79;
       this.overflow = 'scroll';
