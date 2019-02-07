@@ -71,7 +71,7 @@ export class BookingSeatsGridComponent implements OnInit, OnChanges, OnDestroy {
     this.selectedSeatsForm = this.fb.group({
       selSeats: this.fb.array([], minArrayLengthValidator(1))
     });
-    console.log('emitting observable', this.selectedSeatsForm.statusChanges);
+    // console.log('emitting observable', this.selectedSeatsForm.statusChanges);
     this.formStatusChanges.emit(this.selectedSeatsForm.statusChanges);
   }
 

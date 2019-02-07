@@ -69,6 +69,7 @@ export class SeatTypeSectionComponent implements OnInit, OnDestroy, OnChanges {
 
   isSeatDisabled(seat: SeatModel): boolean {
     if (this.bookedSeatIds === undefined) {
+      // console.log('booked seat ids are undefined');
       return false;
     }
     for (const seatId of this.bookedSeatIds) {
@@ -87,9 +88,8 @@ export class SeatTypeSectionComponent implements OnInit, OnDestroy, OnChanges {
       if (param === 'flight') {
         const flightParam = changes[param].currentValue;
         if (flightParam) {
-          if (this.flight.objectId) {
-            this.bookedSeatIds = this.bookedSeatsService.getBookedSeatsObjectIds(this.flight.objectId);
-          }
+          console.log('flight has changed', flightParam.flight);
+          this.bookedSeatIds = this.bookedSeatsService.getBookedSeatsObjectIds(flightParam.flight.objectId);
         }
       }
     }
