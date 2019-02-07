@@ -11,6 +11,10 @@
   margin-bottom: 10px;
 }
 
+.form-row {
+  margin: 20px 10px 15px 20px;
+}
+
 .input-form {
   display: inline-block;
   float: right;
@@ -56,9 +60,11 @@ mat-expansion-panel {
 td {
   .div-container {
     display: block;
+    float: left;
+    clear: both;
     width: max-content;
     margin: 0 auto 10px auto;
-    text-align: center;
+    text-align: left;
     //div {
     //  text-align: left;
     //}
