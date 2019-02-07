@@ -10,6 +10,10 @@ import {PassengersService} from '../../services/passengers.service';
 import {AuthResponseModel} from '../../shared/models/authResponse.model';
 import {PassengerPassportModel} from '../../shared/models/entity/users/passengers/passengerPasport.model';
 import {PassportModel} from '../../shared/models/entity/users/passengers/passport.model';
+import {TicketsModel} from '../../shared/models/entity/flight/tickets.model';
+import {TicketStatusModel} from '../../shared/models/entity/flight/ticketStatus.model';
+import {TicketsService} from '../../services/tickets.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-booking-seats-grid',
@@ -23,7 +27,8 @@ export class BookingSeatsGridComponent implements OnInit, OnChanges, OnDestroy {
   seats: Set<SeatModel>;
   selectedSeats = new Set<SeatModel>();
   selectedSeatsForm: FormGroup;
-  userPassengers: PassengersModel[];
+  userPassengers: PassengerPassportModel[];
+  seatsToPassengers = new Map<SeatModel, PassengerPassportModel>();
   private bookedSeatsServiceSub: Subscription;
   private planeSeatsServiceSub: Subscription;
   private passengersSub: Subscription;
@@ -31,7 +36,8 @@ export class BookingSeatsGridComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private seatsService: SeatsService,
     private passengersService: PassengersService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private ticketService: TicketsService
   ) {
   }
 
@@ -47,6 +53,7 @@ export class BookingSeatsGridComponent implements OnInit, OnChanges, OnDestroy {
         this.userPassengers = [];
         for (const item of next) {
           const passenger = new PassengersModel();
+          passenger.objectId = item.passenger.objectId;
           passenger.lastName = item.passenger.lastName;
           passenger.firstName = item.passenger.firstName;
 
@@ -135,5 +142,30 @@ export class BookingSeatsGridComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     return price;
+  }
+
+  bookTicketsAsNew() {
+    const ticketsToBook = [];
+    this.seatsToPassengers.forEach((psngr_psprt: PassengerPassportModel, seat: SeatModel) => {
+      if (this.flight.flight.objectId &&
+        seat.objectId &&
+        psngr_psprt.passenger.objectId) {
+
+        const ticket = new TicketsModel(
+          this.flight.flight.objectId,
+          seat.objectId,
+          psngr_psprt.passenger.objectId,
+          TicketStatusModel.NEW);
+
+        ticketsToBook.push(ticket);
+      } else {
+        console.error('cannot book:', this.flight.flight.objectId, seat.objectId, psngr_psprt.passenger.objectId)
+      }
+    });
+
+    this.ticketService.bookTickets(ticketsToBook).subscribe(data => {
+    }, (error: HttpErrorResponse) => {
+      console.error(error.message);
+    });
   }
 }

@@ -22,7 +22,7 @@ export class SeatModel extends BaseEntityModel implements Cloneable {
 
 
   toString(): string {
-    return 'col:' + this.col +
+    return super.toString() + 'col:' + this.col +
       ';row:' + this.row +
       ';airplane:{' + this.airplane + '}' +
       ';seattype:{' + this.seatType + '}' +

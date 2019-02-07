@@ -31,7 +31,7 @@ export class AirlinesModel extends BaseEntityModel implements Listable, Cloneabl
   }
 
   toString(): string {
-    return 'name: ' + this.name +
+    return super.toString() + 'name: ' + this.name +
       ';description: ' + this.descr +
       ';email: ' + this.email +
       ';phone: ' + this.phoneNumber;

@@ -28,4 +28,8 @@ export class BaseEntityModel implements Listable, Cloneable {
     }
   }
 
+  toString() {
+    return 'objectId=[' + this.objectId + '] ';
+  }
+
 }

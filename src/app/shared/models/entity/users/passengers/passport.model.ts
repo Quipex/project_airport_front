@@ -15,4 +15,11 @@ export class PassportModel extends BaseEntityModel implements Cloneable {
     this.country = object.country;
     this.birthDate = object.birthDate
   }
+
+
+  toString(): string {
+    return super.toString() + 'serialNumber: ' + this.serialNumber +
+      ';country: ' + this.country +
+      ';birthDate: ' + this.birthDate;
+  }
 }

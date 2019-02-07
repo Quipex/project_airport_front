@@ -24,7 +24,6 @@ export class FlightBookingComponent implements OnInit {
   destinationCity = '';
   departureDate = new Date();
   returnDate;
-  finalSearchString = '';
   flights: FlightDTOModel[] = [];
   returnFlights: FlightDTOModel[] = [];
   flightType = false;
@@ -174,5 +173,11 @@ export class FlightBookingComponent implements OnInit {
   goBooking(index: number) {
     let flight = this.flights[index];
     this.router.navigate(['airplane-info', {airplaneId: 40}]);
+  }
+
+  clearSearch() {
+    this.showResult = false;
+    this.flights = [];
+    this.returnFlights = [];
   }
 }

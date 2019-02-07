@@ -19,6 +19,9 @@ export class SeatInfoCardComponent implements OnInit, OnDestroy {
   @Input() index: number;
   @Input() passengers: PassengerPassportModel[];
 
+  @Input() seatToPas: Map<SeatModel, PassengerPassportModel>;
+  @Output() seatToPasChange = new EventEmitter<Map<SeatModel, PassengerPassportModel>>();
+
   passengerSelector = new FormControl('', Validators.required);
 
   constructor() {
@@ -35,6 +38,11 @@ export class SeatInfoCardComponent implements OnInit, OnDestroy {
   onSelectionChange($event: MatSelectChange) {
     if ($event.value === 'add') {
       this.invokeAddUser();
+    } else {
+      const pass = new PassengerPassportModel();
+      pass.clone($event.value);
+      this.seatToPas.set(this.seat, pass);
+      this.seatToPasChange.emit(this.seatToPas);
     }
   }
 
