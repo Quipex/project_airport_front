@@ -24,6 +24,6 @@ export class TicketSendingService {
   }
 
   getLostTicket(flightId: number, serialNumber: string) {
-    return this.http.get(`/tickets/lost/onFlight=${flightId}/passport=${serialNumber}`);
+    return this.http.get(`http://localhost:8080/tickets/lost/onFlight=${flightId}/passport=${serialNumber}`);
   }
 }
