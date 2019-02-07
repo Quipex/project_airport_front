@@ -1,5 +1,5 @@
 export enum TicketStatusModel {
-  NEW = 'New',
-  BOUGHT = 'Bought',
-  ARCHIVED = 'Archived',
+  NEW = 'NEW',
+  BOUGHT = 'BOUGHT',
+  ARCHIVED = 'ARCHIVED',
 }

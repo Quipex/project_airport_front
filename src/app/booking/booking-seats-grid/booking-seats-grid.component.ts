@@ -162,6 +162,7 @@ export class BookingSeatsGridComponent implements OnInit, OnChanges, OnDestroy {
         console.error('cannot book:', this.flight.flight.objectId, seat.objectId, psngr_psprt.passenger.objectId)
       }
     });
+    console.log(this.ticketService);
 
     this.ticketService.bookTickets(ticketsToBook).subscribe(data => {
     }, (error: HttpErrorResponse) => {
