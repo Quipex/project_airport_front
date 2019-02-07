@@ -1,0 +1,18 @@
+.flexible-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexible-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.seat-info-container {
+  margin: 0.5em;
+}
+
+.full-width {
+  width: 100%;
+}

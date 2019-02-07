@@ -95,6 +95,7 @@ import {AirportsComponent} from "./airports/airports.component";
 import {FlightResultComponent} from './booking/flight-result/flight-result.component';
 import {FlightInfoCardComponent} from './booking/flight-result/flight-info-card/flight-info-card.component';
 import {BookingSeatsGridComponent} from './booking/booking-seats-grid/booking-seats-grid.component';
+import {SeatInfoCardComponent} from './booking/booking-seats-grid/seat-info-card/seat-info-card.component';
 
 
 @NgModule({
@@ -148,7 +149,8 @@ import {BookingSeatsGridComponent} from './booking/booking-seats-grid/booking-se
     ModifierPipe,
     FlightResultComponent,
     FlightInfoCardComponent,
-    BookingSeatsGridComponent
+    BookingSeatsGridComponent,
+    SeatInfoCardComponent
   ],
   imports: [
     BrowserModule,
