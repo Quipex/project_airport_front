@@ -1,0 +1,17 @@
+<mat-card class="seat-info-container flexible-column">
+  <div class="flexible-line">
+    <div>Seat: {{seat.row + 1}} {{seat.col | asLiteral}}</div>
+    <div>Class: {{seat.seatType.name}}</div>
+  </div>
+
+  <div>
+    <mat-form-field class="full-width">
+      <mat-select placeholder="Passenger"
+                  [formControl]="passengerSelector">
+        <mat-option value="option">Option</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>Cost: ${{seat.cost}}</div>
+</mat-card>

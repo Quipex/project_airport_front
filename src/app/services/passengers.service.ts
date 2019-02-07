@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
 import {PassengerPassportModel} from '../shared/models/entity/users/passengers/passengerPasport.model';
 import {FilterAndSortWrapperModel} from '../shared/models/filterAndSortWrapper.model';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class PassengersService {
@@ -34,5 +35,9 @@ export class PassengersService {
 
   deleteItems(psgId: number, pstId: number) {
     return this.http.delete(`http://localhost:8080/passengers/passenger=${psgId}/passport=${pstId}`, this.httpOptions);
+  }
+
+  getAllByUserLogin(userLogin: string) {
+    return this.http.get(`http://localhost:8080/passengers/userLogin=${userLogin}`, this.httpOptions) as unknown as Observable<PassengerPassportModel>[];
   }
 }

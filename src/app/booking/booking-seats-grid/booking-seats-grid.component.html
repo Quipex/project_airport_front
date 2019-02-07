@@ -1,20 +1,31 @@
-<mat-card>
+<mat-card [formGroup]="selectedSeatsForm">
   <mat-sidenav-container *ngIf="flight">
     <!--SEATS GRID-->
     <mat-sidenav-content>
-      <div>Выберите места на рейс {{flight.departureAirport.city}} - {{flight.arrivalAirport.city}}
-        . {{flight.airline.name}}</div>
+      <div>Choose seats for a flight {{flight.departureAirport.city}} - {{flight.arrivalAirport.city}}.
+        {{flight.airline.name}}</div>
       <app-plane-seats-grid [seats]="seats"
                             [(selectedSeats)]="selectedSeats"
-                            [flight]="flight"></app-plane-seats-grid>
+                            [flight]="flight"
+                            (initEvent)="onSeatsGridInit()"></app-plane-seats-grid>
     </mat-sidenav-content>
 
     <!--CHOSEN SEATS-->
-    <mat-sidenav class="seats-choice-container" position="end" opened mode="side">
-      <ul>
-        <div>Selected seats:</div>
-        <li *ngFor="let seat of selectedSeats">{{seat.toString()}}</li>
-      </ul>
+    <mat-sidenav formArrayName="selSeats"
+                 class="seats-choice-container"
+                 position="end" opened mode="side">
+
+      <div *ngIf="selectedSeats.size > 0">Selected seats:</div>
+      <app-seat-info-card *ngFor="let seat of selectedSeats; let i = index"
+                          (cardAdded)="addFormControl($event)"
+                          (cardDestroyed)="removeFormControl($event)"
+                          [index]="i"
+                          [seat]="seat"></app-seat-info-card>
+
+      <p *ngIf="selectedSeats && selectedSeats.size > 0">{{getFullPrice()}}</p>
+
+      <h3 *ngIf="selectedSeats.size === 0">Please, select seats</h3>
+      <p>{{selectedSeatsForm.status}}</p>
     </mat-sidenav>
   </mat-sidenav-container>
 </mat-card>
