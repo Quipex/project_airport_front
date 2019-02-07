@@ -458,43 +458,85 @@ export class FlightsComponent implements OnInit {
 
   setAllFromStatus(itemIndex: number) {
     this.currentItem = this.flights[itemIndex].flight;
-
+    this.editEnum = [];
     //-----------------  Filling status array  ------------------
+    switch (this.currentItem.status) {
+      case FlightStatusModel.SCHEDULED:
+        this.editEnum.push(FlightStatusModel.SCHEDULED, FlightStatusModel.CHECK_IN, FlightStatusModel.CANCELED);
+        break;
 
-    // switch (this.currentItem.status) {
-    //   case FlightStatusModel.SCHEDULED: ;
-    // }
-    if (this.currentItem.status == FlightStatusModel.SCHEDULED) {
-      this.editEnum = [FlightStatusModel.SCHEDULED, FlightStatusModel.CHECK_IN, FlightStatusModel.CANCELED];
+      case FlightStatusModel.CHECK_IN:
+        this.editEnum.push(FlightStatusModel.SCHEDULED, FlightStatusModel.CHECK_IN, FlightStatusModel.BOARDING, FlightStatusModel.CANCELED);
+        break;
 
-    } else if (this.currentItem.status == FlightStatusModel.CHECK_IN) {
-      this.editEnum = [FlightStatusModel.CHECK_IN, FlightStatusModel.SCHEDULED, FlightStatusModel.BOARDING, FlightStatusModel.CANCELED];
+      case FlightStatusModel.BOARDING:
+        this.editEnum.push(FlightStatusModel.CHECK_IN, FlightStatusModel.BOARDING, FlightStatusModel.DEPARTED, FlightStatusModel.CANCELED);
+        break;
 
-    } else if (this.currentItem.status == FlightStatusModel.BOARDING) {
-      this.editEnum = [FlightStatusModel.BOARDING, FlightStatusModel.CHECK_IN, FlightStatusModel.DEPARTED, FlightStatusModel.CANCELED];
+      case FlightStatusModel.DEPARTED:
+        this.editEnum.push(FlightStatusModel.BOARDING, FlightStatusModel.DEPARTED, FlightStatusModel.EXPECTING, FlightStatusModel.DELAYED, FlightStatusModel.REDIRECTED, FlightStatusModel.LANDED);
+        break;
 
-    } else if (this.currentItem.status == FlightStatusModel.DEPARTED) {
-      this.editEnum = [FlightStatusModel.DEPARTED, FlightStatusModel.EXPECTING, FlightStatusModel.DELAYED, FlightStatusModel.REDIRECTED, FlightStatusModel.LANDED];
+      case FlightStatusModel.EXPECTING:
+        this.editEnum.push(FlightStatusModel.DEPARTED, FlightStatusModel.EXPECTING, FlightStatusModel.DELAYED, FlightStatusModel.REDIRECTED, FlightStatusModel.LANDED);
+        break;
 
-    } else if (this.currentItem.status == FlightStatusModel.EXPECTING) {
-      this.editEnum = [FlightStatusModel.EXPECTING, FlightStatusModel.DELAYED, FlightStatusModel.REDIRECTED, FlightStatusModel.LANDED];
+      case FlightStatusModel.DELAYED:
+        this.editEnum.push(FlightStatusModel.EXPECTING, FlightStatusModel.DELAYED, FlightStatusModel.REDIRECTED, FlightStatusModel.LANDED);
+        break;
 
-    } else if (this.currentItem.status == FlightStatusModel.DELAYED) {
-      this.editEnum = [FlightStatusModel.DELAYED, FlightStatusModel.REDIRECTED, FlightStatusModel.LANDED];
+      case FlightStatusModel.REDIRECTED:
+        this.editEnum.push(FlightStatusModel.EXPECTING, FlightStatusModel.DELAYED, FlightStatusModel.REDIRECTED, FlightStatusModel.LANDED);
+        break;
 
-    } else if (this.currentItem.status == FlightStatusModel.REDIRECTED) {
-      this.editEnum = [FlightStatusModel.REDIRECTED, FlightStatusModel.LANDED];
+      case FlightStatusModel.CANCELED:
+        this.editEnum.push(FlightStatusModel.CANCELED);
+        break;
 
-    } else if (this.currentItem.status == FlightStatusModel.CANCELED) {
-      this.editEnum = [FlightStatusModel.CANCELED];
+      case FlightStatusModel.LANDED:
+        this.editEnum.push(FlightStatusModel.LANDED);
+        break;
 
-    } else {
-      this.editEnum = [FlightStatusModel.LANDED];
+      default:
+        for (let item in FlightStatusModel) {
+          this.editEnum.push(item);
+        }
     }
+
+
+    // if (this.currentItem.status == FlightStatusModel.SCHEDULED) {
+    //   this.editEnum.push(FlightStatusModel.SCHEDULED, FlightStatusModel.CHECK_IN, FlightStatusModel.CANCELED);
+    //
+    // } else if (this.currentItem.status == FlightStatusModel.CHECK_IN) {
+    //   this.editEnum.push(FlightStatusModel.CHECK_IN, FlightStatusModel.SCHEDULED, FlightStatusModel.BOARDING, FlightStatusModel.CANCELED);
+    //
+    // } else if (this.currentItem.status == FlightStatusModel.BOARDING) {
+    //   this.editEnum.push(FlightStatusModel.BOARDING, FlightStatusModel.CHECK_IN, FlightStatusModel.DEPARTED, FlightStatusModel.CANCELED);
+    //
+    // } else if (this.currentItem.status == FlightStatusModel.DEPARTED) {
+    //   this.editEnum.push(FlightStatusModel.DEPARTED, FlightStatusModel.EXPECTING, FlightStatusModel.DELAYED, FlightStatusModel.REDIRECTED, FlightStatusModel.LANDED);
+    //
+    // } else if (this.currentItem.status == FlightStatusModel.EXPECTING) {
+    //   this.editEnum.push(FlightStatusModel.EXPECTING, FlightStatusModel.DELAYED, FlightStatusModel.REDIRECTED, FlightStatusModel.LANDED);
+    //
+    // } else if (this.currentItem.status == FlightStatusModel.DELAYED) {
+    //   this.editEnum.push(FlightStatusModel.DELAYED, FlightStatusModel.REDIRECTED, FlightStatusModel.LANDED);
+    //
+    // } else if (this.currentItem.status == FlightStatusModel.REDIRECTED) {
+    //   this.editEnum.push(FlightStatusModel.REDIRECTED, FlightStatusModel.LANDED);
+    //
+    // } else if (this.currentItem.status == FlightStatusModel.CANCELED) {
+    //   this.editEnum.push(FlightStatusModel.CANCELED);
+    //
+    // } else {
+    //   this.editEnum.push(FlightStatusModel.LANDED);
+    // }
 
     //-----------------------------------------------------------
 
-    // this.questions[7].value = this.editEnum;
+    // this.editForm.controls['status'].setValue(this.editEnum);
+    // console.log(this.editForm.controls['status'].value);
+    this.editQuestions[12].value = this.editEnum;
     // this.form.controls['status'].reset();
   }
 
