@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {SeatColorService} from '../../data/seat-colors.service';
 import {SeatModel} from 'src/app/shared/models/entity/airplane/seat.model';
 import {SectionModel} from '../../data/section-model';
@@ -7,19 +7,19 @@ import {ViewMode} from './plane-seats-grid-modes.model';
 import {SectionStore} from '../../data/section-store.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
-import {FlightsModel} from '../../../shared/models/entity/flight/flights.model';
+import {FlightDTOModel} from '../../../shared/models/flightDTO.model';
 
 @Component({
   selector: 'app-plane-seats-grid',
   templateUrl: './plane-seats-grid.component.html',
   styleUrls: ['./plane-seats-grid.component.scss']
 })
-export class PlaneSeatsGridComponent implements OnInit, OnDestroy {
+export class PlaneSeatsGridComponent implements OnInit, OnDestroy, OnChanges {
   @Input() public selectedSeats: Set<SeatModel>;
   @Output() public selectedSeatsChange = new EventEmitter<Set<SeatModel>>();
   @Input() public seats: Set<SeatModel>;
   @Input() viewMode = ViewMode.SELECT;
-  @Input() flight: FlightsModel;
+  @Input() flight: FlightDTOModel;
   setOfSeatTypes: Set<SeatTypeModel>;
   sections: SectionModel[];
   private airplaneId: number;
@@ -46,16 +46,26 @@ export class PlaneSeatsGridComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // console.log('init plane-seats-grid');
     this.routeSub = this.route.params.subscribe((params: Observable<Params>) => {
-      this.airplaneId = params['airplaneId'];
-      this.sectionSub = this.sectionStore.getSections(this.airplaneId).subscribe(value => {
-        this.sections = value;
-        // console.log('sections-renderer:');
-        // console.log(this.sections);
-      });
-      this.setOfSeatTypes = this.getSetOfSeatTypes(this.seats);
-      this.generateSections();
-      this.assignColorForEachSection();
+      const airplaneIdParam = params['airplaneId'];
+      console.log('init plane seats grid: airplaneId=', airplaneIdParam);
+      if (airplaneIdParam) {
+        this.airplaneId = airplaneIdParam;
+        this.subscribeToSections();
+        this.generationFromSeats();
+      }
     });
+  }
+
+  private subscribeToSections() {
+    this.sectionSub = this.sectionStore.getSections(this.airplaneId).subscribe(value => {
+      this.sections = value;
+    });
+  }
+
+  private generationFromSeats() {
+    this.setOfSeatTypes = PlaneSeatsGridComponent.getSetOfSeatTypes(this.seats);
+    this.generateSections();
+    this.assignColorForEachSection();
   }
 
   private assignColorForEachSection() {
@@ -64,7 +74,7 @@ export class PlaneSeatsGridComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getSetOfSeatTypes(seats: Set<SeatModel>): Set<SeatTypeModel> {
+  private static getSetOfSeatTypes(seats: Set<SeatModel>): Set<SeatTypeModel> {
     if (!seats)
       return new Set();
 
@@ -110,6 +120,7 @@ export class PlaneSeatsGridComponent implements OnInit, OnDestroy {
         }
         seatIterRes = seatIter.next();
       }
+      console.log('updating section. planeId=', this.airplaneId);
       this.sectionStore.updateSection(this.airplaneId, new SectionModel(seatType,
         PlaneSeatsGridComponent.maxNumber(rows),
         PlaneSeatsGridComponent.maxNumber(cols)));
@@ -121,6 +132,23 @@ export class PlaneSeatsGridComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routeSub.unsubscribe();
-    this.sectionSub.unsubscribe();
+    if (this.sectionSub) {
+      this.sectionSub.unsubscribe();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    for (const param in changes) {
+      if (param === 'seats') {
+        if (this.flight) {
+          console.log('changed seats, have flight param initiated.', this.flight);
+          this.airplaneId = this.flight.flight.airplaneId;
+          if (changes[param].currentValue != undefined) {
+            this.subscribeToSections();
+            this.generationFromSeats();
+          }
+        }
+      }
+    }
   }
 }

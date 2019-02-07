@@ -7,7 +7,7 @@
         [disabled]="seat.isBooked">
   <!--DEBUG-->
   <div [ngSwitch]="viewMode">
-    <div *ngSwitchCase="'SELECT'">{{baseCost * (seat.modifier | toModifier)}}</div>
+    <div *ngSwitchCase="'SELECT'">{{seat.cost}}</div>
     <div *ngSwitchCase="'EDIT'">x{{seat.modifier | toModifier}}</div>
   </div>
 </button>

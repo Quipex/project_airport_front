@@ -66,10 +66,7 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((params: Observable<Params>) => {
       this.planeId = params['airplaneId'];
       this.initPlaneAndSeats(this.planeId);
-      // this.sections = this.sectionsStore.getSections(this.planeId);
       this.sectionsStore.getSections(this.planeId).subscribe(value => {
-        // console.log('++++sections changed:');
-        // console.log(value);
         this.sections = value;
       });
     });
@@ -84,7 +81,6 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
         seatType.clone(item);
         this.seatTypes.push(seatType);
       }
-      // console.log(this.seatTypes);
     });
   }
 
@@ -94,11 +90,9 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
         this.plane.objectId = response.objectId;
         this.plane.model = response.model;
         this.plane.versionNum = response.versionNum;
-        // console.log(this.plane);
         this.airlinesService.getItemById(response.airlineId)
           .subscribe((resp: AirlinesModel) => {
             this.plane.airline = resp;
-            // console.log(this.plane.airline);
           });
 
         this.initSeats(this.plane.objectId);
@@ -108,8 +102,6 @@ export class PlaneSeatsEditorComponent implements OnInit, OnDestroy {
   private initSeats(planeId: number) {
     this.seatsService.getByPlaneId(planeId).subscribe((data: SeatModel[]) => {
       this.seats = PlaneSeatsEditorComponent.getSetFromSeatObjects(data);
-      // console.log('data after parsing:');
-      // console.log(this.seats);
     });
   }
 

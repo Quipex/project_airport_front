@@ -1,26 +1,24 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {SeatModel} from '../../../../shared/models/entity/airplane/seat.model';
 import {SectionModel} from '../../../data/section-model';
 import {ViewMode} from '../plane-seats-grid-modes.model';
 import {BookedSeatsService} from '../../../../booking/service/booked-seats.service';
-import {Subscription} from 'rxjs';
-import {FlightsModel} from '../../../../shared/models/entity/flight/flights.model';
+import {FlightDTOModel} from '../../../../shared/models/flightDTO.model';
 
 @Component({
   selector: 'app-seat-type-section',
   templateUrl: './seat-type-section.component.html',
   styleUrls: ['./seat-type-section.component.scss']
 })
-export class SeatTypeSectionComponent implements OnInit, OnDestroy {
+export class SeatTypeSectionComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() selectedSeats: Set<SeatModel>;
   @Output() selectedSeatsChange = new EventEmitter<Set<SeatModel>>();
   @Input() section: SectionModel;
   @Input() seats: Set<SeatModel>;
   @Input() viewMode: ViewMode;
-  @Input() flight: FlightsModel;
+  @Input() flight: FlightDTOModel;
   private bookedSeatIds: number[];
-  private bookedSeatsSub: Subscription;
 
   constructor(
     private bookedSeatsService: BookedSeatsService
@@ -28,11 +26,6 @@ export class SeatTypeSectionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.viewMode === ViewMode.SELECT) {
-      this.bookedSeatsSub = this.bookedSeatsService.getBookedSeatsObjectIds(this.flight.objectId).subscribe(data => {
-        this.bookedSeatIds = data;
-      });
-    }
   }
 
   getSeat(row: number, col: number): SeatModel {
@@ -53,14 +46,23 @@ export class SeatTypeSectionComponent implements OnInit, OnDestroy {
 
   getSeatBaseCost(seat: SeatModel): number {
     //FIXME is it really needed?
+    let seatMod;
     if (seat.modifier === null || seat.modifier === undefined) {
-      seat.modifier = 1;
+      seatMod = 1;
+    } else {
+      seatMod = seat.modifier;
     }
+
+    let seatTypeMod;
     if (seat.seatType.modifier === null || seat.seatType.modifier === undefined) {
-      seat.seatType.modifier = 1;
+      seatTypeMod = 1;
+    } else {
+      seatTypeMod = seat.seatType.modifier;
     }
+
     if (this.flight !== undefined) {
-      return seat.modifier * seat.seatType.modifier * this.flight.baseCost;
+      // console.log('base cost generating: ' + seat.objectId, seatMod, seatTypeMod, this.flight.flight.baseCost);
+      return +seatMod * +seatTypeMod * +this.flight.flight.baseCost;
     }
     return 1000000;
   }
@@ -78,8 +80,15 @@ export class SeatTypeSectionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.bookedSeatsSub !== undefined) {
-      this.bookedSeatsSub.unsubscribe();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    for (const param in changes) {
+      if (param === 'flight') {
+        if (this.flight.objectId) {
+          this.bookedSeatIds = this.bookedSeatsService.getBookedSeatsObjectIds(this.flight.objectId);
+        }
+      }
     }
   }
 }

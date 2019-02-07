@@ -1,8 +1,8 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {FlightsModel} from '../../shared/models/entity/flight/flights.model';
 import {SeatModel} from '../../shared/models/entity/airplane/seat.model';
 import {SeatsService} from '../../services/seats.service';
 import {Subscription} from 'rxjs';
+import {FlightDTOModel} from '../../shared/models/flightDTO.model';
 
 @Component({
   selector: 'app-booking-seats-grid',
@@ -11,10 +11,11 @@ import {Subscription} from 'rxjs';
 })
 export class BookingSeatsGridComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Input() flight: FlightsModel;
-  flightSeats: SeatModel[];
-  selectedSeats: Set<SeatModel>;
-  private seatsServiceSub: Subscription;
+  @Input() flight: FlightDTOModel;
+  seats: Set<SeatModel>;
+  selectedSeats = new Set<SeatModel>();
+  private bookedSeatsServiceSub: Subscription;
+  private planeSeatsServiceSub: Subscription;
 
   constructor(
     private seatsService: SeatsService
@@ -24,39 +25,37 @@ export class BookingSeatsGridComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit() {
   }
 
-  changeSelectedSeats($event: Set<SeatModel>) {
-    this.selectedSeats = $event;
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes', changes);
     for (const parameter in changes) {
       if (parameter === 'flight') {
-        if (changes[parameter].currentValue) {
-          if (changes[parameter].currentValue.flight.objectId) {
-            console.log('flight input has changed', changes[parameter].currentValue);
-            this.onFlightsInputChange(changes[parameter].currentValue.flight.objectId);
+        const newFlight = changes[parameter].currentValue;
+        if (newFlight) {
+          if (newFlight.flight.objectId) {
+            this.onFlightsInputChange(newFlight.flight);
           }
         }
       }
     }
   }
 
-  private onFlightsInputChange(flightId: number) {
-    this.seatsServiceSub = this.seatsService.getByFlightId(flightId)
-      .subscribe((seatsFromBack: Object[]) => {
-        this.flightSeats = [];
-        for (const seatFromBack of seatsFromBack) {
+  private onFlightsInputChange(flight) {
+    this.planeSeatsServiceSub = this.seatsService.getByPlaneId(flight.airplaneId)
+      .subscribe((seats: Object[]) => {
+        this.seats = new Set();
+        for (const seat of seats) {
           const tempSeat = new SeatModel();
-          tempSeat.clone(seatFromBack);
-          this.flightSeats.push(tempSeat);
+          tempSeat.clone(seat);
+          this.seats.add(tempSeat);
         }
-      })
+      });
   }
 
   ngOnDestroy(): void {
-    if (this.seatsServiceSub) {
-      this.seatsServiceSub.unsubscribe();
+    if (this.bookedSeatsServiceSub) {
+      this.bookedSeatsServiceSub.unsubscribe();
+    }
+    if (this.planeSeatsServiceSub) {
+      this.planeSeatsServiceSub.unsubscribe();
     }
   }
 }
