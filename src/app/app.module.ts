@@ -96,6 +96,7 @@ import {FlightResultComponent} from './booking/flight-result/flight-result.compo
 import {FlightInfoCardComponent} from './booking/flight-result/flight-info-card/flight-info-card.component';
 import {BookingSeatsGridComponent} from './booking/booking-seats-grid/booking-seats-grid.component';
 import {TicketSenderComponent} from "./ticket-sender/ticket-sender.component";
+import {SeatInfoCardComponent} from "./booking/booking-seats-grid/seat-info-card/seat-info-card.component";
 
 
 @NgModule({
