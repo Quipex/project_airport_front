@@ -15,17 +15,37 @@
                  class="seats-choice-container"
                  position="end" opened mode="side">
 
-      <div *ngIf="selectedSeats.size > 0">Selected seats:</div>
+      <h3 *ngIf="selectedSeats.size > 0">Selected seats:</h3>
       <app-seat-info-card *ngFor="let seat of selectedSeats; let i = index"
                           (cardAdded)="addFormControl($event)"
                           (cardDestroyed)="removeFormControl($event)"
                           [index]="i"
-                          [seat]="seat"></app-seat-info-card>
+                          [seat]="seat"
+                          [passengers]="userPassengers"
+                          [(seatToPas)]="seatsToPassengers"></app-seat-info-card>
 
-      <p *ngIf="selectedSeats && selectedSeats.size > 0">{{getFullPrice()}}</p>
+      <p *ngIf="selectedSeats && selectedSeats.size > 0"><i><b>Cost: ${{getFullPrice()}}</b></i></p>
 
       <h3 *ngIf="selectedSeats.size === 0">Please, select seats</h3>
-      <p>{{selectedSeatsForm.status}}</p>
+      <!--<p>{{selectedSeatsForm.status}}</p>-->
     </mat-sidenav>
   </mat-sidenav-container>
+  <mat-card-actions align="end">
+    <button class="btn-confirm"
+            mat-raised-button
+            color="primary"
+            [disabled]="selectedSeatsForm.status === 'INVALID'"
+            (click)="bookTicketsAsNew()">Confirm</button>
+  </mat-card-actions>
+</mat-card>
+<mat-card *ngIf="false">
+  <h3>seats:</h3>
+  <ul>
+    <li *ngFor="let seat of selectedSeats">{{seat}}</li>
+  </ul>
+  <hr>
+  <h3>seats to pass:</h3>
+  <ul>
+    <li *ngFor="let key of seatsToPassengers.keys()">{{key}}-{{seatsToPassengers.get(key)}}</li>
+  </ul>
 </mat-card>

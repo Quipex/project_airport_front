@@ -22,7 +22,8 @@ export class SeatTypeModel extends BaseEntityModel implements Cloneable {
 
 
   toString(): string {
-    return 'name: ' + this.name + ';modifier: ' + this.modifier + ';description: ' + this.description;
+    return super.toString() + 'name: ' + this.name + ';modifier: ' + this.modifier +
+      ';description: ' + this.description;
   }
 
 

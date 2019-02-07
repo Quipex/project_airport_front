@@ -24,7 +24,7 @@ export class AirplanesModel extends BaseEntityModel implements Cloneable {
   }
 
   toString(): string {
-    return 'model: ' + this.model +
+    return super.toString() + 'model: ' + this.model +
       ';airline {' + this.airline + '}' +
       ';version: ' + this.versionNum;
   }

@@ -7,8 +7,11 @@
   <div>
     <mat-form-field class="full-width">
       <mat-select placeholder="Passenger"
-                  [formControl]="passengerSelector">
-        <mat-option value="option">Option</mat-option>
+                  [formControl]="passengerSelector"
+                  (selectionChange)="onSelectionChange($event)">
+        <!--<mat-option value="add">Add new...</mat-option>-->
+        <mat-option *ngFor="let passenger of passengers"
+                    [value]="passenger">{{passenger.passenger.firstName}} {{passenger.passenger.lastName}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>

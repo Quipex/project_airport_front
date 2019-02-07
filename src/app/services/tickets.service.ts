@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
 import {FilterAndSortWrapperModel} from '../shared/models/filterAndSortWrapper.model';
 import {TicketDTOModel} from '../shared/models/ticketDTO.model';
+import {TicketsModel} from '../shared/models/entity/flight/tickets.model';
 
 @Injectable()
 export class TicketsService {
@@ -25,5 +26,9 @@ export class TicketsService {
 
   editTicket(item: TicketDTOModel) {
     return this.http.put(`http://localhost:8080/tickets`, item, this.httpOptions);
+  }
+
+  bookTickets(tickets: TicketsModel[]) {
+    return this.http.put(`http://localhost:8080/tickets/book`, tickets, this.httpOptions);
   }
 }

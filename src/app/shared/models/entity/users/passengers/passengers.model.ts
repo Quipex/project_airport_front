@@ -9,4 +9,18 @@ export class PassengersModel extends BaseEntityModel {
   ) {
     super();
   }
+
+
+  toString(): string {
+    return super.toString() + 'firstName: ' + this.firstName +
+      ';lastName: ' + this.lastName +
+      ';passport: {' + this.passport + '}';
+  }
+
+
+  clone(object: any) {
+    super.clone(object);
+    this.firstName = object.firstName;
+    this.lastName = object.lastName;
+  }
 }
