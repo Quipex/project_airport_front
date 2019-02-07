@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {InputBaseModel} from '../models/inputBase.model';
-import {AirlinesModel} from "../models/entity/airline/airlines.model";
+import {AirlinesModel} from '../models/entity/airline/airlines.model';
 
 @Component({
   selector: 'app-form-input',
@@ -29,14 +29,16 @@ export class DynamicFormRenderComponent implements OnInit {
     }
   }
 
-  asAirline(val) : AirlinesModel { return val; }
+  asAirline(val): AirlinesModel {
+    return val;
+  }
 
   static test(event: any) {
     console.log(event);
   }
 
-  itemChange(index: number) {
-    let id = this.question.value[index].objectId;
-    this.itemId.emit(id);
+  itemChange(object: any) {
+    // let id = this.question.value[index].objectId;
+    this.itemId.emit(object);
   }
 }

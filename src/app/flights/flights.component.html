@@ -31,10 +31,11 @@
           <div class="form-row">
             <h3>Flight number: &nbsp;{{currentItem.flight.flightNumber}}</h3>
           </div>
-          <div *ngFor="let question of editQuestions;" class="md-form input-container">
-            <app-form-input [editMode]="editMode" [form]="editForm" [question]="question"></app-form-input>
-            <!--<app-form-input *ngIf="i == 10 ?" [editMode]="editMode" [form]="editForm" [question]="question" -->
-            <!--(itemId)=""></app-form-input>-->
+          <div *ngFor="let question of editQuestions; let i = index;" class="md-form input-container">
+            <app-form-input *ngIf="i != 12" [editMode]="editMode" [form]="editForm"
+                            [question]="question"></app-form-input>
+            <app-form-input *ngIf="i == 12" [editMode]="editMode" [form]="editForm" [question]="question"
+                            (itemId)="setInputsFromCurrentStatus($event)"></app-form-input>
           </div>
         </div>
       </div>

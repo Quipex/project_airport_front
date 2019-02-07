@@ -1,6 +1,6 @@
 import {FormControlService} from '../../services/formControl.service';
 import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {InputBaseModel} from '../models/inputBase.model';
 import {BaseEntityModel} from '../models/baseEntity.model';
 import {PassengerPassportCommonModel} from '../models/entity/users/passengers/passengerPassportCommon.model';
@@ -8,8 +8,8 @@ import {PassengerPassportModel} from '../models/entity/users/passengers/passenge
 import {TicketDTOModel} from '../models/ticketDTO.model';
 import {TicketPassengerCommonModel} from '../models/ticketPassengerCommon.model';
 import {ChangePasswordModel} from '../models/changePassword.model';
-import {AirlinesModel} from "../models/entity/airline/airlines.model";
-import {CountriesModel} from "../models/entity/flight/countries.model";
+import {AirlinesModel} from '../models/entity/airline/airlines.model';
+import {CountriesModel} from '../models/entity/flight/countries.model';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -57,7 +57,7 @@ export class DynamicFormComponent implements OnChanges {
   onCancel() {
     this.isCancel.emit(true);
     this.form.reset();
-    this.editedForm.reset();
+    // this.editedForm.reset();
   }
 
   onSubmit() {

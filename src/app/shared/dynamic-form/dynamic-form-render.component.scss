@@ -31,7 +31,7 @@ mdb-success {
   z-index: 100000 !important; /* set value you need */
 }
 
-mat-form-field, mat-form-field ::ng-deep .mat-form-field-infix{
+mat-form-field, mat-form-field ::ng-deep .mat-form-field-infix {
   width: 100% !important;
 }
 
@@ -39,7 +39,23 @@ mat-form-field, mat-form-field ::ng-deep .mat-form-field-infix{
   font-size: small;
   max-height: 0;
   overflow: visible;
+
   & span {
     height: 0;
   }
 }
+
+div input:disabled, mat-form-field input, mat-form-field input:focus {
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+.disabled, div input:disabled {
+  color: #23af14 !important;
+  cursor: no-drop !important;
+}
+
+//mat-form-field:disabled {
+//  color: #23af14 !important;
+//  pointer-events: auto !important;
+//}

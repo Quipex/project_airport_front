@@ -13,10 +13,11 @@
                 question.type !== 'airport-selector' &&
                 question.type !== 'status-selector' &&
                 question.type !== 'country-selector'">
-
-      <label *ngIf="question.edit" [attr.for]="question.key">{{question.label}}</label>
-      <input *ngIf="question.edit" [formControlName]="question.key" [id]="question.key"
-             [type]="question.type" class="form-control" mdbInputDirective mdbValidate>
+      <mat-form-field>
+        <mat-label *ngIf="question.edit" [attr.for]="question.key">{{question.label}}</mat-label>
+        <input *ngIf="question.edit" [formControlName]="question.key" [id]="question.key"
+               [type]="question.type" matInput mdbValidate>
+      </mat-form-field>
     </div>
 
     <div *ngIf="question.type === 'date'">
@@ -85,7 +86,8 @@
     <div *ngIf="question.type === 'status-selector'">
       <mat-form-field>
         <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
-          <mat-option *ngFor="let status of question.value" [value]="status">
+          <mat-option *ngFor="let status of question.value; let i = index;" [value]="status"
+                      (click)="itemChange(status)">
             {{status}}
           </mat-option>
         </mat-select>
@@ -103,17 +105,17 @@
 
     <div *ngIf="form">
       <mdb-error class="validator-message"
-        *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
+                 *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
         <span *ngIf="form.controls[question.key].errors.required">{{question.label}} is required</span>
         <span *ngIf="!form.controls[question.key].errors.required &&
-          form.controls[question.key].errors.validateEmail"> This email address is not valid.</span>
+                      form.controls[question.key].errors.validateEmail"> This email address is not valid.</span>
         <span *ngIf="form.controls[question.key].errors.validatePhone"> Phone number is required. </span>
         <span *ngIf="form.controls[question.key].errors.validatePhoneNumber"> This phone number is not valid.</span>
       </mdb-error>
 
 
       <mdb-success class="validator-message"
-        *ngIf="form.controls[question.key].valid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
+                   *ngIf="form.controls[question.key].valid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
         Input valid
       </mdb-success>
     </div>
@@ -132,9 +134,11 @@
                 question.type !== 'airport-selector' &&
                 question.type !== 'airplane-selector' &&
                 question.type !== 'country-selector'">
-      <label [attr.for]="question.key">{{question.label}}</label>
-      <input [formControlName]="question.key" [id]="question.key" placeholder="{{question.label}}"
-             [type]="question.type" class="form-control" mdbInputDirective mdbValidate>
+      <mat-form-field>
+        <mat-label *ngIf="question.edit" [attr.for]="question.key">{{question.label}}</mat-label>
+        <input [formControlName]="question.key" [id]="question.key"
+               [type]="question.type" matInput mdbInputDirective mdbValidate>
+      </mat-form-field>
     </div>
 
     <div *ngIf="question.type === 'date'">
@@ -186,7 +190,8 @@
       <!--<app-airline-selector [formControlName]="question.key"></app-airline-selector>-->
       <mat-form-field>
         <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
-          <mat-option *ngFor="let airline of question.value; let i = index;" [value]="airline" (click)="itemChange(i)">
+          <mat-option *ngFor="let airline of question.value; let i = index;" [value]="airline"
+                      (click)="itemChange(airline)">
             {{airline.name}}
           </mat-option>
         </mat-select>
@@ -204,7 +209,8 @@
     </div>
     <div *ngIf="question.type === 'airplane-selector'">
       <mat-form-field>
-        <mat-select disabled="{{question.value == null || question.value.length <= 0}}" [placeholder]="question.label" [formControlName]="question.key" [id]="question.key">
+        <mat-select [placeholder]="question.label" [formControlName]="question.key" [id]="question.key"
+                    [disabled]="question.value == null || question.value.length <= 0">
           <mat-option *ngFor="let airplane of question.value" [value]="airplane">
             {{airplane.model}}
           </mat-option>
@@ -222,18 +228,20 @@
     </div>
 
     <mdb-error class="validator-message"
-      *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
-      <span *ngIf="form.controls[question.key].errors.validateCC">Number of card is wrong. </span>
-      <span *ngIf="form.controls[question.key].errors.required">{{question.label}} is required. </span>
+               *ngIf="form.controls[question.key].invalid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
+      <span *ngIf="form.controls[question.key].errors.validateCC &&
+                   !form.controls[question.key].errors.required">Number of card is wrong</span>
+      <span *ngIf="form.controls[question.key].errors.required">{{question.label}} is required</span>
       <span *ngIf="!form.controls[question.key].errors.required &&
-                    form.controls[question.key].errors.validateEmail"> This email address is not valid.</span>
-      <span *ngIf="form.controls[question.key].errors.validatePhone"> Phone number is required. </span>
-      <span *ngIf="form.controls[question.key].errors.validatePhoneNumber"> This phone number is not valid.</span>
-      <span *ngIf="form.controls[question.key].errors.cvvValidate">CVV length must be 3</span>
+                    form.controls[question.key].errors.validateEmail"> This email address is not valid</span>
+      <span *ngIf="form.controls[question.key].errors.validatePhone"> Phone number is required</span>
+      <span *ngIf="form.controls[question.key].errors.validatePhoneNumber"> This phone number is not valid</span>
+      <span *ngIf="form.controls[question.key].errors.cvvValidate &&
+                   !form.controls[question.key].errors.required">CVV length must be 3</span>
     </mdb-error>
 
     <mdb-success class="validator-message"
-      *ngIf="form.controls[question.key].valid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
+                 *ngIf="form.controls[question.key].valid && (form.controls[question.key].dirty || form.controls[question.key].touched)">
       Input valid
     </mdb-success>
   </div>
