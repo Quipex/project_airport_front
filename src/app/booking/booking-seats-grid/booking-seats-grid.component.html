@@ -20,9 +20,10 @@
                           (cardAdded)="addFormControl($event)"
                           (cardDestroyed)="removeFormControl($event)"
                           [index]="i"
-                          [seat]="seat"></app-seat-info-card>
+                          [seat]="seat"
+                          [passengers]="userPassengers"></app-seat-info-card>
 
-      <p *ngIf="selectedSeats && selectedSeats.size > 0">{{getFullPrice()}}</p>
+      <p *ngIf="selectedSeats && selectedSeats.size > 0">Cost: ${{getFullPrice()}}</p>
 
       <h3 *ngIf="selectedSeats.size === 0">Please, select seats</h3>
       <p>{{selectedSeatsForm.status}}</p>

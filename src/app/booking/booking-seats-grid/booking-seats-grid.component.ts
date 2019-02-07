@@ -7,6 +7,9 @@ import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms
 import {minArrayLengthValidator} from './min-array-length.validator';
 import {PassengersModel} from '../../shared/models/entity/users/passengers/passengers.model';
 import {PassengersService} from '../../services/passengers.service';
+import {AuthResponseModel} from '../../shared/models/authResponse.model';
+import {PassengerPassportModel} from '../../shared/models/entity/users/passengers/passengerPasport.model';
+import {PassportModel} from '../../shared/models/entity/users/passengers/passport.model';
 
 @Component({
   selector: 'app-booking-seats-grid',
@@ -20,9 +23,10 @@ export class BookingSeatsGridComponent implements OnInit, OnChanges, OnDestroy {
   seats: Set<SeatModel>;
   selectedSeats = new Set<SeatModel>();
   selectedSeatsForm: FormGroup;
-  userPassangers: PassengersModel[];
+  userPassengers: PassengersModel[];
   private bookedSeatsServiceSub: Subscription;
   private planeSeatsServiceSub: Subscription;
+  private passengersSub: Subscription;
 
   constructor(
     private seatsService: SeatsService,
@@ -32,14 +36,35 @@ export class BookingSeatsGridComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
+    const currentUser: AuthResponseModel = JSON.parse(window.localStorage.getItem('currentUser'));
+    this.populatePassengers(currentUser.login);
     this.generateSeatsForm();
+  }
+
+  private populatePassengers(login: string) {
+    this.passengersSub = this.passengersService
+      .getAllByUserLogin(login).subscribe((next: PassengerPassportModel[]) => {
+        this.userPassengers = [];
+        for (const item of next) {
+          const passenger = new PassengersModel();
+          passenger.lastName = item.passenger.lastName;
+          passenger.firstName = item.passenger.firstName;
+
+          const passport = new PassportModel();
+          passport.clone(item.passport);
+          passenger.passport = passport;
+
+          const p_p = new PassengerPassportModel(passenger, passport);
+          this.userPassengers.push(p_p);
+        }
+      });
   }
 
   private generateSeatsForm() {
     this.selectedSeatsForm = this.fb.group({
       selSeats: this.fb.array([], minArrayLengthValidator(1))
     });
-    console.log('emiting observable', this.selectedSeatsForm.statusChanges);
+    console.log('emitting observable', this.selectedSeatsForm.statusChanges);
     this.formStatusChanges.emit(this.selectedSeatsForm.statusChanges);
   }
 
@@ -76,6 +101,9 @@ export class BookingSeatsGridComponent implements OnInit, OnChanges, OnDestroy {
     }
     if (this.planeSeatsServiceSub) {
       this.planeSeatsServiceSub.unsubscribe();
+    }
+    if (this.passengersSub) {
+      this.passengersSub.unsubscribe();
     }
   }
 
