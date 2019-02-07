@@ -85,8 +85,11 @@ export class SeatTypeSectionComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     for (const param in changes) {
       if (param === 'flight') {
-        if (this.flight.objectId) {
-          this.bookedSeatIds = this.bookedSeatsService.getBookedSeatsObjectIds(this.flight.objectId);
+        const flightParam = changes[param].currentValue;
+        if (flightParam) {
+          if (this.flight.objectId) {
+            this.bookedSeatIds = this.bookedSeatsService.getBookedSeatsObjectIds(this.flight.objectId);
+          }
         }
       }
     }

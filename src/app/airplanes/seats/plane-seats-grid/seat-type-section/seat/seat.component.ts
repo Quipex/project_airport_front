@@ -46,7 +46,6 @@ export class SeatComponent implements OnInit {
       this.selectedSeats.add(this.seat);
       this.isSelected = true;
     }
-    // console.log(this.selectedSeats);
     this.selectedSeatsChange.emit(this.selectedSeats);
   }
 

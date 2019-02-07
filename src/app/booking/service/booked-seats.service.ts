@@ -14,7 +14,7 @@ export class BookedSeatsService {
 
   public getBookedSeatsObjectIds(flightId: number): number[] {
 
-    console.log('getBookedSeatsObjectIds', flightId);
+    // console.log('getBookedSeatsObjectIds', flightId);
     const obs = this.seatsService.getByFlightId(flightId);
     const seatsObjectId: number[] = [];
 

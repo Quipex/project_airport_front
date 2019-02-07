@@ -1,5 +1,7 @@
 <div class="container flight-result-container">
-  <mat-horizontal-stepper [linear]="true">
+  <mat-horizontal-stepper [linear]="true" (selectionChange)="handleStepperSelection($event)">
+
+    <!--SELECT DEPARTURE FLIGHT-->
     <mat-step [completed]="departureFlight">
       <ng-template matStepLabel>Choose a departure flight</ng-template>
       <ng-container *ngFor="let flight of flights; let i = index">
@@ -12,7 +14,7 @@
                 <div class="col-md-12">
                   <div style="float: right;">
                     <span style="margin-right: 25px;">Cost: {{flight.flight.baseCost}}$</span>
-                    <button mdbBtn color="primary" mdbWavesEffect matStepperNext (click)="selectDepartureFlight(flight)">Buy</button>
+                    <button mdbBtn color="primary" mdbWavesEffect matStepperNext (click)="selectDepartureFlight(flight)">Select</button>
                   </div>
                 </div>
               </div>
@@ -22,6 +24,14 @@
         <hr *ngIf="i + 1 < flights.length">
       </ng-container>
     </mat-step>
+
+    <!--CHOOSE SEATS-->
+    <mat-step [completed]="formValid">
+      <ng-template matStepLabel>Choose places</ng-template>
+      <app-booking-seats-grid [flight]="departureFlight" (formStatusChanges)="onFormStatusChange($event)"></app-booking-seats-grid>
+    </mat-step>
+
+    <!--SELECT RETURN FLIGHT-->
     <mat-step *ngIf="flightType">
       <ng-template matStepLabel>Choose a return flight</ng-template>
       <ng-container *ngFor="let flight of returnFlights; let i = index">
@@ -34,7 +44,7 @@
                 <div class="col-md-12">
                   <div style="float: right;">
                     <span style="margin-right: 25px;">Cost: {{flight.flight.baseCost}}$</span>
-                    <button mdbBtn color="primary" mdbWavesEffect matStepperNext (click)="selectReturnFlight(flight)">Buy</button>
+                    <button mdbBtn color="primary" mdbWavesEffect matStepperNext (click)="selectReturnFlight(flight)">Select</button>
                   </div>
                 </div>
                 <hr>
@@ -45,11 +55,15 @@
         <hr *ngIf="i + 1 < flights.length">
       </ng-container>
     </mat-step>
-    <mat-step>
+
+    <!--CHOOSE SEATS-->
+    <mat-step *ngIf="flightType" [completed]="formValid">
       <ng-template matStepLabel>Choose places</ng-template>
-      <app-booking-seats-grid [flight]="departureFlight"></app-booking-seats-grid>
+      <app-booking-seats-grid [flight]="returnFlight" (formStatusChanges)="onFormStatusChange($event)"></app-booking-seats-grid>
     </mat-step>
-    <mat-step>
+
+    <!--ACCOMPLISH PAYMENT-->
+    <mat-step [stepControl]="generatedSeatToPassengerForm">
       <ng-template matStepLabel>Payment form</ng-template>
       <app-payment-form></app-payment-form>
     </mat-step>
