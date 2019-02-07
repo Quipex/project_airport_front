@@ -16,7 +16,6 @@ export class SeatComponent implements OnInit {
   @Input() public selectedSeats: Set<SeatModel> = new Set();
   @Output() public selectedSeatsChange = new EventEmitter<Set<SeatModel>>();
   @Input() viewMode: ViewMode;
-  @Input() disabled: boolean;
   @Input() baseCost: number;
   public isSelected: boolean;
 

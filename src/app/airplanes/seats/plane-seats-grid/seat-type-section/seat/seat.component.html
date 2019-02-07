@@ -3,7 +3,7 @@
         color="primary"
         [style.background-color]="colorCode"
         (click)="onClick()"
-        [ngClass]="{selected: isSelected, disabled: disabled}"
+        [ngClass]="{selected: isSelected, disabled: seat.isBooked}"
         [disabled]="seat.isBooked">
   <!--DEBUG-->
   <div [ngSwitch]="viewMode">
